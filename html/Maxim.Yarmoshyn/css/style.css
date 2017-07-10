@@ -62,13 +62,103 @@
 .content__menu {
 	display: flex;
 	flex-flow: column nowrap;
-	justify-content: center;
+	flex-basis: 400px;
+	justify-content: flex-start;
 	align-items: stretch;
 	background-color: rgb(245, 245, 245);
 }
 
 .content__about {
 	flex-grow: 5;
+}
+
+.content__about .about__header{
+	display: flex;
+	flex-flow: row nowrap;
+	justify-content: flex-start;
+	align-items: center;
+}
+
+.content__about .about__logo {
+	width: 200px;
+	text-align: center;
+	display: inline-block;
+	vertical-align: middle;
+	margin-right: 30px;
+	font-size: 3em;
+}
+
+.content__about .about__img {
+	display: inline-block;
+	object-fit: scale-down;
+	flex-grow: 5;
+	max-height: 500px;
+}
+
+.content__about .about__tabs {
+	position: relative;
+	min-height: 250px; /* This part sucks */
+	clear: both;
+	margin: 25px 0;
+}
+
+.content__about .tabs__item {
+  float: left;
+}
+
+.content__about .tabs__item label{
+	background: rgb(204, 204, 204);
+  padding: 5px;
+  border: 1px solid rgb(0, 0, 0);
+	border-radius: 0 10px 0 0;
+  margin-left: -1px;
+  position: relative;
+  left: 1px;
+}
+
+.content__about .tabs__item label:hover{
+	background-color: rgb(230, 230, 230);
+	transition: all  cubic-bezier(0, 0, 0.2, 1) 0.2s;
+}
+
+.content__about .tabs__item label:active{
+	color: rgb(255, 0, 0);
+	transition: all  cubic-bezier(0, 0, 0.2, 1) 0.2s;
+}
+
+.content__about .tabs__item [type=radio] {
+	display: none;
+}
+
+.about__tabs .tabs__item .tabs__content {
+  position: absolute;
+  top: 22px;
+  left: 0;
+  background: white;
+  right: 0;
+  bottom: 0;
+  padding: 20px;
+  border: 1px solid rgb(0, 0, 0);
+}
+
+.tabs__item [type=radio]:checked ~ label {
+  background: white;
+  border-bottom: 1px solid white;
+  z-index: 2;
+}
+
+.tabs__item [type=radio]:checked ~ label ~ .tabs__content {
+  z-index: 1;
+}
+
+.tabs__item .tab1_titulimg {
+	float: left;
+}
+
+.tabs__item .tab1__text
+ {
+	display: inline-block;
+	vertical-align: top;
 }
 
 .content .content__menu .menu__item {
