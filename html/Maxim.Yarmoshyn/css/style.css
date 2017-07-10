@@ -4,25 +4,25 @@
 	background-color: rgb(238, 238, 238);
 }
 
-.header .logo__img {
+.logo .logo__img {
 	margin-left: 20px;
 	vertical-align: middle;
 	display: inline-block;
 }
 
-.header .nav__a {
+.nav .nav__a {
 	color: rgb(0, 0, 0);
 }
 
-.header .nav__a:hover {
+.nav .nav__a:hover {
 	color: rgb(150, 150, 150);
 }
 
-.header .nav__a:active{
+.nav .nav__a:active{
 	color: red;
 }
 
-.header .nav__a_decoration_none {
+.nav .nav__a_decoration_none {
 	text-decoration: none;
 }
 
@@ -37,29 +37,31 @@
 	display: inline-block;
 }
 
-.header .nav .nav__item {
+.nav .about-company,
+.nav .about-user
+ {
 	margin-left: 20px;
 	display: inline-block;
 	list-style-type: none;
 }
 
-.header .userinfo .userinfo__img {
+.userinfo .userinfo__img {
 	vertical-align: middle;
 }
 
-.content {
+.wrapper {
 		display: flex;
 		flex-flow: row nowrap;
 		justify-content: space-between;
 		align-items: stretch;
 }
 
-.content__menu,
-.content__about {
+.menu,
+.about-info {
  		padding: 20px;
 }
 
-.content__menu {
+.menu {
 	display: flex;
 	flex-flow: column nowrap;
 	flex-basis: 400px;
@@ -68,18 +70,45 @@
 	background-color: rgb(245, 245, 245);
 }
 
-.content__about {
+.menu .menu__item {
+	display: block;
+	margin: 20px 20px 0;
+	border: solid black 1px;
+	min-height: 30px;
+	background-color: rgb(255, 255, 255);
+	box-shadow: 3px 3px 0 0 rgb(0, 0, 0);
+}
+
+.menu .menu__item:hover {
+	border-color: rgb(150, 150, 150);
+	box-shadow: 3px 3px 0 0 rgb(150, 150, 150);
+	transition: all cubic-bezier(0, 0, 0.2, 1) 0.2s;
+}
+
+.menu .menu__item:active {
+		position: relative;
+		top: 2px;
+		left: 2px;
+		box-shadow: none;
+		transition: all cubic-bezier(0, 0, 0.2, 1) 0.2s
+}
+
+.menu .menu__item:focus {
+	background-color: rgb(245, 245, 245);
+}
+
+.about-info {
 	flex-grow: 5;
 }
 
-.content__about .about__header{
+.about-info .header-info{
 	display: flex;
 	flex-flow: row nowrap;
 	justify-content: flex-start;
 	align-items: center;
 }
 
-.content__about .about__logo {
+.header-info .header-info__logo {
 	width: 200px;
 	text-align: center;
 	display: inline-block;
@@ -88,25 +117,25 @@
 	font-size: 3em;
 }
 
-.content__about .about__img {
+.header-info .header-info__img {
 	display: inline-block;
 	object-fit: scale-down;
 	flex-grow: 5;
 	max-height: 500px;
 }
 
-.content__about .about__tabs {
+.about-info .tabs {
 	position: relative;
-	min-height: 250px; /* This part sucks */
+	min-height: 250px;
 	clear: both;
 	margin: 25px 0;
 }
 
-.content__about .tabs__item {
+.tabs .tab {
   float: left;
 }
 
-.content__about .tabs__item label{
+.tab label{
 	background: rgb(204, 204, 204);
   padding: 5px;
   border: 1px solid rgb(0, 0, 0);
@@ -116,21 +145,21 @@
   left: 1px;
 }
 
-.content__about .tabs__item label:hover{
+.tab label:hover{
 	background-color: rgb(230, 230, 230);
 	transition: all  cubic-bezier(0, 0, 0.2, 1) 0.2s;
 }
 
-.content__about .tabs__item label:active{
+.tab label:active{
 	color: rgb(255, 0, 0);
 	transition: all  cubic-bezier(0, 0, 0.2, 1) 0.2s;
 }
 
-.content__about .tabs__item [type=radio] {
+.tab [type=radio] {
 	display: none;
 }
 
-.about__tabs .tabs__item .tabs__content {
+.tab .tab-content {
   position: absolute;
   top: 22px;
   left: 0;
@@ -141,51 +170,19 @@
   border: 1px solid rgb(0, 0, 0);
 }
 
-.tabs__item [type=radio]:checked ~ label {
+.tab [type=radio]:checked ~ label {
   background: white;
   border-bottom: 1px solid white;
   z-index: 2;
 }
 
-.tabs__item [type=radio]:checked ~ label ~ .tabs__content {
+.tab [type=radio]:checked ~ label ~ .tab-content {
   z-index: 1;
 }
 
-.tabs__item .tab1_titulimg {
+.tab .about-us__titulimg {
 	float: left;
-}
-
-.tabs__item .tab1__text
- {
-	display: inline-block;
-	vertical-align: top;
-}
-
-.content .content__menu .menu__item {
-	display: block;
-	margin: 20px 20px 0;
-	border: solid black 1px;
-	min-height: 30px;
-	background-color: rgb(255, 255, 255);
-	box-shadow: 3px 3px 0 0 rgb(0, 0, 0);
-}
-
-.content .content__menu .menu__item:hover {
-	border-color: rgb(150, 150, 150);
-	box-shadow: 3px 3px 0 0 rgb(150, 150, 150);
-	transition: all cubic-bezier(0, 0, 0.2, 1) 0.2s;
-}
-
-.content .content__menu .menu__item:active {
-		position: relative;
-		top: 2px;
-		left: 2px;
-		box-shadow: none;
-		transition: all cubic-bezier(0, 0, 0.2, 1) 0.2s
-}
-
-.content .content__menu .menu__item:focus {
-	background-color: rgb(245, 245, 245);
+	margin-right: 20px;
 }
 
 .footer {
@@ -196,10 +193,4 @@
 
 .footer .footer__copyright{
 	text-align: center;
-}
-
-.clearfix::after {
-    content: "";
-    display: table;
-    clear: both;
 }

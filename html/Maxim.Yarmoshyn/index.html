@@ -8,29 +8,28 @@
 	<link rel="stylesheet" type="text/css" href="./css/style.css">
 </head>
 <body>
+
 	<header class="header">
-		<a class="header__logo nav__a" href="#">
+		<a class="logo" href="#">
 			<img class="logo__img" src="./img/logo.png">
 		</a>
 		<ul class="nav nav_float_right">
-			<li class="nav__item">
-				<a class="nav__about nav__a nav__a_decoration_none"
-					href="#">О компании</a>
+			<li class="about-company">
+				<a class="nav__a nav__a_decoration_none" href="#">О компании</a>
 			</li>
-			<li class="nav__item">
+			<li class="about-user">
 				<div class="userinfo">
-					<img class="userinfo userinfo__img" src="./img/men.png" width="30px">
+					<img class="userinfo__img" src="./img/men.png" width="30px">
 					Привет,
-					<a class="userinfo userinfo__name nav__a nav__a_decoration_none"
-						href="#">суперюзер</a>
+					<a class="nav__a nav__a_decoration_none" href="#">суперюзер</a>
 					<span>&#9207</span>
 				</div>
 			</li>
 		</ul>
 	</header>
 
-	<div class="content">
-		<aside class="content__menu">
+	<div class="wrapper">
+		<aside class="menu">
 			<button class="menu__item">
 				Новый опрос
 			</button>
@@ -41,62 +40,60 @@
 				Шаблоны опросов
 			</button>
 		</aside>
-		<div class="content__about">
-			<div class="about__header">
-				<h1 class="about__logo">iTechArt</h1>
-				<img class="about__img" src="./img/people.jpg" height="auto" width="60%">
+		<div class="about-info">
+			<div class="header-info">
+				<h1 class="header-info__logo">iTechArt</h1>
+				<img class="header-info__img" src="./img/people.jpg" height="auto" width="60%">
 			</div>
-			<div class="about__tabs">
-				<div class="tabs__item">
-					<input type="radio" id="tab-1" name="tab-group-1" checked>
-					<label for="tab-1">О нас</label>
-					<div class="tabs__content">
-						<img class="tab1__titulimg" src="./img/titul.jpg" height="180px">
-						<div class="tab1__text">
-							<h3>Адрес: Беларусь, г.Минск, ул.Толстого 10</h3>
-							<p>Ждём вас с нетерпением. Удачного пути.</p>
-						</div>
+			<div class="tabs">
+				<div class="tab">
+					<input type="radio" id="about-us" name="tab-group-1" checked>
+					<label for="about-us">О нас</label>
+					<div class="tab-content">
+						<img class="about-us__titulimg" src="./img/titul.jpg" height="100%">
+						<h3>Адрес: Беларусь, г.Минск, ул.Толстого 10</h3>
+						<p>Ждём вас с нетерпением. Удачного пути.</p>
 					</div>
 				</div>
-				<div class="tabs__item">
-					<input type="radio" id="tab-2" name="tab-group-1">
-					<label for="tab-2">Обучение</label>
-					<div class="tabs__content">
+				<div class="tab">
+					<input type="radio" id="training" name="tab-group-1">
+					<label for="training">Обучение</label>
+					<div class="tab-content">
 						<h1>Обучение</h1>
 					</div>
 				</div>
-				<div class="tabs__item">
-					<input type="radio" id="tab-3" name="tab-group-1">
-					<label for="tab-3">Бенефиты</label>
-					<div class="tabs__content">
+				<div class="tab">
+					<input type="radio" id="benefits" name="tab-group-1">
+					<label for="benefits">Бенефиты</label>
+					<div class="tab-content">
 						<h1>Бенефиты</h1>
 					</div>
 				</div>
-				<div class="tabs__item">
-					<input type="radio" id="tab-4" name="tab-group-1">
-					<label for="tab-4">Для студетнов</label>
-					<div class="tabs__content">
+				<div class="tab">
+					<input type="radio" id="for-students" name="tab-group-1">
+					<label for="for-students">Для студетнов</label>
+					<div class="tab-content">
 						<h1>Для студетнов</h1>
 					</div>
 				</div>
-				<div class="tabs__item">
-					<input type="radio" id="tab-5" name="tab-group-1">
-					<label for="tab-5">Наши преимущества</label>
-					<div class="tabs__content">
+				<div class="tab">
+					<input type="radio" id="our-advantages" name="tab-group-1">
+					<label for="our-advantages">Наши преимущества</label>
+					<div class="tab-content">
 						<h1>Наши преимущества</h1>
 					</div>
 				</div>
-				<div class="tabs__item">
-					<input type="radio" id="tab-6" name="tab-group-1">
-					<label for="tab-6">Вакансии</label>
-					<div class="tabs__content">
+				<div class="tab">
+					<input type="radio" id="vacancies" name="tab-group-1">
+					<label for="vacancies">Вакансии</label>
+					<div class="tab-content">
 						<h1>Вакансии</h1>
 					</div>
 				</div>
-				<div class="tabs__item">
-					<input type="radio" id="tab-7" name="tab-group-1">
-					<label for="tab-7">Контакты</label>
-					<div class="tabs__content">
+				<div class="tab">
+					<input type="radio" id="contacts" name="tab-group-1">
+					<label for="contacts">Контакты</label>
+					<div class="tab-content">
 						<h1>Контакты</h1>
 					</div>
 				</div>
@@ -105,7 +102,8 @@
 	</div>
 
 	<footer class="footer">
-		<p class="footer footer__copyright">Copyright <sup>&copy</sup> 2017 iTechArt</p>
+		<p class="footer__copyright">Copyright <sup>&copy</sup> 2017 iTechArt</p>
 	</footer>
+
 </body>
 </html>
