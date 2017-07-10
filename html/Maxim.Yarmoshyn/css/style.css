@@ -1,0 +1,60 @@
+.header {
+	line-height: 75px;
+	height: 75px;
+	background-color: rgb(238, 238, 238);
+}
+
+.header .logo__img {
+	margin-left: 20px;
+	vertical-align: middle;
+	display: inline-block;
+}
+
+.header .nav__a {
+	color: rgb(0, 0, 0);
+}
+
+.header .nav__a:hover {
+	color: rgb(150, 150, 150);
+}
+
+.header .nav__a:active{
+	color: red;
+}
+
+.header .nav__a_decoration_none {
+	text-decoration: none;
+}
+
+.header .nav_float_right {
+	float: right;
+	padding-right: 40px;
+	padding-left: 0;
+}
+
+.header .nav {
+	margin: 0;
+	display: inline-block;
+}
+
+.header .nav .nav__item {
+	margin-left: 20px;
+	display: inline-block;
+	list-style-type: none;
+}
+
+.header .userinfo .userinfo__img {
+	vertical-align: middle;
+}
+
+
+
+.footer {
+	width: 100%;
+	position: fixed;
+	bottom: 0;
+}
+
+.footer .footer__copyright{
+	text-align: center;
+}
