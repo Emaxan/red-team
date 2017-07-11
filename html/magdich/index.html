@@ -10,76 +10,67 @@
 
 <body>
     <header class="header">
-        <!-- TODO: change image's color -->
-        <img class="header__logo" src="./images/itechart-logo.png" alt="ITeachArt-logo" />
-
-        <div class="header__information">
-            <h3 class="header__information__page-info">It's about-page</h3>
-            <div class="header__information__user-info">
-                <img src="./images/user.png" alt="User-picture" />
-                <a href="#">Мой аккаунт</a>
+        <img class="header-logo" src="./images/itechart-logo.png" alt="iTeachArt-logo" />
+        <div class="header-info">
+            <h3 class="header-info__page">It's about-page</h3>
+            <div class="header-info__user">
+                <img class="header-info__user--photo" src="./images/user.png" alt="User-picture" />
+                <a class="header-info__user--name" href="#">Мой аккаунт</a>
             </div>
         </div>
     </header>
     <main class="main">
-        <aside class="main__sidebar">
-            <nav class="main__sidebar__navigation">
-                <ul class="main__sidebar__references">
-                    <li class="main__sidebar__reference">
-                        <button>Новый опрос</button>
-                    </li>
-                    <li class="main__sidebar__reference">
-                        <button>Мои опросы</button>
-                    </li>
-                    <li class="main__sidebar__reference">
-                        <button>Шаблоны опросов</button>
-                    </li>
-                </ul>
+        <aside class="main-sidebar">
+            <nav class="main-sidebar-navigation">
+                <a href="#" class="main-sidebar-navigation__reference">Новый опрос</a>
+                <a href="#" class="main-sidebar-navigation__reference">Мои опросы</a>
+                <a href="#" class="main-sidebar-navigation__reference">Шаблоны опросов</a>
             </nav>
         </aside>
-        <section class="main__info">
-            <div class="main__info__common">
-                <!-- TODO: change image -->
-                <!-- TODO: add iTechArt text -->
-                <h1 class="main__info__common__company-name">iTechArt</h1>
-                <img src="./images/main-page-picture.png" alt="Main pic" />
+        <section class="main-info">
+            <div class="main-info-common">
+                <img class="main-info-common__company-picture" src="./images/itechart-big-logo.png" alt="Main pic" />
             </div>
-            <div class="main__info__tabs">
-                <div class="main__info__tabs--tab">
-                    <input type="radio" name="tabs-group" checked="checked" id="tab-1" />
-                    <label for="tab-1">О нас</label>
-                    <div class="main__info__tabs__content">
-                        111There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum,
-                        you need to be sure there isn't anything embarrassing hidden in the middle of text. All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary, making this the first true generator on the Internet.
-                        It uses a dictionary of over 200 Latin words, combined with a handful of model sentence structures, to generate Lorem Ipsum which looks reasonable. The generated Lorem Ipsum is therefore always free from repetition, injected humour,
-                        or non-characteristic words etc.
+            <div class="main-info-tabs">
+                <!-- TODO: remove ids from inputs -->
+                <div class="main-info-tabs__tab">
+                    <input type="radio" name="tabs-group" checked="checked" id="tab-1" class="main-info-tabs__tab--input" />
+                    <label for="tab-1" class="main-info-tabs__tab--label">О нас</label>
+                    <div class="main-info-tabs__content">
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean luctus tempus cursus.
+                        Aenean rhoncus, metus id venenatis cursus, dolor ipsum eleifend urna, vitae consectetur
+                        diam orci id elit. Integer lacinia scelerisque nisl, id elementum tortor. Ut erat mi,
+                        volutpat id metus in, consequat consectetur lacus. Aliquam posuere quam et diam vestibulum
+                        finibus. Suspendisse vitae nisl et eros iaculis aliquet. Sed id quam nec lacus tincidunt finibus.
                     </div>
                 </div>
-                <div class="main__info__tabs--tab">
-                    <input type="radio" name="tabs-group" id="tab-2" />
-                    <label for="tab-2">Обучение</label>
-                    <div class="main__info__tabs__content">
-                        222There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum,
-                        you need to be sure there isn't anything embarrassing hidden in the middle of text. All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary, making this the first true generator on the Internet.
-                        It uses a dictionary of over 200 Latin words, combined with a handful of model sentence structures, to generate Lorem Ipsum which looks reasonable. The generated Lorem Ipsum is therefore always free from repetition, injected humour,
-                        or non-characteristic words etc.
+                <div class="main-info-tabs__tab">
+                    <input type="radio" name="tabs-group" id="tab-2" class="main-info-tabs__tab--input" />
+                    <label for="tab-2" class="main-info-tabs__tab--label">Обучение</label>
+                    <div class="main-info-tabs__content">
+                        Vestibulum nec erat non elit tempus posuere vel eget turpis. Integer tempus faucibus euismod.
+                        Ut in pretium erat. Cras pulvinar velit mi. Nunc blandit nisi sit amet orci condimentum semper.
+                        Sed fringilla augue eu dui commodo, vitae pulvinar sem rutrum. Vivamus placerat ante
+                        quis luctus semper. Aenean eget lacinia tortor, non hendrerit tortor. Sed a eros sed neque
+                        consectetur elementum. Nullam ac tempus sem, condimentum rutrum est.
                     </div>
                 </div>
-                <div class="main__info__tabs--tab">
-                    <input type="radio" name="tabs-group" id="tab-3" />
-                    <label for="tab-3">Наши приемущества</label>
-                    <div class="main__info__tabs__content">
-                        333There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum,
-                        you need to be sure there isn't anything embarrassing hidden in the middle of text. All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary, making this the first true generator on the Internet.
-                        It uses a dictionary of over 200 Latin words, combined with a handful of model sentence structures, to generate Lorem Ipsum which looks reasonable. The generated Lorem Ipsum is therefore always free from repetition, injected humour,
-                        or non-characteristic words etc.
+                <div class="main-info-tabs__tab">
+                    <input type="radio" name="tabs-group" id="tab-3" class="main-info-tabs__tab--input" />
+                    <label for="tab-3" class="main-info-tabs__tab--label">Наши преимущества</label>
+                    <div class="main-info-tabs__content">
+                        Suspendisse potenti. Nam venenatis sed mi ac viverra. Etiam ullamcorper vehicula neque,
+                        id scelerisque diam tristique in. Aenean velit purus, gravida nec sodales eu, condimentum
+                        ut ligula. Morbi venenatis odio eget vestibulum tristique. In bibendum enim sed libero
+                        lobortis, non placerat elit efficitur. Pellentesque habitant morbi tristique senectus
+                        et netus et malesuada fames ac turpis egestas. Integer cursus semper consequat.
                     </div>
                 </div>
             </div>
         </section>
     </main>
     <footer class="footer">
-        <div class="footer__footer-logo">
+        <div class="footer-logo">
             <p>Copyright @ 2017 iTechArt</p>
         </div>
     </footer>
