@@ -4,6 +4,10 @@
 	background-color: rgb(238, 238, 238);
 }
 
+.logo {
+	float: left;
+}
+
 .logo .logo__img {
 	margin-left: 20px;
 	vertical-align: middle;
@@ -18,7 +22,7 @@
 	color: rgb(150, 150, 150);
 }
 
-.nav .nav__a:active{
+.nav .nav__a:active {
 	color: red;
 }
 
@@ -38,11 +42,9 @@
 }
 
 .nav .about-company,
-.nav .about-user
- {
+.nav .about-user {
 	margin-left: 20px;
 	display: inline-block;
-	list-style-type: none;
 }
 
 .userinfo .userinfo__img {
@@ -101,7 +103,7 @@
 	flex-grow: 5;
 }
 
-.about-info .header-info{
+.about-info .header-info {
 	display: flex;
 	flex-flow: row nowrap;
 	justify-content: flex-start;
@@ -135,7 +137,7 @@
   float: left;
 }
 
-.tab label{
+.tab label {
 	background: rgb(204, 204, 204);
   padding: 5px;
   border: 1px solid rgb(0, 0, 0);
@@ -145,12 +147,12 @@
   left: 1px;
 }
 
-.tab label:hover{
+.tab label:hover {
 	background-color: rgb(230, 230, 230);
 	transition: all  cubic-bezier(0, 0, 0.2, 1) 0.2s;
 }
 
-.tab label:active{
+.tab label:active {
 	color: rgb(255, 0, 0);
 	transition: all  cubic-bezier(0, 0, 0.2, 1) 0.2s;
 }
@@ -176,7 +178,7 @@
   z-index: 2;
 }
 
-.tab [type=radio]:checked ~ label ~ .tab-content {
+.tab [type=radio]:checked ~ .tab-content {
   z-index: 1;
 }
 
@@ -187,10 +189,8 @@
 
 .footer {
 	width: 100%;
-	position: fixed;
-	bottom: 0;
 }
 
-.footer .footer__copyright{
+.footer .footer__copyright {
 	text-align: center;
 }

@@ -4,7 +4,7 @@
 	<meta charset="utf-8">
 	<title>О компании</title>
 	<link rel="stylesheet" type="text/css"
-		href="https://necolas.github.io/normalize.css/7.0.0/normalize.css">
+		href="https://necolas.github.io/normalize.css/latest/normalize.css">
 	<link rel="stylesheet" type="text/css" href="./css/style.css">
 </head>
 <body>
@@ -13,19 +13,17 @@
 		<a class="logo" href="#">
 			<img class="logo__img" src="./img/logo.png">
 		</a>
-		<ul class="nav nav_float_right">
-			<li class="about-company">
-				<a class="nav__a nav__a_decoration_none" href="#">О компании</a>
-			</li>
-			<li class="about-user">
-				<div class="userinfo">
-					<img class="userinfo__img" src="./img/men.png" width="30px">
-					Привет,
-					<a class="nav__a nav__a_decoration_none" href="#">суперюзер</a>
-					<span>&#9207</span>
-				</div>
-			</li>
-		</ul>
+		<nav class="nav nav_float_right">
+				<a class="about-company nav__a nav__a_decoration_none" href="#">О компании</a>
+				<section class="about-user">
+					<div class="userinfo">
+						<img class="userinfo__img" src="./img/men.png" width="30px">
+						Привет,
+						<a class="nav__a nav__a_decoration_none" href="#">суперюзер</a>
+						<span>&#9207</span>
+					</div>
+				</section>
+		</nav>
 	</header>
 
 	<div class="wrapper">
@@ -40,65 +38,65 @@
 				Шаблоны опросов
 			</button>
 		</aside>
-		<div class="about-info">
+		<main class="about-info">
 			<div class="header-info">
 				<h1 class="header-info__logo">iTechArt</h1>
 				<img class="header-info__img" src="./img/people.jpg" height="auto" width="60%">
 			</div>
-			<div class="tabs">
+			<section class="tabs">
 				<div class="tab">
 					<input type="radio" id="about-us" name="tab-group-1" checked>
 					<label for="about-us">О нас</label>
-					<div class="tab-content">
+					<article class="tab-content">
 						<img class="about-us__titulimg" src="./img/titul.jpg" height="100%">
 						<h3>Адрес: Беларусь, г.Минск, ул.Толстого 10</h3>
 						<p>Ждём вас с нетерпением. Удачного пути.</p>
-					</div>
+					</article>
 				</div>
 				<div class="tab">
 					<input type="radio" id="training" name="tab-group-1">
 					<label for="training">Обучение</label>
-					<div class="tab-content">
+					<article class="tab-content">
 						<h1>Обучение</h1>
-					</div>
+					</article>
 				</div>
 				<div class="tab">
 					<input type="radio" id="benefits" name="tab-group-1">
 					<label for="benefits">Бенефиты</label>
-					<div class="tab-content">
+					<article class="tab-content">
 						<h1>Бенефиты</h1>
-					</div>
+					</article>
 				</div>
 				<div class="tab">
 					<input type="radio" id="for-students" name="tab-group-1">
 					<label for="for-students">Для студетнов</label>
-					<div class="tab-content">
+					<article class="tab-content">
 						<h1>Для студетнов</h1>
-					</div>
+					</article>
 				</div>
 				<div class="tab">
 					<input type="radio" id="our-advantages" name="tab-group-1">
 					<label for="our-advantages">Наши преимущества</label>
-					<div class="tab-content">
+					<article class="tab-content">
 						<h1>Наши преимущества</h1>
-					</div>
+					</article>
 				</div>
 				<div class="tab">
 					<input type="radio" id="vacancies" name="tab-group-1">
 					<label for="vacancies">Вакансии</label>
-					<div class="tab-content">
+					<article class="tab-content">
 						<h1>Вакансии</h1>
-					</div>
+					</article>
 				</div>
 				<div class="tab">
 					<input type="radio" id="contacts" name="tab-group-1">
 					<label for="contacts">Контакты</label>
-					<div class="tab-content">
+					<article class="tab-content">
 						<h1>Контакты</h1>
-					</div>
+					</article>
 				</div>
-			</div>
-		</div>
+			</section>
+		</main>
 	</div>
 
 	<footer class="footer">
