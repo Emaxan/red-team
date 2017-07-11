@@ -5,6 +5,12 @@ VisualStudioVersion = 15.0.26430.15
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "iTechArtSurvay.WebApi", "iTechArtSurvay.WebApi\iTechArtSurvay.WebApi.csproj", "{9AC086DF-2443-4BD4-9D9C-793B92AF17EB}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "iTechArtSurvay.Data", "iTechArtSurvay.Data\iTechArtSurvay.Data.csproj", "{896F8173-0244-42AB-B39D-0E4535808730}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "iTechArtSurvay.Infrastructure", "iTechArtSurvay.Infrastructure\iTechArtSurvay.Infrastructure.csproj", "{26331053-3CA0-433C-A7E2-41A6E1DC6E8F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "iTechArtSurvay.Domain", "iTechArtSurvay.Domain\iTechArtSurvay.Domain.csproj", "{D19755CA-13BC-4D8C-805E-84E649D45446}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +21,18 @@ Global
 		{9AC086DF-2443-4BD4-9D9C-793B92AF17EB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9AC086DF-2443-4BD4-9D9C-793B92AF17EB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9AC086DF-2443-4BD4-9D9C-793B92AF17EB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{896F8173-0244-42AB-B39D-0E4535808730}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{896F8173-0244-42AB-B39D-0E4535808730}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{896F8173-0244-42AB-B39D-0E4535808730}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{896F8173-0244-42AB-B39D-0E4535808730}.Release|Any CPU.Build.0 = Release|Any CPU
+		{26331053-3CA0-433C-A7E2-41A6E1DC6E8F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{26331053-3CA0-433C-A7E2-41A6E1DC6E8F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{26331053-3CA0-433C-A7E2-41A6E1DC6E8F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{26331053-3CA0-433C-A7E2-41A6E1DC6E8F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D19755CA-13BC-4D8C-805E-84E649D45446}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D19755CA-13BC-4D8C-805E-84E649D45446}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D19755CA-13BC-4D8C-805E-84E649D45446}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D19755CA-13BC-4D8C-805E-84E649D45446}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

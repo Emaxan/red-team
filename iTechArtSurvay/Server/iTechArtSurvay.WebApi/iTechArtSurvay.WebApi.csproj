@@ -85,6 +85,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -101,8 +102,17 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Controllers\" />
     <Folder Include="Models\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\iTechArtSurvay.Domain\iTechArtSurvay.Domain.csproj">
+      <Project>{d19755ca-13bc-4d8c-805e-84e649d45446}</Project>
+      <Name>iTechArtSurvay.Domain</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\iTechArtSurvay.Infrastructure\iTechArtSurvay.Infrastructure.csproj">
+      <Project>{26331053-3ca0-433c-a7e2-41a6e1dc6e8f}</Project>
+      <Name>iTechArtSurvay.Infrastructure</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
