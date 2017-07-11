@@ -3,8 +3,8 @@ body {
 }
 
 .header {
-	line-height: 75px;
-	height: 75px;
+	/*line-height: 75px;
+	height: 75px;*/
 	background-color: rgb(238, 238, 238);
 }
 
@@ -13,7 +13,7 @@ body {
 }
 
 .logo .logo__img {
-	margin-left: 20px;
+	margin: 20px 20px;
 	vertical-align: middle;
 	display: inline-block;
 }
@@ -41,13 +41,16 @@ body {
 }
 
 .header .nav {
-	margin: 0;
+	margin: 20px;
+	margin-right: 0;
 	display: inline-block;
 }
 
 .nav .about-company,
 .nav .about-user {
 	margin-left: 20px;
+	margin-top: 10px;
+	text-align: center;
 	display: inline-block;
 }
 
@@ -139,6 +142,7 @@ body {
 
 .tabs .tab {
   float: left;
+	margin-bottom: 10px;
 }
 
 .tab label {
@@ -169,25 +173,30 @@ body {
   position: absolute;
   top: 22px;
   left: 0;
+	right: 0;
+	bottom: 0;
   background: white;
-  right: 0;
-  bottom: 0;
   padding: 20px;
   border: 1px solid rgb(0, 0, 0);
 }
 
 .tab [type=radio]:checked ~ label {
   background: white;
-  border-bottom: 1px solid white;
-  z-index: 2;
+
 }
 
 .tab [type=radio]:checked ~ .tab-content {
-  z-index: 1;
+  display: block;
+}
+
+.tab [type=radio]:not(:checked) ~ .tab-content {
+  display: none;
 }
 
 .tab .about-us__titulimg {
 	float: left;
+	width: 20%;
+	height: auto;
 	margin-right: 20px;
 }
 
@@ -197,4 +206,53 @@ body {
 
 .footer .footer__copyright {
 	text-align: center;
+}
+
+.clearfix::after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+@media all and (max-width: 935px) {
+	.tab .tab-content {
+		top: 50px;
+	}
+}
+
+@media all and (max-width: 600px) {
+
+	.logo {
+		float: none;
+		display: block;
+	}
+
+	.logo .logo__img {
+		display: block;
+		margin: 0 auto;
+		padding-top: 20px;
+	}
+
+	.header .nav {
+		display: block;
+		float: none;
+	}
+
+	.nav .about-company,
+	.nav .about-user {
+		display: block;
+	}
+
+}
+
+@media all and (max-width: 750px) {
+	.header-info .header-info__logo {
+		font-size: 2em;
+	}
+}
+
+@media all and (max-width: 550px) {
+	.header-info .header-info__logo {
+		font-size: 1.5em;
+	}
 }
