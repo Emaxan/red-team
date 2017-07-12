@@ -108,7 +108,10 @@
   <ItemGroup>
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\UsersController.cs" />
+    <Compile Include="Filters\ArrayExceptionAttribute.cs" />
+    <Compile Include="Filters\CustomActionAttribute.cs" />
     <Compile Include="Filters\CustomAuthenticationAttribute.cs" />
+    <Compile Include="Filters\CustomAuthorizationAttribute.cs" />
     <Compile Include="Utils\UserFormatter.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
