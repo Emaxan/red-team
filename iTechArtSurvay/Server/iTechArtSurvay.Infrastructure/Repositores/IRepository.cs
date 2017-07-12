@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
-namespace iTechArtSurvay.Data.Infrastructure
+namespace iTechArtSurvay.Infrastructure.Repositores
 {
     public interface IRepository<T> where T : class
     {

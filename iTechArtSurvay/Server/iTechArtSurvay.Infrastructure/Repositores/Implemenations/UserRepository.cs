@@ -1,12 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using iTechArtSurvay.Data.Infrastructure;
+using iTechArtSurvay.Data;
 using iTechArtSurvay.Domain.Models;
 
-namespace iTechArtSurvay.Data.Repositories
+namespace iTechArtSurvay.Infrastructure.Repositores.Implemenations
 {
     public class UserRepository : IRepository<User>
     {
