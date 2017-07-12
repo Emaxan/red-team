@@ -6,7 +6,7 @@ using System.Net.Http;
 using System.Net.Http.Formatting;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
-using iTechArtSurvay.Domain;
+using iTechArtSurvay.Domain.Models;
 
 namespace iTechArtSurvay.WebApi.Utils {
     // It is formatter sample. 
