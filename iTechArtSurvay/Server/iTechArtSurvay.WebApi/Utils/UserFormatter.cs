@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Net.Http.Formatting;
@@ -53,9 +54,13 @@ namespace iTechArtSurvay.WebApi.Utils {
         public override async Task WriteToStreamAsync(Type type, object value, Stream writeStream, HttpContent content,
             TransportContext transportContext) {
             // Get data and convert to string
+            var users = value is User ? new[] { (User)value } : (IEnumerable<User>)value;
+            var usersString = users.Select(b => $"{b.Id},{b.Name}").ToList();
             var writer = new StreamWriter(writeStream);
-            //await writer.WriteAsync(string.Join(",", {dataString}));
+            // Write data to stream
+            await writer.WriteAsync(string.Join(",", usersString));
             writer.Flush();
+            // !!!!!Don't close stream!!!!!
         }
     }
 }
