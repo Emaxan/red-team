@@ -70,8 +70,8 @@
   <ItemGroup>
     <Compile Include="NinjectDependencyResolver.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Repositores\Implemenations\UserRepository.cs" />
-    <Compile Include="Repositores\IRepository.cs" />
+    <Compile Include="Repositores\Concrete\UserRepository.cs" />
+    <Compile Include="Repositores\Abstract\IRepository.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\iTechArtSurvay.Data\iTechArtSurvay.Data.csproj">
@@ -87,6 +87,8 @@
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Repositores\Implemenations\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

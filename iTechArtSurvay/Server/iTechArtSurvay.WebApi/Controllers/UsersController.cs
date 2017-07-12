@@ -3,31 +3,36 @@ using System.Web.Http;
 using System.Web.Http.Description;
 using iTechArtSurvay.Domain.Models;
 using iTechArtSurvay.Infrastructure.Repositores;
+using iTechArtSurvay.Infrastructure.Repositores.Abstract;
 
 namespace iTechArtSurvay.WebApi.Controllers
 {
     public class UsersController : ApiController
     {
-        private readonly IRepository<User> usersRepository;
+        private readonly IUserRepository userRepository;
 
-        public UsersController(IRepository<User> usersRepository)
+        public UsersController(IUserRepository userRepository)
         {
-            this.usersRepository = usersRepository;
+            this.userRepository = userRepository;
         }
 
         // GET api/Users
         [HttpGet]
         public IEnumerable<User> GetUsers()
         {
-            return usersRepository.GetAll();
+            return userRepository.GetUsers();
         }
 
         // GET api/Users/5
         [HttpGet]
         public IHttpActionResult GetUser(int id)
         {
-            var user = usersRepository.Get(id);
-            if (user == null) return BadRequest("Wrong Id");
+            var user = userRepository.GetUser(id);
+            if (user == null)
+            {
+                return BadRequest("Wrong Id");
+            }
+
             return Ok(user);
         }
 
@@ -36,7 +41,7 @@ namespace iTechArtSurvay.WebApi.Controllers
         [ResponseType(typeof(void))]
         public IHttpActionResult EditUser(int id, User user)
         {
-            usersRepository.Update(user);
+            userRepository.UpdateUser(user);
             return Ok(user);
         }
 
@@ -45,7 +50,7 @@ namespace iTechArtSurvay.WebApi.Controllers
         [ResponseType(typeof(User))]
         public IHttpActionResult AddUser(User user)
         {
-            usersRepository.Add(user);
+            userRepository.CreateUser(user);
             return Ok(user);
         }
 
@@ -54,9 +59,13 @@ namespace iTechArtSurvay.WebApi.Controllers
         [ResponseType(typeof(User))]
         public IHttpActionResult RemoveUser(int id)
         {
-            var user = usersRepository.Get(id);
-            if (user == null) return BadRequest("Wrong Id");
-            usersRepository.Delete(user);
+            var user = userRepository.GetUser(id);
+            if (user == null)
+            {
+                return BadRequest("Wrong Id");
+            }
+            userRepository.DeleteUser(user);
+
             return Ok(user);
         }
 

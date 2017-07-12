@@ -1,6 +1,7 @@
 ﻿using iTechArtSurvay.Domain.Models;
 using iTechArtSurvay.Infrastructure.Repositores;
-using iTechArtSurvay.Infrastructure.Repositores.Implemenations;
+using iTechArtSurvay.Infrastructure.Repositores.Abstract;
+using iTechArtSurvay.Infrastructure.Repositores.Concrete;
 using Ninject;
 
 namespace iTechArtSurvay.WebApi.App_Start
@@ -14,7 +15,7 @@ namespace iTechArtSurvay.WebApi.App_Start
 
         private void AddBindings(IKernel kernel)
         {
-            kernel.Bind<IRepository<User>>().To<UserRepository>();
+            kernel.Bind<IUserRepository>().To<UserRepository>();
         }
     }
 }
