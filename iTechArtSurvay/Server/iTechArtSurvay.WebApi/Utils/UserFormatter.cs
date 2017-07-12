@@ -7,7 +7,7 @@ using System.Net.Http;
 using System.Net.Http.Formatting;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
-using iTechArtSurvay.Domain.Models;
+using iTechArtSurvay.Infrastructure.DTO;
 
 namespace iTechArtSurvay.WebApi.Utils {
     // It is formatter sample. 
@@ -27,7 +27,7 @@ namespace iTechArtSurvay.WebApi.Utils {
         /// </returns>
         /// <param name="type">The type to deserialize.</param>
         public override bool CanReadType(Type type) {
-            return type == typeof( User ) || type == typeof( IEnumerable<User> );
+            return type == typeof( UserDto ) || type == typeof( IEnumerable<UserDto> );
         }
 
         /// <summary>
@@ -40,7 +40,7 @@ namespace iTechArtSurvay.WebApi.Utils {
         /// </returns>
         /// <param name="type">The type to serialize.</param>
         public override bool CanWriteType(Type type) {
-            return type == typeof( User ) || type == typeof( IEnumerable<User> );
+            return type == typeof( UserDto ) || type == typeof( IEnumerable<UserDto> );
         }
 
         /// <summary>Asynchronously writes an object of the specified type.</summary>
@@ -54,7 +54,7 @@ namespace iTechArtSurvay.WebApi.Utils {
         public override async Task WriteToStreamAsync(Type type, object value, Stream writeStream, HttpContent content,
             TransportContext transportContext) {
             // Get data and convert to string
-            var users = value is User ? new[] { (User)value } : (IEnumerable<User>)value;
+            var users = value is UserDto ? new[] { (UserDto)value } : (IEnumerable<UserDto>)value;
             var usersString = users.Select(b => $"{b.Id},{b.Name}").ToList();
             var writer = new StreamWriter(writeStream);
             // Write data to stream

@@ -1,7 +1,7 @@
 ﻿using System.Data.Entity;
-using iTechArtSurvay.Domain.Models;
+using iTechArtSurvay.Data.Entities;
 
-namespace iTechArtSurvay.Data
+namespace iTechArtSurvay.Data.EF
 {
     public class ITechArtSurvayInitializer : DropCreateDatabaseAlways<ITechArtSurvayContext>
     {

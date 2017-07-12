@@ -47,8 +47,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ITechArtSurvayContext.cs" />
-    <Compile Include="ITechArtSurvayInitializer.cs" />
+    <Compile Include="Entities\User.cs" />
+    <Compile Include="Interfaces\IRepository.cs" />
+    <Compile Include="Interfaces\IUnitOfWork.cs" />
+    <Compile Include="EF\ITechArtSurvayContext.cs" />
+    <Compile Include="EF\ITechArtSurvayInitializer.cs" />
     <Compile Include="Migrations\201707120900590_InitialCreate.cs" />
     <Compile Include="Migrations\201707120900590_InitialCreate.Designer.cs">
       <DependentUpon>201707120900590_InitialCreate.cs</DependentUpon>
@@ -59,12 +62,8 @@
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\iTechArtSurvay.Domain\iTechArtSurvay.Domain.csproj">
-      <Project>{d19755ca-13bc-4d8c-805e-84e649d45446}</Project>
-      <Name>iTechArtSurvay.Domain</Name>
-    </ProjectReference>
+    <Compile Include="Repositories\UnitOfWork.cs" />
+    <Compile Include="Repositories\UserRepository.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -78,5 +77,6 @@
       <DependentUpon>201707120910252_InitialCreate1.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

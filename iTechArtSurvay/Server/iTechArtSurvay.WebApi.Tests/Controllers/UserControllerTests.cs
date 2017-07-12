@@ -1,5 +1,4 @@
-﻿using iTechArtSurvay.Domain.Models;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace iTechArtSurvay.WebApi.Controllers.Tests
 {
@@ -18,8 +17,7 @@ namespace iTechArtSurvay.WebApi.Controllers.Tests
             //arrange
 
             //act
-            var control = new UsersController();
-            control.AddUser(new User {Email = "email", Id = 1, Name = "name", Password = "password"});
+
             //accert
             Assert.AreEqual(true, true);
         }

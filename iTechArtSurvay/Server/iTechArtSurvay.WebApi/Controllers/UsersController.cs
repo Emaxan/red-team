@@ -2,77 +2,67 @@
 using System.Net;
 using System.Web.Http;
 using System.Web.Http.Description;
-using iTechArtSurvay.Domain.Models;
-using iTechArtSurvay.Infrastructure.Repositores;
-using iTechArtSurvay.Infrastructure.Repositores.Abstract;
+using iTechArtSurvay.Infrastructure.DTO;
+using iTechArtSurvay.Infrastructure.Interfaces;
 
 namespace iTechArtSurvay.WebApi.Controllers
 {
     public class UsersController : ApiController
     {
-        private readonly IUserRepository userRepository;
+        private readonly IUserService _userService;
 
-        public UsersController(IUserRepository userRepository)
+        public UsersController(IUserService userService)
         {
-            this.userRepository = userRepository;
+            _userService = userService;
         }
 
         // GET api/Users
         [HttpGet]
-        public IEnumerable<User> GetUsers()
+        public IEnumerable<UserDto> GetUsers()
         {
-            return userRepository.GetUsers();
+            return _userService.GetAll();
         }
 
         // GET api/Users/5
         [HttpGet]
         public IHttpActionResult GetUser(int id)
         {
-            var user = userRepository.GetUser(id);
-            if (user == null)
-            {
-                return BadRequest("Wrong Id");
-            }
+            var user = _userService.Get(id);
+            if ( user == null ) return BadRequest("Wrong Id");
 
             return Ok(user);
         }
 
         // PUT api/Users/5
         [HttpPut]
-        [ResponseType(typeof(void))]
-        public IHttpActionResult EditUser(int id, User user)
+        [ResponseType(typeof( void ))]
+        public IHttpActionResult EditUser(int id, UserDto user)
         {
-            userRepository.UpdateUser(user);
+            _userService.Update(user);
             return StatusCode(HttpStatusCode.Accepted);
         }
 
         // POST api/Users
         [HttpPost]
-        [ResponseType(typeof(User))]
-        public IHttpActionResult AddUser(User user)
+        [ResponseType(typeof( UserDto ))]
+        public IHttpActionResult AddUser(UserDto user)
         {
-            userRepository.CreateUser(user);
-            return CreatedAtRoute("DefaultApi", new { id = user.Id }, user);
+            _userService.Create(user);
+            return CreatedAtRoute("DefaultApi", new {id = user.Id}, user);
         }
 
         // DELETE api/Users/5
         [HttpDelete]
-        [ResponseType(typeof(User))]
+        [ResponseType(typeof( UserDto ))]
         public IHttpActionResult RemoveUser(int id)
         {
-            var user = userRepository.GetUser(id);
-            if (user == null)
-            {
-                return BadRequest("Wrong Id");
-            }
-            userRepository.DeleteUser(user);
-
-            return Ok(user);
+            _userService.Delete(id);
+            return Ok();
         }
 
         protected override void Dispose(bool disposing)
         {
-            //if (disposing) db.Dispose();
+            if (disposing) _userService.Dispose();
             base.Dispose(disposing);
         }
     }

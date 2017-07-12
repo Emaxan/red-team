@@ -1,32 +1,29 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Web.Http.Dependencies;
+using iTechArtSurvay.Infrastructure.Interfaces;
+using iTechArtSurvay.Infrastructure.Services;
 using Ninject;
 
-namespace iTechArtSurvay.Infrastructure
+namespace iTechArtSurvay.WebApi.Utils
 {
     public class NinjectDependencyResolver : IDependencyResolver
     {
-        private readonly IKernel _kernel;
-
         public NinjectDependencyResolver(IKernel kernel)
         {
-            _kernel = kernel;
+            Kernel = kernel;
         }
 
-        public IKernel Kernel
-        {
-            get { return _kernel; }
-        }
+        public IKernel Kernel { get; }
 
         public object GetService(Type serviceType)
         {
-            return _kernel.TryGet(serviceType);
+            return Kernel.TryGet(serviceType);
         }
 
         public IEnumerable<object> GetServices(Type serviceType)
         {
-            return _kernel.GetAll(serviceType);
+            return Kernel.GetAll(serviceType);
         }
 
         public IDependencyScope BeginScope()

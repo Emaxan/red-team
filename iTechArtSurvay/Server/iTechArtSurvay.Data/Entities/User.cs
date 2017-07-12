@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace iTechArtSurvay.Domain.Models {
+namespace iTechArtSurvay.Data.Entities {
 	public class User {
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
 		public int Id { get; set; }

@@ -12,8 +12,8 @@ namespace iTechArtSurvay.WebApi
 
     using Ninject;
     using Ninject.Web.Common;
-    using iTechArtSurvay.Infrastructure;
-    using iTechArtSurvay.WebApi.App_Start;
+    using Ninject.Modules;
+    using iTechArtSurvay.Infrastructure.Infrastructure;
 
     public static class NinjectWebCommon 
     {
@@ -34,7 +34,7 @@ namespace iTechArtSurvay.WebApi
                 return container;
             });
 
-            var resolver = new NinjectDependencyResolver(container);
+            var resolver = new Utils.NinjectDependencyResolver(container);
             GlobalConfiguration.Configuration.DependencyResolver = resolver;
         }
         
@@ -52,7 +52,8 @@ namespace iTechArtSurvay.WebApi
         /// <returns>The created kernel.</returns>
         private static IKernel CreateKernel()
         {
-            var kernel = new StandardKernel();
+            var modules = new INinjectModule[] { new ServiceModule("iTechArtSurvayDb") };
+            var kernel = new StandardKernel(modules);
             try
             {
                 kernel.Bind<Func<IKernel>>().ToMethod(ctx => () => new Bootstrapper().Kernel);
@@ -76,6 +77,6 @@ namespace iTechArtSurvay.WebApi
         {
             var containerConfigurator = new NinjectConfigurator();
             containerConfigurator.Configure(kernel);
-        }        
+        }
     }
 }
