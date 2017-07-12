@@ -2,7 +2,7 @@
 using System.Web.Http;
 using System.Web.Http.Description;
 using System.Web.Http.Results;
-using iTechArtSurvay.Domain;
+using iTechArtSurvay.Domain.Models;
 
 namespace iTechArtSurvay.WebApi.Controllers {
 	public class UsersController : ApiController {

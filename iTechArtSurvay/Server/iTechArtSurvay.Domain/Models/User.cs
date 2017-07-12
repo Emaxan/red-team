@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace iTechArtSurvay.Domain {
+namespace iTechArtSurvay.Domain.Models {
 	public class User {
 		public int Id { get; set; }
 
