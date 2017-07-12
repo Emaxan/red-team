@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Net;
 using System.Web.Http;
 using System.Web.Http.Description;
 using iTechArtSurvay.Domain.Models;
@@ -42,7 +43,7 @@ namespace iTechArtSurvay.WebApi.Controllers
         public IHttpActionResult EditUser(int id, User user)
         {
             userRepository.UpdateUser(user);
-            return Ok(user);
+            return StatusCode(HttpStatusCode.Accepted);
         }
 
         // POST api/Users
@@ -51,7 +52,7 @@ namespace iTechArtSurvay.WebApi.Controllers
         public IHttpActionResult AddUser(User user)
         {
             userRepository.CreateUser(user);
-            return Ok(user);
+            return CreatedAtRoute("DefaultApi", new { id = user.Id }, user);
         }
 
         // DELETE api/Users/5
