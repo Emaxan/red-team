@@ -9,10 +9,10 @@ using System.Web.Http.Filters;
 
 namespace iTechArtSurvay.WebApi.Filters {
     public class CustomAuthorizationAttribute : Attribute, IAuthorizationFilter {
-        private readonly string[] _usersList;
+        private readonly string[] usersList;
 
         public CustomAuthorizationAttribute(params string[] users) {
-            _usersList = users;
+            usersList = users;
         }
 
         /// <summary>Executes the authorization filter to synchronize.</summary>
@@ -23,7 +23,7 @@ namespace iTechArtSurvay.WebApi.Filters {
         public Task<HttpResponseMessage> ExecuteAuthorizationFilterAsync(HttpActionContext actionContext,
             CancellationToken cancellationToken, Func<Task<HttpResponseMessage>> continuation) {
             var principal = actionContext.RequestContext.Principal;
-            if ( principal == null || !_usersList.Contains(principal.Identity.Name) )
+            if ( principal == null || !usersList.Contains(principal.Identity.Name) )
                 return Task.FromResult(
                     actionContext.Request.CreateResponse(HttpStatusCode.Unauthorized));
             return continuation();

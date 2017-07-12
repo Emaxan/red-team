@@ -8,7 +8,7 @@ using System.Web.Http.Filters;
 using System.Web.Http.Results;
 
 namespace iTechArtSurvay.WebApi.Filters {
-    internal class CustomAuthenticationAttribute : Attribute, IAuthenticationFilter {
+    public class CustomAuthenticationAttribute : Attribute, IAuthenticationFilter {
         /// <summary>Authenticates the request.</summary>
         /// <returns>A Task that will perform authentication.</returns>
         /// <param name="context">The authentication context.</param>
@@ -41,8 +41,6 @@ namespace iTechArtSurvay.WebApi.Filters {
         ///     a single program element.
         /// </summary>
         /// <returns>true if more than one instance is allowed to be specified; otherwise, false. The default is false.</returns>
-        public bool AllowMultiple {
-            get { return false; }
-        }
+        public bool AllowMultiple => false;
     }
 }

@@ -13,8 +13,11 @@ namespace iTechArtSurvay.WebApi.Filters {
         /// <param name="cancellationToken">The cancellation token.</param>
         public Task ExecuteExceptionFilterAsync(HttpActionExecutedContext actionExecutedContext,
             CancellationToken cancellationToken) {
-            if ( actionExecutedContext.Exception != null && actionExecutedContext.Exception is IndexOutOfRangeException )
-                actionExecutedContext.Response = actionExecutedContext.Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Элемент вне диапазона");
+            if ( actionExecutedContext.Exception != null &&
+                 actionExecutedContext.Exception is IndexOutOfRangeException )
+                actionExecutedContext.Response = actionExecutedContext.Request.CreateErrorResponse(
+                    HttpStatusCode.BadRequest,
+                    "Элемент вне диапазона");
             return Task.FromResult<object>(null);
         }
 
