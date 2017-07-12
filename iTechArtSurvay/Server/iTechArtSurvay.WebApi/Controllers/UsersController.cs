@@ -2,14 +2,25 @@
 using System.Web.Http;
 using System.Web.Http.Description;
 using System.Web.Http.Results;
+using iTechArtSurvay.Data.Infrastructure;
+using iTechArtSurvay.Data.Repositories;
 using iTechArtSurvay.Domain.Models;
 
 namespace iTechArtSurvay.WebApi.Controllers {
 	public class UsersController : ApiController {
 		//private UserContext db = new UserContext();
 
+        [HttpGet]
 		public IHttpActionResult GetUsers() {
-			return new NotFoundResult(Request);
+            IRepository<User> users = new UserRepository();
+            users.Add(new User()
+            {
+                Name = "Admin",
+                Email = "admin@admin.admin",
+                Password = "admin"
+            });
+
+            return new NotFoundResult(Request);
 		}
 
 		public IHttpActionResult GetUser(int id) {
