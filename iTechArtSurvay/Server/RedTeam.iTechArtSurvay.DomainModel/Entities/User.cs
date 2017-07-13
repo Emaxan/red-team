@@ -28,6 +28,6 @@ namespace RedTeam.iTechArtSurvay.DomainModel.Entities
         //[DataType(DataType.Password, ErrorMessage = "Wrong data type")]
         //[MinLength(8, ErrorMessage = "Password should be at least 8 characters")]
         //[Compare("Password", ErrorMessage = "Repeated password should be the same as password")]
-        public string RepeatPassword { get; set; }
+        //public string RepeatPassword { get; set; }
     }
 }
