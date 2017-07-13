@@ -10,12 +10,17 @@ namespace RedTeam.iTechArtSurvay.Repositories.EF
 
         static ITechArtSurvayContext()
         {
-            Database.SetInitializer(new ITechArtSurvayInitializer());
+            //Database.SetInitializer(new ITechArtSurvayInitializer());
+        }
+
+        public ITechArtSurvayContext() : base("iTechArtSurvayDb")
+        {
+            
         }
 
         public ITechArtSurvayContext(string connectionString) : base(connectionString)
         {
-            Database.SetInitializer(new ITechArtSurvayInitializer());
+            //Database.SetInitializer(new ITechArtSurvayInitializer());
         }
 
         public new IDbSet<TEntity> Set<TEntity>() where TEntity : class

@@ -1,30 +1,35 @@
-using System.Data.Entity.Migrations;
-using RedTeam.iTechArtSurvay.Repositories.EF;
+using RedTeam.iTechArtSurvay.DomainModel.Entities;
 
 namespace RedTeam.iTechArtSurvay.Repositories.Migrations
 {
-    internal sealed class Configuration : DbMigrationsConfiguration<ITechArtSurvayContext>
+    using System;
+    using System.Data.Entity;
+    using System.Data.Entity.Migrations;
+    using System.Linq;
+
+    internal sealed class Configuration : DbMigrationsConfiguration<RedTeam.iTechArtSurvay.Repositories.EF.ITechArtSurvayContext>
     {
         public Configuration()
         {
             AutomaticMigrationsEnabled = false;
-            ContextKey = "iTechArtSurvay.Data.ITechArtSurvayContext";
         }
 
-        protected override void Seed(ITechArtSurvayContext context)
+        protected override void Seed(RedTeam.iTechArtSurvay.Repositories.EF.ITechArtSurvayContext context)
         {
-            //  This method will be called after migrating to the latest version.
+            context.Users.Add(new User
+            {
+                Name = "Admin",
+                Email = "admin@admin.admin",
+                Password = "admin"
+            });
+            context.Users.Add(new User
+            {
+                Name = "User",
+                Email = "user@user.user",
+                Password = "user"
+            });
 
-            //  You can use the DbSet<T>.AddOrUpdate() helper extension method 
-            //  to avoid creating duplicate seed data. E.g.
-            //
-            //    context.People.AddOrUpdate(
-            //      p => p.FullName,
-            //      new Person { FullName = "Andrew Peters" },
-            //      new Person { FullName = "Brice Lambson" },
-            //      new Person { FullName = "Rowan Miller" }
-            //    );
-            //
+            context.SaveChanges();
         }
     }
 }

@@ -48,25 +48,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="EF\ITechArtSurvayContext.cs" />
-    <Compile Include="EF\ITechArtSurvayInitializer.cs" />
-    <Compile Include="Migrations\201707120900590_InitialCreate.cs" />
-    <Compile Include="Migrations\201707120900590_InitialCreate.Designer.cs">
-      <DependentUpon>201707120900590_InitialCreate.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201707120910252_InitialCreate1.cs" />
-    <Compile Include="Migrations\201707120910252_InitialCreate1.Designer.cs">
-      <DependentUpon>201707120910252_InitialCreate1.cs</DependentUpon>
+    <Compile Include="Migrations\201707131626113_InitialMigration.cs" />
+    <Compile Include="Migrations\201707131626113_InitialMigration.Designer.cs">
+      <DependentUpon>201707131626113_InitialMigration.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Migrations\201707120900590_InitialCreate.resx">
-      <DependentUpon>201707120900590_InitialCreate.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201707120910252_InitialCreate1.resx">
-      <DependentUpon>201707120910252_InitialCreate1.cs</DependentUpon>
-    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -81,6 +68,11 @@
       <Project>{433A7044-1A29-42CB-80B0-06E86AA12A2F}</Project>
       <Name>RedTeam.Repositories</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201707131626113_InitialMigration.resx">
+      <DependentUpon>201707131626113_InitialMigration.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
