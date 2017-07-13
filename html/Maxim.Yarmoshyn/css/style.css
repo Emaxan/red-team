@@ -24,31 +24,28 @@
 	color: red;
 }
 
-.decoration_none {
+.nav__link {
 	text-decoration: none;
-}
-
-.float_right {
-	float: right;
-	padding-right: 40px;
-	padding-left: 0;
 }
 
 .nav {
 	margin: 20px;
 	margin-right: 0;
 	display: inline-block;
+  float: right;
+	padding-right: 40px;
+	padding-left: 0;
 }
 
-.nav .about-company,
-.nav .about-user {
+.about-company,
+.about-user {
 	margin-left: 20px;
 	margin-top: 10px;
 	text-align: center;
 	display: inline-block;
 }
 
-.userinfo__img {
+.user-info__img {
 	vertical-align: middle;
 }
 
@@ -159,7 +156,7 @@
 	transition: all  cubic-bezier(0, 0, 0.2, 1) 0.2s;
 }
 
-.tab .tab_type_radio {
+.tab__marker {
 	display: none;
 }
 
@@ -174,19 +171,19 @@
 	border: 1px solid rgb(0, 0, 0);
 }
 
-.tab .tab_type_radio:checked ~ .tab__content {
+.tab__marker:checked ~ .tab__content {
 	background: white;
 }
 
-.tab .tab_type_radio:checked ~ .tab-content {
+.tab__marker:checked ~ .tab-content {
 	display: block;
 }
 
-.tab .tab_type_radio:not(:checked) ~ .tab-content {
+.tab__marker:not(:checked) ~ .tab-content {
 	display: none;
 }
 
-.about-us__titulimg {
+.about-us__titul-img {
 	float: left;
 	margin-right: 20px;
 }
