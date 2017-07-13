@@ -2,7 +2,6 @@
 
 namespace RedTeam.iTechArtSurvay.WebApi.Tests.Controllers
 {
-{
     [TestClass]
     public class UserControllerTests
     {
