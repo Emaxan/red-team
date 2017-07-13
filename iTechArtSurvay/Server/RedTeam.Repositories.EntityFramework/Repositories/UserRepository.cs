@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
+using System.Threading.Tasks;
 using RedTeam.iTechArtSurvay.DomainModel.Entities;
 using RedTeam.iTechArtSurvay.Repositories.EF;
 using RedTeam.Repositories.Interfaces;
@@ -16,6 +17,16 @@ namespace RedTeam.Repositories.EntityFramework.Repositories
             Context.Users.Add(user);
         }
 
+        public override async Task<User> GetAsync(int id)
+        {
+            return await Context.Users.FindAsync(id);
+        }
+
+        public override async Task<IEnumerable<User>> GetAllAsync()
+        {
+            return await Context.Users.ToListAsync();
+        }
+
         public override void Update(User user)
         {
             Context.Users.Attach(user);
@@ -25,16 +36,6 @@ namespace RedTeam.Repositories.EntityFramework.Repositories
         public override void Delete(User user)
         {
             Context.Users.Remove(user);
-        }
-
-        public override User Get(int id)
-        {
-            return Context.Users.Find(id);
-        }
-
-        public override IEnumerable<User> GetAll()
-        {
-            return Context.Users;
         }
     }
 }

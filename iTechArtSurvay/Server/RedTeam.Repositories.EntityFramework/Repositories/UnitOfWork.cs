@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using RedTeam.iTechArtSurvay.DomainModel.Entities;
 using RedTeam.iTechArtSurvay.Repositories.EF;
 using RedTeam.Repositories.Interfaces;
@@ -18,9 +19,9 @@ namespace RedTeam.Repositories.EntityFramework.Repositories
 
         public IRepository<User> Users => _userRepository ?? (_userRepository = new UserRepository(_context));
 
-        public void Save()
+        public async Task SaveAsync()
         {
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
         }
 
         public void Dispose()
@@ -31,15 +32,14 @@ namespace RedTeam.Repositories.EntityFramework.Repositories
 
         public virtual void Dispose(bool disposing)
         {
-            if ( _disposed )
+            if ( !_disposed )
             {
-                return;
+                if ( disposing )
+                {
+                    _context.Dispose();
+                }
+                _disposed = true;
             }
-            if ( disposing )
-            {
-                _context.Dispose();
-            }
-            _disposed = true;
         }
     }
 }

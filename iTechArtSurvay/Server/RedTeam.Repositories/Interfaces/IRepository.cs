@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using RedTeam.iTechArtSurvay.DomainModel.Interfaces;
 
 namespace RedTeam.Repositories.Interfaces
 {
-    public interface IRepository<TEntity> : IDisposable where TEntity : IEntity
+    public interface IRepository<TEntity> where TEntity : IEntity
     {
         /// <summary>
         /// Creates the existing entity.
@@ -15,12 +16,12 @@ namespace RedTeam.Repositories.Interfaces
         /// <summary>
         /// Get all entities
         /// </summary>
-        IEnumerable<TEntity> GetAll();
+        Task<IEnumerable<TEntity>> GetAllAsync();
 
         /// <summary>
         /// Finds one entity based on its Identifier.
         /// </summary>
-        TEntity Get(int id);
+        Task<TEntity> GetAsync(int id);
 
         /// <summary>
         /// Updates the existing entity.

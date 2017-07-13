@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Net;
+using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Description;
 using RedTeam.iTechArtSurvay.Foundation.DTO;
@@ -18,16 +19,16 @@ namespace RedTeam.iTechArtSurvay.WebApi.Controllers
 
         // GET api/Users
         [HttpGet]
-        public IEnumerable<UserDto> GetUsers()
+        public async Task<IEnumerable<UserDto>> GetUsers()
         {
-            return _userService.GetAll();
+            return await _userService.GetAllAsync();
         }
 
         // GET api/Users/5
         [HttpGet]
-        public IHttpActionResult GetUser(int id)
+        public async Task<IHttpActionResult> GetUser(int id)
         {
-            var user = _userService.Get(id);
+            var user = await _userService.GetAsync(id);
             if ( user == null )
             {
                 return BadRequest("Wrong Id");
@@ -60,9 +61,9 @@ namespace RedTeam.iTechArtSurvay.WebApi.Controllers
         // DELETE api/Users/5
         [HttpDelete]
         [ResponseType(typeof( UserDto ))]
-        public IHttpActionResult RemoveUser(int id)
+        public async Task<IHttpActionResult> RemoveUser(int id)
         {
-            _userService.Delete(id);
+            await _userService.DeleteAsync(id);
             return Ok();
         }
 

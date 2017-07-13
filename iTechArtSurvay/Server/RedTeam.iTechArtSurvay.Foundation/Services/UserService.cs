@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using AutoMapper;
 using RedTeam.iTechArtSurvay.DomainModel.Entities;
 using RedTeam.iTechArtSurvay.Foundation.DTO;
@@ -24,7 +25,7 @@ namespace RedTeam.iTechArtSurvay.Foundation.Services
             {
                 throw new ValidationException("Не установлена сущность пользователя", "");
             }
-            var us = Database.Users.Get(user.Id);
+            var us = Database.Users.GetAsync(user.Id);
             if ( us != null )
             {
                 throw new ValidationException("Cущность пользователя уже существует", "");
@@ -39,7 +40,7 @@ namespace RedTeam.iTechArtSurvay.Foundation.Services
             {
                 throw new ValidationException("Не установлена сущность пользователя", "");
             }
-            var us = Database.Users.Get(user.Id);
+            var us = Database.Users.GetAsync(user.Id);
             if ( us == null )
             {
                 throw new ValidationException("Пользователь не найден", "");
@@ -48,9 +49,9 @@ namespace RedTeam.iTechArtSurvay.Foundation.Services
             Database.Users.Delete(Mapper.Map<UserDto, User>(user));
         }
 
-        public void Delete(int id)
+        public async Task DeleteAsync(int id)
         {
-            var user = Database.Users.Get(id);
+            var user = await Database.Users.GetAsync(id);
             if ( user == null )
             {
                 throw new ValidationException("Пользователь не найден", "");
@@ -58,9 +59,9 @@ namespace RedTeam.iTechArtSurvay.Foundation.Services
             Database.Users.Delete(user);
         }
 
-        public UserDto Get(int id)
+        public async Task<UserDto> GetAsync(int id)
         {
-            var user = Database.Users.Get(id);
+            var user = await Database.Users.GetAsync(id);
             if ( user == null )
             {
                 throw new ValidationException("Пользователь не найден", "");
@@ -69,12 +70,11 @@ namespace RedTeam.iTechArtSurvay.Foundation.Services
             return Mapper.Map<User, UserDto>(user);
         }
 
-        public IEnumerable<UserDto> GetAll()
+        public async Task<IEnumerable<UserDto>> GetAllAsync()
         {
-            var users = Database.Users.GetAll();
+            var users = await Database.Users.GetAllAsync();
             Mapper.Initialize(cfg => cfg.CreateMap<User, UserDto>());
-            var uss = Mapper.Map<IEnumerable<User>, IEnumerable<UserDto>>(users);
-            return uss;
+            return Mapper.Map<IEnumerable<User>, IEnumerable<UserDto>>(users);
         }
 
         public void Dispose()

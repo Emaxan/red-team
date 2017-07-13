@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
+using System.Threading.Tasks;
 using RedTeam.iTechArtSurvay.DomainModel.Interfaces;
 using RedTeam.Repositories.Interfaces;
 
@@ -18,49 +19,32 @@ namespace RedTeam.Repositories.EntityFramework.Repositories
             Context = context as TContext;
         }
 
-        private IDbSet<TEntity> DbSet => Context.Set<TEntity>();
+        private DbSet<TEntity> DbSet => Context.Set<TEntity>();
 
         public virtual void Create(TEntity entity)
         {
             DbSet.Add(entity);
         }
 
-        public virtual TEntity Get(int id)
+        public virtual async Task<TEntity> GetAsync(int id)
         {
-            return DbSet.Find(id);
+            return await DbSet.FindAsync(id);
         }
 
-        public virtual IEnumerable<TEntity> GetAll()
+        public virtual async Task<IEnumerable<TEntity>> GetAllAsync()
         {
-            return DbSet.AsQueryable();
+            return await DbSet.ToListAsync();
         }
 
         public virtual void Update(TEntity entity)
         {
+            DbSet.Attach(entity);
             Context.Entry(entity).State = EntityState.Modified;
         }
 
         public virtual void Delete(TEntity entity)
         {
             DbSet.Remove(entity);
-        }
-
-        public void Dispose()
-        {
-            Dispose(true);
-            GC.SuppressFinalize(this);
-        }
-
-        protected virtual void Dispose(bool disposing)
-        {
-            if ( disposing )
-            {
-                if ( Context != null )
-                {
-                    Context.Dispose();
-                    Context = null;
-                }
-            }
         }
     }
 }

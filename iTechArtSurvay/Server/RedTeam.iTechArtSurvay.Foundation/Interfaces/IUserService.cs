@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using RedTeam.iTechArtSurvay.Foundation.DTO;
 
 namespace RedTeam.iTechArtSurvay.Foundation.Interfaces
@@ -8,9 +9,9 @@ namespace RedTeam.iTechArtSurvay.Foundation.Interfaces
     {
         void Create(UserDto user);
         void Update(UserDto user);
-        void Delete(int id);
-        UserDto Get(int id);
-        IEnumerable<UserDto> GetAll();
+        Task DeleteAsync(int id);
+        Task<UserDto> GetAsync(int id);
+        Task<IEnumerable<UserDto>> GetAllAsync();
         void Dispose();
     }
 }
