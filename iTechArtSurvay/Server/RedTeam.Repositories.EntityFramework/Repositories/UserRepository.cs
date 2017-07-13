@@ -1,48 +1,39 @@
-﻿using System.Collections.Generic;
-using System.Data.Entity;
+﻿using System.Data.Entity;
+using System.Linq;
 using RedTeam.iTechArtSurvay.DomainModel.Entities;
 using RedTeam.iTechArtSurvay.Repositories.EF;
 using RedTeam.Repositories.Interfaces;
 
 namespace RedTeam.Repositories.EntityFramework.Repositories
 {
-    public class UserRepository : IRepository<User>
+    public class UserRepository : Repository<User, ITechArtSurvayContext>, IUserRepository
     {
-        private readonly ITechArtSurvayContext _context;
+        public UserRepository(ITechArtSurvayContext context) : base(context) { }
 
-        public UserRepository(ITechArtSurvayContext context)
+        public override void Create(User user)
         {
-            this._context = context;
+            Context.Users.Add(user);
         }
 
-        public void Create(User user)
+        public override void Update(User user)
         {
-            var user1 = _context.Users.Add(user);
+            Context.Users.Attach(user);
+            Context.Entry(user).State = EntityState.Modified;
         }
 
-        public void Update(User user)
+        public override void Delete(User user)
         {
-            _context.Users.Attach(user);
-            _context.Entry(user).State = EntityState.Modified;
+            Context.Users.Remove(user);
         }
 
-        public void Delete(int id)
+        public override User Get(int id)
         {
-            var user = _context.Users.Find(id);
-            if ( user != null )
-            {
-                _context.Users.Remove(user);
-            }
+            return Context.Users.Find(id);
         }
 
-        public User Get(int id)
+        public override IQueryable<User> GetAll()
         {
-            return _context.Users.Find(id);
-        }
-
-        public IEnumerable<User> GetAll()
-        {
-            return _context.Users;
+            return Context.Users;
         }
     }
 }

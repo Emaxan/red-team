@@ -3,8 +3,14 @@ using RedTeam.iTechArtSurvay.DomainModel.Entities;
 
 namespace RedTeam.iTechArtSurvay.Repositories.EF
 {
-    public class ITechArtSurvayInitializer : DropCreateDatabaseAlways<ITechArtSurvayContext>
+    public class ITechArtSurvayInitializer : DropCreateDatabaseAlways<ITechArtSurvayContext>, IDatabaseInitializer<ITechArtSurvayContext>
     {
+        //public void InitializeDatabase(ITechArtSurvayContext context)
+        //{
+        //    context.Database.Delete();
+        //    context.Database.Create();
+        //}
+
         protected override void Seed(ITechArtSurvayContext context)
         {
             context.Users.Add(new User

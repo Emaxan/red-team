@@ -10,12 +10,12 @@ namespace RedTeam.iTechArtSurvay.Foundation.Services
 {
     public class UserService : IUserService
     {
+        private IUnitOfWork Database { get; }
+
         public UserService(IUnitOfWork uow)
         {
             Database = uow;
         }
-
-        private IUnitOfWork Database { get; }
 
         public void Create(UserDto user)
         {
@@ -43,30 +43,23 @@ namespace RedTeam.iTechArtSurvay.Foundation.Services
             {
                 throw new ValidationException("Пользователь не найден", "");
             }
-            Database.Users.Delete(user.Id);
+            Mapper.Initialize(cfg => cfg.CreateMap<UserDto, User>());
+            Database.Users.Delete(Mapper.Map<UserDto, User>(user));
         }
 
-        public void Delete(int? id)
+        public void Delete(int id)
         {
-            if ( id == null )
-            {
-                throw new ValidationException("Не установлен id пользователя", "");
-            }
-            var user = Database.Users.Get(id.Value);
+            var user = Database.Users.Get(id);
             if ( user == null )
             {
                 throw new ValidationException("Пользователь не найден", "");
             }
-            Database.Users.Delete(id.Value);
+            Database.Users.Delete(user);
         }
 
-        public UserDto Get(int? id)
+        public UserDto Get(int id)
         {
-            if ( id == null )
-            {
-                throw new ValidationException("Не установлен id пользователя", "");
-            }
-            var user = Database.Users.Get(id.Value);
+            var user = Database.Users.Get(id);
             if ( user == null )
             {
                 throw new ValidationException("Пользователь не найден", "");

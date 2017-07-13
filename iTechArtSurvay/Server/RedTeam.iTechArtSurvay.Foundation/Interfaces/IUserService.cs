@@ -7,8 +7,8 @@ namespace RedTeam.iTechArtSurvay.Foundation.Interfaces
     {
         void Create(UserDto user);
         void Update(UserDto user);
-        void Delete(int? id);
-        UserDto Get(int? id);
+        void Delete(int id);
+        UserDto Get(int id);
         IEnumerable<UserDto> GetAll();
         void Dispose();
     }

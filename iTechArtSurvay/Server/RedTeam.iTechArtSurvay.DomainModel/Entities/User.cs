@@ -1,9 +1,10 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using RedTeam.iTechArtSurvay.DomainModel.Interfaces;
 
 namespace RedTeam.iTechArtSurvay.DomainModel.Entities
 {
-    public class User
+    public class User: IEntity
     {
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
