@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using AutoMapper;
 using RedTeam.iTechArtSurvay.DomainModel.Entities;
 using RedTeam.iTechArtSurvay.Foundation.DTO;

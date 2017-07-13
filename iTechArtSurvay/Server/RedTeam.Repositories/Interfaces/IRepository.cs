@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using RedTeam.iTechArtSurvay.DomainModel.Interfaces;
 
@@ -14,7 +15,7 @@ namespace RedTeam.Repositories.Interfaces
         /// <summary>
         /// Get all entities
         /// </summary>
-        IQueryable<TEntity> GetAll();
+        IEnumerable<TEntity> GetAll();
 
         /// <summary>
         /// Finds one entity based on its Identifier.

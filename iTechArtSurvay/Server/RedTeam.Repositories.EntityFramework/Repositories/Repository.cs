@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using RedTeam.iTechArtSurvay.DomainModel.Interfaces;
@@ -29,7 +30,7 @@ namespace RedTeam.Repositories.EntityFramework.Repositories
             return DbSet.Find(id);
         }
 
-        public virtual IQueryable<TEntity> GetAll()
+        public virtual IEnumerable<TEntity> GetAll()
         {
             return DbSet.AsQueryable();
         }

@@ -1,4 +1,5 @@
-﻿using System.Data.Entity;
+﻿using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using RedTeam.iTechArtSurvay.DomainModel.Entities;
 using RedTeam.iTechArtSurvay.Repositories.EF;
@@ -31,7 +32,7 @@ namespace RedTeam.Repositories.EntityFramework.Repositories
             return Context.Users.Find(id);
         }
 
-        public override IQueryable<User> GetAll()
+        public override IEnumerable<User> GetAll()
         {
             return Context.Users;
         }
