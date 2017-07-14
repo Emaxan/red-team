@@ -1,14 +1,14 @@
 ﻿using System;
 
-namespace RedTeam.iTechArtSurvay.Foundation.Infrastructure
+namespace RedTeam.iTechArtSurvay.Foundation.Exceptions
 {
     public class ValidationException : Exception
     {
         public ValidationException(string message, string prop) : base(message)
         {
-            Property = prop;
+            //Property = prop;
         }
 
-        public string Property { get; protected set; }
+        //public string Property { get; protected set; }
     }
 }
