@@ -1,5 +1,5 @@
-﻿using Ninject.Modules;
-using RedTeam.Repositories.Interfaces;
+﻿using System.Data.Entity;
+using Ninject.Modules;
 using RedTeam.TechArtSurvey.Repositories.EF;
 
 namespace RedTeam.TechArtSurvey.Foundation.Infrastructure
@@ -15,7 +15,7 @@ namespace RedTeam.TechArtSurvey.Foundation.Infrastructure
 
         public override void Load()
         {
-            Bind<IDbContext>().To<TechArtSurvayContext>().WithConstructorArgument(_connectionString);
+            Bind<DbContext>().To<TechArtSurvayContext>().WithConstructorArgument(_connectionString);
         }
     }
 }

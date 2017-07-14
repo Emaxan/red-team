@@ -64,6 +64,10 @@
       <Project>{cba1e0f8-a057-4782-82de-162668f2b074}</Project>
       <Name>RedTeam.TechArtSurvey.DomainModel</Name>
     </ProjectReference>
+    <ProjectReference Include="..\RedTeam.TechArtSurvey.Repositories.Interfaces\RedTeam.TechArtSurvey.Repositories.Interfaces.csproj">
+      <Project>{A92EAE24-D485-4F0D-B77F-EB485A7FCBE3}</Project>
+      <Name>RedTeam.TechArtSurvey.Repositories.Interfaces</Name>
+    </ProjectReference>
     <ProjectReference Include="..\RedTeam.TechArtSurvey.Repositories\RedTeam.TechArtSurvey.Repositories.csproj">
       <Project>{60ebc204-dbcf-4140-9690-5e2b6b4eea87}</Project>
       <Name>RedTeam.TechArtSurvey.Repositories</Name>

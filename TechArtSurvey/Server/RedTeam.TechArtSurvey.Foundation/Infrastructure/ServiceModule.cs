@@ -1,6 +1,6 @@
 ﻿using Ninject.Modules;
-using RedTeam.Repositories.EntityFramework.Repositories;
-using RedTeam.Repositories.Interfaces;
+using RedTeam.TechArtSurvey.Repositories;
+using RedTeam.TechArtSurvey.Repositories.Interfaces;
 
 namespace RedTeam.TechArtSurvey.Foundation.Infrastructure
 {
@@ -8,7 +8,7 @@ namespace RedTeam.TechArtSurvey.Foundation.Infrastructure
     {
         public override void Load()
         {
-            Bind(typeof( IUnitOfWork<> )).To(typeof( UnitOfWork<> ));
+            Bind<IUnitOfWork>().To<UnitOfWork>();
         }
     }
 }

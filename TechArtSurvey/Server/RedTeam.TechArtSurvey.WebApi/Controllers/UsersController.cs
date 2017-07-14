@@ -29,15 +29,17 @@ namespace RedTeam.TechArtSurvey.WebApi.Controllers
         public async Task<IHttpActionResult> GetUser(int id)
         {
             var user = await _userService.GetAsync(id);
-            if (user == null)
+            if ( user == null )
+            {
                 return BadRequest("Wrong Id");
+            }
 
             return Ok(user);
         }
 
         // PUT api/Users/5
         [HttpPut]
-        [ResponseType(typeof(void))]
+        [ResponseType(typeof( void ))]
         public IHttpActionResult EditUser(UserDto user)
         {
             _userService.Update(user);
@@ -46,19 +48,19 @@ namespace RedTeam.TechArtSurvey.WebApi.Controllers
 
         // POST api/Users
         [HttpPost]
-        [ResponseType(typeof(UserDto))]
+        [ResponseType(typeof( UserDto ))]
         public IHttpActionResult AddUser(UserDto user)
         {
             _userService.Create(user);
             return CreatedAtRoute("DefaultApi", new
-            {
-                id = user.Id
-            }, user);
+                                                {
+                                                    id = user.Id
+                                                }, user);
         }
 
         // DELETE api/Users/5
         [HttpDelete]
-        [ResponseType(typeof(UserDto))]
+        [ResponseType(typeof( UserDto ))]
         public async Task<IHttpActionResult> RemoveUser(int id)
         {
             await _userService.DeleteAsync(id);

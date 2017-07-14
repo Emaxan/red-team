@@ -1,22 +1,23 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
 using JetBrains.Annotations;
-using RedTeam.Repositories.Interfaces;
 using RedTeam.TechArtSurvey.DomainModel.Entities;
 using RedTeam.TechArtSurvey.Foundation.DTO;
 using RedTeam.TechArtSurvey.Foundation.Exceptions;
 using RedTeam.TechArtSurvey.Foundation.Interfaces;
+using RedTeam.TechArtSurvey.Repositories.Interfaces;
 
 namespace RedTeam.TechArtSurvey.Foundation.Services
 {
     [UsedImplicitly]
     public class UserService : IUserService<UserDto>
     {
-        private readonly IUnitOfWork<User> _uow;
+        private readonly IUnitOfWork _uow;
         private readonly IMapper _mapper;
 
-        public UserService(IUnitOfWork<User> uow, IMapper mapper)
+        public UserService(IUnitOfWork uow, IMapper mapper)
         {
             _uow = uow;
             _mapper = mapper;
@@ -24,60 +25,52 @@ namespace RedTeam.TechArtSurvey.Foundation.Services
 
         public async Task Create(UserDto user)
         {
-            if ( user == null )
+            var us = await _uow.GetRepository<User>().GetAsync(user.Id);
+            if ( us != null )   
             {
-                throw new ValidationException("Не установлена сущность пользователя", "");
+                throw new ValidationException("User already exist", "");
             }
-            var us = await _uow.Entities.GetAsync(user.Id);
-            if ( us != null )
-            {
-                throw new ValidationException("Cущность пользователя уже существует", "");
-            }
-            _uow.Entities.Create(_mapper.Map<UserDto, User>(user));
+            _uow.GetRepository<User>().Create(_mapper.Map<UserDto, User>(user));
             await _uow.SaveAsync();
         }
 
         public async Task Update(UserDto user)
         {
-            if ( user == null )
-            {
-                throw new ValidationException("Не установлена сущность пользователя", "");
-            }
-            var us = await _uow.Entities.GetAsync(user.Id);
+            var us = await _uow.GetRepository<User>().GetAsync(user.Id);
             if ( us == null )
             {
-                throw new ValidationException("Пользователь не найден", "");
+                throw new ArgumentException("User not found", "");
             }
             
-            _uow.Entities.Update(_mapper.Map<UserDto, User>(user));
+            _uow.GetRepository<User>().Update(_mapper.Map<UserDto, User>(user));
             await _uow.SaveAsync();
         }
 
         public async Task DeleteAsync(int id)
         {
-            var user = await _uow.Entities.GetAsync(id);
+            var user = await _uow.GetRepository<User>().GetAsync(id);
             if ( user == null )
             {
-                throw new ValidationException("Пользователь не найден", "");
+                throw new ArgumentException("User not found", "");
             }
-            _uow.Entities.Delete(user);
+            _uow.GetRepository<User>().Delete(user);
             await _uow.SaveAsync();
         }
 
         public async Task<UserDto> GetAsync(int id)
         {
-            var user = await _uow.Entities.GetAsync(id);
+            var user = await _uow.GetRepository<User>().GetAsync(id);
             if ( user == null )
             {
-                throw new ValidationException("Пользователь не найден", "");
+                throw new ArgumentException("User not found", "");
             }
             return _mapper.Map<User, UserDto>(user);
         }
 
-        public async Task<IEnumerable<UserDto>> GetAllAsync()
+        public async Task<IReadOnlyCollection<UserDto>> GetAllAsync()
         {
-            var users = await _uow.Entities.GetAllAsync();
-            return _mapper.Map<IEnumerable<User>, IEnumerable<UserDto>>(users);
+            var users = await _uow.GetRepository<User>().GetAllAsync();
+            return _mapper.Map<IReadOnlyCollection<User>, IReadOnlyCollection<UserDto>>(users);
         }
     }
 }

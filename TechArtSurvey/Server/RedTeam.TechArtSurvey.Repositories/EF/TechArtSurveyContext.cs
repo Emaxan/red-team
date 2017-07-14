@@ -6,7 +6,7 @@ using RedTeam.TechArtSurvey.DomainModel.Entities;
 namespace RedTeam.TechArtSurvey.Repositories.EF
 {
     [UsedImplicitly]
-    public class TechArtSurvayContext : DbContext, IDbContext
+    public class TechArtSurvayContext : DbContext
     {
         public TechArtSurvayContext(string connectionString) : base(connectionString)
         {
