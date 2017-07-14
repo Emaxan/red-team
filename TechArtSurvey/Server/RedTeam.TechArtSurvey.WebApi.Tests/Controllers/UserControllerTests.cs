@@ -1,6 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace RedTeam.iTechArtSurvay.WebApi.Tests.Controllers
+namespace RedTeam.TechArtSurvey.WebApi.Tests.Controllers
 {
     [TestClass]
     public class UserControllerTests

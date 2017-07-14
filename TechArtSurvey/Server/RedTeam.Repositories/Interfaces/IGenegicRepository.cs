@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 
 namespace RedTeam.Repositories.Interfaces
 {
-    public interface IRepository<TEntity> where TEntity : IEntity
+    public interface IGenericRepository<TEntity> where TEntity : IEntity
     {
         /// <summary>
         ///     Creates the existing entity.
@@ -13,7 +13,7 @@ namespace RedTeam.Repositories.Interfaces
         /// <summary>
         ///     Get all entities
         /// </summary>
-        Task<IEnumerable<TEntity>> GetAllAsync();
+        Task<IReadOnlyCollection<TEntity>> GetAllAsync();
 
         /// <summary>
         ///     Finds one entity based on its Identifier.

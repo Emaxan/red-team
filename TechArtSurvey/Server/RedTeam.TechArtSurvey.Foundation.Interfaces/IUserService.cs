@@ -10,6 +10,6 @@ namespace RedTeam.TechArtSurvey.Foundation.Interfaces
         Task Update(TEntityDto user);
         Task DeleteAsync(int id);
         Task<TEntityDto> GetAsync(int id);
-        Task<IEnumerable<TEntityDto>> GetAllAsync();
+        Task<IReadOnlyCollection<TEntityDto>> GetAllAsync();
     }
 }
