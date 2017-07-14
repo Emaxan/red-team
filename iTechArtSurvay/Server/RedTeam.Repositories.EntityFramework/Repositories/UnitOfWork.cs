@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Threading.Tasks;
-using RedTeam.iTechArtSurvay.DomainModel.Interfaces;
-using RedTeam.iTechArtSurvay.Repositories.EF;
 using RedTeam.Repositories.Interfaces;
 
 namespace RedTeam.Repositories.EntityFramework.Repositories
@@ -9,13 +7,13 @@ namespace RedTeam.Repositories.EntityFramework.Repositories
     public class UnitOfWork<TEntity> : IUnitOfWork<TEntity>
         where TEntity : class, IEntity
     {
-        private readonly ITechArtSurvayContext _context;
+        private readonly IDbContext _context;
         private bool _disposed;
         private IRepository<TEntity> _entityRepository;
 
-        public UnitOfWork(string connectionString)
+        public UnitOfWork(IDbContext context)
         {
-            _context = new ITechArtSurvayContext(connectionString);
+            _context = context;
         }
 
         public IRepository<TEntity> Entities => _entityRepository ??

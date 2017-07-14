@@ -50,16 +50,11 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\Repository.cs" />
     <Compile Include="Repositories\UnitOfWork.cs" />
-    <Compile Include="Repositories\UserRepository.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\RedTeam.iTechArtSurvay.DomainModel\RedTeam.iTechArtSurvay.DomainModel.csproj">
       <Project>{cba1e0f8-a057-4782-82de-162668f2b074}</Project>
       <Name>RedTeam.iTechArtSurvay.DomainModel</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\RedTeam.iTechArtSurvay.Repositories\RedTeam.iTechArtSurvay.Repositories.csproj">
-      <Project>{60ebc204-dbcf-4140-9690-5e2b6b4eea87}</Project>
-      <Name>RedTeam.iTechArtSurvay.Repositories</Name>
     </ProjectReference>
     <ProjectReference Include="..\RedTeam.Repositories\RedTeam.Repositories.csproj">
       <Project>{433a7044-1a29-42cb-80b0-06e86aa12a2f}</Project>

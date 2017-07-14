@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Threading.Tasks;
-using RedTeam.iTechArtSurvay.DomainModel.Interfaces;
 
 namespace RedTeam.Repositories.Interfaces
 {

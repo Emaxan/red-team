@@ -33,6 +33,7 @@
     <Reference Include="AutoMapper, Version=6.1.1.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
       <HintPath>..\packages\AutoMapper.6.1.1\lib\net45\AutoMapper.dll</HintPath>
     </Reference>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
     <Reference Include="Ninject, Version=3.2.0.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
       <HintPath>..\packages\Ninject.3.2.2.0\lib\net45-full\Ninject.dll</HintPath>
     </Reference>
@@ -47,6 +48,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DTO\UserDTO.cs" />
+    <Compile Include="Infrastructure\ContextModule.cs" />
     <Compile Include="Infrastructure\ServiceModule.cs" />
     <Compile Include="Infrastructure\ValidationException.cs" />
     <Compile Include="Interfaces\IUserService.cs" />
@@ -63,6 +65,10 @@
     <ProjectReference Include="..\RedTeam.iTechArtSurvay.DomainModel\RedTeam.iTechArtSurvay.DomainModel.csproj">
       <Project>{cba1e0f8-a057-4782-82de-162668f2b074}</Project>
       <Name>RedTeam.iTechArtSurvay.DomainModel</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\RedTeam.iTechArtSurvay.Repositories\RedTeam.iTechArtSurvay.Repositories.csproj">
+      <Project>{60ebc204-dbcf-4140-9690-5e2b6b4eea87}</Project>
+      <Name>RedTeam.iTechArtSurvay.Repositories</Name>
     </ProjectReference>
     <ProjectReference Include="..\RedTeam.Repositories.EntityFramework\RedTeam.Repositories.EntityFramework.csproj">
       <Project>{7250157b-e69a-4e89-8688-51dae08c607c}</Project>
