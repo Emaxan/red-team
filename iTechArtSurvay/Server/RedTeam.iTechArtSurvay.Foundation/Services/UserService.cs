@@ -47,7 +47,7 @@ namespace RedTeam.iTechArtSurvay.Foundation.Services
                 throw new ValidationException("Пользователь не найден", "");
             }
             Mapper.Initialize(cfg => cfg.CreateMap<UserDto, User>());
-            Database.Entities.Delete(Mapper.Map<UserDto, User>(user));
+            Database.Entities.Update(Mapper.Map<UserDto, User>(user));
         }
 
         public async Task DeleteAsync(int id)
