@@ -83,6 +83,10 @@
       <Project>{433a7044-1a29-42cb-80b0-06e86aa12a2f}</Project>
       <Name>RedTeam.Repositories</Name>
     </ProjectReference>
+    <ProjectReference Include="..\RedTeam.TechArtSurvey.Foundation.Interfaces\RedTeam.TechArtSurvey.Foundation.Interfaces.csproj">
+      <Project>{cdf233fb-754d-41fe-8f6c-b41f40aa680a}</Project>
+      <Name>RedTeam.TechArtSurvey.Foundation.Interfaces</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

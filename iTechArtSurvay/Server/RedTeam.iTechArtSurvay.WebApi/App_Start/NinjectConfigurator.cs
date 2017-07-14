@@ -1,6 +1,6 @@
 ﻿using Ninject;
-using RedTeam.iTechArtSurvay.Foundation.Interfaces;
 using RedTeam.iTechArtSurvay.Foundation.Services;
+using RedTeam.TechArtSurvey.Foundation.Interfaces;
 
 namespace RedTeam.iTechArtSurvay.WebApi
 {
@@ -13,7 +13,7 @@ namespace RedTeam.iTechArtSurvay.WebApi
 
         private void AddBindings(IKernel kernel)
         {
-            kernel.Bind<IUserService>().To<UserService>();
+            kernel.Bind(typeof(IUserService<>)).To(typeof(UserService));
         }
     }
 }

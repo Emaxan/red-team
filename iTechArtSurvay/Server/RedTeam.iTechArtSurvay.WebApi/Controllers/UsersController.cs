@@ -4,15 +4,15 @@ using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Description;
 using RedTeam.iTechArtSurvay.Foundation.DTO;
-using RedTeam.iTechArtSurvay.Foundation.Interfaces;
+using RedTeam.TechArtSurvey.Foundation.Interfaces;
 
 namespace RedTeam.iTechArtSurvay.WebApi.Controllers
 {
     public class UsersController : ApiController
     {
-        private readonly IUserService _userService;
+        private readonly IUserService<UserDto> _userService;
 
-        public UsersController(IUserService userService)
+        public UsersController(IUserService<UserDto> userService)
         {
             _userService = userService;
         }

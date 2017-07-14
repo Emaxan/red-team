@@ -55,7 +55,8 @@ namespace RedTeam.iTechArtSurvay.WebApi
             var modules = new INinjectModule[]
             {
                 new ServiceModule(),
-                new ContextModule("iTechArtSurvayDb")
+                new ContextModule("iTechArtSurvayDb"),
+                new MapperInitializer(), 
             };
 
             var kernel = new StandardKernel(modules);

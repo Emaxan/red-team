@@ -1,6 +1,5 @@
 ﻿using Ninject.Modules;
 using RedTeam.iTechArtSurvay.Repositories.EF;
-using RedTeam.Repositories.EntityFramework.Repositories;
 using RedTeam.Repositories.Interfaces;
 
 namespace RedTeam.iTechArtSurvay.Foundation.Infrastructure

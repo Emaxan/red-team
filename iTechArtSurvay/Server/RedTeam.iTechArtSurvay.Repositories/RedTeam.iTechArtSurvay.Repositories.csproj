@@ -80,6 +80,10 @@
       <Project>{433A7044-1A29-42CB-80B0-06E86AA12A2F}</Project>
       <Name>RedTeam.Repositories</Name>
     </ProjectReference>
+    <ProjectReference Include="..\RedTeam.TechArtSurvey.Repositories.Interfaces\RedTeam.TechArtSurvey.Repositories.Interfaces.csproj">
+      <Project>{A92EAE24-D485-4F0D-B77F-EB485A7FCBE3}</Project>
+      <Name>RedTeam.TechArtSurvey.Repositories.Interfaces</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201707131626113_InitialMigration.resx">
