@@ -1,36 +1,25 @@
-# Infrastructure of RedTeam.iTechArtSurvay Server solution.
+# Server infrastructure #
 
-## Projects list:
-  * Data Access Layer:
-    * RedTeam.Repositories;
-    * RedTeam.Repositories.EntityFramework;
-    * RedTeam.iTechArtSurvay.DomainModel;
-    * RedTeam.iTechArtSurvay.Repositories;
+---
 
+### Data Access Layer ###
+* *RedTeam.iTechArtSurvay.DomainModel*: (description)
+* *RedTeam.iTechArtSurvay.Repositories*: (description)
+* *RedTeam.Repositories*: (description)
+* *RedTeam.Repositories.EntityFramework*: (description)
 
-  * Business Logic Layer:
-    * RedTeam.iTechArtSurvay.Foundation;
+### Business Logic Layer ###
+* *RedTeam.iTechArtSurvay.Foundation*: (description)
 
     
-  * Presentation Layer:
-    * RedTeam.iTechArtSurvay.WebApi.
+### Presentation Layer ###
+* *RedTeam.iTechArtSurvay.WebApi*: (description)
 
-### RedTeam.Repositories
-Project include interfaces of general classes:
-  1. IDatabaseInitialiser;
-  2. IDbConext;
-  3. IRepositiry;
-  4. IUnitOfWork;
-  5. IUserRepository;
+---
 
-### RedTeam.Repositories.EntityFramework
-Project include implementations of general classes for EntityFramework:
-  1. Repositiry;
-  2. UnitOfWork;
-  3. UserRepository;
-
-### RedTeam.iTechArtSurvay.DomainModel
+### RedTeam.iTechArtSurvay.DomainModel ###
 Project include:
+
   * Interfaces:
     1. IEntity
 
@@ -38,17 +27,35 @@ Project include:
   * Domain models:
     1. User;
 
-All models should implement IEntity interface.
-
-### RedTeam.iTechArtSurvay.Repositories
+### RedTeam.iTechArtSurvay.Repositories ###
 Project include:
+
   * Contexts for database:
     1. ITechArtSurvayContext;
 
 
-  * Migration's files and configurations for it.
+  * Migration's files and configurations for it (you can find more information about migrations [here](./DatabaseMigrations.md).
 
-### RedTeam.iTechArtSurvay.Foundation
+
+### RedTeam.Repositories ###
+Project include interfaces of general classes:
+
+  1. IDatabaseInitialiser;
+  2. IDbConext;
+  3. IRepositiry;
+  4. IUnitOfWork;
+  5. IUserRepository;
+
+### RedTeam.Repositories.EntityFramework ###
+Project include implementations of general classes for EntityFramework:
+
+  1. Repositiry;
+  2. UnitOfWork;
+  3. UserRepository;
+
+All models should implement IEntity interface.
+
+### RedTeam.iTechArtSurvay.Foundation ###
 Project include:
   * Interfaces and implementations of services:
     1. UserService;
@@ -60,7 +67,7 @@ Project include:
 
   * Complex business logic of application.
 
-### RedTeam.iTechArtSurvay.WebApi
+### RedTeam.iTechArtSurvay.WebApi ###
 Project include:
   * Ninject container;
 
