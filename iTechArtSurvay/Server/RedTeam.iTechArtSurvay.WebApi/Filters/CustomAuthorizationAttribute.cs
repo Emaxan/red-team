@@ -24,15 +24,13 @@ namespace RedTeam.iTechArtSurvay.WebApi.Filters
         /// <param name="cancellationToken">The cancellation token associated with the filter.</param>
         /// <param name="continuation">The continuation.</param>
         public Task<HttpResponseMessage> ExecuteAuthorizationFilterAsync(HttpActionContext actionContext,
-                                                                         CancellationToken cancellationToken,
-                                                                         Func<Task<HttpResponseMessage>> continuation)
+            CancellationToken cancellationToken,
+            Func<Task<HttpResponseMessage>> continuation)
         {
             var principal = actionContext.RequestContext.Principal;
-            if ( principal == null || !usersList.Contains(principal.Identity.Name) )
-            {
+            if (principal == null || !usersList.Contains(principal.Identity.Name))
                 return Task.FromResult(
-                                       actionContext.Request.CreateResponse(HttpStatusCode.Unauthorized));
-            }
+                    actionContext.Request.CreateResponse(HttpStatusCode.Unauthorized));
             return continuation();
         }
 

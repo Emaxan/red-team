@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Data.Entity;
-using System.Linq;
 using System.Threading.Tasks;
 using RedTeam.iTechArtSurvay.DomainModel.Entities;
 using RedTeam.iTechArtSurvay.Repositories.EF;
@@ -10,7 +9,9 @@ namespace RedTeam.Repositories.EntityFramework.Repositories
 {
     public class UserRepository : Repository<User, ITechArtSurvayContext>, IUserRepository
     {
-        public UserRepository(ITechArtSurvayContext context) : base(context) { }
+        public UserRepository(ITechArtSurvayContext context) : base(context)
+        {
+        }
 
         public override void Create(User user)
         {

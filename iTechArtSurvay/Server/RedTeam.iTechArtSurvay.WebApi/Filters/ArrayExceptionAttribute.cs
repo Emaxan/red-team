@@ -14,16 +14,13 @@ namespace RedTeam.iTechArtSurvay.WebApi.Filters
         /// <param name="actionExecutedContext">The action executed context.</param>
         /// <param name="cancellationToken">The cancellation token.</param>
         public Task ExecuteExceptionFilterAsync(HttpActionExecutedContext actionExecutedContext,
-                                                CancellationToken cancellationToken)
+            CancellationToken cancellationToken)
         {
-            if ( actionExecutedContext.Exception != null &&
-                 actionExecutedContext.Exception is IndexOutOfRangeException )
-            {
+            if (actionExecutedContext.Exception != null &&
+                actionExecutedContext.Exception is IndexOutOfRangeException)
                 actionExecutedContext.Response = actionExecutedContext.Request.CreateErrorResponse(
-                                                                                                   HttpStatusCode.
-                                                                                                       BadRequest,
-                                                                                                   "Элемент вне диапазона");
-            }
+                    HttpStatusCode.BadRequest,
+                    "Элемент вне диапазона");
             return Task.FromResult<object>(null);
         }
 

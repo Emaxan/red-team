@@ -16,12 +16,12 @@ namespace RedTeam.iTechArtSurvay.WebApi.Filters
         /// <param name="cancellationToken">The cancellation token assigned for this task.</param>
         /// <param name="continuation">The delegate function to continue after the action method is invoked.</param>
         public async Task<HttpResponseMessage> ExecuteActionFilterAsync(HttpActionContext actionContext,
-                                                                        CancellationToken cancellationToken,
-                                                                        Func<Task<HttpResponseMessage>> continuation)
+            CancellationToken cancellationToken,
+            Func<Task<HttpResponseMessage>> continuation)
         {
             var timer = Stopwatch.StartNew();
             var result = await continuation();
-            var seconds = timer.ElapsedMilliseconds/1000.0;
+            var seconds = timer.ElapsedMilliseconds / 1000.0;
             result.Headers.Add("Elapsed-Time", seconds.ToString());
             return result;
         }

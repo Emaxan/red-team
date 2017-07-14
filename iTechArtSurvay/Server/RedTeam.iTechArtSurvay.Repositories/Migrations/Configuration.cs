@@ -1,20 +1,17 @@
+using System.Data.Entity.Migrations;
 using RedTeam.iTechArtSurvay.DomainModel.Entities;
+using RedTeam.iTechArtSurvay.Repositories.EF;
 
 namespace RedTeam.iTechArtSurvay.Repositories.Migrations
 {
-    using System;
-    using System.Data.Entity;
-    using System.Data.Entity.Migrations;
-    using System.Linq;
-
-    internal sealed class Configuration : DbMigrationsConfiguration<RedTeam.iTechArtSurvay.Repositories.EF.ITechArtSurvayContext>
+    internal sealed class Configuration : DbMigrationsConfiguration<ITechArtSurvayContext>
     {
         public Configuration()
         {
             AutomaticMigrationsEnabled = false;
         }
 
-        protected override void Seed(RedTeam.iTechArtSurvay.Repositories.EF.ITechArtSurvayContext context)
+        protected override void Seed(ITechArtSurvayContext context)
         {
             context.Users.Add(new User
             {

@@ -8,7 +8,7 @@ namespace RedTeam.Repositories.EntityFramework.Repositories
 {
     public class Repository<TEntity, TContext> : IRepository<TEntity>
         where TEntity : class, IEntity
-        where TContext: DbContext
+        where TContext : DbContext
     {
         protected TContext Context;
 

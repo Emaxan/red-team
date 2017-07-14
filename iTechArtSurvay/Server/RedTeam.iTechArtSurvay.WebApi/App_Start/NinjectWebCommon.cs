@@ -10,8 +10,8 @@ using RedTeam.iTechArtSurvay.WebApi;
 using RedTeam.iTechArtSurvay.WebApi.Utils;
 using WebActivatorEx;
 
-[assembly: WebActivatorEx.PreApplicationStartMethod(typeof( NinjectWebCommon ), "Start")]
-[assembly: ApplicationShutdownMethod(typeof( NinjectWebCommon ), "Stop")]
+[assembly: WebActivatorEx.PreApplicationStartMethod(typeof(NinjectWebCommon), "Start")]
+[assembly: ApplicationShutdownMethod(typeof(NinjectWebCommon), "Stop")]
 
 namespace RedTeam.iTechArtSurvay.WebApi
 {
@@ -24,15 +24,15 @@ namespace RedTeam.iTechArtSurvay.WebApi
         /// </summary>
         public static void Start()
         {
-            DynamicModuleUtility.RegisterModule(typeof( OnePerRequestHttpModule ));
-            DynamicModuleUtility.RegisterModule(typeof( NinjectHttpModule ));
+            DynamicModuleUtility.RegisterModule(typeof(OnePerRequestHttpModule));
+            DynamicModuleUtility.RegisterModule(typeof(NinjectHttpModule));
 
             IKernel container = null;
             Bootstrapper.Initialize(() =>
-                                    {
-                                        container = CreateKernel();
-                                        return container;
-                                    });
+            {
+                container = CreateKernel();
+                return container;
+            });
 
             var resolver = new NinjectDependencyResolver(container);
             GlobalConfiguration.Configuration.DependencyResolver = resolver;
@@ -53,9 +53,9 @@ namespace RedTeam.iTechArtSurvay.WebApi
         private static IKernel CreateKernel()
         {
             var modules = new INinjectModule[]
-                          {
-                              new ServiceModule("iTechArtSurvayDb")
-                          };
+            {
+                new ServiceModule("iTechArtSurvayDb")
+            };
             var kernel = new StandardKernel(modules);
             try
             {

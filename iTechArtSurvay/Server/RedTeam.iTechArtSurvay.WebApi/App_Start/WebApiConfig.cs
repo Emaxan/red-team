@@ -12,13 +12,13 @@ namespace RedTeam.iTechArtSurvay.WebApi
             config.MapHttpAttributeRoutes();
 
             config.Routes.MapHttpRoute(
-                                       "DefaultApi",
-                                       "api/{controller}/{id}",
-                                       new
-                                       {
-                                           id = RouteParameter.Optional
-                                       }
-                                      );
+                "DefaultApi",
+                "api/{controller}/{id}",
+                new
+                {
+                    id = RouteParameter.Optional
+                }
+            );
 
             // config.Formatters.Add(new UserFormatter());
         }
