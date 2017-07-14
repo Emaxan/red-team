@@ -14,10 +14,12 @@ namespace RedTeam.iTechArtSurvay.Foundation.Services
     public class UserService : IUserService<UserDto>
     {
         private readonly IUnitOfWork<User> _uow;
+        private readonly IMapper _mapper;
 
-        public UserService(IUnitOfWork<User> uow)
+        public UserService(IUnitOfWork<User> uow, IMapper mapper)
         {
             _uow = uow;
+            _mapper = mapper;
         }
 
         public async Task Create(UserDto user)
@@ -31,8 +33,7 @@ namespace RedTeam.iTechArtSurvay.Foundation.Services
             {
                 throw new ValidationException("Cущность пользователя уже существует", "");
             }
-            Mapper.Initialize(cfg => cfg.CreateMap<UserDto, User>());
-            _uow.Entities.Create(Mapper.Map<UserDto, User>(user));
+            
             await _uow.SaveAsync();
         }
 
@@ -47,8 +48,8 @@ namespace RedTeam.iTechArtSurvay.Foundation.Services
             {
                 throw new ValidationException("Пользователь не найден", "");
             }
-            Mapper.Initialize(cfg => cfg.CreateMap<UserDto, User>());
-            _uow.Entities.Update(Mapper.Map<UserDto, User>(user));
+            
+            _uow.Entities.Update(_mapper.Map<UserDto, User>(user));
             await _uow.SaveAsync();
         }
 
@@ -65,20 +66,18 @@ namespace RedTeam.iTechArtSurvay.Foundation.Services
 
         public async Task<UserDto> GetAsync(int id)
         {
-            var user = await _uow.Entities.GetAsync(id) as User;
+            var user = await _uow.Entities.GetAsync(id);
             if ( user == null )
             {
                 throw new ValidationException("Пользователь не найден", "");
             }
-            Mapper.Initialize(cfg => cfg.CreateMap<User, UserDto>());
-            return Mapper.Map<User, UserDto>(user);
+            return _mapper.Map<User, UserDto>(user);
         }
 
         public async Task<IEnumerable<UserDto>> GetAllAsync()
         {
-            var users = await _uow.Entities.GetAllAsync() as IEnumerable<User>;
-            Mapper.Initialize(cfg => cfg.CreateMap<User, UserDto>());
-            return Mapper.Map<IEnumerable<User>, IEnumerable<UserDto>>(users);
+            var users = await _uow.Entities.GetAllAsync();
+            return _mapper.Map<IEnumerable<User>, IEnumerable<UserDto>>(users);
         }
     }
 }

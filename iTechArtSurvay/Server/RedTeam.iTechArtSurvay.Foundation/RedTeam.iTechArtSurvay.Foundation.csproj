@@ -53,6 +53,7 @@
   <ItemGroup>
     <Compile Include="DTO\UserDTO.cs" />
     <Compile Include="Infrastructure\ContextModule.cs" />
+    <Compile Include="Infrastructure\MapperInitializer.cs" />
     <Compile Include="Infrastructure\ServiceModule.cs" />
     <Compile Include="Exceptions\ValidationException.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
