@@ -53,10 +53,11 @@ namespace RedTeam.iTechArtSurvay.WebApi
         private static IKernel CreateKernel()
         {
             var modules = new INinjectModule[]
-                          {
-                              new ServiceModule(),
-                              new ContextModule("iTechArtSurvayDb")
-                          };
+            {
+                new ServiceModule(),
+                new ContextModule("iTechArtSurvayDb")
+            };
+
             var kernel = new StandardKernel(modules);
             try
             {
