@@ -1,6 +1,8 @@
-﻿namespace RedTeam.iTechArtSurvay.Foundation.DTO
+﻿using RedTeam.TechArtSurvey.Foundation.Interfaces;
+
+namespace RedTeam.iTechArtSurvay.Foundation.DTO
 {
-    public class UserDto
+    public class UserDto : IEntityDto
     {
         public int Id { get; set; }
         public string Name { get; set; }

@@ -3,8 +3,8 @@ using System.Data.Entity;
 using System.Threading.Tasks;
 using RedTeam.iTechArtSurvay.DomainModel.Entities;
 using RedTeam.iTechArtSurvay.Repositories.EF;
-using RedTeam.iTechArtSurvay.Repositories.Interfaces;
 using RedTeam.Repositories.EntityFramework.Repositories;
+using RedTeam.TechArtSurvey.Repositories.Interfaces;
 
 namespace RedTeam.iTechArtSurvay.Repositories.Repositories
 {

@@ -3,13 +3,13 @@ using System.Threading.Tasks;
 using AutoMapper;
 using RedTeam.iTechArtSurvay.DomainModel.Entities;
 using RedTeam.iTechArtSurvay.Foundation.DTO;
-using RedTeam.iTechArtSurvay.Foundation.Infrastructure;
-using RedTeam.iTechArtSurvay.Foundation.Interfaces;
+using RedTeam.iTechArtSurvay.Foundation.Exceptions;
 using RedTeam.Repositories.Interfaces;
+using RedTeam.TechArtSurvey.Foundation.Interfaces;
 
 namespace RedTeam.iTechArtSurvay.Foundation.Services
 {
-    public class UserService : IUserService
+    public class UserService : IUserService<UserDto>
     {
         private IUnitOfWork<User> Database { get; }
 
