@@ -2,6 +2,8 @@
 
 ### Migration files ###
 
+All migration files are associated with RedTeam.iTechArtSurvay.Repositories project. So, next files you can find here.
+
 - `Configuration.cs`
 
 This file contains configuration of the database-migrations process. Pay attention for method called `Seed` - this method is used for adding test-data into tables every time when database is created or has migration (with the help of Database context object). Method `Seed` runs every time when you execute `update-database` command (see below) and override any changes to data that you may have made while testing the application.
@@ -16,16 +18,14 @@ Work with migrations is based on `Package manager console`. So, before start you
 
 ##### Enabling migrations #####
 
-If the project doesn't have `Migrations` folder or you see this PMC-error:
-> No migrations configuration type was found in the assembly 'DatabaseMigrations'
+If project doesn't have `Migrations` folder or you get this PMC-error:
+> No migrations configuration type was found in the assembly 'RedTeam.iTechArtSurvay.Repositories'
 
-you should enable migrations with the help of `enable-migrations` command. 
-
-/////////////
+you should enable migrations with the help of `enable-migrations -projectname: RedTeam.iTechArtSurvay.Repositories` command. 
 
 ##### Creating new migration #####
 
-If the domain-model was changed, to avoid conflicts between code and database, you should you `add-migration` command, which is used for creating new migration (you can use parameter for naming migrations and I think it's good idea). In a nutshell, `add-migration` will create the template of future migration based on changes in code.
+If the domain-model was changed, to avoid conflicts between code and database, you should use `add-migration -projectname: RedTeam.iTechArtSurvay.Repositories` command, which is used for creating new migration (you can use parameter for naming migrations and I think it's good idea). In a nutshell, `add-migration` will create the template of future migration based on changes in code.
 
 ##### Updating database according to migration #####
 
