@@ -64,12 +64,5 @@ namespace RedTeam.iTechArtSurvay.WebApi.Controllers
             await _userService.DeleteAsync(id);
             return Ok();
         }
-
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-                _userService.Dispose();
-            base.Dispose(disposing);
-        }
     }
 }

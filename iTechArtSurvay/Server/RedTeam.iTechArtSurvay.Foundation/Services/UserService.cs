@@ -13,56 +13,59 @@ namespace RedTeam.iTechArtSurvay.Foundation.Services
     [UsedImplicitly]
     public class UserService : IUserService<UserDto>
     {
-        private IUnitOfWork<User> Database { get; }
+        private readonly IUnitOfWork<User> _uow;
 
         public UserService(IUnitOfWork<User> uow)
         {
-            Database = uow;
+            _uow = uow;
         }
 
-        public void Create(UserDto user)
+        public async Task Create(UserDto user)
         {
             if ( user == null )
             {
                 throw new ValidationException("Не установлена сущность пользователя", "");
             }
-            var us = Database.Entities.GetAsync(user.Id);
+            var us = _uow.Entities.GetAsync(user.Id);
             if ( us != null )
             {
                 throw new ValidationException("Cущность пользователя уже существует", "");
             }
             Mapper.Initialize(cfg => cfg.CreateMap<UserDto, User>());
-            Database.Entities.Create(Mapper.Map<UserDto, User>(user));
+            _uow.Entities.Create(Mapper.Map<UserDto, User>(user));
+            await _uow.SaveAsync();
         }
 
-        public void Update(UserDto user)
+        public async Task Update(UserDto user)
         {
             if ( user == null )
             {
                 throw new ValidationException("Не установлена сущность пользователя", "");
             }
-            var us = Database.Entities.GetAsync(user.Id);
+            var us = _uow.Entities.GetAsync(user.Id);
             if ( us == null )
             {
                 throw new ValidationException("Пользователь не найден", "");
             }
             Mapper.Initialize(cfg => cfg.CreateMap<UserDto, User>());
-            Database.Entities.Update(Mapper.Map<UserDto, User>(user));
+            _uow.Entities.Update(Mapper.Map<UserDto, User>(user));
+            await _uow.SaveAsync();
         }
 
         public async Task DeleteAsync(int id)
         {
-            var user = await Database.Entities.GetAsync(id);
+            var user = await _uow.Entities.GetAsync(id);
             if ( user == null )
             {
                 throw new ValidationException("Пользователь не найден", "");
             }
-            Database.Entities.Delete(user);
+            _uow.Entities.Delete(user);
+            await _uow.SaveAsync();
         }
 
         public async Task<UserDto> GetAsync(int id)
         {
-            var user = await Database.Entities.GetAsync(id) as User;
+            var user = await _uow.Entities.GetAsync(id) as User;
             if ( user == null )
             {
                 throw new ValidationException("Пользователь не найден", "");
@@ -73,11 +76,9 @@ namespace RedTeam.iTechArtSurvay.Foundation.Services
 
         public async Task<IEnumerable<UserDto>> GetAllAsync()
         {
-            var users = await Database.Entities.GetAllAsync() as IEnumerable<User>;
+            var users = await _uow.Entities.GetAllAsync() as IEnumerable<User>;
             Mapper.Initialize(cfg => cfg.CreateMap<User, UserDto>());
             return Mapper.Map<IEnumerable<User>, IEnumerable<UserDto>>(users);
         }
-
-        public void Dispose() { }
     }
 }
