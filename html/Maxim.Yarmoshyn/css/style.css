@@ -1,244 +1,244 @@
 .header {
-	background-color: rgb(238, 238, 238);
+  background-color: rgb(238, 238, 238);
 }
 
 .logo {
-	float: left;
+  float: left;
 }
 
 .logo__img {
-	margin: 20px;
-	vertical-align: middle;
-	display: inline-block;
+  margin: 20px;
+  vertical-align: middle;
+  display: inline-block;
 }
 
 .nav__link {
-	color: rgb(0, 0, 0);
+  color: rgb(0, 0, 0);
 }
 
 .nav__link:hover {
-	color: rgb(150, 150, 150);
+  color: rgb(150, 150, 150);
 }
 
 .nav__link:active {
-	color: red;
+  color: red;
 }
 
 .nav__link {
-	text-decoration: none;
+  text-decoration: none;
 }
 
 .nav {
-	margin: 20px;
-	margin-right: 0;
-	display: inline-block;
+  margin: 20px;
+  margin-right: 0;
+  display: inline-block;
   float: right;
-	padding-right: 40px;
-	padding-left: 0;
+  padding-right: 40px;
+  padding-left: 0;
 }
 
 .about-company,
 .about-user {
-	margin-left: 20px;
-	margin-top: 10px;
-	text-align: center;
-	display: inline-block;
+  margin-left: 20px;
+  margin-top: 10px;
+  text-align: center;
+  display: inline-block;
 }
 
 .user-info__img {
-	vertical-align: middle;
+  vertical-align: middle;
 }
 
 .wrapper {
-	display: flex;
-	flex-flow: row nowrap;
-	justify-content: space-between;
-	align-items: stretch;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+  align-items: stretch;
 }
 
 .menu,
 .about-info {
- 	padding: 20px;
+   padding: 20px;
 }
 
 .menu {
-	display: flex;
-	flex-flow: column nowrap;
-	flex-basis: 400px;
-	justify-content: flex-start;
-	align-items: stretch;
-	background-color: rgb(245, 245, 245);
+  display: flex;
+  flex-flow: column nowrap;
+  flex-basis: 400px;
+  justify-content: flex-start;
+  align-items: stretch;
+  background-color: rgb(245, 245, 245);
 }
 
 .menu__item {
-	display: block;
-	margin: 20px 20px 0;
-	border: solid black 1px;
-	min-height: 30px;
-	background-color: rgb(255, 255, 255);
-	box-shadow: 3px 3px 0 0 rgb(0, 0, 0);
+  display: block;
+  margin: 20px 20px 0;
+  border: solid black 1px;
+  min-height: 30px;
+  background-color: rgb(255, 255, 255);
+  box-shadow: 3px 3px 0 0 rgb(0, 0, 0);
 }
 
 .menu__item:hover {
-	border-color: rgb(150, 150, 150);
-	box-shadow: 3px 3px 0 0 rgb(150, 150, 150);
-	transition: all cubic-bezier(0, 0, 0.2, 1) 0.2s;
+  border-color: rgb(150, 150, 150);
+  box-shadow: 3px 3px 0 0 rgb(150, 150, 150);
+  transition: all cubic-bezier(0, 0, 0.2, 1) 0.2s;
 }
 
 .menu__item:active {
-	position: relative;
-	top: 2px;
-	left: 2px;
-	box-shadow: none;
-	transition: all cubic-bezier(0, 0, 0.2, 1) 0.2s
+  position: relative;
+  top: 2px;
+  left: 2px;
+  box-shadow: none;
+  transition: all cubic-bezier(0, 0, 0.2, 1) 0.2s
 }
 
 .menu__item:focus {
-	background-color: rgb(245, 245, 245);
+  background-color: rgb(245, 245, 245);
 }
 
 .about-info {
-	flex-grow: 5;
+  flex-grow: 5;
 }
 
 .header-info {
-	display: flex;
-	flex-flow: row nowrap;
-	justify-content: flex-start;
-	align-items: center;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: flex-start;
+  align-items: center;
 }
 
 .header-info__logo {
-	width: 200px;
-	text-align: center;
-	display: inline-block;
-	vertical-align: middle;
-	margin-right: 30px;
-	font-size: 3em;
+  width: 200px;
+  text-align: center;
+  display: inline-block;
+  vertical-align: middle;
+  margin-right: 30px;
+  font-size: 3em;
 }
 
 .header-info__img {
-	display: inline-block;
-	object-fit: scale-down;
-	flex-grow: 5;
-	max-height: 500px;
+  display: inline-block;
+  object-fit: scale-down;
+  flex-grow: 5;
+  max-height: 500px;
 }
 
 .tabs {
-	position: relative;
-	min-height: 250px;
-	clear: both;
-	margin: 25px 0;
+  position: relative;
+  min-height: 250px;
+  clear: both;
+  margin: 25px 0;
 }
 
 .tab {
-	float: left;
-	margin-bottom: 10px;
+  float: left;
+  margin-bottom: 10px;
 }
 
 .tab__content {
-	background: rgb(204, 204, 204);
-	padding: 5px;
-	border: 1px solid rgb(0, 0, 0);
-	border-radius: 0 10px 0 0;
-	margin-left: -1px;
-	position: relative;
-	left: 1px;
+  background: rgb(204, 204, 204);
+  padding: 5px;
+  border: 1px solid rgb(0, 0, 0);
+  border-radius: 0 10px 0 0;
+  margin-left: -1px;
+  position: relative;
+  left: 1px;
 }
 
 .tab__content:hover {
-	background-color: rgb(230, 230, 230);
-	transition: all  cubic-bezier(0, 0, 0.2, 1) 0.2s;
+  background-color: rgb(230, 230, 230);
+  transition: all  cubic-bezier(0, 0, 0.2, 1) 0.2s;
 }
 
 .tab__content:active {
-	color: rgb(255, 0, 0);
-	transition: all  cubic-bezier(0, 0, 0.2, 1) 0.2s;
+  color: rgb(255, 0, 0);
+  transition: all  cubic-bezier(0, 0, 0.2, 1) 0.2s;
 }
 
 .tab__marker {
-	display: none;
+  display: none;
 }
 
 .tab-content {
-	position: absolute;
-	top: 22px;
-	left: 0;
-	right: 0;
-	bottom: 0;
-	background: white;
-	padding: 20px;
-	border: 1px solid rgb(0, 0, 0);
+  position: absolute;
+  top: 22px;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: white;
+  padding: 20px;
+  border: 1px solid rgb(0, 0, 0);
 }
 
 .tab__marker:checked ~ .tab__content {
-	background: white;
+  background: white;
 }
 
 .tab__marker:checked ~ .tab-content {
-	display: block;
+  display: block;
 }
 
 .tab__marker:not(:checked) ~ .tab-content {
-	display: none;
+  display: none;
 }
 
 .about-us__titul-img {
-	float: left;
-	margin-right: 20px;
+  float: left;
+  margin-right: 20px;
 }
 
 .footer {
-	width: 100%;
+  width: 100%;
 }
 
 .footer__copyright {
-	text-align: center;
+  text-align: center;
 }
 
 .clearfix::after {
-	content: "";
-	display: table;
-	clear: both;
+  content: "";
+  display: table;
+  clear: both;
 }
 
 @media all and (max-width: 935px) {
-	.tab-content {
-		top: 50px;
-	}
+  .tab-content {
+    top: 50px;
+  }
 }
 
 @media all and (max-width: 600px) {
-	.logo {
-		float: none;
-		display: block;
-	}
+  .logo {
+    float: none;
+    display: block;
+  }
 
-	.logo__img {
-		display: block;
-		margin: 0 auto;
-		padding-top: 20px;
-	}
+  .logo__img {
+    display: block;
+    margin: 0 auto;
+    padding-top: 20px;
+  }
 
-	.nav {
-		display: block;
-		float: none;
-	}
+  .nav {
+    display: block;
+    float: none;
+  }
 
-	.about-company,
-	.about-user {
-		display: block;
-	}
+  .about-company,
+  .about-user {
+    display: block;
+  }
 }
 
 @media all and (max-width: 750px) {
-	.header-info__logo {
-		font-size: 2em;
-	}
+  .header-info__logo {
+    font-size: 2em;
+  }
 }
 
 @media all and (max-width: 550px) {
-	.header-info__logo {
-		font-size: 1.5em;
-	}
+  .header-info__logo {
+    font-size: 1.5em;
+  }
 }
