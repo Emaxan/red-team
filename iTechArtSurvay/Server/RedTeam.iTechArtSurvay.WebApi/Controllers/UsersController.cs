@@ -38,7 +38,7 @@ namespace RedTeam.iTechArtSurvay.WebApi.Controllers
         // PUT api/Users/5
         [HttpPut]
         [ResponseType(typeof(void))]
-        public IHttpActionResult EditUser(int id, UserDto user)
+        public IHttpActionResult EditUser(UserDto user)
         {
             _userService.Update(user);
             return StatusCode(HttpStatusCode.Accepted);
