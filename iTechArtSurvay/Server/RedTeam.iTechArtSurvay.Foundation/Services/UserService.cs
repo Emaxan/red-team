@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
+using JetBrains.Annotations;
 using RedTeam.iTechArtSurvay.DomainModel.Entities;
 using RedTeam.iTechArtSurvay.Foundation.DTO;
 using RedTeam.iTechArtSurvay.Foundation.Exceptions;
@@ -9,6 +10,7 @@ using RedTeam.TechArtSurvey.Foundation.Interfaces;
 
 namespace RedTeam.iTechArtSurvay.Foundation.Services
 {
+    [UsedImplicitly]
     public class UserService : IUserService<UserDto>
     {
         private IUnitOfWork<User> Database { get; }

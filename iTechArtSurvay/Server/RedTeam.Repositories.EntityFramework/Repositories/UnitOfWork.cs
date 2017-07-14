@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Threading.Tasks;
+using JetBrains.Annotations;
 using RedTeam.Repositories.Interfaces;
 
 namespace RedTeam.Repositories.EntityFramework.Repositories
 {
+    [UsedImplicitly]
     public class UnitOfWork<TEntity> : IUnitOfWork<TEntity>
         where TEntity : class, IEntity
     {
@@ -11,6 +13,7 @@ namespace RedTeam.Repositories.EntityFramework.Repositories
         private bool _disposed;
         private IRepository<TEntity> _entityRepository;
 
+        [UsedImplicitly]
         public UnitOfWork(IDbContext context)
         {
             _context = context;
@@ -30,7 +33,7 @@ namespace RedTeam.Repositories.EntityFramework.Repositories
             GC.SuppressFinalize(this);
         }
 
-        public virtual void Dispose(bool disposing)
+        public void Dispose(bool disposing)
         {
             if (!_disposed)
             {

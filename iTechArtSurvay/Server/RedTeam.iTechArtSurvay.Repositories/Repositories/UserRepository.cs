@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Data.Entity;
 using System.Threading.Tasks;
+using JetBrains.Annotations;
 using RedTeam.iTechArtSurvay.DomainModel.Entities;
 using RedTeam.iTechArtSurvay.Repositories.EF;
 using RedTeam.Repositories.EntityFramework.Repositories;
@@ -10,7 +11,8 @@ namespace RedTeam.iTechArtSurvay.Repositories.Repositories
 {
     public class UserRepository : Repository<User, ITechArtSurvayContext>, IUserRepository
     {
-        public UserRepository(ITechArtSurvayContext context) : base(context)
+        public UserRepository(ITechArtSurvayContext context)
+            : base(context)
         {
         }
 
@@ -19,6 +21,7 @@ namespace RedTeam.iTechArtSurvay.Repositories.Repositories
             Context.Users.Add(user);
         }
 
+        [CanBeNull]
         public override async Task<User> GetAsync(int id)
         {
             return await Context.Users.FindAsync(id);
