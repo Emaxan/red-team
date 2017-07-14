@@ -52,10 +52,6 @@
     <Compile Include="Repositories\UnitOfWork.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\RedTeam.iTechArtSurvay.DomainModel\RedTeam.iTechArtSurvay.DomainModel.csproj">
-      <Project>{cba1e0f8-a057-4782-82de-162668f2b074}</Project>
-      <Name>RedTeam.iTechArtSurvay.DomainModel</Name>
-    </ProjectReference>
     <ProjectReference Include="..\RedTeam.Repositories\RedTeam.Repositories.csproj">
       <Project>{433a7044-1a29-42cb-80b0-06e86aa12a2f}</Project>
       <Name>RedTeam.Repositories</Name>
