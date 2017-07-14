@@ -28,12 +28,12 @@ namespace RedTeam.TechArtSurvey.Foundation.Services
             {
                 throw new ValidationException("Не установлена сущность пользователя", "");
             }
-            var us = _uow.Entities.GetAsync(user.Id);
+            var us = await _uow.Entities.GetAsync(user.Id);
             if ( us != null )
             {
                 throw new ValidationException("Cущность пользователя уже существует", "");
             }
-            
+            _uow.Entities.Create(_mapper.Map<UserDto, User>(user));
             await _uow.SaveAsync();
         }
 
@@ -43,7 +43,7 @@ namespace RedTeam.TechArtSurvey.Foundation.Services
             {
                 throw new ValidationException("Не установлена сущность пользователя", "");
             }
-            var us = _uow.Entities.GetAsync(user.Id);
+            var us = await _uow.Entities.GetAsync(user.Id);
             if ( us == null )
             {
                 throw new ValidationException("Пользователь не найден", "");
