@@ -11,62 +11,71 @@ namespace RedTeam.iTechArtSurvay.Foundation.Services
 {
     public class UserService : IUserService
     {
-        public UserService(IUnitOfWork uow)
+        private IUnitOfWork<User> Database { get; }
+
+        public UserService(IUnitOfWork<User> uow)
         {
             Database = uow;
         }
 
-        private IUnitOfWork Database { get; }
-
         public void Create(UserDto user)
         {
-            if (user == null)
+            if ( user == null )
+            {
                 throw new ValidationException("Не установлена сущность пользователя", "");
-            var us = Database.Users.GetAsync(user.Id);
-            if (us != null)
+            }
+            var us = Database.Entities.GetAsync(user.Id);
+            if ( us != null )
+            {
                 throw new ValidationException("Cущность пользователя уже существует", "");
+            }
             Mapper.Initialize(cfg => cfg.CreateMap<UserDto, User>());
-            Database.Users.Create(Mapper.Map<UserDto, User>(user));
+            Database.Entities.Create(Mapper.Map<UserDto, User>(user));
         }
 
         public void Update(UserDto user)
         {
-            if (user == null)
+            if ( user == null )
+            {
                 throw new ValidationException("Не установлена сущность пользователя", "");
-            var us = Database.Users.GetAsync(user.Id);
-            if (us == null)
+            }
+            var us = Database.Entities.GetAsync(user.Id);
+            if ( us == null )
+            {
                 throw new ValidationException("Пользователь не найден", "");
+            }
             Mapper.Initialize(cfg => cfg.CreateMap<UserDto, User>());
-            Database.Users.Delete(Mapper.Map<UserDto, User>(user));
+            Database.Entities.Delete(Mapper.Map<UserDto, User>(user));
         }
 
         public async Task DeleteAsync(int id)
         {
-            var user = await Database.Users.GetAsync(id);
-            if (user == null)
+            var user = await Database.Entities.GetAsync(id);
+            if ( user == null )
+            {
                 throw new ValidationException("Пользователь не найден", "");
-            Database.Users.Delete(user);
+            }
+            Database.Entities.Delete(user);
         }
 
         public async Task<UserDto> GetAsync(int id)
         {
-            var user = await Database.Users.GetAsync(id);
-            if (user == null)
+            var user = await Database.Entities.GetAsync(id) as User;
+            if ( user == null )
+            {
                 throw new ValidationException("Пользователь не найден", "");
+            }
             Mapper.Initialize(cfg => cfg.CreateMap<User, UserDto>());
             return Mapper.Map<User, UserDto>(user);
         }
 
         public async Task<IEnumerable<UserDto>> GetAllAsync()
         {
-            var users = await Database.Users.GetAllAsync();
+            var users = await Database.Entities.GetAllAsync() as IEnumerable<User>;
             Mapper.Initialize(cfg => cfg.CreateMap<User, UserDto>());
             return Mapper.Map<IEnumerable<User>, IEnumerable<UserDto>>(users);
         }
 
-        public void Dispose()
-        {
-            Database.Dispose();
-        }
+        public void Dispose() { }
     }
 }

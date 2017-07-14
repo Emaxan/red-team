@@ -15,7 +15,7 @@ namespace RedTeam.iTechArtSurvay.Foundation.Infrastructure
 
         public override void Load()
         {
-            Bind<IUnitOfWork>().To<UnitOfWork>().WithConstructorArgument(_connectionString);
+            Bind(typeof( IUnitOfWork<> )).To(typeof( UnitOfWork<> )).WithConstructorArgument(_connectionString);
         }
     }
 }

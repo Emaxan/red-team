@@ -1,23 +1,25 @@
 ﻿using System;
 using System.Threading.Tasks;
-using RedTeam.iTechArtSurvay.DomainModel.Entities;
+using RedTeam.iTechArtSurvay.DomainModel.Interfaces;
 using RedTeam.iTechArtSurvay.Repositories.EF;
 using RedTeam.Repositories.Interfaces;
 
 namespace RedTeam.Repositories.EntityFramework.Repositories
 {
-    public class UnitOfWork : IUnitOfWork
+    public class UnitOfWork<TEntity> : IUnitOfWork<TEntity>
+        where TEntity : class, IEntity
     {
         private readonly ITechArtSurvayContext _context;
         private bool _disposed;
-        private UserRepository _userRepository;
+        private IRepository<TEntity> _entityRepository;
 
         public UnitOfWork(string connectionString)
         {
             _context = new ITechArtSurvayContext(connectionString);
         }
 
-        public IRepository<User> Users => _userRepository ?? (_userRepository = new UserRepository(_context));
+        public IRepository<TEntity> Entities => _entityRepository ??
+                                                (_entityRepository = new Repository<TEntity, IDbContext>(_context));
 
         public async Task SaveAsync()
         {

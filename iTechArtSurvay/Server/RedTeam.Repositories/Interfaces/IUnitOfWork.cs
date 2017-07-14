@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Threading.Tasks;
-using RedTeam.iTechArtSurvay.DomainModel.Entities;
+using RedTeam.iTechArtSurvay.DomainModel.Interfaces;
 
 namespace RedTeam.Repositories.Interfaces
 {
-    public interface IUnitOfWork : IDisposable
+    public interface IUnitOfWork<TEntity> : IDisposable
+        where TEntity: class, IEntity
     {
-        IRepository<User> Users { get; }
+        IRepository<TEntity> Entities { get; }
         Task SaveAsync();
     }
 }
