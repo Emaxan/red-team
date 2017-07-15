@@ -12,7 +12,7 @@ using RedTeam.TechArtSurvey.Repositories.Interfaces;
 namespace RedTeam.TechArtSurvey.Foundation.Services
 {
     [UsedImplicitly]
-    public class UserService : IUserService<UserDto>
+    public class UserService : IUserService
     {
         private readonly IUnitOfWork _uow;
         private readonly IMapper _mapper;

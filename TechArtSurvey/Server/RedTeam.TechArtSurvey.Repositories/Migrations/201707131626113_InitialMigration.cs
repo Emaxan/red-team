@@ -10,10 +10,10 @@ namespace RedTeam.TechArtSurvey.Repositories.Migrations
                     "dbo.Users",
                     c => new
                     {
-                        Id = c.Int(false, true),
-                        Name = c.String(false),
-                        Email = c.String(false),
-                        Password = c.String(false),
+                        Id = c.Int(nullable: false, identity: true),
+                        Name = c.String(nullable: false),
+                        Email = c.String(nullable: false),
+                        Password = c.String(nullable: false),
                         RepeatPassword = c.String()
                     })
                 .PrimaryKey(t => t.Id);

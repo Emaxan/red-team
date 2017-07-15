@@ -12,9 +12,9 @@ namespace RedTeam.TechArtSurvey.WebApi.Controllers
 {
     public class UsersController : ApiController
     {
-        private readonly IUserService<UserDto> _userService;
+        private readonly IUserService _userService;
 
-        public UsersController(IUserService<UserDto> userService)
+        public UsersController(IUserService userService)
         {
             _userService = userService;
         }
