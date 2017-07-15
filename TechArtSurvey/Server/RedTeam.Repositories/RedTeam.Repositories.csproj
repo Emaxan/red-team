@@ -40,7 +40,6 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Interfaces\IEntity.cs" />
     <Compile Include="Interfaces\IGenegicRepository.cs" />
     <Compile Include="Interfaces\IGenericUnitOfWork.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

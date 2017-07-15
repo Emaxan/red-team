@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 
 namespace RedTeam.Repositories.Interfaces
 {
-    public interface IGenericRepository<TEntity> where TEntity : IEntity
+    public interface IGenericRepository<TEntity> where TEntity: class
     {
         /// <summary>
         ///     Creates the existing entity.

@@ -22,7 +22,7 @@ namespace RedTeam.Repositories.EntityFramework.Repositories
             _repositoriesDictionary = new Dictionary<Type, object>();
         }
 
-        public IGenericRepository<TEntity> GetRepository<TEntity>() where TEntity : class, IEntity
+        public IGenericRepository<TEntity> GetRepository<TEntity>() where TEntity : class
         {
             var type = typeof( TEntity );
 

@@ -5,7 +5,7 @@ namespace RedTeam.Repositories.Interfaces
 {
     public interface IGenericUnitOfWork : IDisposable
     {
-        IGenericRepository<TEntity> GetRepository<TEntity>() where TEntity : class, IEntity;
+        IGenericRepository<TEntity> GetRepository<TEntity>() where TEntity : class;
         Task SaveAsync();
     }
 }

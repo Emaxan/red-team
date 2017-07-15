@@ -9,7 +9,7 @@ using RedTeam.Repositories.Interfaces;
 namespace RedTeam.Repositories.EntityFramework.Repositories
 {
     public class GenericRepository<TEntity> : IGenericRepository<TEntity>
-        where TEntity : class, IEntity
+        where TEntity : class
     {
         private readonly DbSet<TEntity> _dbSet;
 

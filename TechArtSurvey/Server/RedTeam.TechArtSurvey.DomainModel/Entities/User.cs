@@ -4,7 +4,7 @@ using RedTeam.Repositories.Interfaces;
 
 namespace RedTeam.TechArtSurvey.DomainModel.Entities
 {
-    public class User: IEntity
+    public class User
     {
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
