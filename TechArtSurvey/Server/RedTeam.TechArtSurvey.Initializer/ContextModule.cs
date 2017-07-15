@@ -1,8 +1,10 @@
 ﻿using System.Data.Entity;
+
 using Ninject.Modules;
+
 using RedTeam.TechArtSurvey.Repositories.EF;
 
-namespace RedTeam.TechArtSurvey.Foundation.Infrastructure
+namespace RedTeam.TechArtSurvey.Initializer
 {
     public class ContextModule : NinjectModule
     {

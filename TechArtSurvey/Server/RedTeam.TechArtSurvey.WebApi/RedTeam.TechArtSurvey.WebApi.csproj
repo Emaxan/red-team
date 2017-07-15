@@ -83,7 +83,6 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="App_Start\NinjectConfigurator.cs" />
     <Compile Include="App_Start\NinjectWebCommon.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\UsersController.cs" />
@@ -111,13 +110,17 @@
     <Folder Include="ViewModels\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\RedTeam.TechArtSurvey.Foundation\RedTeam.TechArtSurvey.Foundation.csproj">
-      <Project>{c1f00b46-6d0c-4d1e-b6d4-3fac77ca9ef9}</Project>
-      <Name>RedTeam.TechArtSurvey.Foundation</Name>
+    <ProjectReference Include="..\RedTeam.TechArtSurvey.Foundation.DTO\RedTeam.TechArtSurvey.Foundation.DTO.csproj">
+      <Project>{7EF7BA4C-3ED5-44B5-904C-C0039B6E57B6}</Project>
+      <Name>RedTeam.TechArtSurvey.Foundation.DTO</Name>
     </ProjectReference>
     <ProjectReference Include="..\RedTeam.TechArtSurvey.Foundation.Interfaces\RedTeam.TechArtSurvey.Foundation.Interfaces.csproj">
       <Project>{CDF233FB-754D-41FE-8F6C-B41F40AA680A}</Project>
       <Name>RedTeam.TechArtSurvey.Foundation.Interfaces</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\RedTeam.TechArtSurvey.Initializer\RedTeam.TechArtSurvey.Initializer.csproj">
+      <Project>{5477CB27-24A2-4353-B676-B8F70F727D97}</Project>
+      <Name>RedTeam.TechArtSurvey.Initializer</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>

@@ -1,8 +1,9 @@
 ﻿using Ninject;
+
 using RedTeam.TechArtSurvey.Foundation.Interfaces;
 using RedTeam.TechArtSurvey.Foundation.Services;
 
-namespace RedTeam.TechArtSurvey.WebApi
+namespace RedTeam.TechArtSurvey.Initializer
 {
     public class NinjectConfigurator
     {
@@ -13,7 +14,7 @@ namespace RedTeam.TechArtSurvey.WebApi
 
         private void AddBindings(IKernel kernel)
         {
-            kernel.Bind(typeof(IUserService<>)).To(typeof(UserService));
+            kernel.Bind<IUserService>().To<UserService>();
         }
     }
 }
