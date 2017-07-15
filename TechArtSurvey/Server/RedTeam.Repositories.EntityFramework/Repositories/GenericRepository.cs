@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Data.Entity;
+using System.Data.Entity.Migrations;
 using System.Linq;
 using System.Threading.Tasks;
 using JetBrains.Annotations;
@@ -44,8 +45,7 @@ namespace RedTeam.Repositories.EntityFramework.Repositories
 
         public virtual void Update(TEntity entity)
         {
-            Context.Entry(entity).State = EntityState.Modified;//BUG both variants don't update value
-            //_dbSet.Attach(entity);
+            _dbSet.AddOrUpdate(entity);
         }
 
         public virtual void Delete(TEntity entity)

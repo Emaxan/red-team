@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Diagnostics;
 using System.Net;
 using System.Threading.Tasks;
 using System.Web.Http;
@@ -40,10 +42,18 @@ namespace RedTeam.TechArtSurvey.WebApi.Controllers
         // PUT api/Users/5
         [HttpPut]
         [ResponseType(typeof( void ))]
-        public IHttpActionResult EditUser(UserDto user)
+        public async Task<IHttpActionResult> EditUser(UserDto user)
         {
-            _userService.Update(user);
-            return StatusCode(HttpStatusCode.Accepted);
+            try
+            {
+                await _userService.Update(user);
+                return StatusCode(HttpStatusCode.Accepted);
+            }
+            catch (Exception e )
+            {
+                Debug.Write("Message: " + e.Message);
+                return BadRequest(e.Message);
+            }
         }
 
         // POST api/Users

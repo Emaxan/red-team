@@ -25,41 +25,41 @@ namespace RedTeam.TechArtSurvey.Foundation.Services
 
         public async Task Create(UserDto user)
         {
-            var us = await _uow.GetRepository<User>().GetAsync(user.Id);
+            var us = await _uow.Users.GetAsync(user.Id);
             if ( us != null )   
             {
                 throw new ValidationException("User already exist", "");
             }
-            _uow.GetRepository<User>().Create(_mapper.Map<UserDto, User>(user));
+            _uow.Users.Create(_mapper.Map<UserDto, User>(user));
             await _uow.SaveAsync();
         }
 
         public async Task Update(UserDto user)
         {
-            var us = await _uow.GetRepository<User>().GetAsync(user.Id);
+            var us = await _uow.Users.GetAsync(user.Id);
             if ( us == null )
             {
                 throw new ArgumentException("User not found", "");
             }
             
-            _uow.GetRepository<User>().Update(_mapper.Map<UserDto, User>(user));
+            _uow.Users.Update(_mapper.Map<UserDto, User>(user));
             await _uow.SaveAsync();
         }
 
         public async Task DeleteAsync(int id)
         {
-            var user = await _uow.GetRepository<User>().GetAsync(id);
+            var user = await _uow.Users.GetAsync(id);
             if ( user == null )
             {
                 throw new ArgumentException("User not found", "");
             }
-            _uow.GetRepository<User>().Delete(user);
+            _uow.Users.Delete(user);
             await _uow.SaveAsync();
         }
 
         public async Task<UserDto> GetAsync(int id)
         {
-            var user = await _uow.GetRepository<User>().GetAsync(id);
+            var user = await _uow.Users.GetAsync(id);
             if ( user == null )
             {
                 throw new ArgumentException("User not found", "");
@@ -69,7 +69,7 @@ namespace RedTeam.TechArtSurvey.Foundation.Services
 
         public async Task<IReadOnlyCollection<UserDto>> GetAllAsync()
         {
-            var users = await _uow.GetRepository<User>().GetAllAsync();
+            var users = await _uow.Users.GetAllAsync();
             return _mapper.Map<IReadOnlyCollection<User>, IReadOnlyCollection<UserDto>>(users);
         }
     }
