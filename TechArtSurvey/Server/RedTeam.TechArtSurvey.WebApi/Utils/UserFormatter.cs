@@ -17,7 +17,7 @@ namespace RedTeam.TechArtSurvey.WebApi.Utils
     {
         public UserFormatter()
         {
-            SupportedMediaTypes.Add(new MediaTypeHeaderValue("application/x-books"));
+            SupportedMediaTypes.Add(new MediaTypeHeaderValue("application/x-user"));
         }
 
         /// <summary>
@@ -66,7 +66,7 @@ namespace RedTeam.TechArtSurvey.WebApi.Utils
                                   (UserDto) value
                               }
                             : (IEnumerable<UserDto>) value;
-            var usersString = users.Select(b => $"{b.Id},{b.Name}").ToList();
+            var usersString = users.Select(user => $"{user.Name},{user.Email}").ToList();
             var writer = new StreamWriter(writeStream);
             // Write data to stream
             await writer.WriteAsync(string.Join(",", usersString));

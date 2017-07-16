@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Net;
 using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Description;
+
 using RedTeam.TechArtSurvey.Foundation.DTO;
 using RedTeam.TechArtSurvey.Foundation.Interfaces;
 
@@ -21,6 +21,7 @@ namespace RedTeam.TechArtSurvey.WebApi.Controllers
 
         // GET api/Users
         [HttpGet]
+        [ResponseType(typeof( IReadOnlyCollection<UserDto> ))]
         public async Task<IEnumerable<UserDto>> GetUsers()
         {
             return await _userService.GetAllAsync();
@@ -28,15 +29,34 @@ namespace RedTeam.TechArtSurvey.WebApi.Controllers
 
         // GET api/Users/5
         [HttpGet]
+        [ResponseType(typeof(UserDto))]
         public async Task<IHttpActionResult> GetUser(int id)
         {
-            var user = await _userService.GetAsync(id);
-            if ( user == null )
+            try
             {
-                return BadRequest("Wrong Id");
+                var user = await _userService.GetAsync(id);
+                return Ok(user);
             }
+            catch (ArgumentException e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
 
-            return Ok(user);
+        // GET api/Users/?email=user@user.user
+        [HttpGet]
+        [ResponseType(typeof(UserDto))]
+        public async Task<IHttpActionResult> GetUserByEmail([FromUri] string email)
+        {
+            try
+            {
+                var user = await _userService.GetUserByEmailAsync(email);
+                return Ok(user);
+            }
+            catch (ArgumentException e)
+            {
+                return BadRequest(e.Message);
+            }
         }
 
         // PUT api/Users/5
@@ -49,32 +69,45 @@ namespace RedTeam.TechArtSurvey.WebApi.Controllers
                 await _userService.Update(user);
                 return StatusCode(HttpStatusCode.Accepted);
             }
-            catch (Exception e )
+            catch ( ArgumentException e )
             {
-                Debug.Write("Message: " + e.Message);
                 return BadRequest(e.Message);
             }
         }
 
         // POST api/Users
         [HttpPost]
-        [ResponseType(typeof( UserDto ))]
-        public IHttpActionResult AddUser(UserDto user)
+        [ResponseType(typeof( void ))]
+        public async Task<IHttpActionResult> AddUser(UserDto user)
         {
-            _userService.Create(user);
-            return CreatedAtRoute("DefaultApi", new
-                                                {
-                                                    id = user.Id
-                                                }, user);
+            try
+            {
+                var createdUserId = await _userService.Create(user);
+                return CreatedAtRoute("DefaultApi", new
+                                                    {
+                                                        id = createdUserId
+                                                    }, user);
+            }
+            catch ( ArgumentException e )
+            {
+                return BadRequest(e.Message);
+            }
         }
 
-        // DELETE api/Users/5
+        // DELETE api/Users
         [HttpDelete]
-        [ResponseType(typeof( UserDto ))]
-        public async Task<IHttpActionResult> RemoveUser(int id)
+        [ResponseType(typeof( void ))]
+        public async Task<IHttpActionResult> RemoveUser(UserDto user)
         {
-            await _userService.DeleteAsync(id);
-            return Ok();
+            try
+            {
+                await _userService.DeleteAsync(user);
+                return StatusCode(HttpStatusCode.Accepted);
+            }
+            catch ( ArgumentException e )
+            {
+                return BadRequest(e.Message);
+            }
         }
     }
 }

@@ -8,7 +8,7 @@ namespace RedTeam.Repositories.Interfaces
         /// <summary>
         ///     Creates the existing entity.
         /// </summary>
-        void Create(TEntity user);
+        TEntity Create(TEntity user);
 
         /// <summary>
         ///     Get all entities

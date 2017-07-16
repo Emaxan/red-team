@@ -7,10 +7,11 @@ namespace RedTeam.TechArtSurvey.Foundation.Interfaces
 {
     public interface IUserService
     {
-        Task Create(UserDto user);
+        Task<int> Create(UserDto user);
         Task Update(UserDto user);
-        Task DeleteAsync(int id);
+        Task DeleteAsync(UserDto user);
         Task<UserDto> GetAsync(int id);
+        Task<UserDto> GetUserByEmailAsync(string email);
         Task<IReadOnlyCollection<UserDto>> GetAllAsync();
     }
 }

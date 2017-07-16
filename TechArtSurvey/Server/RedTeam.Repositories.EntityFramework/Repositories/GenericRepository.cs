@@ -25,9 +25,9 @@ namespace RedTeam.Repositories.EntityFramework.Repositories
             _dbSet = context.Set<TEntity>();
         }
 
-        public virtual void Create(TEntity entity)
+        public virtual TEntity Create(TEntity entity)
         {
-            _dbSet.Add(entity);
+            return _dbSet.Add(entity);
         }
 
         [CanBeNull]
@@ -45,7 +45,7 @@ namespace RedTeam.Repositories.EntityFramework.Repositories
 
         public virtual void Update(TEntity entity)
         {
-            _dbSet.AddOrUpdate(entity);
+            _dbSet.AddOrUpdate(entity);//BUG Add user instead Update because find it by primary key, which entity = 0
         }
 
         public virtual void Delete(TEntity entity)
