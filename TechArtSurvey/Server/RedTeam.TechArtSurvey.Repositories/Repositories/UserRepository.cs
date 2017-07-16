@@ -19,5 +19,12 @@ namespace RedTeam.TechArtSurvey.Repositories.Repositories
             var usr = await DbSet.FirstOrDefaultAsync(user => user.Email == email);
             return usr;
         }
+
+        public override async Task Update(User entity)
+        {
+            var user = await GetUserByEmailAsync(entity.Email);
+            entity.Id = user.Id;
+            Context.Entry(user).CurrentValues.SetValues(entity);
+        }
     }
 }

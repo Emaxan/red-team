@@ -23,7 +23,7 @@ namespace RedTeam.Repositories.Interfaces
         /// <summary>
         ///     Updates the existing entity.
         /// </summary>
-        void Update(TEntity entity);
+        Task Update(TEntity entity);
 
         /// <summary>
         ///     Delete the given entity.
