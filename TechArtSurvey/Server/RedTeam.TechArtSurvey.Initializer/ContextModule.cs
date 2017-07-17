@@ -17,7 +17,7 @@ namespace RedTeam.TechArtSurvey.Initializer
 
         public override void Load()
         {
-            Bind<DbContext>().To<TechArtSurvayContext>().WithConstructorArgument(_connectionString);
+            Bind<DbContext>().To<TechArtSurveyContext>().WithConstructorArgument(_connectionString);
         }
     }
 }

@@ -47,13 +47,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="EF\TechArtSurveyContext.cs" />
-    <Compile Include="Migrations\201707131626113_InitialMigration.cs" />
-    <Compile Include="Migrations\201707131626113_InitialMigration.Designer.cs">
-      <DependentUpon>201707131626113_InitialMigration.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201707131712384_Test.cs" />
-    <Compile Include="Migrations\201707131712384_Test.Designer.cs">
-      <DependentUpon>201707131712384_Test.cs</DependentUpon>
+    <Compile Include="Migrations\201707171409225_Init.cs" />
+    <Compile Include="Migrations\201707171409225_Init.Designer.cs">
+      <DependentUpon>201707171409225_Init.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -83,13 +79,9 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201707131626113_InitialMigration.resx">
-      <DependentUpon>201707131626113_InitialMigration.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201707131712384_Test.resx">
-      <DependentUpon>201707131712384_Test.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201707171409225_Init.resx">
+      <DependentUpon>201707171409225_Init.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

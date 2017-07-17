@@ -4,14 +4,14 @@ using RedTeam.TechArtSurvey.Repositories.EF;
 
 namespace RedTeam.TechArtSurvey.Repositories.Migrations
 {
-    internal sealed class Configuration : DbMigrationsConfiguration<TechArtSurvayContext>
+    internal sealed class Configuration : DbMigrationsConfiguration<TechArtSurveyContext>
     {
         public Configuration()
         {
             AutomaticMigrationsEnabled = false;
         }
 
-        protected override void Seed(TechArtSurvayContext context)
+        protected override void Seed(TechArtSurveyContext context)
         {
             context.Users.Add(new User
             {
