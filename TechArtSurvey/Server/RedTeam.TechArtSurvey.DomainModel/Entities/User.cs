@@ -1,6 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using RedTeam.Repositories.Interfaces;
 
 namespace RedTeam.TechArtSurvey.DomainModel.Entities
 {

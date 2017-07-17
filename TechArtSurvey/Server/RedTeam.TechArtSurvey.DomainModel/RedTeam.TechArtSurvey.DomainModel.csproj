@@ -41,11 +41,5 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\RedTeam.Repositories\RedTeam.Repositories.csproj">
-      <Project>{433a7044-1a29-42cb-80b0-06e86aa12a2f}</Project>
-      <Name>RedTeam.Repositories</Name>
-    </ProjectReference>
-  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
