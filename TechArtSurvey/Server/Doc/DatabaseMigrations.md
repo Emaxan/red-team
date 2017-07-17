@@ -2,7 +2,7 @@
 
 ### Migration files ###
 
-All migration files are associated with RedTeam.iTechArtSurvay.Repositories project. So, next files you can find here.
+All migration files are associated with `RedTeam.TechArtSurvey.Repositories` project. So, next files you can find here.
 
 - `Configuration.cs`
 
@@ -14,22 +14,27 @@ This file is generated after `add-migration` command (see below) and it contains
 
 ### Work with migrations ###
 
-Work with migrations is based on `Package manager console`. So, before start you should open this console.
+Work with migrations is based on `Package Manager Console`. So, before start you should open this console.
 
 ##### Enabling migrations #####
 
 If project doesn't have `Migrations` folder or you get this PMC-error:
-> No migrations configuration type was found in the assembly 'RedTeam.iTechArtSurvay.Repositories'
+> No migrations configuration type was found in the assembly 'RedTeam.TechArtSurvay.Repositories'
 
-you should enable migrations with the help of `enable-migrations -projectname: RedTeam.iTechArtSurvay.Repositories` command. 
+you should enable migrations with the help of `enable-migrations -projectname: RedTeam.TechArtSurvey.Repositories -startupprojectname:RedTeam.TechArtSurvey.WebApi` command. 
 
 ##### Creating new migration #####
 
-If the domain-model was changed, to avoid conflicts between code and database, you should use `add-migration -projectname: RedTeam.iTechArtSurvay.Repositories` command, which is used for creating new migration (you can use parameter for naming migrations and I think it's good idea). In a nutshell, `add-migration` will create the template of future migration based on changes in code.
+If the domain-model was changed, to avoid conflicts between code and database, you should use `add-migration -projectname: RedTeam.TechArtSurvay.Repositories -startupprojectname:RedTeam.TechArtSurvey.WebApi` command, which is used for creating new migration (you can use parameter for naming migrations and I think it's good idea). In a nutshell, `add-migration` will create the template of future migration based on changes in code.
 
 ##### Updating database according to migration #####
 
-When `add-migration` was finished successfully, you can use `update-database` to update database according to last generated `<timestamp>_MigrationName.cs` file. Now you don't have any conflicts between your code and database!
+When `add-migration` was finished successfully, you can use `update-database projectname:RedTeam.TechArtSurvey.Repositories 
+-startupprojectname:RedTeam.TechArtSurvey.WebApi` to update database according to the last generated `<timestamp>_MigrationName.cs` file. Now you don't have any conflicts between your code and database!
+
+### Remarks ###
+
+* Connection string is placed at `Web.config` file of `RedTeam.TechArtSurvey.WebApi` project.
 
 ### References ###
 
