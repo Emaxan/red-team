@@ -42,7 +42,7 @@ namespace RedTeam.TechArtSurvey.Foundation.Services
                 throw new ArgumentException("User not found", nameof( user.Email));
             }
             
-            await _uow.Users.Update(_mapper.Map<UserDto, User>(user));
+            _uow.Users.Update(_mapper.Map<UserDto, User>(user));
             await _uow.SaveAsync();
         }
 

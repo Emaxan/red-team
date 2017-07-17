@@ -20,11 +20,11 @@ namespace RedTeam.TechArtSurvey.Repositories.Repositories
             return usr;
         }
 
-        public override async Task Update(User entity)
-        {
-            var user = await GetUserByEmailAsync(entity.Email);
-            entity.Id = user.Id;
-            Context.Entry(user).CurrentValues.SetValues(entity);
-        }
+        //public override async Task Update(User entity)
+        //{
+        //    var user = await GetUserByEmailAsync(entity.Email);
+        //    entity.Id = user.Id;
+        //    Context.Entry(user).CurrentValues.SetValues(entity);
+        //}
     }
 }

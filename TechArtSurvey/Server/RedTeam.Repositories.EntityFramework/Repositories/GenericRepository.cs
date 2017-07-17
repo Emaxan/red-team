@@ -43,10 +43,9 @@ namespace RedTeam.Repositories.EntityFramework.Repositories
             return users;
         }
 
-        public virtual async Task Update(TEntity entity)
+        public virtual void Update(TEntity entity)
         {
-            _dbSet.Attach(entity);
-            //_dbSet.AddOrUpdate(entity);//BUG Add user instead Update because find it by primary key, which entity = 0
+            _dbSet.AddOrUpdate(entity);
         }
 
         public virtual void Delete(TEntity entity)
