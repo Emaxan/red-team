@@ -62,7 +62,7 @@ namespace RedTeam.TechArtSurvey.WebApi
             var modules = new INinjectModule[]
             {
                 new ServiceModule(),
-                new ContextModule("name=TechArtSurveyContext"),
+                new ContextModule("TechArtSurveyContext"),
                 new MapperInitializer()
             };
 
