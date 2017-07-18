@@ -20,7 +20,7 @@ namespace RedTeam.TechArtSurvey.WebApi.Filters
                 actionExecutedContext.Exception is IndexOutOfRangeException)
                 actionExecutedContext.Response = actionExecutedContext.Request.CreateErrorResponse(
                     HttpStatusCode.BadRequest,
-                    "Элемент вне диапазона");
+                    "Index out of range");
             return Task.FromResult<object>(null);
         }
 
