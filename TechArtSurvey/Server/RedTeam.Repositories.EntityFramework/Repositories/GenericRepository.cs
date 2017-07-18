@@ -1,12 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Data.Entity;
-using System.Data.Entity.Migrations;
 using System.Linq;
 using System.Threading.Tasks;
 using JetBrains.Annotations;
 
 using RedTeam.Logger;
-using RedTeam.Logger.Interfaces;
 using RedTeam.Repositories.Interfaces;
 
 namespace RedTeam.Repositories.EntityFramework.Repositories
@@ -16,14 +14,14 @@ namespace RedTeam.Repositories.EntityFramework.Repositories
     {
         private readonly DbSet<TEntity> _dbSet;
 
-        protected readonly DbContext Context;
+        protected readonly IDbContext Context;
 
         protected IQueryable<TEntity> DbSet
         {
             get { return _dbSet; }
         }
 
-        public GenericRepository(DbContext context)
+        public GenericRepository(IDbContext context)
         {
             Context = context;
             _dbSet = context.Set<TEntity>();
@@ -53,6 +51,10 @@ namespace RedTeam.Repositories.EntityFramework.Repositories
         public virtual void Update(TEntity entity)
         {
             LoggerContext.GetLogger.Info($"Update entity in database with type {typeof(TEntity).Name}");
+            if (!_dbSet.Local.Contains(entity))
+            {
+                Detach(entity);
+            }
             Context.Entry(entity).State = EntityState.Modified;
         }
 
@@ -66,7 +68,7 @@ namespace RedTeam.Repositories.EntityFramework.Repositories
             _dbSet.Remove(entity);
         }
 
-        public void Detach(TEntity entity)
+        public virtual void Detach(TEntity entity)
         {
             Context.Entry(entity).State = EntityState.Detached;
         }

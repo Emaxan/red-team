@@ -1,7 +1,5 @@
-﻿using System.Data.Entity;
-
-using RedTeam.Logger.Interfaces;
-using RedTeam.Repositories.EntityFramework.Repositories;
+﻿using RedTeam.Repositories.EntityFramework.Repositories;
+using RedTeam.Repositories.Interfaces;
 using RedTeam.TechArtSurvey.Repositories.Interfaces;
 using RedTeam.TechArtSurvey.Repositories.Interfaces.Repositories;
 using RedTeam.TechArtSurvey.Repositories.Repositories;
@@ -12,7 +10,7 @@ namespace RedTeam.TechArtSurvey.Repositories
     {
         private IUserRepository _userRepository;
 
-        public UnitOfWork(DbContext context)
+        public UnitOfWork(IDbContext context)
             : base(context)
         {
         }

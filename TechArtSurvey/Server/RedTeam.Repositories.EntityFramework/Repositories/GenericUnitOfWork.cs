@@ -15,10 +15,10 @@ namespace RedTeam.Repositories.EntityFramework.Repositories
         private bool _disposed;
         private readonly Dictionary<Type, object> _repositoriesDictionary;
 
-        protected readonly DbContext Context;
+        protected readonly IDbContext Context;
 
         [UsedImplicitly]
-        public GenericUnitOfWork(DbContext context)
+        public GenericUnitOfWork(IDbContext context)
         {
             Context = context;
             _repositoriesDictionary = new Dictionary<Type, object>();
