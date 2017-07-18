@@ -6,7 +6,7 @@ using Ninject.Modules;
 using RedTeam.TechArtSurvey.DomainModel.Entities;
 using RedTeam.TechArtSurvey.Foundation.DTO;
 
-namespace RedTeam.TechArtSurvey.Initializer.NinjectModules
+namespace RedTeam.TechArtSurvey.Initializer
 {
     public class MapperInitializer : NinjectModule
     {

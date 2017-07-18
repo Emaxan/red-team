@@ -1,6 +1,4 @@
-﻿using System.Diagnostics;
-
-using Ninject;
+﻿using Ninject;
 
 using RedTeam.Logger;
 using RedTeam.TechArtSurvey.Foundation.Interfaces;
@@ -8,7 +6,7 @@ using RedTeam.TechArtSurvey.Foundation.Services;
 
 using ILog = RedTeam.Logger.Interfaces.ILog;
 
-namespace RedTeam.TechArtSurvey.Initializer.NinjectModules
+namespace RedTeam.TechArtSurvey.Initializer
 {
     public static class NinjectConfigurator
     {
@@ -21,12 +19,8 @@ namespace RedTeam.TechArtSurvey.Initializer.NinjectModules
         {
             kernel.Bind<IUserService>().To<UserService>().InTransientScope();
             kernel.Bind<ILog>().
-                ToMethod(context =>
-                         {
-                             var callingMethod = new StackFrame(10).GetMethod().ReflectedType;
-                             return LoggerFactory.GetLogger(context.Request.Target?.Member.ReflectedType ??
-                                                            callingMethod);
-                         }).InTransientScope();
+                ToMethod(context => LoggerFactory.GetLogger(typeof( NinjectConfigurator ))).
+                InTransientScope();
         }
     }
 }

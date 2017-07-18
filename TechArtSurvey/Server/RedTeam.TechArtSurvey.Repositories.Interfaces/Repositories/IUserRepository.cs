@@ -7,6 +7,10 @@ namespace RedTeam.TechArtSurvey.Repositories.Interfaces.Repositories
 {
     public interface IUserRepository : IGenericRepository<User>
     {
+
         Task<User> GetUserByEmailAsync(string email);
+
+        Task<User> CheckUserByEmailAsync(string email);
+
     }
 }

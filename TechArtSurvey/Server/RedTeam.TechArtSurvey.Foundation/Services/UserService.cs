@@ -29,7 +29,7 @@ namespace RedTeam.TechArtSurvey.Foundation.Services
         public async Task<int> Create(UserDto user)
         {
             _log.Info($"Create user with email = {user.Email}");
-            var us = await _uow.Users.GetUserByEmailAsync(user.Email);
+            var us = await _uow.Users.CheckUserByEmailAsync(user.Email);
             if ( us != null )
             {
                 throw new ArgumentException("User already exist", nameof( user.Email));
@@ -42,7 +42,7 @@ namespace RedTeam.TechArtSurvey.Foundation.Services
         public async Task Update(UserDto user)
         {
             _log.Info($"Update user with email = {user.Email}");
-            var us = await _uow.Users.GetUserByEmailAsync(user.Email);
+            var us = await _uow.Users.CheckUserByEmailAsync(user.Email);
             if ( us == null )
             {
                 throw new ArgumentException("User not found", nameof( user.Email));
@@ -55,7 +55,7 @@ namespace RedTeam.TechArtSurvey.Foundation.Services
         public async Task DeleteAsync(UserDto user)
         {
             _log.Info($"Delete user with email = {user.Email}");
-            var us = await _uow.Users.GetUserByEmailAsync(user.Email);
+            var us = await _uow.Users.CheckUserByEmailAsync(user.Email);
             if ( us == null )
             {
                 throw new ArgumentException("User not found", nameof(user.Email));

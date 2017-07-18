@@ -54,13 +54,22 @@ namespace RedTeam.Repositories.EntityFramework.Repositories
         public virtual void Update(TEntity entity)
         {
             Log.Info($"Update entity in database with type {typeof(TEntity).Name}");
-            _dbSet.AddOrUpdate(entity);
+            Context.Entry(entity).State = EntityState.Modified;
         }
 
         public virtual void Delete(TEntity entity)
         {
             Log.Info($"Delete entity from database with type {typeof(TEntity).Name}");
+            if ( !_dbSet.Local.Contains(entity) )
+            {
+                _dbSet.Attach(entity);
+            }
             _dbSet.Remove(entity);
+        }
+
+        public void Detach(TEntity entity)
+        {
+            Context.Entry(entity).State = EntityState.Detached;
         }
     }
 }
