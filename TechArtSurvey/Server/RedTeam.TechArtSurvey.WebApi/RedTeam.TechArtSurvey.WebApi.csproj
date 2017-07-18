@@ -107,6 +107,8 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Utils\TechArtSurveyExceptionHandler.cs" />
+    <Compile Include="Utils\TechArtSurveyExceptionLogger.cs" />
     <Compile Include="Utils\LoggerHandler.cs" />
     <Compile Include="Utils\NinjectDependencyResolver.cs" />
     <Compile Include="Utils\UserFormatter.cs" />
@@ -124,6 +126,10 @@
     <Folder Include="ViewModels\" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\RedTeam.Logger\RedTeam.Logger.csproj">
+      <Project>{2a7d081e-c19a-476b-9e46-2d17ce1769af}</Project>
+      <Name>RedTeam.Logger</Name>
+    </ProjectReference>
     <ProjectReference Include="..\RedTeam.TechArtSurvey.Foundation.DTO\RedTeam.TechArtSurvey.Foundation.DTO.csproj">
       <Project>{7EF7BA4C-3ED5-44B5-904C-C0039B6E57B6}</Project>
       <Name>RedTeam.TechArtSurvey.Foundation.DTO</Name>
