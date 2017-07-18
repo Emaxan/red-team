@@ -49,11 +49,11 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ContextModule.cs" />
     <Compile Include="MapperInitializer.cs" />
     <Compile Include="NinjectConfigurator.cs" />
+    <Compile Include="NinjectModules\ContextModule.cs" />
+    <Compile Include="NinjectModules\ServiceModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ServiceModule.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
