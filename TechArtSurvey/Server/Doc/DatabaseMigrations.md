@@ -21,19 +21,20 @@ Work with migrations is based on `Package Manager Console`. So, before start you
 If project doesn't have `Migrations` folder or you get this PMC-error:
 > No migrations configuration type was found in the assembly 'RedTeam.TechArtSurvay.Repositories'
 
-you should enable migrations with the help of `enable-migrations -projectname: RedTeam.TechArtSurvey.Repositories -startupprojectname:RedTeam.TechArtSurvey.WebApi` command. 
+you should enable migrations with the help of `enable-migrations -projectname:RedTeam.TechArtSurvey.Repositories -startupprojectname:RedTeam.TechArtSurvey.WebApi` command. 
 
 ##### Creating new migration #####
 
-If the domain-model was changed, to avoid conflicts between code and database, you should use `add-migration -projectname: RedTeam.TechArtSurvay.Repositories -startupprojectname:RedTeam.TechArtSurvey.WebApi` command, which is used for creating new migration (you can use parameter for naming migrations and I think it's good idea). In a nutshell, `add-migration` will create the template of future migration based on changes in code.
+If the domain-model was changed, to avoid conflicts between code and database, you should use `add-migration -projectname:RedTeam.TechArtSurvay.Repositories -startupprojectname:RedTeam.TechArtSurvey.WebApi` command, which is used for creating new migration (you can use parameter for naming migrations and I think it's good idea). In a nutshell, `add-migration` will create the template of future migration based on changes in code.
 
 ##### Updating database according to migration #####
 
-When `add-migration` was finished successfully, you can use `update-database projectname:RedTeam.TechArtSurvey.Repositories 
+When `add-migration` was finished successfully, you can use `update-database -projectname:RedTeam.TechArtSurvey.Repositories 
 -startupprojectname:RedTeam.TechArtSurvey.WebApi` to update database according to the last generated `<timestamp>_MigrationName.cs` file. Now you don't have any conflicts between your code and database!
 
 ### Remarks ###
 
+* If you have database, but don't have any data associated with it, just enter `update-database` command, which is described above.
 * Connection string is placed at `Web.config` file of `RedTeam.TechArtSurvey.WebApi` project.
 
 ### References ###
