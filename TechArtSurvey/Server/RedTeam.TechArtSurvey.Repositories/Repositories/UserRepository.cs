@@ -1,7 +1,7 @@
 ﻿using System.Data.Entity;
 using System.Threading.Tasks;
 
-using RedTeam.Logger;
+using RedTeam.Logger.Interfaces;
 using RedTeam.Repositories.EntityFramework.Repositories;
 using RedTeam.TechArtSurvey.DomainModel.Entities;
 using RedTeam.TechArtSurvey.Repositories.Interfaces.Repositories;

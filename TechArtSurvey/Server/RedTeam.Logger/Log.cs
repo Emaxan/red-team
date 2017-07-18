@@ -1,5 +1,7 @@
 ﻿using System;
 
+using RedTeam.Logger.Interfaces;
+
 namespace RedTeam.Logger
 {
     public class Log : ILog

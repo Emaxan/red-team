@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using JetBrains.Annotations;
 
-using RedTeam.Logger;
+using RedTeam.Logger.Interfaces;
 using RedTeam.TechArtSurvey.DomainModel.Entities;
 using RedTeam.TechArtSurvey.Foundation.DTO;
 using RedTeam.TechArtSurvey.Foundation.Interfaces;

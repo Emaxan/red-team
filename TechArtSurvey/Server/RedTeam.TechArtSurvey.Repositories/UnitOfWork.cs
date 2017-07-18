@@ -1,6 +1,6 @@
 ﻿using System.Data.Entity;
 
-using RedTeam.Logger;
+using RedTeam.Logger.Interfaces;
 using RedTeam.Repositories.EntityFramework.Repositories;
 using RedTeam.TechArtSurvey.Repositories.Interfaces;
 using RedTeam.TechArtSurvey.Repositories.Interfaces.Repositories;

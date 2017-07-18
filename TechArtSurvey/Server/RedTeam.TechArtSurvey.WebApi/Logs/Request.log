@@ -1,4 +1,0 @@
-2017-07-18 01:56:02,795 [5   ] INFO  RedTeam.TechArtSurvey.WebApi.Utils.LoggerHandler                       - Process request: GET http://localhost:13695/api/users HTTP1.1. Handled by 1197 ms. Response: HTTP1.1 OK OK:
-2017-07-18 01:56:08,807 [5   ] INFO  RedTeam.TechArtSurvey.WebApi.Utils.LoggerHandler                       - Process request: GET http://localhost:13695/api/users/3 HTTP1.1. Handled by 112 ms. Response: HTTP1.1 BadRequest Bad Request:
-2017-07-18 01:56:14,467 [7   ] INFO  RedTeam.TechArtSurvey.WebApi.Utils.LoggerHandler                       - Process request: GET http://localhost:13695/api/users/asd HTTP1.1. Handled by 6 ms. Response: HTTP1.1 BadRequest Bad Request:
-2017-07-18 10:22:15,583 [6   ] INFO  RedTeam.Logger.Log                                                     - Process request: GET http://localhost:13695/api/users HTTP1.1. Handled by 497 ms. Response: HTTP1.1 OK OK:

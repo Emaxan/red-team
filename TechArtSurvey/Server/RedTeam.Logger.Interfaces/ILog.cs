@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace RedTeam.Logger
+namespace RedTeam.Logger.Interfaces
 {
     public interface ILog
     {

@@ -1,5 +1,5 @@
 ﻿using System.Web.Http.ExceptionHandling;
-using RedTeam.Logger;
+using RedTeam.Logger.Interfaces;
 
 namespace RedTeam.TechArtSurvey.WebApi.Utils
 {
