@@ -18,9 +18,6 @@ namespace RedTeam.TechArtSurvey.Initializer
         private static void AddBindings(IKernel kernel)
         {
             kernel.Bind<IUserService>().To<UserService>().InTransientScope();
-            kernel.Bind<ILog>().
-                ToMethod(context => LoggerFactory.GetLogger(typeof( NinjectConfigurator ))).
-                InTransientScope();
         }
     }
 }

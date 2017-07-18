@@ -12,14 +12,14 @@ namespace RedTeam.TechArtSurvey.Repositories
     {
         private IUserRepository _userRepository;
 
-        public UnitOfWork(DbContext context, ILog log)
-            : base(context, log)
+        public UnitOfWork(DbContext context)
+            : base(context)
         {
         }
 
         public IUserRepository Users
         {
-            get { return _userRepository ?? (_userRepository = new UserRepository(Context, Log)); }
+            get { return _userRepository ?? (_userRepository = new UserRepository(Context)); }
         }
     }
 }

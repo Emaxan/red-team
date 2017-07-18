@@ -11,8 +11,6 @@ using RedTeam.TechArtSurvey.Initializer;
 using RedTeam.TechArtSurvey.Initializer.NinjectModules;
 using RedTeam.TechArtSurvey.WebApi;
 using RedTeam.TechArtSurvey.WebApi.Utils;
-
-using ILog = RedTeam.Logger.Interfaces.ILog;
 [assembly: WebActivatorEx.PreApplicationStartMethod(typeof(NinjectWebCommon), "Start")]
 [assembly: ApplicationShutdownMethod(typeof(NinjectWebCommon), "Stop")]
 

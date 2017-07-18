@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using JetBrains.Annotations;
 
+using RedTeam.Logger;
 using RedTeam.Logger.Interfaces;
 using RedTeam.TechArtSurvey.DomainModel.Entities;
 using RedTeam.TechArtSurvey.Foundation.DTO;
@@ -17,18 +18,16 @@ namespace RedTeam.TechArtSurvey.Foundation.Services
     {
         private readonly IUnitOfWork _uow;
         private readonly IMapper _mapper;
-        private readonly ILog _log;
 
-        public UserService(IUnitOfWork uow, IMapper mapper, ILog log)
+        public UserService(IUnitOfWork uow, IMapper mapper)
         {
             _uow = uow;
             _mapper = mapper;
-            _log = log;
         }
 
         public async Task<int> Create(UserDto user)
         {
-            _log.Info($"Create user with email = {user.Email}");
+            LoggerContext.GetLogger.Info($"Create user with email = {user.Email}");
             var us = await _uow.Users.CheckUserByEmailAsync(user.Email);
             if ( us != null )
             {
@@ -41,7 +40,7 @@ namespace RedTeam.TechArtSurvey.Foundation.Services
 
         public async Task Update(UserDto user)
         {
-            _log.Info($"Update user with email = {user.Email}");
+            LoggerContext.GetLogger.Info($"Update user with email = {user.Email}");
             var us = await _uow.Users.CheckUserByEmailAsync(user.Email);
             if ( us == null )
             {
@@ -54,7 +53,7 @@ namespace RedTeam.TechArtSurvey.Foundation.Services
 
         public async Task DeleteAsync(UserDto user)
         {
-            _log.Info($"Delete user with email = {user.Email}");
+            LoggerContext.GetLogger.Info($"Delete user with email = {user.Email}");
             var us = await _uow.Users.CheckUserByEmailAsync(user.Email);
             if ( us == null )
             {
@@ -66,7 +65,7 @@ namespace RedTeam.TechArtSurvey.Foundation.Services
 
         public async Task<UserDto> GetAsync(int id)
         {
-            _log.Info($"Get user with id = {id}");
+            LoggerContext.GetLogger.Info($"Get user with id = {id}");
             var user = await _uow.Users.GetAsync(id);
             if (user == null)
             {
@@ -77,7 +76,7 @@ namespace RedTeam.TechArtSurvey.Foundation.Services
 
         public async Task<UserDto> GetUserByEmailAsync(string email)
         {
-            _log.Info($"Get user with email = {email}");
+            LoggerContext.GetLogger.Info($"Get user with email = {email}");
             var user = await _uow.Users.GetUserByEmailAsync(email);
             if (user == null)
             {
@@ -89,7 +88,7 @@ namespace RedTeam.TechArtSurvey.Foundation.Services
 
         public async Task<IReadOnlyCollection<UserDto>> GetAllAsync()
         {
-            _log.Info("Get all users");
+            LoggerContext.GetLogger.Info("Get all users");
             var users = await _uow.Users.GetAllAsync();
             return _mapper.Map<IReadOnlyCollection<User>, IReadOnlyCollection<UserDto>>(users);
         }

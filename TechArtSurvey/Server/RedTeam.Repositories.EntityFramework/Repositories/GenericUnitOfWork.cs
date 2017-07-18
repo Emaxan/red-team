@@ -16,13 +16,11 @@ namespace RedTeam.Repositories.EntityFramework.Repositories
         private readonly Dictionary<Type, object> _repositoriesDictionary;
 
         protected readonly DbContext Context;
-        protected readonly ILog Log;
 
         [UsedImplicitly]
-        public GenericUnitOfWork(DbContext context, ILog log)
+        public GenericUnitOfWork(DbContext context)
         {
             Context = context;
-            Log = log;
             _repositoriesDictionary = new Dictionary<Type, object>();
         }
 
@@ -32,7 +30,7 @@ namespace RedTeam.Repositories.EntityFramework.Repositories
 
             if ( !_repositoriesDictionary.ContainsKey(type) )
             {
-                _repositoriesDictionary.Add(type, new GenericRepository<TEntity>(Context, Log));
+                _repositoriesDictionary.Add(type, new GenericRepository<TEntity>(Context));
             }
 
             return (IGenericRepository<TEntity>) _repositoriesDictionary[typeof( TEntity )];

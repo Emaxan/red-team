@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 
 using RedTeam.Logger.Interfaces;
 
@@ -25,27 +26,32 @@ namespace RedTeam.Logger
 
         public void Info(string message, Exception e = null)
         {
-            _log.Info(message, e);
+            _log.Info(GetClassOfCallingMethod() + message, e);
         }
 
         public void Error(string message, Exception e = null)
         {
-            _log.Error(message, e);
+            _log.Error(GetClassOfCallingMethod() + message, e);
         }
 
         public void Warn(string message, Exception e = null)
         {
-            _log.Warn(message, e);
+            _log.Warn(GetClassOfCallingMethod() + message, e);
         }
 
         public void Fatal(string message, Exception e = null)
         {
-            _log.Fatal(message, e);
+            _log.Fatal(GetClassOfCallingMethod() + message, e);
         }
 
         public void Debug(string message, Exception e = null)
         {
-            _log.Debug(message, e);
+            _log.Debug(GetClassOfCallingMethod() + message, e);
+        }
+
+        private string GetClassOfCallingMethod()
+        {
+            return (new StackFrame(2).GetMethod().DeclaringType?.DeclaringType?.ToString() ?? "undefined class").PadRight(80);
         }
     }
 }
