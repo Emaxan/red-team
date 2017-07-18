@@ -1,4 +1,7 @@
 ﻿using System.Data.Entity;
+
+using log4net;
+
 using RedTeam.Repositories.EntityFramework.Repositories;
 using RedTeam.TechArtSurvey.Repositories.Interfaces;
 using RedTeam.TechArtSurvey.Repositories.Interfaces.Repositories;
@@ -10,14 +13,14 @@ namespace RedTeam.TechArtSurvey.Repositories
     {
         private IUserRepository _userRepository;
 
-        public UnitOfWork(DbContext context)
-            : base(context)
+        public UnitOfWork(DbContext context, ILog log)
+            : base(context, log)
         {
         }
 
         public IUserRepository Users
         {
-            get { return _userRepository ?? (_userRepository = new UserRepository(Context)); }
+            get { return _userRepository ?? (_userRepository = new UserRepository(Context, Log)); }
         }
     }
 }

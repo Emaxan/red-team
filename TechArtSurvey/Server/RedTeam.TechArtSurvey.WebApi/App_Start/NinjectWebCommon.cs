@@ -1,6 +1,9 @@
 using System;
+using System.Diagnostics;
 using System.Web;
 using System.Web.Http;
+
+using log4net;
 
 using Microsoft.Web.Infrastructure.DynamicModuleHelper;
 
@@ -85,6 +88,13 @@ namespace RedTeam.TechArtSurvey.WebApi
         /// <param name="kernel">The kernel.</param>
         private static void RegisterServices(IKernel kernel)
         {
+            kernel.Bind<ILog>().
+                ToMethod(context =>
+                         {
+                             var callingMethod = new StackFrame(10).GetMethod().ReflectedType;
+                             return LogManager.GetLogger(context.Request.Target?.Member.ReflectedType ??
+                                                         callingMethod);
+                         });
             var containerConfigurator = new NinjectConfigurator();
             containerConfigurator.Configure(kernel);
         }

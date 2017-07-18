@@ -12,7 +12,7 @@ namespace RedTeam.TechArtSurvey.WebApi.Utils
             Kernel = kernel;
         }
 
-        public IKernel Kernel { get; }
+        public static IKernel Kernel { get; private set; }
 
         public object GetService(Type serviceType)
         {

@@ -1,4 +1,8 @@
-﻿using Ninject;
+﻿using System.Diagnostics;
+
+using log4net;
+
+using Ninject;
 
 using RedTeam.TechArtSurvey.Foundation.Interfaces;
 using RedTeam.TechArtSurvey.Foundation.Services;
