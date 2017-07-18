@@ -2,18 +2,16 @@
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
-
 using Ninject;
-
 using RedTeam.Logger.Interfaces;
 
 namespace RedTeam.TechArtSurvey.WebApi.Utils
 {
-    public class LoggerHandler : DelegatingHandler
+    public class TechArtSurveyLoggerHandler : DelegatingHandler
     {
         private readonly ILog _log;
 
-        public LoggerHandler()
+        public TechArtSurveyLoggerHandler()
         {
             _log = NinjectDependencyResolver.Kernel.Get<ILog>();
         }

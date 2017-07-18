@@ -1,9 +1,8 @@
 ﻿using Ninject.Modules;
-
 using RedTeam.TechArtSurvey.Repositories;
 using RedTeam.TechArtSurvey.Repositories.Interfaces;
 
-namespace RedTeam.TechArtSurvey.Initializer
+namespace RedTeam.TechArtSurvey.Initializer.NinjectModules
 {
     public class ServiceModule : NinjectModule
     {

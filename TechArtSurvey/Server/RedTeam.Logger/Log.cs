@@ -13,31 +13,15 @@ namespace RedTeam.Logger
             _log = log;
         }
 
+        public bool IsInfoEnabled => _log.IsInfoEnabled;
 
-        public bool IsInfoEnabled
-        {
-            get { return _log.IsInfoEnabled; }
-        }
+        public bool IsErrorEnabled => _log.IsErrorEnabled;
 
-        public bool IsErrorEnabled
-        {
-            get { return _log.IsErrorEnabled; }
-        }
+        public bool IsWarnEnabled => _log.IsWarnEnabled;
 
-        public bool IsWarnEnabled
-        {
-            get { return _log.IsWarnEnabled; }
-        }
+        public bool IsFatalEnabled => _log.IsFatalEnabled;
 
-        public bool IsFatalEnabled
-        {
-            get { return _log.IsFatalEnabled; }
-        }
-
-        public bool IsDebugEnabled
-        {
-            get { return _log.IsDebugEnabled; }
-        }
+        public bool IsDebugEnabled => _log.IsDebugEnabled;
 
         public void Info(string message, Exception e = null)
         {

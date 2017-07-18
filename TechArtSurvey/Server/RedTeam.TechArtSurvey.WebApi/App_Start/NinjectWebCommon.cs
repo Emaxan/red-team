@@ -8,6 +8,7 @@ using Ninject;
 using Ninject.Modules;
 using Ninject.Web.Common;
 using RedTeam.TechArtSurvey.Initializer;
+using RedTeam.TechArtSurvey.Initializer.NinjectModules;
 using RedTeam.TechArtSurvey.WebApi;
 using RedTeam.TechArtSurvey.WebApi.Utils;
 

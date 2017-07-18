@@ -9,7 +9,7 @@ namespace RedTeam.TechArtSurvey.WebApi
         public static void Register(HttpConfiguration config)
         {
             // Web API configuration and services
-            config.MessageHandlers.Add(new LoggerHandler());
+            config.MessageHandlers.Add(new TechArtSurveyLoggerHandler());
 
             config.Services.Replace(typeof(IExceptionLogger), new TechArtSurveyExceptionLogger());
             config.Services.Replace(typeof(IExceptionHandler), new TechArtSurveyExceptionHandler());
