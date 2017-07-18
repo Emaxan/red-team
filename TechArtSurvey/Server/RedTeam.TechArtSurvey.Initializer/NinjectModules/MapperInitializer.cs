@@ -6,7 +6,7 @@ using Ninject.Modules;
 using RedTeam.TechArtSurvey.DomainModel.Entities;
 using RedTeam.TechArtSurvey.Foundation.DTO;
 
-namespace RedTeam.TechArtSurvey.Initializer
+namespace RedTeam.TechArtSurvey.Initializer.NinjectModules
 {
     public class MapperInitializer : NinjectModule
     {
@@ -17,7 +17,7 @@ namespace RedTeam.TechArtSurvey.Initializer
 
             Bind<IMapper>().
                 ToMethod(ctx =>
-                             new Mapper(mapperConfiguration, type => ctx.Kernel.Get(type)));
+                             new Mapper(mapperConfiguration, type => ctx.Kernel.Get(type))).InSingletonScope();
         }
 
         private MapperConfiguration CreateConfiguration()

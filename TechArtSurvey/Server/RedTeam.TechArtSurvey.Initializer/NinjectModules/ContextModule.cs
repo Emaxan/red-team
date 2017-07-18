@@ -15,7 +15,7 @@ namespace RedTeam.TechArtSurvey.Initializer.NinjectModules
 
         public override void Load()
         {
-            Bind<DbContext>().To<TechArtSurveyContext>().WithConstructorArgument(_connectionString);
+            Bind<DbContext>().To<TechArtSurveyContext>().InSingletonScope().WithConstructorArgument(_connectionString);
         }
     }
 }
