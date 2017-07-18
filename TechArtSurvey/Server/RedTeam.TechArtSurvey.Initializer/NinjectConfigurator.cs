@@ -9,14 +9,14 @@ using RedTeam.TechArtSurvey.Foundation.Services;
 
 namespace RedTeam.TechArtSurvey.Initializer
 {
-    public class NinjectConfigurator
+    public static class NinjectConfigurator
     {
-        public void Configure(IKernel kernel)
+        public static void Configure(IKernel kernel)
         {
             AddBindings(kernel);
         }
 
-        private void AddBindings(IKernel kernel)
+        private static void AddBindings(IKernel kernel)
         {
             kernel.Bind<IUserService>().To<UserService>();
         }

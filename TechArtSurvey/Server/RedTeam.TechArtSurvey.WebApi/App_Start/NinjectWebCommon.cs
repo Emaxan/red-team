@@ -11,11 +11,14 @@ using Ninject;
 using Ninject.Modules;
 using Ninject.Web.Common;
 
+using RedTeam.Logger;
 using RedTeam.TechArtSurvey.Initializer;
 using RedTeam.TechArtSurvey.WebApi;
 using RedTeam.TechArtSurvey.WebApi.Utils;
 
 using WebActivatorEx;
+
+using ILog = RedTeam.Logger.ILog;
 
 [assembly: WebActivatorEx.PreApplicationStartMethod(typeof(NinjectWebCommon), "Start")]
 [assembly: ApplicationShutdownMethod(typeof(NinjectWebCommon), "Stop")]
@@ -88,15 +91,16 @@ namespace RedTeam.TechArtSurvey.WebApi
         /// <param name="kernel">The kernel.</param>
         private static void RegisterServices(IKernel kernel)
         {
-            kernel.Bind<ILog>().
+            kernel.Bind<ILog>().To<Log>();
+
+            kernel.Bind<log4net.ILog>().
                 ToMethod(context =>
                          {
                              var callingMethod = new StackFrame(10).GetMethod().ReflectedType;
                              return LogManager.GetLogger(context.Request.Target?.Member.ReflectedType ??
                                                          callingMethod);
                          });
-            var containerConfigurator = new NinjectConfigurator();
-            containerConfigurator.Configure(kernel);
+            NinjectConfigurator.Configure(kernel);
         }
     }
 }

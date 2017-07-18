@@ -3,9 +3,9 @@ using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
 
-using log4net;
-
 using Ninject;
+
+using RedTeam.Logger;
 
 namespace RedTeam.TechArtSurvey.WebApi.Utils
 {

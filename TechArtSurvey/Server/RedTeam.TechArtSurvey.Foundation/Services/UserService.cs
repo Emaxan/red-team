@@ -4,8 +4,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using JetBrains.Annotations;
 
-using log4net;
-
+using RedTeam.Logger;
 using RedTeam.TechArtSurvey.DomainModel.Entities;
 using RedTeam.TechArtSurvey.Foundation.DTO;
 using RedTeam.TechArtSurvey.Foundation.Interfaces;

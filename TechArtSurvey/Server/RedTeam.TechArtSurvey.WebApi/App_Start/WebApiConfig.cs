@@ -1,7 +1,5 @@
 ﻿using System.Web.Http;
 
-using log4net;
-
 using RedTeam.TechArtSurvey.WebApi.Utils;
 
 namespace RedTeam.TechArtSurvey.WebApi

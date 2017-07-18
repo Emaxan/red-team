@@ -5,8 +5,7 @@ using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Description;
 
-using log4net;
-
+using RedTeam.Logger;
 using RedTeam.TechArtSurvey.Foundation.DTO;
 using RedTeam.TechArtSurvey.Foundation.Interfaces;
 
@@ -63,7 +62,7 @@ namespace RedTeam.TechArtSurvey.WebApi.Controllers
             }
             catch (ArgumentException e)
             {
-                _log.Error($"Get User with email. Error: {e.Message}".Length, e);
+                _log.Error($"Get User with email. Error: {e.Message}", e);
                 return BadRequest(e.Message);
             }
         }
