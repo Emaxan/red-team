@@ -130,6 +130,10 @@
       <Project>{725ec8e0-9925-4c5c-b1ef-83cfb09704d6}</Project>
       <Name>RedTeam.Logger.Interfaces</Name>
     </ProjectReference>
+    <ProjectReference Include="..\RedTeam.Logger\RedTeam.Logger.csproj">
+      <Project>{2A7D081E-C19A-476B-9E46-2D17CE1769AF}</Project>
+      <Name>RedTeam.Logger</Name>
+    </ProjectReference>
     <ProjectReference Include="..\RedTeam.TechArtSurvey.Foundation.DTO\RedTeam.TechArtSurvey.Foundation.DTO.csproj">
       <Project>{7EF7BA4C-3ED5-44B5-904C-C0039B6E57B6}</Project>
       <Name>RedTeam.TechArtSurvey.Foundation.DTO</Name>

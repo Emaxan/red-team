@@ -2,6 +2,7 @@ using System;
 using System.Web;
 using System.Web.Http;
 
+using log4net;
 
 using Microsoft.Web.Infrastructure.DynamicModuleHelper;
 
@@ -9,7 +10,6 @@ using Ninject;
 using Ninject.Modules;
 using Ninject.Web.Common;
 
-using RedTeam.Logger;
 using RedTeam.TechArtSurvey.Initializer;
 using RedTeam.TechArtSurvey.WebApi;
 using RedTeam.TechArtSurvey.WebApi.Utils;
