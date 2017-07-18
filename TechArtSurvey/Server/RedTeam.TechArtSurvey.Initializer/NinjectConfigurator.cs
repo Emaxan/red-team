@@ -1,12 +1,8 @@
-﻿using System.Diagnostics;
-
-using log4net;
-
-using Ninject;
-
+﻿using Ninject;
 using RedTeam.Logger;
 using RedTeam.TechArtSurvey.Foundation.Interfaces;
 using RedTeam.TechArtSurvey.Foundation.Services;
+using RedTeam.Logger;
 
 using ILog = RedTeam.Logger.Interfaces.ILog;
 

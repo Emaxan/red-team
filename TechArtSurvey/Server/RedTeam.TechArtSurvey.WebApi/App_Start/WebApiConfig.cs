@@ -1,5 +1,5 @@
 ﻿using System.Web.Http;
-
+using System.Web.Http.ExceptionHandling;
 using RedTeam.TechArtSurvey.WebApi.Utils;
 
 namespace RedTeam.TechArtSurvey.WebApi
@@ -10,6 +10,9 @@ namespace RedTeam.TechArtSurvey.WebApi
         {
             // Web API configuration and services
             config.MessageHandlers.Add(new LoggerHandler());
+
+            config.Services.Replace(typeof(IExceptionLogger), new TechArtSurveyExceptionLogger());
+            config.Services.Replace(typeof(IExceptionHandler), new TechArtSurveyExceptionHandler());
 
             // Web API routes
             config.MapHttpAttributeRoutes();
@@ -22,8 +25,6 @@ namespace RedTeam.TechArtSurvey.WebApi
                     id = RouteParameter.Optional
                 }
             );
-
-            // config.Formatters.Add(new UserFormatter());
         }
     }
 }

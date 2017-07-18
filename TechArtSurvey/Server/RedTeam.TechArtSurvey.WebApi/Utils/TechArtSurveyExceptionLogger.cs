@@ -14,8 +14,7 @@ namespace RedTeam.TechArtSurvey.WebApi.Utils
 
         public override void Log(ExceptionLoggerContext context)
         {
-            string message = context.Exception.Message;
-            // use log
+            _log.Fatal(context.Exception.StackTrace, context.Exception);
         }
     }
 }

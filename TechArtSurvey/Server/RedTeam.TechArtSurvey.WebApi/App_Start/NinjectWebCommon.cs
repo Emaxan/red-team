@@ -1,23 +1,17 @@
 using System;
 using System.Web;
 using System.Web.Http;
-
-using log4net;
-
 using Microsoft.Web.Infrastructure.DynamicModuleHelper;
-
+using WebActivatorEx;
+using log4net;
 using Ninject;
 using Ninject.Modules;
 using Ninject.Web.Common;
-
 using RedTeam.TechArtSurvey.Initializer;
 using RedTeam.TechArtSurvey.WebApi;
 using RedTeam.TechArtSurvey.WebApi.Utils;
 
-using WebActivatorEx;
-
 using ILog = RedTeam.Logger.Interfaces.ILog;
-
 [assembly: WebActivatorEx.PreApplicationStartMethod(typeof(NinjectWebCommon), "Start")]
 [assembly: ApplicationShutdownMethod(typeof(NinjectWebCommon), "Stop")]
 
@@ -89,6 +83,7 @@ namespace RedTeam.TechArtSurvey.WebApi
         /// <param name="kernel">The kernel.</param>
         private static void RegisterServices(IKernel kernel)
         {
+
             NinjectConfigurator.Configure(kernel);
         }
     }
