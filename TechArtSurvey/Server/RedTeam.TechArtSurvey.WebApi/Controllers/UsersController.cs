@@ -27,6 +27,7 @@ namespace RedTeam.TechArtSurvey.WebApi.Controllers
         [ResponseType(typeof( IReadOnlyCollection<UserDto> ))]
         public async Task<IEnumerable<UserDto>> GetUsers()
         {
+            throw new Exception("FUCK");
             _log.Info("Get all users");
             return await _userService.GetAllAsync();
         }

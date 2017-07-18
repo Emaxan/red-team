@@ -1,4 +1,5 @@
-﻿using Ninject;
+﻿using System.Diagnostics;
+using Ninject;
 using RedTeam.Logger;
 using RedTeam.TechArtSurvey.Foundation.Interfaces;
 using RedTeam.TechArtSurvey.Foundation.Services;
