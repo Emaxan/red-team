@@ -22,7 +22,7 @@ namespace RedTeam.TechArtSurvey.WebApi.Utils
             var stopWath = Stopwatch.StartNew();
             var response = await base.SendAsync(request, cancellationToken);
             stopWath.Stop();
-            _log.Info($"Process request: {request.Method.Method} {request.RequestUri} HTTP{request.Version}. Handled by {stopWath.ElapsedMilliseconds} ms. Response: HTTP{response.Version} {response.StatusCode} {response.ReasonPhrase}");
+            _log.Info($"Process request: {request.Method.Method} {request.RequestUri} HTTP{request.Version}. Handled by {stopWath.ElapsedMilliseconds} ms. Response: HTTP{response.Version} {response.StatusCode}");
 
             return response;
         }
