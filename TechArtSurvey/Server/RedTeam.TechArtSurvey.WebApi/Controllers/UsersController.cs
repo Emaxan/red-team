@@ -29,17 +29,19 @@ namespace RedTeam.TechArtSurvey.WebApi.Controllers
 
         // PUT api/Users/5
         [HttpPut]
-        public async Task<IServiceResponse> EditUser(UserDto user)
+        public async Task<IServiceResponse> EditUser(int id, UserDto user)
         {
             LoggerContext.GetLogger.Info($"Update User with email = {user.Email}");
+            user.Id = id;
             return await _userService.UpdateAsync(user);
         }
 
         // DELETE api/Users
         [HttpDelete]
-        public async Task<IServiceResponse> RemoveUser(UserDto user)
+        public async Task<IServiceResponse> RemoveUser(int id, UserDto user)
         {
             LoggerContext.GetLogger.Info($"Delete User with email = {user.Email}");
+            user.Id = id;
             return await _userService.DeleteAsync(user);
         }
 
