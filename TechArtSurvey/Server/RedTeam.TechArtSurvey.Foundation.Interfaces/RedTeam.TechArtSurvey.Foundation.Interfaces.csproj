@@ -34,8 +34,10 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ServiceResponses\IServiceResponse.cs" />
     <Compile Include="IUserService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ServiceResponses\ServiceResponseCodes.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\RedTeam.TechArtSurvey.Foundation.DTO\RedTeam.TechArtSurvey.Foundation.DTO.csproj">

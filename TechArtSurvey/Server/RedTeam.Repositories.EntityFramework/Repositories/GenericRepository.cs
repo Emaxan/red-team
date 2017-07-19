@@ -1,11 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Data.Entity;
+using System.Data.Entity.Migrations;
 using System.Linq;
 using System.Threading.Tasks;
-
 using JetBrains.Annotations;
 
-using RedTeam.Logger;
+using RedTeam.Logger.Interfaces;
 using RedTeam.Repositories.Interfaces;
 
 namespace RedTeam.Repositories.EntityFramework.Repositories
@@ -15,63 +15,54 @@ namespace RedTeam.Repositories.EntityFramework.Repositories
     {
         private readonly DbSet<TEntity> _dbSet;
 
-        protected readonly IDbContext Context;
+        protected readonly DbContext _context;
+        protected readonly ILog _log;
 
         protected IQueryable<TEntity> DbSet
         {
             get { return _dbSet; }
         }
 
-        public GenericRepository(IDbContext context)
+        public GenericRepository(DbContext context, ILog log)
         {
-            Context = context;
+            _context = context;
+            _log = log;
             _dbSet = context.Set<TEntity>();
         }
 
         public virtual TEntity Create(TEntity entity)
         {
-            LoggerContext.GetLogger.Info($"Create entity in database with type {typeof( TEntity ).Name}");
-            return _dbSet.Add(entity);
+            _log.Info($"Create entity in database with type {typeof(TEntity).Name}");
+            TEntity e = _dbSet.Add(entity);
+            var s = _context.Entry(e).State;
+            return e;
         }
 
         [CanBeNull]
         public virtual async Task<TEntity> GetAsync(int id)
         {
-            LoggerContext.GetLogger.Info($"Get entity from database with id {id}");
+            _log.Info($"Get entity from database with type {typeof(TEntity).Name}");
             var user = await _dbSet.FindAsync(id);
             return user;
         }
 
         public virtual async Task<IReadOnlyCollection<TEntity>> GetAllAsync()
         {
-            LoggerContext.GetLogger.Info($"Get all entities from database with type {typeof( TEntity ).Name}");
+            _log.Info($"Get all entities from database with type {typeof(TEntity).Name}");
             var users = await _dbSet.ToListAsync();
             return users;
         }
 
         public virtual void Update(TEntity entity)
         {
-            LoggerContext.GetLogger.Info($"Update entity in database with type {typeof( TEntity ).Name}");
-            if ( !_dbSet.Local.Contains(entity) )
-            {
-                Detach(entity);
-            }
-            Context.Entry(entity).State = EntityState.Modified;
+            _log.Info($"Update entity in database with type {typeof(TEntity).Name}");
+            _dbSet.AddOrUpdate(entity);
         }
 
         public virtual void Delete(TEntity entity)
         {
-            LoggerContext.GetLogger.Info($"Delete entity from database with type {typeof( TEntity ).Name}");
-            if ( !_dbSet.Local.Contains(entity) )
-            {
-                _dbSet.Attach(entity);
-            }
+            _log.Info($"Delete entity from database with type {typeof(TEntity).Name}");
             _dbSet.Remove(entity);
-        }
-
-        public virtual void Detach(TEntity entity)
-        {
-            Context.Entry(entity).State = EntityState.Detached;
         }
     }
 }

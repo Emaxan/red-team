@@ -16,12 +16,14 @@ namespace RedTeam.TechArtSurvey.Repositories.Migrations
             context.Users.AddOrUpdate(u => u.Email, 
                 new User()
                 {
+                    Id = 1,
                     Name = "Admin",
                     Email = "admin@admin.admin",
                     Password = "admin"
                 },
                 new User()
                 {
+                    Id = 2,
                     Name = "User",
                     Email = "user@user.user",
                     Password = "user"

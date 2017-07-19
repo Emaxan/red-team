@@ -70,7 +70,6 @@
     <Reference Include="Ninject.Web.WebApi, Version=3.2.0.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
       <HintPath>..\packages\Ninject.Web.WebApi.3.2.4.0\lib\net45-full\Ninject.Web.WebApi.dll</HintPath>
     </Reference>
-    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Net.Http" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -103,10 +102,16 @@
     <Compile Include="Filters\CustomActionAttribute.cs" />
     <Compile Include="Filters\CustomAuthenticationAttribute.cs" />
     <Compile Include="Filters\CustomAuthorizationAttribute.cs" />
+    <Compile Include="Filters\ResponseFilterAttribute.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\ResponseMessages.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ResponseMessages.resx</DependentUpon>
+    </Compile>
     <Compile Include="Utils\TechArtSurveyExceptionHandler.cs" />
     <Compile Include="Utils\TechArtSurveyExceptionLogger.cs" />
     <Compile Include="Utils\NinjectDependencyResolver.cs" />
@@ -146,6 +151,12 @@
       <Project>{5477CB27-24A2-4353-B676-B8F70F727D97}</Project>
       <Name>RedTeam.TechArtSurvey.Initializer</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Properties\ResponseMessages.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>ResponseMessages.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
