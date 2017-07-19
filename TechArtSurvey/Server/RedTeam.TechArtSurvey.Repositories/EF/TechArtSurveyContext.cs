@@ -1,4 +1,5 @@
-﻿using System.Data.Entity;
+﻿using System.ComponentModel.DataAnnotations.Schema;
+using System.Data.Entity;
 
 using JetBrains.Annotations;
 
@@ -24,6 +25,20 @@ namespace RedTeam.TechArtSurvey.Repositories.EF
         public new IDbSet<TEntity> Set<TEntity>() where TEntity : class
         {
             return base.Set<TEntity>();
+        }
+
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<User>().Property(u => u.Id).IsRequired();
+            modelBuilder.Entity<User>().Property(u => u.Name).IsRequired();
+            modelBuilder.Entity<User>().Property(u => u.Email).IsRequired();
+            modelBuilder.Entity<User>().Property(u => u.Password).IsRequired();
+
+            modelBuilder.Entity<User>().Property(u => u.Id).HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
+
+            modelBuilder.Entity<User>().HasKey(u => u.Id);
+
+            base.OnModelCreating(modelBuilder);
         }
     }
 }
