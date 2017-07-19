@@ -11,6 +11,7 @@ namespace RedTeam.TechArtSurvey.Repositories.Migrations
             AutomaticMigrationsEnabled = false;
         }
 
+
         protected override void Seed(TechArtSurveyContext context)
         {
             context.Users.AddOrUpdate(u => u.Email, 

@@ -9,10 +9,12 @@ namespace RedTeam.Logger
     {
         private readonly log4net.ILog _log;
 
+
         public Log(log4net.ILog log)
         {
             _log = log;
         }
+
 
         public bool IsInfoEnabled => _log.IsInfoEnabled;
 
@@ -23,6 +25,7 @@ namespace RedTeam.Logger
         public bool IsFatalEnabled => _log.IsFatalEnabled;
 
         public bool IsDebugEnabled => _log.IsDebugEnabled;
+
 
         public void Info(string message, Exception e = null)
         {
@@ -48,6 +51,7 @@ namespace RedTeam.Logger
         {
             _log.Debug(GetClassOfCallingMethod() + message, e);
         }
+
 
         private string GetClassOfCallingMethod()
         {

@@ -10,6 +10,8 @@ namespace RedTeam.TechArtSurvey.Initializer
 {
     public class MapperInitializer : NinjectModule
     {
+
+
         public override void Load()
         {
             var mapperConfiguration = CreateConfiguration();
@@ -19,6 +21,7 @@ namespace RedTeam.TechArtSurvey.Initializer
                 ToMethod(ctx =>
                              new Mapper(mapperConfiguration, type => ctx.Kernel.Get(type))).InSingletonScope();
         }
+
 
         private MapperConfiguration CreateConfiguration()
         {

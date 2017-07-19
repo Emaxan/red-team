@@ -1,6 +1,4 @@
-﻿using System.Data.Entity;
-
-using Ninject.Modules;
+﻿using Ninject.Modules;
 using RedTeam.Repositories.Interfaces;
 using RedTeam.TechArtSurvey.Repositories.EF;
 
@@ -10,10 +8,12 @@ namespace RedTeam.TechArtSurvey.Initializer.NinjectModules
     {
         private readonly string _connectionString;
 
+
         public ContextModule(string connection)
         {
             _connectionString = connection;
         }
+
 
         public override void Load()
         {

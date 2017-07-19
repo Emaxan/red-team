@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 
 using AutoMapper;
@@ -21,11 +20,13 @@ namespace RedTeam.TechArtSurvey.Foundation.Services
         private readonly IUnitOfWork _uow;
         private readonly IMapper _mapper;
 
+
         public UserService(IUnitOfWork uow, IMapper mapper)
         {
             _uow = uow;
             _mapper = mapper;
         }
+
 
         public async Task<IServiceResponse> CreateAsync(UserDto user)
         {

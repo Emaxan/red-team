@@ -9,7 +9,6 @@ namespace RedTeam.TechArtSurvey.WebApi.Utils
 {
     public class TechArtSurveyLoggerHandler : DelegatingHandler
     {
-
         protected override async Task<HttpResponseMessage> SendAsync(
             HttpRequestMessage request, CancellationToken cancellationToken)
         {
@@ -22,6 +21,5 @@ namespace RedTeam.TechArtSurvey.WebApi.Utils
 
             return response;
         }
-
     }
 }

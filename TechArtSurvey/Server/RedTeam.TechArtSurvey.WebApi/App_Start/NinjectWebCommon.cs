@@ -10,6 +10,7 @@ using RedTeam.TechArtSurvey.Initializer;
 using RedTeam.TechArtSurvey.Initializer.NinjectModules;
 using RedTeam.TechArtSurvey.WebApi;
 using RedTeam.TechArtSurvey.WebApi.Utils;
+
 [assembly: WebActivatorEx.PreApplicationStartMethod(typeof(NinjectWebCommon), "Start")]
 [assembly: ApplicationShutdownMethod(typeof(NinjectWebCommon), "Stop")]
 
@@ -18,6 +19,7 @@ namespace RedTeam.TechArtSurvey.WebApi
     public static class NinjectWebCommon
     {
         private static readonly Bootstrapper Bootstrapper = new Bootstrapper();
+
 
         /// <summary>
         ///     Starts the application
@@ -38,6 +40,7 @@ namespace RedTeam.TechArtSurvey.WebApi
             GlobalConfiguration.Configuration.DependencyResolver = resolver;
         }
 
+
         /// <summary>
         ///     Stops the application.
         /// </summary>
@@ -45,6 +48,7 @@ namespace RedTeam.TechArtSurvey.WebApi
         {
             Bootstrapper.ShutDown();
         }
+
 
         /// <summary>
         ///     Creates the kernel that will manage your application.
@@ -74,6 +78,7 @@ namespace RedTeam.TechArtSurvey.WebApi
                 throw;
             }
         }
+
 
         /// <summary>
         ///     Load your modules or register your services here!

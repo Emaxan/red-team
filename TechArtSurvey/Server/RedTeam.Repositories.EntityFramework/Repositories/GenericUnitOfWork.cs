@@ -11,10 +11,11 @@ namespace RedTeam.Repositories.EntityFramework.Repositories
     [UsedImplicitly]
     public class GenericUnitOfWork : IGenericUnitOfWork
     {
+        protected readonly IDbContext Context;
+
         private bool _disposed;
         private readonly Dictionary<Type, object> _repositoriesDictionary;
 
-        protected readonly IDbContext Context;
 
         [UsedImplicitly]
         public GenericUnitOfWork(IDbContext context)
@@ -22,6 +23,7 @@ namespace RedTeam.Repositories.EntityFramework.Repositories
             Context = context;
             _repositoriesDictionary = new Dictionary<Type, object>();
         }
+
 
         public IGenericRepository<TEntity> GetRepository<TEntity>() where TEntity : class
         {

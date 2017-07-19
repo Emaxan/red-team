@@ -13,20 +13,23 @@ namespace RedTeam.Repositories.EntityFramework.Repositories
     public class GenericRepository<TEntity> : IGenericRepository<TEntity>
         where TEntity : class
     {
+        protected readonly IDbContext Context;
+
         private readonly DbSet<TEntity> _dbSet;
 
-        protected readonly IDbContext Context;
 
         protected IQueryable<TEntity> DbSet
         {
             get { return _dbSet; }
         }
 
+
         public GenericRepository(IDbContext context)
         {
             Context = context;
             _dbSet = context.Set<TEntity>();
         }
+
 
         public virtual TEntity Create(TEntity entity)
         {

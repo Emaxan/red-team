@@ -3,6 +3,7 @@
     public interface IServiceResponse
     {
         ServiceResponseCodes Code { get; set; }
+
         object Content { get; set; }
     }
 }

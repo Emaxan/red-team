@@ -8,12 +8,14 @@ namespace RedTeam.TechArtSurvey.WebApi.Utils
 {
     public class NinjectDependencyResolver : IDependencyResolver
     {
+        public static IKernel Kernel { get; private set; }
+
+
         public NinjectDependencyResolver(IKernel kernel)
         {
             Kernel = kernel;
         }
 
-        public static IKernel Kernel { get; private set; }
 
         public object GetService(Type serviceType)
         {

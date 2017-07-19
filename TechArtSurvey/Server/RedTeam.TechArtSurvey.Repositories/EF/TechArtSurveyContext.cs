@@ -13,6 +13,7 @@ namespace RedTeam.TechArtSurvey.Repositories.EF
     {
         public DbSet<User> Users { get; set; }
 
+
         public TechArtSurveyContext()
         {
         }
@@ -22,10 +23,12 @@ namespace RedTeam.TechArtSurvey.Repositories.EF
         {
         }
 
+
         public new IDbSet<TEntity> Set<TEntity>() where TEntity : class
         {
             return base.Set<TEntity>();
         }
+
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
