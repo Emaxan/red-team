@@ -6,16 +6,9 @@ namespace RedTeam.TechArtSurvey.WebApi.Utils
 {
     public class TechArtSurveyExceptionLogger : ExceptionLogger
     {
-        private readonly ILog _log;
-
-        public TechArtSurveyExceptionLogger()
-        {
-            _log = LoggerFactory.GetLogger(GetType());
-        }
-
         public override void Log(ExceptionLoggerContext context)
         {
-            _log.Fatal(context.Exception.StackTrace + context.Exception, context.Exception);
+            LoggerContext.GetLogger.Fatal(context.Exception.StackTrace + context.Exception, context.Exception);
         }
     }
 }

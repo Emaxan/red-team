@@ -1,16 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Net;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using System.Web.Http;
-using System.Web.Http.Description;
 
 using RedTeam.Logger;
 using RedTeam.TechArtSurvey.Foundation.DTO;
 using RedTeam.TechArtSurvey.Foundation.Interfaces;
+using RedTeam.TechArtSurvey.Foundation.Interfaces.ServiceResponses;
+using RedTeam.TechArtSurvey.WebApi.Filters;
 
 namespace RedTeam.TechArtSurvey.WebApi.Controllers
 {
+    [ResponseFilter]
     public class UsersController : ApiController
     {
         private readonly IUserService _userService;
@@ -20,106 +19,52 @@ namespace RedTeam.TechArtSurvey.WebApi.Controllers
             _userService = userService;
         }
 
-        // GET api/Users
-        [HttpGet]
-        [ResponseType(typeof( IReadOnlyCollection<UserDto> ))]
-        public async Task<IEnumerable<UserDto>> GetUsers()
+        // POST api/Users
+        [HttpPost]
+        public async Task<IServiceResponse> AddUser(UserDto user)
         {
-            LoggerContext.GetLogger.Info("Get all users");
-            return await _userService.GetAllAsync();
-        }
-
-        // GET api/Users/5
-        [HttpGet]
-        [ResponseType(typeof(UserDto))]
-        public async Task<IHttpActionResult> GetUser(int id)
-        {
-            try
-            {
-                LoggerContext.GetLogger.Info($"Get User with id = {id}");
-                var user = await _userService.GetAsync(id);
-                return Ok(user);
-            }
-            catch (ArgumentException e)
-            {
-                LoggerContext.GetLogger.Error($"Get User with id. Error: {e.Message}", e);
-                return BadRequest(e.Message);
-            }
-        }
-
-        // GET api/Users/?email=user@user.user
-        [HttpGet]
-        [ResponseType(typeof(UserDto))]
-        public async Task<IHttpActionResult> GetUserByEmail([FromUri] string email)
-        {
-            try
-            {
-                LoggerContext.GetLogger.Info($"Get User with email = {email}");
-                var user = await _userService.GetUserByEmailAsync(email);
-                return Ok(user);
-            }
-            catch (ArgumentException e)
-            {
-                LoggerContext.GetLogger.Error($"Get User with email. Error: {e.Message}", e);
-                return BadRequest(e.Message);
-            }
+            LoggerContext.GetLogger.Info($"Create User with email = {user.Email}");
+            return await _userService.CreateAsync(user);
         }
 
         // PUT api/Users/5
         [HttpPut]
-        [ResponseType(typeof( void ))]
-        public async Task<IHttpActionResult> EditUser(UserDto user)
+        public async Task<IServiceResponse> EditUser(UserDto user)
         {
-            try
-            {
-                LoggerContext.GetLogger.Info($"Update User with email = {user.Email}");
-                await _userService.Update(user);
-                return StatusCode(HttpStatusCode.Accepted);
-            }
-            catch ( ArgumentException e )
-            {
-                LoggerContext.GetLogger.Error($"Update User. Error: {e.Message}", e);
-                return BadRequest(e.Message);
-            }
-        }
-
-        // POST api/Users
-        [HttpPost]
-        [ResponseType(typeof( void ))]
-        public async Task<IHttpActionResult> AddUser(UserDto user)
-        {
-            try
-            {
-                LoggerContext.GetLogger.Info($"Create User with email = {user.Email}");
-                var createdUserId = await _userService.Create(user);
-                return CreatedAtRoute("DefaultApi", new
-                                                    {
-                                                        id = createdUserId
-                                                    }, user);
-            }
-            catch ( ArgumentException e )
-            {
-                LoggerContext.GetLogger.Error($"Greate User. Error: {e.Message}", e);
-                return BadRequest(e.Message);
-            }
+            LoggerContext.GetLogger.Info($"Update User with email = {user.Email}");
+            return await _userService.UpdateAsync(user);
         }
 
         // DELETE api/Users
         [HttpDelete]
-        [ResponseType(typeof( void ))]
-        public async Task<IHttpActionResult> RemoveUser(UserDto user)
+        public async Task<IServiceResponse> RemoveUser(UserDto user)
         {
-            try
-            {
-                LoggerContext.GetLogger.Info($"Delete User with email = {user.Email}");
-                await _userService.DeleteAsync(user);
-                return StatusCode(HttpStatusCode.Accepted);
-            }
-            catch ( ArgumentException e )
-            {
-                LoggerContext.GetLogger.Error($"Delete User. Error: {e.Message}", e);
-                return BadRequest(e.Message);
-            }
+            LoggerContext.GetLogger.Info($"Delete User with email = {user.Email}");
+            return await _userService.DeleteAsync(user);
+        }
+
+        // GET api/Users/5
+        [HttpGet]
+        public async Task<IServiceResponse> GetUser(int id)
+        {
+            LoggerContext.GetLogger.Info($"Get User with id = {id}");
+            return await _userService.GetByIdAsync(id);
+        }
+
+        // GET api/Users/?email=user@user.user
+        [HttpGet]
+        public async Task<IServiceResponse> GetUserByEmail([FromUri] string email)
+        {
+            LoggerContext.GetLogger.Info($"Get User with email = {email}");
+            return await _userService.GetByEmailAsync(email);
+        }
+
+        // GET api/Users
+        [HttpGet]
+        public async Task<IServiceResponse> GetUsers()
+        {
+            LoggerContext.GetLogger.Info("Get all users");
+            return await _userService.GetAllAsync();
         }
     }
 }

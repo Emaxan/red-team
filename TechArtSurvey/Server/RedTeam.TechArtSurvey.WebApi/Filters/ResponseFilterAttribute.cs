@@ -1,6 +1,7 @@
 ﻿using System.Net;
 using System.Net.Http;
 using System.Web.Http.Filters;
+using RedTeam.Logger;
 using RedTeam.TechArtSurvey.Foundation.Interfaces.ServiceResponses;
 
 namespace RedTeam.TechArtSurvey.WebApi.Filters
@@ -20,14 +21,16 @@ namespace RedTeam.TechArtSurvey.WebApi.Filters
                     if (serviceResponse.Code == ServiceResponseCodes.Ok)
                     {
                         response = actionExecutedContext.Request.CreateResponse(
-                            HttpStatusCode.OK, 
+                            HttpStatusCode.OK,
                             serviceResponse.Content);
                     }
                     else
                     {
-                        response = actionExecutedContext.Request.CreateResponse(
-                            HttpStatusCode.BadRequest,
-                            Properties.ResponseMessages.ResourceManager.GetString(serviceResponse.Code.ToString()));
+                        string errorMessage =
+                            Properties.ResponseMessages.ResourceManager.GetString(serviceResponse.Code.ToString());
+
+                        response = actionExecutedContext.Request.CreateResponse(HttpStatusCode.BadRequest, errorMessage);
+                        LoggerContext.GetLogger.Error(errorMessage);
                     }
 
                     actionExecutedContext.Response = response;

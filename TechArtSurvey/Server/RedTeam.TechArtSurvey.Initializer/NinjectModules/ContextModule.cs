@@ -1,7 +1,7 @@
 ﻿using System.Data.Entity;
 
 using Ninject.Modules;
-
+using RedTeam.Repositories.Interfaces;
 using RedTeam.TechArtSurvey.Repositories.EF;
 
 namespace RedTeam.TechArtSurvey.Initializer.NinjectModules
@@ -17,7 +17,7 @@ namespace RedTeam.TechArtSurvey.Initializer.NinjectModules
 
         public override void Load()
         {
-            Bind<DbContext>().To<TechArtSurveyContext>().InSingletonScope().WithConstructorArgument(_connectionString);
+            Bind<IDbContext>().To<TechArtSurveyContext>().InSingletonScope().WithConstructorArgument(_connectionString);
         }
     }
 }
