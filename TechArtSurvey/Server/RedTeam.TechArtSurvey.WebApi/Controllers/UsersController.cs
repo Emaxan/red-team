@@ -5,11 +5,9 @@ using RedTeam.Logger;
 using RedTeam.TechArtSurvey.Foundation.DTO;
 using RedTeam.TechArtSurvey.Foundation.Interfaces;
 using RedTeam.TechArtSurvey.Foundation.Interfaces.ServiceResponses;
-using RedTeam.TechArtSurvey.WebApi.Filters;
 
 namespace RedTeam.TechArtSurvey.WebApi.Controllers
 {
-    [ResponseFilter]
     public class UsersController : ApiController
     {
         private readonly IUserService _userService;

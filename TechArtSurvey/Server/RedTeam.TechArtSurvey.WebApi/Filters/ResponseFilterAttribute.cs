@@ -34,9 +34,10 @@ namespace RedTeam.TechArtSurvey.WebApi.Filters
                     }
 
                     actionExecutedContext.Response = response;
-                    base.OnActionExecuted(actionExecutedContext);
                 }
             }
+
+            base.OnActionExecuted(actionExecutedContext);
         }
     }
 }

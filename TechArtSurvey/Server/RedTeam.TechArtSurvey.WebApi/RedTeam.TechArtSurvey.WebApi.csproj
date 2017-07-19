@@ -98,10 +98,6 @@
     <Compile Include="App_Start\NinjectWebCommon.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\UsersController.cs" />
-    <Compile Include="Filters\ArrayExceptionAttribute.cs" />
-    <Compile Include="Filters\CustomActionAttribute.cs" />
-    <Compile Include="Filters\CustomAuthenticationAttribute.cs" />
-    <Compile Include="Filters\CustomAuthorizationAttribute.cs" />
     <Compile Include="Filters\ResponseFilterAttribute.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -113,10 +109,10 @@
       <DependentUpon>ResponseMessages.resx</DependentUpon>
     </Compile>
     <Compile Include="Utils\TechArtSurveyExceptionHandler.cs" />
+    <Compile Include="Utils\TechArtSurveyExceptionHttpResponse.cs" />
     <Compile Include="Utils\TechArtSurveyExceptionLogger.cs" />
     <Compile Include="Utils\NinjectDependencyResolver.cs" />
     <Compile Include="Utils\TechArtSurveyLoggerHandler.cs" />
-    <Compile Include="Utils\UserFormatter.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
