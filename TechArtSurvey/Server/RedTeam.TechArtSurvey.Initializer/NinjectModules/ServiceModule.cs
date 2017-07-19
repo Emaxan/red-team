@@ -9,7 +9,7 @@ namespace RedTeam.TechArtSurvey.Initializer.NinjectModules
     {
         public override void Load()
         {
-            Bind<IUnitOfWork>().To<UnitOfWork>().InSingletonScope();
+            Bind<ITechArtSurveyUnitOfWork>().To<TechArtSurveyUnitOfWork>().InSingletonScope();
         }
     }
 }

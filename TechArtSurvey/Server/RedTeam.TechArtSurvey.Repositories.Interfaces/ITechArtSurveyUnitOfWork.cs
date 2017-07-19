@@ -3,7 +3,7 @@ using RedTeam.TechArtSurvey.Repositories.Interfaces.Repositories;
 
 namespace RedTeam.TechArtSurvey.Repositories.Interfaces
 {
-    public interface IUnitOfWork : IGenericUnitOfWork
+    public interface ITechArtSurveyUnitOfWork : IUnitOfWork
     {
         IUserRepository Users { get; }
     }

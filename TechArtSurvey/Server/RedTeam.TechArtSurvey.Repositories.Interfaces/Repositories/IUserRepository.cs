@@ -5,7 +5,7 @@ using RedTeam.TechArtSurvey.DomainModel.Entities;
 
 namespace RedTeam.TechArtSurvey.Repositories.Interfaces.Repositories
 {
-    public interface IUserRepository : IGenericRepository<User>
+    public interface IUserRepository : IRepository<User>
     {
         Task<User> GetUserByEmailAsync(string email);
 

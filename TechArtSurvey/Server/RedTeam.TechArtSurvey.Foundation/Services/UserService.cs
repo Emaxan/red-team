@@ -17,11 +17,11 @@ namespace RedTeam.TechArtSurvey.Foundation.Services
     [UsedImplicitly]
     public class UserService : IUserService
     {
-        private readonly IUnitOfWork _uow;
+        private readonly ITechArtSurveyUnitOfWork _uow;
         private readonly IMapper _mapper;
 
 
-        public UserService(IUnitOfWork uow, IMapper mapper)
+        public UserService(ITechArtSurveyUnitOfWork uow, IMapper mapper)
         {
             _uow = uow;
             _mapper = mapper;

@@ -9,7 +9,7 @@ using RedTeam.TechArtSurvey.Repositories.Interfaces.Repositories;
 
 namespace RedTeam.TechArtSurvey.Repositories.Repositories
 {
-    public class UserRepository : GenericRepository<User>, IUserRepository
+    public class UserRepository : Repository<User>, IUserRepository
     {
         public UserRepository(IDbContext context)
             : base(context)

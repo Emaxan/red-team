@@ -10,7 +10,7 @@ using RedTeam.Repositories.Interfaces;
 
 namespace RedTeam.Repositories.EntityFramework.Repositories
 {
-    public class GenericRepository<TEntity> : IGenericRepository<TEntity>
+    public class Repository<TEntity> : IRepository<TEntity>
         where TEntity : class
     {
         protected readonly IDbContext Context;
@@ -24,7 +24,7 @@ namespace RedTeam.Repositories.EntityFramework.Repositories
         }
 
 
-        public GenericRepository(IDbContext context)
+        public Repository(IDbContext context)
         {
             Context = context;
             _dbSet = context.Set<TEntity>();

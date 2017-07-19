@@ -9,7 +9,7 @@ using RedTeam.Repositories.Interfaces;
 namespace RedTeam.Repositories.EntityFramework.Repositories
 {
     [UsedImplicitly]
-    public class GenericUnitOfWork : IGenericUnitOfWork
+    public class UnitOfWork : IUnitOfWork
     {
         protected readonly IDbContext Context;
 
@@ -18,23 +18,23 @@ namespace RedTeam.Repositories.EntityFramework.Repositories
 
 
         [UsedImplicitly]
-        public GenericUnitOfWork(IDbContext context)
+        public UnitOfWork(IDbContext context)
         {
             Context = context;
             _repositoriesDictionary = new Dictionary<Type, object>();
         }
 
 
-        public IGenericRepository<TEntity> GetRepository<TEntity>() where TEntity : class
+        public IRepository<TEntity> GetRepository<TEntity>() where TEntity : class
         {
             var type = typeof(TEntity);
 
             if (!_repositoriesDictionary.ContainsKey(type))
             {
-                _repositoriesDictionary.Add(type, new GenericRepository<TEntity>(Context));
+                _repositoriesDictionary.Add(type, new Repository<TEntity>(Context));
             }
 
-            return (IGenericRepository<TEntity>)_repositoriesDictionary[typeof(TEntity)];
+            return (IRepository<TEntity>)_repositoriesDictionary[typeof(TEntity)];
         }
 
         public async Task SaveAsync()
