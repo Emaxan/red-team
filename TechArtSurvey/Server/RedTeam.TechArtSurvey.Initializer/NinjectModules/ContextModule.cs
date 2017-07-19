@@ -1,5 +1,7 @@
 ﻿using System.Data.Entity;
+
 using Ninject.Modules;
+
 using RedTeam.TechArtSurvey.Repositories.EF;
 
 namespace RedTeam.TechArtSurvey.Initializer.NinjectModules

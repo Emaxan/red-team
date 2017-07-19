@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+
 using AutoMapper;
+
 using JetBrains.Annotations;
 
 using RedTeam.Logger;
-using RedTeam.Logger.Interfaces;
 using RedTeam.TechArtSurvey.DomainModel.Entities;
 using RedTeam.TechArtSurvey.Foundation.DTO;
 using RedTeam.TechArtSurvey.Foundation.Interfaces;
@@ -31,8 +32,9 @@ namespace RedTeam.TechArtSurvey.Foundation.Services
             var us = await _uow.Users.CheckUserByEmailAsync(user.Email);
             if ( us != null )
             {
-                throw new ArgumentException("User already exist", nameof( user.Email));
+                throw new ArgumentException("User already exist", nameof( user.Email ));
             }
+
             var createdUser = _uow.Users.Create(_mapper.Map<UserDto, User>(user));
             await _uow.SaveAsync();
             return createdUser.Id;
@@ -44,9 +46,9 @@ namespace RedTeam.TechArtSurvey.Foundation.Services
             var us = await _uow.Users.CheckUserByEmailAsync(user.Email);
             if ( us == null )
             {
-                throw new ArgumentException("User not found", nameof( user.Email));
+                throw new ArgumentException("User not found", nameof( user.Email ));
             }
-            
+
             _uow.Users.Update(_mapper.Map<UserDto, User>(user));
             await _uow.SaveAsync();
         }
@@ -57,8 +59,9 @@ namespace RedTeam.TechArtSurvey.Foundation.Services
             var us = await _uow.Users.CheckUserByEmailAsync(user.Email);
             if ( us == null )
             {
-                throw new ArgumentException("User not found", nameof(user.Email));
+                throw new ArgumentException("User not found", nameof( user.Email ));
             }
+
             _uow.Users.Delete(us);
             await _uow.SaveAsync();
         }
@@ -67,10 +70,11 @@ namespace RedTeam.TechArtSurvey.Foundation.Services
         {
             LoggerContext.GetLogger.Info($"Get user with id = {id}");
             var user = await _uow.Users.GetAsync(id);
-            if (user == null)
+            if ( user == null )
             {
-                throw new ArgumentException("User not found", nameof(id));
+                throw new ArgumentException("User not found", nameof( id ));
             }
+
             return _mapper.Map<User, UserDto>(user);
         }
 
@@ -78,9 +82,9 @@ namespace RedTeam.TechArtSurvey.Foundation.Services
         {
             LoggerContext.GetLogger.Info($"Get user with email = {email}");
             var user = await _uow.Users.GetUserByEmailAsync(email);
-            if (user == null)
+            if ( user == null )
             {
-                throw new ArgumentException("User not found", nameof(email));
+                throw new ArgumentException("User not found", nameof( email ));
             }
 
             return _mapper.Map<User, UserDto>(user);

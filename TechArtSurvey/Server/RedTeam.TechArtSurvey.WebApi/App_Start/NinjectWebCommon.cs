@@ -3,7 +3,6 @@ using System.Web;
 using System.Web.Http;
 using Microsoft.Web.Infrastructure.DynamicModuleHelper;
 using WebActivatorEx;
-using log4net;
 using Ninject;
 using Ninject.Modules;
 using Ninject.Web.Common;

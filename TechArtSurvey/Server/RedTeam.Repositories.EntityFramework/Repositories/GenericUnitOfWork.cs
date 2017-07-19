@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data.Entity;
 using System.Threading.Tasks;
+
 using JetBrains.Annotations;
 
-using RedTeam.Logger.Interfaces;
 using RedTeam.Repositories.Interfaces;
 
 namespace RedTeam.Repositories.EntityFramework.Repositories
@@ -52,7 +51,9 @@ namespace RedTeam.Repositories.EntityFramework.Repositories
             if ( !_disposed )
             {
                 if ( disposing )
+                {
                     Context.Dispose();
+                }
                 _disposed = true;
             }
         }

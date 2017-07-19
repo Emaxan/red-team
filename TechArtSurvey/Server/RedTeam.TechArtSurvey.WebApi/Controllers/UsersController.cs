@@ -6,7 +6,6 @@ using System.Web.Http;
 using System.Web.Http.Description;
 
 using RedTeam.Logger;
-using RedTeam.Logger.Interfaces;
 using RedTeam.TechArtSurvey.Foundation.DTO;
 using RedTeam.TechArtSurvey.Foundation.Interfaces;
 

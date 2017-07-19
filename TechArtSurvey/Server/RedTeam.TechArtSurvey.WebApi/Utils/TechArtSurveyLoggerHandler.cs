@@ -2,10 +2,8 @@
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
-using Ninject;
 
 using RedTeam.Logger;
-using RedTeam.Logger.Interfaces;
 
 namespace RedTeam.TechArtSurvey.WebApi.Utils
 {

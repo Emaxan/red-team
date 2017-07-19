@@ -2,6 +2,7 @@
 using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
+
 using JetBrains.Annotations;
 
 using RedTeam.Logger;
@@ -29,7 +30,7 @@ namespace RedTeam.Repositories.EntityFramework.Repositories
 
         public virtual TEntity Create(TEntity entity)
         {
-            LoggerContext.GetLogger.Info($"Create entity in database with type {typeof(TEntity).Name}");
+            LoggerContext.GetLogger.Info($"Create entity in database with type {typeof( TEntity ).Name}");
             return _dbSet.Add(entity);
         }
 
@@ -43,15 +44,15 @@ namespace RedTeam.Repositories.EntityFramework.Repositories
 
         public virtual async Task<IReadOnlyCollection<TEntity>> GetAllAsync()
         {
-            LoggerContext.GetLogger.Info($"Get all entities from database with type {typeof(TEntity).Name}");
+            LoggerContext.GetLogger.Info($"Get all entities from database with type {typeof( TEntity ).Name}");
             var users = await _dbSet.ToListAsync();
             return users;
         }
 
         public virtual void Update(TEntity entity)
         {
-            LoggerContext.GetLogger.Info($"Update entity in database with type {typeof(TEntity).Name}");
-            if (!_dbSet.Local.Contains(entity))
+            LoggerContext.GetLogger.Info($"Update entity in database with type {typeof( TEntity ).Name}");
+            if ( !_dbSet.Local.Contains(entity) )
             {
                 Detach(entity);
             }
@@ -60,7 +61,7 @@ namespace RedTeam.Repositories.EntityFramework.Repositories
 
         public virtual void Delete(TEntity entity)
         {
-            LoggerContext.GetLogger.Info($"Delete entity from database with type {typeof(TEntity).Name}");
+            LoggerContext.GetLogger.Info($"Delete entity from database with type {typeof( TEntity ).Name}");
             if ( !_dbSet.Local.Contains(entity) )
             {
                 _dbSet.Attach(entity);
