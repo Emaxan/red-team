@@ -23,7 +23,7 @@ namespace RedTeam.TechArtSurvey.WebApi.Controllers
         [HttpPost]
         public async Task<IServiceResponse> AddUser(UserDto user)
         {
-            LoggerContext.GetLogger.Info($"Create User with email = {user.Email}");
+            LoggerContext.Logger.Info($"Create User with email = {user.Email}");
             return await _userService.CreateAsync(user);
         }
 
@@ -31,7 +31,7 @@ namespace RedTeam.TechArtSurvey.WebApi.Controllers
         [HttpPut]
         public async Task<IServiceResponse> EditUser(EditUserDto user)
         {
-            LoggerContext.GetLogger.Info($"Update User with email = {user.Email}");
+            LoggerContext.Logger.Info($"Update User with email = {user.Email}");
             return await _userService.UpdateAsync(user);
         }
 
@@ -39,7 +39,7 @@ namespace RedTeam.TechArtSurvey.WebApi.Controllers
         [HttpDelete]
         public async Task<IServiceResponse> RemoveUser(int id)
         {
-            LoggerContext.GetLogger.Info($"Delete User with id = {id}");
+            LoggerContext.Logger.Info($"Delete User with id = {id}");
             return await _userService.DeleteByIdAsync(id);
         }
 
@@ -47,7 +47,7 @@ namespace RedTeam.TechArtSurvey.WebApi.Controllers
         [HttpGet]
         public async Task<IServiceResponse> GetUser(int id)
         {
-            LoggerContext.GetLogger.Info($"Get User with id = {id}");
+            LoggerContext.Logger.Info($"Get User with id = {id}");
             return await _userService.GetByIdAsync(id);
         }
 
@@ -55,7 +55,7 @@ namespace RedTeam.TechArtSurvey.WebApi.Controllers
         [HttpGet]
         public async Task<IServiceResponse> GetUserByEmail([FromUri] string email)
         {
-            LoggerContext.GetLogger.Info($"Get User with email = {email}");
+            LoggerContext.Logger.Info($"Get User with email = {email}");
             return await _userService.GetByEmailAsync(email);
         }
 
@@ -63,7 +63,7 @@ namespace RedTeam.TechArtSurvey.WebApi.Controllers
         [HttpGet]
         public async Task<IServiceResponse> GetUsers()
         {
-            LoggerContext.GetLogger.Info("Get all users");
+            LoggerContext.Logger.Info("Get all users");
             return await _userService.GetAllAsync();
         }
     }

@@ -33,28 +33,28 @@ namespace RedTeam.Repositories.EntityFramework.Repositories
 
         public virtual TEntity Create(TEntity entity)
         {
-            LoggerContext.GetLogger.Info($"Create entity in database with type {typeof(TEntity).Name}");
+            LoggerContext.Logger.Info($"Create entity in database with type {typeof(TEntity).Name}");
             return _dbSet.Add(entity);
         }
 
         [CanBeNull]
         public virtual async Task<TEntity> GetAsync(int id)
         {
-            LoggerContext.GetLogger.Info($"Get entity from database with id {id}");
+            LoggerContext.Logger.Info($"Get entity from database with id {id}");
             var user = await _dbSet.FindAsync(id);
             return user;
         }
 
         public virtual async Task<IReadOnlyCollection<TEntity>> GetAllAsync()
         {
-            LoggerContext.GetLogger.Info($"Get all entities from database with type {typeof(TEntity).Name}");
+            LoggerContext.Logger.Info($"Get all entities from database with type {typeof(TEntity).Name}");
             var users = await _dbSet.ToListAsync();
             return users;
         }
 
         public virtual void Update(TEntity entity)
         {
-            LoggerContext.GetLogger.Info($"Update entity in database with type {typeof(TEntity).Name}");
+            LoggerContext.Logger.Info($"Update entity in database with type {typeof(TEntity).Name}");
             if (!_dbSet.Local.Contains(entity))
             {
                 Context.Entry(entity).State = EntityState.Modified;
@@ -63,7 +63,7 @@ namespace RedTeam.Repositories.EntityFramework.Repositories
 
         public virtual void Delete(TEntity entity)
         {
-            LoggerContext.GetLogger.Info($"Delete entity from database with type {typeof(TEntity).Name}");
+            LoggerContext.Logger.Info($"Delete entity from database with type {typeof(TEntity).Name}");
             if (!_dbSet.Local.Contains(entity))
             {
                 _dbSet.Attach(entity);

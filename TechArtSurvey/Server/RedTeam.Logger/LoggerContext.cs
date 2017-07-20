@@ -8,7 +8,7 @@ namespace RedTeam.Logger
         private static readonly ILog DefaultLogger = LoggerFactory.GetLogger(typeof(Log));
 
 
-        public static ILog GetLogger {
+        public static ILog Logger {
             get {
                 return _current ?? (_current = DefaultLogger);
             }

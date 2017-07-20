@@ -30,7 +30,7 @@ namespace RedTeam.TechArtSurvey.Foundation.Services
 
         public async Task<IServiceResponse> CreateAsync(UserDto user)
         {
-            LoggerContext.GetLogger.Info($"Create user with email = {user.Email}");
+            LoggerContext.Logger.Info($"Create user with email = {user.Email}");
 
             ServiceResponse serviceResponse = new ServiceResponse();
             var us = await _uow.Users.GetUserByEmailAsync(user.Email);
@@ -51,7 +51,7 @@ namespace RedTeam.TechArtSurvey.Foundation.Services
 
         public async Task<IServiceResponse> UpdateAsync(EditUserDto user)
         {
-            LoggerContext.GetLogger.Info($"Update user with email = {user.Email}");
+            LoggerContext.Logger.Info($"Update user with email = {user.Email}");
 
             ServiceResponse serviceResponse = new ServiceResponse();
             var us = await _uow.Users.GetAsync(user.Id);
@@ -72,7 +72,7 @@ namespace RedTeam.TechArtSurvey.Foundation.Services
 
         public async Task<IServiceResponse> DeleteByIdAsync(int id)
         {
-            LoggerContext.GetLogger.Info($"Delete user with id = {id}");
+            LoggerContext.Logger.Info($"Delete user with id = {id}");
 
             ServiceResponse serviceResponse = new ServiceResponse();
             var us = await _uow.Users.GetAsync(id);
@@ -93,7 +93,7 @@ namespace RedTeam.TechArtSurvey.Foundation.Services
 
         public async Task<IServiceResponse> GetByIdAsync(int id)
         {
-            LoggerContext.GetLogger.Info($"Get user with id = {id}");
+            LoggerContext.Logger.Info($"Get user with id = {id}");
 
             ServiceResponse serviceResponse = new ServiceResponse();
             var user = await _uow.Users.GetAsync(id);
@@ -112,7 +112,7 @@ namespace RedTeam.TechArtSurvey.Foundation.Services
 
         public async Task<IServiceResponse> GetByEmailAsync(string email)
         {
-            LoggerContext.GetLogger.Info($"Get user with email = {email}");
+            LoggerContext.Logger.Info($"Get user with email = {email}");
 
             ServiceResponse serviceResponse = new ServiceResponse();
             var user = await _uow.Users.GetUserByEmailAsync(email);
@@ -131,7 +131,7 @@ namespace RedTeam.TechArtSurvey.Foundation.Services
 
         public async Task<IServiceResponse> GetAllAsync()
         {
-            LoggerContext.GetLogger.Info("Get all users");
+            LoggerContext.Logger.Info("Get all users");
 
             var users = await _uow.Users.GetAllAsync();
             ServiceResponse serviceResponse = new ServiceResponse()

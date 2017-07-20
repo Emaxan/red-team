@@ -17,7 +17,7 @@ namespace RedTeam.TechArtSurvey.WebApi.Utils
             stopWath.Stop();
             var req = $"{request.Method.Method} {request.RequestUri} HTTP{request.Version}.".PadRight(90);
             var time = $"Handled by {stopWath.ElapsedMilliseconds} ms.".PadRight(25);
-            LoggerContext.GetLogger.Info($"Process request: {req} {time} Response: HTTP{response.Version} {response.StatusCode}");
+            LoggerContext.Logger.Info($"Process request: {req} {time} Response: HTTP{response.Version} {response.StatusCode}");
 
             return response;
         }

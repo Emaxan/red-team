@@ -41,7 +41,7 @@ namespace RedTeam.TechArtSurvey.WebApi.Filters
                             Properties.ResponseMessages.ResourceManager.GetString(serviceResponse.Code.ToString());
 
                         response = actionExecutedContext.Request.CreateResponse(HttpStatusCode.BadRequest, errorMessage);
-                        LoggerContext.GetLogger.Error(errorMessage);
+                        LoggerContext.Logger.Error(errorMessage);
                     }
 
                     actionExecutedContext.Response = response;
