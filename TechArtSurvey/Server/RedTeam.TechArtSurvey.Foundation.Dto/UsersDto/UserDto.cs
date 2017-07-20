@@ -1,11 +1,9 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace RedTeam.TechArtSurvey.Foundation.DTO
+namespace RedTeam.TechArtSurvey.Foundation.Dto.UsersDto
 {
     public class UserDto 
     {
-        public int Id { get; set; }
-
         [Required]
         [MinLength(3, ErrorMessage = "Name should be at least 3 characters")]
         public string Name { get; set; }
