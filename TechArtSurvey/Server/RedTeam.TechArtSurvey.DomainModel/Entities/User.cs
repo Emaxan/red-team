@@ -1,6 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace RedTeam.TechArtSurvey.DomainModel.Entities
+﻿namespace RedTeam.TechArtSurvey.DomainModel.Entities
 {
     public class User
     {
@@ -8,7 +6,6 @@ namespace RedTeam.TechArtSurvey.DomainModel.Entities
 
         public string Name { get; set; }
 
-        [MaxLength(50)]
         public string Email { get; set; }
 
         public string Password { get; set; }
