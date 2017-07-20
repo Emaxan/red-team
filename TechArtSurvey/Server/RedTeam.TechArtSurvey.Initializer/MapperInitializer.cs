@@ -4,7 +4,7 @@ using Ninject;
 using Ninject.Modules;
 
 using RedTeam.TechArtSurvey.DomainModel.Entities;
-using RedTeam.TechArtSurvey.Foundation.DTO;
+using RedTeam.TechArtSurvey.Foundation.Dto.UsersDto;
 
 namespace RedTeam.TechArtSurvey.Initializer
 {
@@ -29,6 +29,7 @@ namespace RedTeam.TechArtSurvey.Initializer
                                                  {
                                                      cfg.AddProfiles(GetType().Assembly);
                                                      cfg.CreateMap<User, UserDto>().ReverseMap();
+                                                     cfg.CreateMap<User, EditUserDto>().ReverseMap();
                                                  });
             return config;
         }

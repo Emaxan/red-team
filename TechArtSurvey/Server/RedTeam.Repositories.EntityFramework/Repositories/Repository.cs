@@ -57,9 +57,8 @@ namespace RedTeam.Repositories.EntityFramework.Repositories
             LoggerContext.GetLogger.Info($"Update entity in database with type {typeof(TEntity).Name}");
             if (!_dbSet.Local.Contains(entity))
             {
-                Detach(entity);
+                Context.Entry(entity).State = EntityState.Modified;
             }
-            Context.Entry(entity).State = EntityState.Modified;
         }
 
         public virtual void Delete(TEntity entity)

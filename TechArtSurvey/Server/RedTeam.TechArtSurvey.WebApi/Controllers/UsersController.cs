@@ -2,7 +2,7 @@
 using System.Web.Http;
 
 using RedTeam.Logger;
-using RedTeam.TechArtSurvey.Foundation.DTO;
+using RedTeam.TechArtSurvey.Foundation.Dto.UsersDto;
 using RedTeam.TechArtSurvey.Foundation.Interfaces;
 using RedTeam.TechArtSurvey.Foundation.Interfaces.ServiceResponses;
 
@@ -29,20 +29,18 @@ namespace RedTeam.TechArtSurvey.WebApi.Controllers
 
         // PUT api/Users/5
         [HttpPut]
-        public async Task<IServiceResponse> EditUser(int id, UserDto user)
+        public async Task<IServiceResponse> EditUser(EditUserDto user)
         {
             LoggerContext.GetLogger.Info($"Update User with email = {user.Email}");
-            user.Id = id;
             return await _userService.UpdateAsync(user);
         }
 
         // DELETE api/Users
         [HttpDelete]
-        public async Task<IServiceResponse> RemoveUser(int id, UserDto user)
+        public async Task<IServiceResponse> RemoveUser(int id)
         {
-            LoggerContext.GetLogger.Info($"Delete User with email = {user.Email}");
-            user.Id = id;
-            return await _userService.DeleteAsync(user);
+            LoggerContext.GetLogger.Info($"Delete User with id = {id}");
+            return await _userService.DeleteByIdAsync(id);
         }
 
         // GET api/Users/5

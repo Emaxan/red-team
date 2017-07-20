@@ -20,19 +20,7 @@ namespace RedTeam.TechArtSurvey.Repositories.Repositories
         public async Task<User> GetUserByEmailAsync(string email)
         {
             LoggerContext.GetLogger.Info($"Get User with email = {email}");
-            var usr = await DbSet.FirstOrDefaultAsync(user => user.Email == email);
-            return usr;
-        }
-
-        public async Task<User> CheckUserByEmailAsync(string email)
-        {
-            LoggerContext.GetLogger.Info($"Check User with email = {email}");
-            var usr = await DbSet.FirstOrDefaultAsync(user => user.Email == email);
-            if (usr != null)
-            {
-                Detach(usr);
-            }
-            return usr;
+            return await DbSet.FirstOrDefaultAsync(user => user.Email == email);
         }
     }
 }

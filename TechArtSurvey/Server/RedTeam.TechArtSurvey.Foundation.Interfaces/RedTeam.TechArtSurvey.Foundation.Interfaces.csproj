@@ -40,9 +40,9 @@
     <Compile Include="ServiceResponses\ServiceResponseCodes.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\RedTeam.TechArtSurvey.Foundation.DTO\RedTeam.TechArtSurvey.Foundation.DTO.csproj">
-      <Project>{7EF7BA4C-3ED5-44B5-904C-C0039B6E57B6}</Project>
-      <Name>RedTeam.TechArtSurvey.Foundation.DTO</Name>
+    <ProjectReference Include="..\RedTeam.TechArtSurvey.Foundation.Dto\RedTeam.TechArtSurvey.Foundation.Dto.csproj">
+      <Project>{e5e1a1e9-ff87-4aee-9b49-8c19a2307d5d}</Project>
+      <Name>RedTeam.TechArtSurvey.Foundation.Dto</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

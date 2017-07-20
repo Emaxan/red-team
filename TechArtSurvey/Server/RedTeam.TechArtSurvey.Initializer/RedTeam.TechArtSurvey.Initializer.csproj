@@ -76,9 +76,9 @@
       <Project>{CBA1E0F8-A057-4782-82DE-162668F2B074}</Project>
       <Name>RedTeam.TechArtSurvey.DomainModel</Name>
     </ProjectReference>
-    <ProjectReference Include="..\RedTeam.TechArtSurvey.Foundation.DTO\RedTeam.TechArtSurvey.Foundation.DTO.csproj">
-      <Project>{7EF7BA4C-3ED5-44B5-904C-C0039B6E57B6}</Project>
-      <Name>RedTeam.TechArtSurvey.Foundation.DTO</Name>
+    <ProjectReference Include="..\RedTeam.TechArtSurvey.Foundation.Dto\RedTeam.TechArtSurvey.Foundation.Dto.csproj">
+      <Project>{e5e1a1e9-ff87-4aee-9b49-8c19a2307d5d}</Project>
+      <Name>RedTeam.TechArtSurvey.Foundation.Dto</Name>
     </ProjectReference>
     <ProjectReference Include="..\RedTeam.TechArtSurvey.Foundation.Interfaces\RedTeam.TechArtSurvey.Foundation.Interfaces.csproj">
       <Project>{CDF233FB-754D-41FE-8F6C-B41F40AA680A}</Project>

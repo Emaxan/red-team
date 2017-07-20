@@ -7,7 +7,7 @@ using JetBrains.Annotations;
 
 using RedTeam.Logger;
 using RedTeam.TechArtSurvey.DomainModel.Entities;
-using RedTeam.TechArtSurvey.Foundation.DTO;
+using RedTeam.TechArtSurvey.Foundation.Dto.UsersDto;
 using RedTeam.TechArtSurvey.Foundation.Interfaces;
 using RedTeam.TechArtSurvey.Foundation.Interfaces.ServiceResponses;
 using RedTeam.TechArtSurvey.Repositories.Interfaces;
@@ -33,7 +33,7 @@ namespace RedTeam.TechArtSurvey.Foundation.Services
             LoggerContext.GetLogger.Info($"Create user with email = {user.Email}");
 
             ServiceResponse serviceResponse = new ServiceResponse();
-            var us = await _uow.Users.CheckUserByEmailAsync(user.Email);
+            var us = await _uow.Users.GetUserByEmailAsync(user.Email);
             if (us != null)
             {
                 serviceResponse.Code = ServiceResponseCodes.UserAlreadyExists;
@@ -49,19 +49,19 @@ namespace RedTeam.TechArtSurvey.Foundation.Services
             return serviceResponse;
         }
 
-        public async Task<IServiceResponse> UpdateAsync(UserDto user)
+        public async Task<IServiceResponse> UpdateAsync(EditUserDto user)
         {
             LoggerContext.GetLogger.Info($"Update user with email = {user.Email}");
 
             ServiceResponse serviceResponse = new ServiceResponse();
-            var us = await _uow.Users.CheckUserByEmailAsync(user.Email);
+            var us = await _uow.Users.GetAsync(user.Id);
             if (us == null)
             {
-                serviceResponse.Code = ServiceResponseCodes.NotFoundUserByEmail;
+                serviceResponse.Code = ServiceResponseCodes.NotFoundUserById;
             }
             else
             {
-                _uow.Users.Update(_mapper.Map<UserDto, User>(user));
+                _uow.Users.Update(_mapper.Map(user, us));
                 await _uow.SaveAsync();
 
                 serviceResponse.Code = ServiceResponseCodes.Ok;
@@ -70,15 +70,15 @@ namespace RedTeam.TechArtSurvey.Foundation.Services
             return serviceResponse;
         }
 
-        public async Task<IServiceResponse> DeleteAsync(UserDto user)
+        public async Task<IServiceResponse> DeleteByIdAsync(int id)
         {
-            LoggerContext.GetLogger.Info($"Delete user with email = {user.Email}");
+            LoggerContext.GetLogger.Info($"Delete user with id = {id}");
 
             ServiceResponse serviceResponse = new ServiceResponse();
-            var us = await _uow.Users.CheckUserByEmailAsync(user.Email);
+            var us = await _uow.Users.GetAsync(id);
             if (us == null)
             {
-                serviceResponse.Code = ServiceResponseCodes.NotFoundUserByEmail;
+                serviceResponse.Code = ServiceResponseCodes.NotFoundUserById;
             }
             else
             {
@@ -104,7 +104,7 @@ namespace RedTeam.TechArtSurvey.Foundation.Services
             else
             {
                 serviceResponse.Code = ServiceResponseCodes.Ok;
-                serviceResponse.Content = _mapper.Map<User, UserDto>(user);
+                serviceResponse.Content = _mapper.Map<User, EditUserDto>(user);
             }
 
             return serviceResponse;
@@ -123,7 +123,7 @@ namespace RedTeam.TechArtSurvey.Foundation.Services
             else
             {
                 serviceResponse.Code = ServiceResponseCodes.Ok;
-                serviceResponse.Content = _mapper.Map<User, UserDto>(user);
+                serviceResponse.Content = _mapper.Map<User, EditUserDto>(user);
             }
 
             return serviceResponse;
@@ -137,7 +137,7 @@ namespace RedTeam.TechArtSurvey.Foundation.Services
             ServiceResponse serviceResponse = new ServiceResponse()
             {
                 Code = ServiceResponseCodes.Ok,
-                Content = _mapper.Map<IReadOnlyCollection<User>, IReadOnlyCollection<UserDto>>(users)
+                Content = _mapper.Map<IReadOnlyCollection<User>, IReadOnlyCollection<EditUserDto>>(users)
             };
 
             return serviceResponse;

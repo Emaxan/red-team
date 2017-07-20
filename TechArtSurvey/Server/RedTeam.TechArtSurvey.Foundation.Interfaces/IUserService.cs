@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 
-using RedTeam.TechArtSurvey.Foundation.DTO;
+using RedTeam.TechArtSurvey.Foundation.Dto.UsersDto;
 using RedTeam.TechArtSurvey.Foundation.Interfaces.ServiceResponses;
 
 namespace RedTeam.TechArtSurvey.Foundation.Interfaces
@@ -9,9 +9,9 @@ namespace RedTeam.TechArtSurvey.Foundation.Interfaces
     {
         Task<IServiceResponse> CreateAsync(UserDto user);
 
-        Task<IServiceResponse> UpdateAsync(UserDto user);
+        Task<IServiceResponse> UpdateAsync(EditUserDto user);
 
-        Task<IServiceResponse> DeleteAsync(UserDto user);
+        Task<IServiceResponse> DeleteByIdAsync(int id);
 
         Task<IServiceResponse> GetByIdAsync(int id);
 
