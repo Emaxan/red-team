@@ -1,6 +1,7 @@
 ﻿using System.Web.Http;
 using System.Web.Http.ExceptionHandling;
 using RedTeam.TechArtSurvey.WebApi.Utils;
+using System.Web.Http.Cors;
 
 namespace RedTeam.TechArtSurvey.WebApi
 {
@@ -8,6 +9,9 @@ namespace RedTeam.TechArtSurvey.WebApi
     {
         public static void Register(HttpConfiguration config)
         {
+            var cors = new EnableCorsAttribute("http://localhost:3000", "*", "*");
+            config.EnableCors(cors);
+
             // Web API configuration and services
             config.MessageHandlers.Add(new TechArtSurveyLoggerHandler());
 
