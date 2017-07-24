@@ -20,7 +20,6 @@ namespace RedTeam.TechArtSurvey.Foundation.Services
         private readonly ITechArtSurveyUnitOfWork _uow;
         private readonly IMapper _mapper;
 
-
         public UserService(ITechArtSurveyUnitOfWork uow, IMapper mapper)
         {
             _uow = uow;

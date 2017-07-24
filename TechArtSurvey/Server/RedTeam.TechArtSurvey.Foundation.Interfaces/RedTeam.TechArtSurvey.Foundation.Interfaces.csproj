@@ -32,9 +32,10 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Web" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ISignupService.cs" />
+    <Compile Include="IAccountService.cs" />
     <Compile Include="ServiceResponses\IServiceResponse.cs" />
     <Compile Include="IUserService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
