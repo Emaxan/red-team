@@ -38,7 +38,7 @@ namespace RedTeam.TechArtSurvey.WebApi.Controllers
             LoggerContext.Logger.Info($"Signing in with email = {loginDto.Email}");
             return await _accountService.LoginAsync(loginDto, HttpContext.Current);
         }
-
+        [Filters.Authentication]
         [HttpGet]
         public async Task<IServiceResponse> Logout()
         {
