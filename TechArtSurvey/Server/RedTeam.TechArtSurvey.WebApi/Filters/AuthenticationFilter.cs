@@ -1,51 +1,49 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.Contracts;
 using System.Linq;
+using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Security.Principal;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Web;
+using System.Web.Http;
+using System.Web.Http.Controllers;
 using System.Web.Http.Filters;
 using System.Web.Http.Results;
 
 namespace RedTeam.TechArtSurvey.WebApi.Filters
 {
-    class AuthenticationAttribute : Attribute, IAuthenticationFilter
+
+    public class AuthorizationAttribute : AuthorizeAttribute
     {
         private const string _authCookieName = "AUTHENTICATION";
-
-        public Task AuthenticateAsync(HttpAuthenticationContext context, CancellationToken cancellationToken)
+        public override void OnAuthorization(HttpActionContext actionContext)
         {
             var httpContext = HttpContext.Current;
+            httpContext.User = new GenericPrincipal(new GenericIdentity(""), null);
             if (httpContext.Request.Cookies[_authCookieName] != null)
             {
                 string[] roles = new string[] { "user" }; //must be got from DB
 
                 //must be compared with db:
-                string login = httpContext.Request.Cookies[_authCookieName]["user"];
-                string token = httpContext.Request.Cookies[_authCookieName]["token"]; 
-                string tokenExpires = httpContext.Request.Cookies[_authCookieName]["tokenExpires"];
-                context.Principal = new GenericPrincipal(new GenericIdentity(login), roles);
+                string token = httpContext.Request.Cookies[_authCookieName]["token"];
+                httpContext.User = new GenericPrincipal(new GenericIdentity("user@user.user"), roles);
             }
-            
-            if (context.Principal == null)
+
+            if (!SkipAuthorization(actionContext) && httpContext.User == null)
             {
-                context.ErrorResult
-                = new UnauthorizedResult(new AuthenticationHeaderValue[] {
-                    new AuthenticationHeaderValue("Basic") }, context.Request);
+                actionContext.Response = new HttpResponseMessage(System.Net.HttpStatusCode.Unauthorized);
             }
-            return Task.FromResult<object>(null);
         }
-        public Task ChallengeAsync(HttpAuthenticationChallengeContext context,
-                                    CancellationToken cancellationToken)
+        private static bool SkipAuthorization(HttpActionContext actionContext)
         {
-            return Task.FromResult<object>(null);
+            Contract.Assert(actionContext != null);
+            return actionContext.ActionDescriptor.GetCustomAttributes<AllowAnonymousAttribute>().Any()
+                   || actionContext.ControllerContext.ControllerDescriptor.GetCustomAttributes<AllowAnonymousAttribute>().Any();
         }
-        public bool AllowMultiple
-        {
-            get { return false; }
-        }
+
     }
 }

@@ -16,6 +16,7 @@ using RedTeam.TechArtSurvey.Foundation.Dto.AccountDto;
 
 namespace RedTeam.TechArtSurvey.WebApi.Controllers
 {
+    [Filters.Authorization]
     public class AccountController : ApiController
     {
         private readonly IAccountService _accountService;
@@ -24,21 +25,38 @@ namespace RedTeam.TechArtSurvey.WebApi.Controllers
             _accountService = accountService;
         }
 
-        // POST api/Account
+        [Route("api/account/signup")]
         [HttpPost]
+        [AllowAnonymous]
         public async Task<IServiceResponse> Signup(UserDto user)
         {
-            LoggerContext.Logger.Info($"Create User with email = {user.Email}");
+            if (HttpContext.Current.User.Identity.IsAuthenticated)
+            {
+                LoggerContext.Logger.Info($"Trying to sign up when isAuthenticated");
+            }
+            else
+            {
+                LoggerContext.Logger.Info($"Create User with email = {user.Email}");
+            }
             return await _accountService.SingupAsync(user);
         }
 
+        [Route("api/account/login")]
         [HttpPost]
+        [AllowAnonymous]
         public async Task<IServiceResponse> Login(LoginDto loginDto)
         {
-            LoggerContext.Logger.Info($"Signing in with email = {loginDto.Email}");
+            if (HttpContext.Current.User.Identity.IsAuthenticated)
+            {
+                LoggerContext.Logger.Info($"Trying to sign in when isAuthenticated");
+            }
+            else
+            {
+                LoggerContext.Logger.Info($"Signing in with email = {loginDto.Email}");
+            }
             return await _accountService.LoginAsync(loginDto, HttpContext.Current);
         }
-        [Filters.Authentication]
+        [Route("api/account/logout")]
         [HttpGet]
         public async Task<IServiceResponse> Logout()
         {

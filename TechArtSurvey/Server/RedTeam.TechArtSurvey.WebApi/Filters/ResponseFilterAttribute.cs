@@ -21,33 +21,35 @@ namespace RedTeam.TechArtSurvey.WebApi.Filters
 
         public override void OnActionExecuted(HttpActionExecutedContext actionExecutedContext)
         {
-            var objectContent = actionExecutedContext.Response.Content as ObjectContent;
-            if (objectContent != null)
+            if (actionExecutedContext.Response != null)
             {
-                var serviceResponse = objectContent.Value as IServiceResponse;
-                if (serviceResponse != null)
+                var objectContent = actionExecutedContext.Response.Content as ObjectContent;
+                if (objectContent != null)
                 {
-                    HttpResponseMessage response = actionExecutedContext.Response;
-
-                    if (serviceResponse.Code == ServiceResponseCodes.Ok)
+                    var serviceResponse = objectContent.Value as IServiceResponse;
+                    if (serviceResponse != null)
                     {
-                        response = actionExecutedContext.Request.CreateResponse(
-                            HttpStatusCode.OK,
-                            serviceResponse.Content);
-                    }
-                    else
-                    {
-                        string errorMessage =
-                            Properties.ResponseMessages.ResourceManager.GetString(serviceResponse.Code.ToString());
+                        HttpResponseMessage response = actionExecutedContext.Response;
 
-                        response = actionExecutedContext.Request.CreateResponse(HttpStatusCode.BadRequest, errorMessage);
-                        LoggerContext.Logger.Error(errorMessage);
-                    }
+                        if (serviceResponse.Code == ServiceResponseCodes.Ok)
+                        {
+                            response = actionExecutedContext.Request.CreateResponse(
+                                HttpStatusCode.OK,
+                                serviceResponse.Content);
+                        }
+                        else
+                        {
+                            string errorMessage =
+                                Properties.ResponseMessages.ResourceManager.GetString(serviceResponse.Code.ToString());
 
-                    actionExecutedContext.Response = response;
+                            response = actionExecutedContext.Request.CreateResponse(HttpStatusCode.BadRequest, errorMessage);
+                            LoggerContext.Logger.Error(errorMessage);
+                        }
+
+                        actionExecutedContext.Response = response;
+                    }
                 }
             }
-
             base.OnActionExecuted(actionExecutedContext);
         }
     }

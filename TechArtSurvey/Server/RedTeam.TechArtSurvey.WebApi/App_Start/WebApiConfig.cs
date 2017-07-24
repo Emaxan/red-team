@@ -23,7 +23,7 @@ namespace RedTeam.TechArtSurvey.WebApi
 
             config.Routes.MapHttpRoute(
                 "DefaultApi",
-                "api/{controller}/{action}/{id}",
+                "api/{controller}/{id}",
                 new
                 {
                     id = RouteParameter.Optional

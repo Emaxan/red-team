@@ -111,9 +111,7 @@ namespace RedTeam.TechArtSurvey.Foundation.Services
                 Value = encTicket,
                 Expires = DateTime.Now.Add(FormsAuthentication.Timeout)
             };
-            cookie["user"] = userName;
             cookie["token"] = "here must be a token";
-            cookie["tokenExpires"] = "30000";
             return cookie;
         }
     }
