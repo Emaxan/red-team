@@ -19,6 +19,7 @@ using System.Security.Claims;
 namespace RedTeam.TechArtSurvey.WebApi.Controllers
 {
    // [Filters.Authorization()]
+   [Authorize]
     public class AccountController : ApiController
     {
         private readonly IAccountService _accountService;
@@ -43,19 +44,7 @@ namespace RedTeam.TechArtSurvey.WebApi.Controllers
             return await _accountService.SingupAsync(user);
         }
 
-        [Route("api/account/login")]
-        [HttpPost]
-        [AllowAnonymous]
-        public async Task<IServiceResponse> Login(LoginDto loginDto)
-        {
-            //var authentication = HttpContext.Current.GetOwinContext().Authentication;
-
-            //authentication.SignIn(
-            //    new AuthenticationProperties { IsPersistent = true },
-            //    new ClaimsIdentity());
-
-            return await _accountService.LoginAsync(loginDto, HttpContext.Current);
-        }
+        
         [Route("api/account/logout")]
         [HttpGet]
         public async Task<IServiceResponse> Logout()

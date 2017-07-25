@@ -10,7 +10,7 @@ namespace RedTeam.TechArtSurvey.Foundation.Interfaces
     public interface IAccountService
     {
         Task<IServiceResponse> SingupAsync(UserDto user);
-        Task<IServiceResponse> LoginAsync(LoginDto loginDto, HttpContext context);
+        Task<IServiceResponse> GetUserByCredentialsAsync(string email, string password);
         Task<IServiceResponse> LogOut(HttpContext context);
     }
 }

@@ -16,7 +16,14 @@ namespace RedTeam.TechArtSurvey.WebApi.App_Start
     {
         public void Configuration(IAppBuilder app)
         {
+           
+            HttpConfiguration config = new HttpConfiguration();
+
             ConfigureOAuth(app);
+
+            //WebApiConfig.Register(config);
+            app.UseCors(Microsoft.Owin.Cors.CorsOptions.AllowAll);
+            app.UseWebApi(config);
         }
 
         public void ConfigureOAuth(IAppBuilder app)
@@ -26,6 +33,7 @@ namespace RedTeam.TechArtSurvey.WebApi.App_Start
                 AllowInsecureHttp = true,
                 TokenEndpointPath = new PathString("/token"),
                 AccessTokenExpireTimeSpan = TimeSpan.FromMinutes(30),
+                AuthorizeEndpointPath = new PathString("/api/account/authorization"),
                 Provider = new SimpleAuthorizationServerProvider()
             };
 

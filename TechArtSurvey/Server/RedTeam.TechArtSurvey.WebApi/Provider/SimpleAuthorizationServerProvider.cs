@@ -21,15 +21,26 @@ namespace RedTeam.TechArtSurvey.WebApi.Provider
 
             context.OwinContext.Response.Headers.Add("Access-Control-Allow-Origin", new[] { "*" });
 
-            //here will be validation
+            //var result = await _service.GetUserByCredentialsAsync(context.UserName, context.Password);
+            //var user = result.Content;
+            //if (user != null)
+            //{
+            //    var identity = new ClaimsIdentity(context.Options.AuthenticationType);
+            //    identity.AddClaim(new Claim("user", context.UserName));
+            //    identity.AddClaim(new Claim("role", "user"));
 
+            //    context.Validated(identity);
+            //}
+            //else
+            //{
+            //    context.Validated();
+            //}
 
             var identity = new ClaimsIdentity(context.Options.AuthenticationType);
-            identity.AddClaim(new Claim("sub", context.UserName));
+            identity.AddClaim(new Claim("user", context.UserName));
             identity.AddClaim(new Claim("role", "user"));
 
             context.Validated(identity);
-
         }
     }
 }

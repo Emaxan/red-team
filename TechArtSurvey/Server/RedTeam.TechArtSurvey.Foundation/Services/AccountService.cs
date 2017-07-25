@@ -24,7 +24,6 @@ namespace RedTeam.TechArtSurvey.Foundation.Services
     {
         private readonly ITechArtSurveyUnitOfWork _uow;
         private readonly IMapper _mapper;
-        private const string _authCookieName = "AUTHENTICATION";
         private readonly PasswordHasher _passwordHasher = new PasswordHasher();
 
         public AccountService(ITechArtSurveyUnitOfWork uow, IMapper mapper)
@@ -55,28 +54,24 @@ namespace RedTeam.TechArtSurvey.Foundation.Services
             return serviceResponse;
         }
 
-        public async Task<IServiceResponse> LoginAsync(LoginDto loginDto, HttpContext context)
+        public async Task<IServiceResponse> GetUserByCredentialsAsync(string email, string password)
         {
-            LoggerContext.Logger.Info($"Get user with email = {loginDto.Email}");
+            LoggerContext.Logger.Info($"Get user with email = {email}");
 
             ServiceResponse serviceResponse = new ServiceResponse();
-            var user = await _uow.Users.GetUserByEmailAsync(loginDto.Email);
+            var user = await _uow.Users.GetUserByEmailAsync(email);
             if (user == null)
             {
                 serviceResponse.Code = ServiceResponseCodes.NotFoundUserByEmail;
             }
-            else if (_passwordHasher.VerifyHashedPassword(user.Password, loginDto.Password) == PasswordVerificationResult.Failed)
+            else if (_passwordHasher.VerifyHashedPassword(user.Password, password) == PasswordVerificationResult.Failed)
             {
                 serviceResponse.Code = ServiceResponseCodes.InvalidPassword;
             }
             else
             {
                 serviceResponse.Code = ServiceResponseCodes.Ok;
-                serviceResponse.Content = _mapper.Map<User, EditUserDto>(user);
-
-                
-
-                
+                serviceResponse.Content = _mapper.Map<User, EditUserDto>(user);                
             }
             return serviceResponse;
         }
@@ -85,43 +80,12 @@ namespace RedTeam.TechArtSurvey.Foundation.Services
 
         public async Task<IServiceResponse> LogOut(HttpContext context)
         {
-            var httpCookie = context.Response.Cookies[_authCookieName];
+         
             ServiceResponse serviceResponse = new ServiceResponse();
-            if (httpCookie != null)
-            {
-                httpCookie.Expires = DateTime.Now.AddDays(-1d);
-                serviceResponse.Code = ServiceResponseCodes.Ok;
-                serviceResponse.Content = "User was logged out";
-            }
-            else
-            {
-                serviceResponse.Code = ServiceResponseCodes.NotFoundUserByEmail;
-                serviceResponse.Content = "Auth cookie was not found";
-            }
+            serviceResponse.Code = ServiceResponseCodes.Ok;
             return serviceResponse;
         }
 
-        private HttpCookie CreateCookie(string userName, bool isPersistent = false)
-        {
-            var ticket = new FormsAuthenticationTicket(
-                  1,
-                  userName,
-                  DateTime.Now,
-                  DateTime.Now.Add(FormsAuthentication.Timeout),
-                  isPersistent,
-                  string.Empty,
-                  FormsAuthentication.FormsCookiePath);
-
-            // Encrypt the ticket.
-            var encTicket = FormsAuthentication.Encrypt(ticket);
-
-            // Create the cookie.
-            var cookie = new HttpCookie(_authCookieName)
-            {
-                Value = encTicket,
-                Expires = DateTime.Now.Add(FormsAuthentication.Timeout)
-            };
-            return cookie;
-        }
+      
     }
 }
