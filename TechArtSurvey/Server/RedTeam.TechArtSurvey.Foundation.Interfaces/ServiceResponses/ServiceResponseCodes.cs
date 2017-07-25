@@ -6,6 +6,9 @@
         NotFoundUserById,
         NotFoundUserByEmail,
         UserAlreadyExists,
-        InvalidPassword
+        InvalidPassword,
+        NeedToRefreshToken,
+        NotFoundByToken,
+        TokenNotFound
     }
 }

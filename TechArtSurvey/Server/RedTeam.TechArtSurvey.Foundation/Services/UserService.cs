@@ -64,6 +64,7 @@ namespace RedTeam.TechArtSurvey.Foundation.Services
             }
             else
             {
+                user.Password = _passwordHasher.HashPassword(user.Password);
                 _uow.Users.Update(_mapper.Map(user, us));
                 await _uow.SaveAsync();
 

@@ -12,5 +12,6 @@ namespace RedTeam.TechArtSurvey.Foundation.Interfaces
         Task<IServiceResponse> SingupAsync(UserDto user);
         Task<IServiceResponse> LoginAsync(LoginDto loginDto, HttpContext context);
         Task<IServiceResponse> LogOut(HttpContext context);
+        Task<IServiceResponse> AuthorizeByTokenAsync(string tokenValue);
     }
 }

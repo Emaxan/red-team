@@ -16,7 +16,7 @@ using RedTeam.TechArtSurvey.Foundation.Dto.AccountDto;
 
 namespace RedTeam.TechArtSurvey.WebApi.Controllers
 {
-    [Filters.Authorization]
+    [Filters.Authorization()]
     public class AccountController : ApiController
     {
         private readonly IAccountService _accountService;
