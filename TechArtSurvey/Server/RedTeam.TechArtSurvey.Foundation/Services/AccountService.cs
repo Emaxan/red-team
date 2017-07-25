@@ -15,6 +15,7 @@ using RedTeam.TechArtSurvey.Repositories.Interfaces;
 using System.Web.Security;
 using System.Web;
 using System;
+using Microsoft.AspNet.Identity;
 
 namespace RedTeam.TechArtSurvey.Foundation.Services
 {
@@ -24,7 +25,7 @@ namespace RedTeam.TechArtSurvey.Foundation.Services
         private readonly ITechArtSurveyUnitOfWork _uow;
         private readonly IMapper _mapper;
         private const string _authCookieName = "AUTHENTICATION";
-
+        private readonly PasswordHasher _passwordHasher = new PasswordHasher();
 
         public AccountService(ITechArtSurveyUnitOfWork uow, IMapper mapper)
         {
@@ -44,6 +45,7 @@ namespace RedTeam.TechArtSurvey.Foundation.Services
             }
             else
             {
+                user.Password = _passwordHasher.HashPassword(user.Password);
                 _uow.Users.Create(_mapper.Map<UserDto, User>(user));
                 await _uow.SaveAsync();
 
@@ -62,6 +64,10 @@ namespace RedTeam.TechArtSurvey.Foundation.Services
             if (user == null)
             {
                 serviceResponse.Code = ServiceResponseCodes.NotFoundUserByEmail;
+            }
+            else if (_passwordHasher.VerifyHashedPassword(user.Password, loginDto.Password) == PasswordVerificationResult.Failed)
+            {
+                serviceResponse.Code = ServiceResponseCodes.InvalidPassword;
             }
             else
             {

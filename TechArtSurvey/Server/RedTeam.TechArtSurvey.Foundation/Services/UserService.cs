@@ -11,6 +11,7 @@ using RedTeam.TechArtSurvey.Foundation.Dto.UsersDto;
 using RedTeam.TechArtSurvey.Foundation.Interfaces;
 using RedTeam.TechArtSurvey.Foundation.Interfaces.ServiceResponses;
 using RedTeam.TechArtSurvey.Repositories.Interfaces;
+using Microsoft.AspNet.Identity;
 
 namespace RedTeam.TechArtSurvey.Foundation.Services
 {
@@ -19,6 +20,8 @@ namespace RedTeam.TechArtSurvey.Foundation.Services
     {
         private readonly ITechArtSurveyUnitOfWork _uow;
         private readonly IMapper _mapper;
+
+        private readonly PasswordHasher _passwordHasher = new PasswordHasher();
 
         public UserService(ITechArtSurveyUnitOfWork uow, IMapper mapper)
         {
@@ -39,6 +42,7 @@ namespace RedTeam.TechArtSurvey.Foundation.Services
             }
             else
             {
+                user.Password = _passwordHasher.HashPassword(user.Password);
                 _uow.Users.Create(_mapper.Map<UserDto, User>(user));
                 await _uow.SaveAsync();
 

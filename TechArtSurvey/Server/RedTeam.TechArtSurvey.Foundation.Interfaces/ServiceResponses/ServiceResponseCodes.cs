@@ -5,6 +5,7 @@
         Ok,
         NotFoundUserById,
         NotFoundUserByEmail,
-        UserAlreadyExists
+        UserAlreadyExists,
+        InvalidPassword
     }
 }
