@@ -44,18 +44,11 @@ namespace RedTeam.TechArtSurvey.Repositories.EF
         private void SetupTokenPropertiesAttributes()
         {
             _modelBuilder.Entity<Token>().Property(u => u.Id).IsRequired();
-            _modelBuilder.Entity<Token>().Property(u => u.Value).IsRequired();
             _modelBuilder.Entity<Token>().Property(u => u.Since).IsRequired();
             _modelBuilder.Entity<Token>().Property(u => u.UserId).IsRequired();
 
             _modelBuilder.Entity<Token>().Property(u => u.Id).HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
             _modelBuilder.Entity<Token>().HasKey(u => u.Id);
-
-
-            _modelBuilder.Entity<Token>().Property(u => u.Value)
-                .HasColumnAnnotation(
-                    IndexAnnotation.AnnotationName,
-                    new IndexAnnotation(new IndexAttribute("Token_Value", 1) { IsUnique = true }));
         }
     }
 }

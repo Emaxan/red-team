@@ -20,7 +20,7 @@ namespace RedTeam.TechArtSurvey.Repositories.Repositories
         public async Task<Token> GetTokenByValueAsync(string value)
         {
             LoggerContext.Logger.Info($"Get token with value = {value}");
-            return await DbSet.FirstOrDefaultAsync(token => token.Value == value);
+            return await DbSet.FirstOrDefaultAsync(token => token.Id == new System.Guid(value));
         }
     }
 }

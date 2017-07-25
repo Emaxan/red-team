@@ -77,7 +77,7 @@ namespace RedTeam.TechArtSurvey.Foundation.Services
                 Token token = CreateTokenAsync(user).Result;
 
                 var cookie = CreateCookie(user.Email);
-                cookie["token"] = token.Value;
+                cookie["token"] = token.Id.ToString();
                 context.Response.Cookies.Set(cookie);
             }
             return serviceResponse;
@@ -101,8 +101,16 @@ namespace RedTeam.TechArtSurvey.Foundation.Services
                 }
                 else
                 {
-                    serviceResponse.Code = ServiceResponseCodes.Ok;
-                    serviceResponse.Content = new AuthorizeDto() { Email = user.Email, Roles = null };
+                    TimeSpan span = DateTime.Now - token.Since;
+                    if (span.TotalMinutes > 30)
+                    {
+                        serviceResponse.Code = ServiceResponseCodes.NeedToRefreshToken;
+                    }
+                    else
+                    {
+                        serviceResponse.Code = ServiceResponseCodes.Ok;
+                        serviceResponse.Content = new AuthorizeDto() { Email = user.Email, Roles = null };
+                    }
                 }
             }
 
@@ -113,7 +121,6 @@ namespace RedTeam.TechArtSurvey.Foundation.Services
             var token = new Token()
             {
                 UserId = user.Id,
-                Value = "",
                 Since = DateTime.Now
             };
             _uow.Tokens.Create(token);
