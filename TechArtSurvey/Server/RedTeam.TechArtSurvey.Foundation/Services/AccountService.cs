@@ -74,59 +74,14 @@ namespace RedTeam.TechArtSurvey.Foundation.Services
                 serviceResponse.Code = ServiceResponseCodes.Ok;
                 serviceResponse.Content = _mapper.Map<User, EditUserDto>(user);
 
-                Token token = CreateTokenAsync(user).Result;
+                
 
-                var cookie = CreateCookie(user.Email);
-                cookie["token"] = token.Id.ToString();
-                context.Response.Cookies.Set(cookie);
+                
             }
             return serviceResponse;
         }
-        public async Task<IServiceResponse> AuthorizeByTokenAsync(string tokenValue)
-        {
-            LoggerContext.Logger.Info($"Get user by token = {tokenValue}");
-
-            ServiceResponse serviceResponse = new ServiceResponse();
-            var token = await _uow.Tokens.GetTokenByValueAsync(tokenValue);
-            if (token == null)
-            {
-                serviceResponse.Code = ServiceResponseCodes.TokenNotFound;
-            }
-            else
-            {
-                var user = await _uow.Users.GetAsync(token.UserId);
-                if (user == null)
-                {
-                    serviceResponse.Code = ServiceResponseCodes.NotFoundByToken;
-                }
-                else
-                {
-                    TimeSpan span = DateTime.Now - token.Since;
-                    if (span.TotalMinutes > 30)
-                    {
-                        serviceResponse.Code = ServiceResponseCodes.NeedToRefreshToken;
-                    }
-                    else
-                    {
-                        serviceResponse.Code = ServiceResponseCodes.Ok;
-                        serviceResponse.Content = new AuthorizeDto() { Email = user.Email, Roles = null };
-                    }
-                }
-            }
-
-            return serviceResponse;
-        }
-        private async Task<Token> CreateTokenAsync(User user)
-        {
-            var token = new Token()
-            {
-                UserId = user.Id,
-                Since = DateTime.Now
-            };
-            _uow.Tokens.Create(token);
-            await _uow.SaveAsync();
-            return token;
-        }
+        
+        
 
         public async Task<IServiceResponse> LogOut(HttpContext context)
         {

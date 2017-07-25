@@ -20,7 +20,6 @@ namespace RedTeam.TechArtSurvey.Repositories.EF
         public void SetupPropertiesAttributes()
         {
             SetupUserPropertiesAttributes();
-            SetupTokenPropertiesAttributes();
         }
         private void SetupUserPropertiesAttributes()
         {
@@ -41,14 +40,6 @@ namespace RedTeam.TechArtSurvey.Repositories.EF
                     IndexAnnotation.AnnotationName,
                     new IndexAnnotation(new IndexAttribute("IX_Email", 1) { IsUnique = true }));
         }
-        private void SetupTokenPropertiesAttributes()
-        {
-            _modelBuilder.Entity<Token>().Property(u => u.Id).IsRequired();
-            _modelBuilder.Entity<Token>().Property(u => u.Since).IsRequired();
-            _modelBuilder.Entity<Token>().Property(u => u.UserId).IsRequired();
-
-            _modelBuilder.Entity<Token>().Property(u => u.Id).HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
-            _modelBuilder.Entity<Token>().HasKey(u => u.Id);
-        }
+       
     }
 }

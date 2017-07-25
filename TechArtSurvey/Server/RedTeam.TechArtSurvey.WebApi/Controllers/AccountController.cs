@@ -13,10 +13,12 @@ using RedTeam.TechArtSurvey.Foundation.Interfaces;
 using RedTeam.TechArtSurvey.Foundation.Interfaces.ServiceResponses;
 using System.Web;
 using RedTeam.TechArtSurvey.Foundation.Dto.AccountDto;
+using Microsoft.Owin.Security;
+using System.Security.Claims;
 
 namespace RedTeam.TechArtSurvey.WebApi.Controllers
 {
-    [Filters.Authorization()]
+   // [Filters.Authorization()]
     public class AccountController : ApiController
     {
         private readonly IAccountService _accountService;
@@ -46,14 +48,12 @@ namespace RedTeam.TechArtSurvey.WebApi.Controllers
         [AllowAnonymous]
         public async Task<IServiceResponse> Login(LoginDto loginDto)
         {
-            if (HttpContext.Current.User.Identity.IsAuthenticated)
-            {
-                LoggerContext.Logger.Info($"Trying to sign in when isAuthenticated");
-            }
-            else
-            {
-                LoggerContext.Logger.Info($"Signing in with email = {loginDto.Email}");
-            }
+            //var authentication = HttpContext.Current.GetOwinContext().Authentication;
+
+            //authentication.SignIn(
+            //    new AuthenticationProperties { IsPersistent = true },
+            //    new ClaimsIdentity());
+
             return await _accountService.LoginAsync(loginDto, HttpContext.Current);
         }
         [Route("api/account/logout")]

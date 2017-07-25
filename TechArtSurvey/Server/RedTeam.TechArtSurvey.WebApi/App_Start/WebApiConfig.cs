@@ -2,6 +2,10 @@
 using System.Web.Http.ExceptionHandling;
 using RedTeam.TechArtSurvey.WebApi.Utils;
 using System.Web.Http.Cors;
+using System.Net.Http.Formatting;
+using Newtonsoft.Json.Serialization;
+using System.Linq;
+using Microsoft.Owin.Security.OAuth;
 
 namespace RedTeam.TechArtSurvey.WebApi
 {
@@ -11,6 +15,9 @@ namespace RedTeam.TechArtSurvey.WebApi
         {
             var cors = new EnableCorsAttribute("http://localhost:3000", "*", "*");
             config.EnableCors(cors);
+
+            config.SuppressDefaultHostAuthentication();
+            config.Filters.Add(new HostAuthenticationFilter(OAuthDefaults.AuthenticationType));
 
             // Web API configuration and services
             config.MessageHandlers.Add(new TechArtSurveyLoggerHandler());
@@ -29,6 +36,9 @@ namespace RedTeam.TechArtSurvey.WebApi
                     id = RouteParameter.Optional
                 }
             );
+
+            var jsonFormatter = config.Formatters.OfType<JsonMediaTypeFormatter>().First();
+            jsonFormatter.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
         }
     }
 }

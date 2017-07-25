@@ -3,9 +3,16 @@ namespace RedTeam.TechArtSurvey.Repositories.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class Tokens : DbMigration
+    public partial class Tokens_Delete : DbMigration
     {
         public override void Up()
+        {
+            DropForeignKey("dbo.Tokens", "UserId", "dbo.Users");
+            DropIndex("dbo.Tokens", new[] { "UserId" });
+            DropTable("dbo.Tokens");
+        }
+        
+        public override void Down()
         {
             CreateTable(
                 "dbo.Tokens",
@@ -15,17 +22,10 @@ namespace RedTeam.TechArtSurvey.Repositories.Migrations
                         Since = c.DateTime(nullable: false),
                         UserId = c.Int(nullable: false),
                     })
-                .PrimaryKey(t => t.Id)
-                .ForeignKey("dbo.Users", t => t.UserId, cascadeDelete: true)
-                .Index(t => t.UserId);
+                .PrimaryKey(t => t.Id);
             
-        }
-        
-        public override void Down()
-        {
-            DropForeignKey("dbo.Tokens", "UserId", "dbo.Users");
-            DropIndex("dbo.Tokens", new[] { "UserId" });
-            DropTable("dbo.Tokens");
+            CreateIndex("dbo.Tokens", "UserId");
+            AddForeignKey("dbo.Tokens", "UserId", "dbo.Users", "Id", cascadeDelete: true);
         }
     }
 }

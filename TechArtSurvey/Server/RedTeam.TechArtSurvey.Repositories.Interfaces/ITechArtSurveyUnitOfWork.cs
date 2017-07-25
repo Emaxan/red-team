@@ -6,6 +6,5 @@ namespace RedTeam.TechArtSurvey.Repositories.Interfaces
     public interface ITechArtSurveyUnitOfWork : IUnitOfWork
     {
         IUserRepository Users { get; }
-        ITokenRepository Tokens { get; }
     }
 }

@@ -32,33 +32,33 @@ namespace RedTeam.TechArtSurvey.WebApi.Filters
             set { _accountService = value; }
         }
 
-       
 
-        public override void OnAuthorization(HttpActionContext actionContext)
-        {
-            var httpContext = HttpContext.Current;
-            httpContext.User = new GenericPrincipal(new GenericIdentity(""), null);
-            if (httpContext.Request.Cookies[_authCookieName] != null)
-            {
-                //must be compared with db:
-                string token = httpContext.Request.Cookies[_authCookieName]["token"];
-                var result = _accountService.AuthorizeByTokenAsync(token).Result;
-                if (result.Code == ServiceResponseCodes.Ok)
-                {
-                    var user = result.Content as AuthorizeDto;
-                    httpContext.User = new GenericPrincipal(new GenericIdentity(user.Email), user.Roles);
-                }
-                else
-                {
-                    httpContext.User = new GenericPrincipal(new GenericIdentity(""), null);
-                }
-            }
 
-            if (!SkipAuthorization(actionContext) && httpContext.User == null)
-            {
-                actionContext.Response = new HttpResponseMessage(System.Net.HttpStatusCode.Unauthorized);
-            }
-        }
+        //public override void OnAuthorization(HttpActionContext actionContext)
+        //{
+        //    var httpContext = HttpContext.Current;
+        //    httpContext.User = new GenericPrincipal(new GenericIdentity(""), null);
+        //    if (httpContext.Request.Cookies[_authCookieName] != null)
+        //    {
+        //        //must be compared with db:
+        //        string token = httpContext.Request.Cookies[_authCookieName]["token"];
+        //        var result = _accountService.AuthorizeByTokenAsync(token).Result;
+        //        if (result.Code == ServiceResponseCodes.Ok)
+        //        {
+        //            var user = result.Content as AuthorizeDto;
+        //            httpContext.User = new GenericPrincipal(new GenericIdentity(user.Email), user.Roles);
+        //        }
+        //        else
+        //        {
+        //            httpContext.User = new GenericPrincipal(new GenericIdentity(""), null);
+        //        }
+        //    }
+
+        //    if (!SkipAuthorization(actionContext) && httpContext.User == null)
+        //    {
+        //        actionContext.Response = new HttpResponseMessage(System.Net.HttpStatusCode.Unauthorized);
+        //    }
+        //}
         private static bool SkipAuthorization(HttpActionContext actionContext)
         {
             Contract.Assert(actionContext != null);
