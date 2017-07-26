@@ -11,20 +11,23 @@ namespace RedTeam.TechArtSurvey.WebApi.Provider
 {
     public class SimpleAuthorizationServerProvider : OAuthAuthorizationServerProvider
     {
-        private readonly IAccountService _accountService;
-        //public SimpleAuthorizationServerProvider(IAccountService accountService)
-        //{
-        //    _accountService = accountService;
-        //}
         public override async Task ValidateClientAuthentication(OAuthValidateClientAuthenticationContext context)
         {
             context.Validated();
         }
+        private IUserService _user;
+        public SimpleAuthorizationServerProvider(IUserService userService)
+        {
+            _user = userService;
+        }
+
+
 
         public override async Task GrantResourceOwnerCredentials(OAuthGrantResourceOwnerCredentialsContext context)
         {
+            var user = await _user.GetByEmailAsync(context.UserName);
 
-            //context.OwinContext.Response.Headers.Add("Access-Control-Allow-Origin", new[] { "*" });
+            context.OwinContext.Response.Headers.Add("Access-Control-Allow-Origin", new[] { "*" });
 
             //var result = await _service.GetUserByCredentialsAsync(context.UserName, context.Password);
             //var user = result.Content;

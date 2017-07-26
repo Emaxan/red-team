@@ -2,7 +2,6 @@
 
 using RedTeam.TechArtSurvey.Foundation.Interfaces;
 using RedTeam.TechArtSurvey.Foundation.Services;
-using System.Threading.Tasks;
 
 namespace RedTeam.TechArtSurvey.Initializer
 {
@@ -20,7 +19,6 @@ namespace RedTeam.TechArtSurvey.Initializer
         {
             kernel.Bind<IUserService>().To<UserService>().InTransientScope();
             kernel.Bind<IAccountService>().To<AccountService>().InTransientScope();
-            var ob = kernel.Get<IAccountService>();
         }
     }
 }
