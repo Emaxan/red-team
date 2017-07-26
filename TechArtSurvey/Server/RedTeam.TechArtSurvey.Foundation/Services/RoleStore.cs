@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace RedTeam.Repositories.EntityFramework.Repositories
+namespace RedTeam.TechArtSurvey.Foundation
 {
     public class RoleStore : IRoleStore<IdentityRole, int>
     {

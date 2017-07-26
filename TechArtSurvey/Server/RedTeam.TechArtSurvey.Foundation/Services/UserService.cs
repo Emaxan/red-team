@@ -18,10 +18,11 @@ namespace RedTeam.TechArtSurvey.Foundation.Services
     [UsedImplicitly]
     public class UserService : IUserService
     {
+        private readonly PasswordHasher _passwordHasher = new PasswordHasher();
+
         private readonly ITechArtSurveyUnitOfWork _uow;
         private readonly IMapper _mapper;
 
-        private readonly PasswordHasher _passwordHasher = new PasswordHasher();
 
         public UserService(ITechArtSurveyUnitOfWork uow, IMapper mapper)
         {
