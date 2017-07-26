@@ -18,14 +18,14 @@ namespace RedTeam.TechArtSurvey.Repositories.Migrations
                 new User()
                 {
                     Id = 1,
-                    Name = "Admin",
+                    UserName = "Admin",
                     Email = "admin@admin.admin",
                     Password = "admin"
                 },
                 new User()
                 {
                     Id = 2,
-                    Name = "User",
+                    UserName = "User",
                     Email = "user@user.user",
                     Password = "user"
                 });

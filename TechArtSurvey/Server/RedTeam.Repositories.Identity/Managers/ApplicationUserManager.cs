@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace RedTeam.TechArtSurvey.DomainModel.Identity
+namespace RedTeam.Repositories.Identity.Managers
 {
     public class ApplicationUserManager : UserManager<User>
     {

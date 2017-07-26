@@ -24,7 +24,7 @@ namespace RedTeam.TechArtSurvey.Repositories.EF
         private void SetupUserPropertiesAttributes()
         {
             _modelBuilder.Entity<User>().Property(u => u.Id).IsRequired();
-            _modelBuilder.Entity<User>().Property(u => u.Name).IsRequired();
+            _modelBuilder.Entity<User>().Property(u => u.UserName).IsRequired();
             _modelBuilder.Entity<User>().Property(u => u.Email).IsRequired();
             _modelBuilder.Entity<User>().Property(u => u.Password).IsRequired();
 

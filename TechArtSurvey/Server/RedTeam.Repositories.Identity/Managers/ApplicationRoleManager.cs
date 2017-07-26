@@ -7,11 +7,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace RedTeam.TechArtSurvey.DomainModel.Identity
+namespace RedTeam.Repositories.Identity.Managers
 {
     public class ApplicationRoleManager : RoleManager<Role>
     {
-        public ApplicationRoleManager(RoleStore<Role> store)
+        public ApplicationRoleManager(IRoleStore<Role> store)
                     : base(store)
         { }
     }

@@ -61,8 +61,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Entities\IdentityUser.cs" />
-    <Compile Include="Entities\IdentityRole.cs" />
+    <Compile Include="Entities\Role.cs" />
     <Compile Include="Entities\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
