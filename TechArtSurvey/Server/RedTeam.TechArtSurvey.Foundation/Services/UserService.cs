@@ -18,8 +18,6 @@ namespace RedTeam.TechArtSurvey.Foundation.Services
     [UsedImplicitly]
     public class UserService : IUserService
     {
-        private readonly PasswordHasher _passwordHasher = new PasswordHasher();
-
         private readonly ITechArtSurveyUnitOfWork _uow;
         private readonly IMapper _mapper;
 
@@ -30,28 +28,48 @@ namespace RedTeam.TechArtSurvey.Foundation.Services
             _mapper = mapper;
         }
 
-
-        public async Task<IServiceResponse> CreateAsync(UserDto user)
+        public async Task<IServiceResponse> CreateAsync(UserDto userDto)
         {
-            LoggerContext.Logger.Info($"Create user with email = {user.Email}");
-
+            User user = await _uow.UserManager.FindByEmailAsync(userDto.Email);
             ServiceResponse serviceResponse = new ServiceResponse();
-            var us = await _uow.Users.GetUserByEmailAsync(user.Email);
-            if (us != null)
+            if (user == null)
             {
-                serviceResponse.Code = ServiceResponseCodes.UserAlreadyExists;
+                await _uow.UserManager.CreateAsync(_mapper.Map<UserDto, User>(userDto));
+                // добавляем роль
+                //await _uow.UserManager.AddToRoleAsync(user.Id, userDto.Role);
+                await _uow.SaveAsync();
+                serviceResponse.Code = ServiceResponseCodes.Ok;
+                return serviceResponse;
+
             }
             else
             {
-                user.Password = _passwordHasher.HashPassword(user.Password);
-                _uow.Users.Create(_mapper.Map<UserDto, User>(user));
-                await _uow.SaveAsync();
-
-                serviceResponse.Code = ServiceResponseCodes.Ok;
+                serviceResponse.Code = ServiceResponseCodes.UserAlreadyExists;
+                return serviceResponse;
             }
-
-            return serviceResponse;
         }
+
+        //public async Task<IServiceResponse> CreateAsync(UserDto user)
+        //{
+        //    LoggerContext.Logger.Info($"Create user with email = {user.Email}");
+
+        //    ServiceResponse serviceResponse = new ServiceResponse();
+        //    var us = await _uow.Users.GetUserByEmailAsync(user.Email);
+        //    if (us != null)
+        //    {
+        //        serviceResponse.Code = ServiceResponseCodes.UserAlreadyExists;
+        //    }
+        //    else
+        //    {
+        //        user.Password = _passwordHasher.HashPassword(user.Password);
+        //        _uow.Users.Create(_mapper.Map<UserDto, User>(user));
+        //        await _uow.SaveAsync();
+
+        //        serviceResponse.Code = ServiceResponseCodes.Ok;
+        //    }
+
+        //    return serviceResponse;
+        //}
 
         public async Task<IServiceResponse> UpdateAsync(EditUserDto user)
         {
@@ -65,7 +83,6 @@ namespace RedTeam.TechArtSurvey.Foundation.Services
             }
             else
             {
-                user.Password = _passwordHasher.HashPassword(user.Password);
                 _uow.Users.Update(_mapper.Map(user, us));
                 await _uow.SaveAsync();
 
