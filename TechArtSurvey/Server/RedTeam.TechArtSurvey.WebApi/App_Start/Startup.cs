@@ -7,6 +7,10 @@ using Microsoft.Owin.Security.OAuth;
 using RedTeam.TechArtSurvey.Foundation.Interfaces;
 using System.Security.Claims;
 using RedTeam.TechArtSurvey.WebApi.Provider;
+using Ninject;
+using Ninject.Web.Common.OwinHost;
+using Ninject.Web.WebApi.OwinHost;
+using System.Reflection;
 
 [assembly: OwinStartup(typeof(RedTeam.TechArtSurvey.WebApi.App_Start.Startup))]
 
@@ -14,17 +18,20 @@ namespace RedTeam.TechArtSurvey.WebApi.App_Start
 {
     public class Startup
     {
+        
         public void Configuration(IAppBuilder app)
         {
-           
             HttpConfiguration config = new HttpConfiguration();
 
             ConfigureOAuth(app);
 
             //WebApiConfig.Register(config);
             app.UseCors(Microsoft.Owin.Cors.CorsOptions.AllowAll);
-            app.UseWebApi(config);
+            app.UseWebApi(config);        
+
         }
+
+
 
         public void ConfigureOAuth(IAppBuilder app)
         {
@@ -34,7 +41,7 @@ namespace RedTeam.TechArtSurvey.WebApi.App_Start
                 TokenEndpointPath = new PathString("/token"),
                 AccessTokenExpireTimeSpan = TimeSpan.FromMinutes(30),
                 AuthorizeEndpointPath = new PathString("/api/account/authorization"),
-                Provider = new SimpleAuthorizationServerProvider()
+                //Provider = new SimpleAuthorizationServerProvider()
             };
 
             // Token Generation

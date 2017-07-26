@@ -5,17 +5,21 @@ using RedTeam.Logger;
 using RedTeam.TechArtSurvey.Foundation.Dto.UsersDto;
 using RedTeam.TechArtSurvey.Foundation.Interfaces;
 using RedTeam.TechArtSurvey.Foundation.Interfaces.ServiceResponses;
+using Ninject;
+using RedTeam.TechArtSurvey.WebApi.Provider;
 
 namespace RedTeam.TechArtSurvey.WebApi.Controllers
 {
     public class UsersController : ApiController
     {
         private readonly IUserService _userService;
+        private IKernel _kernel;
 
-
-        public UsersController(IUserService userService)
+        public UsersController(IUserService userService, IKernel kernel)
         {
             _userService = userService;
+            _kernel = kernel;
+            _kernel.Get<SimpleAuthorizationServerProvider>();
         }
 
 

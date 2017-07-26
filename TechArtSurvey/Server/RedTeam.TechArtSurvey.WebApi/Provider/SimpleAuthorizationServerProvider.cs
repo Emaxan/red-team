@@ -11,6 +11,11 @@ namespace RedTeam.TechArtSurvey.WebApi.Provider
 {
     public class SimpleAuthorizationServerProvider : OAuthAuthorizationServerProvider
     {
+        private readonly IAccountService _accountService;
+        //public SimpleAuthorizationServerProvider(IAccountService accountService)
+        //{
+        //    _accountService = accountService;
+        //}
         public override async Task ValidateClientAuthentication(OAuthValidateClientAuthenticationContext context)
         {
             context.Validated();
@@ -19,7 +24,7 @@ namespace RedTeam.TechArtSurvey.WebApi.Provider
         public override async Task GrantResourceOwnerCredentials(OAuthGrantResourceOwnerCredentialsContext context)
         {
 
-            context.OwinContext.Response.Headers.Add("Access-Control-Allow-Origin", new[] { "*" });
+            //context.OwinContext.Response.Headers.Add("Access-Control-Allow-Origin", new[] { "*" });
 
             //var result = await _service.GetUserByCredentialsAsync(context.UserName, context.Password);
             //var user = result.Content;

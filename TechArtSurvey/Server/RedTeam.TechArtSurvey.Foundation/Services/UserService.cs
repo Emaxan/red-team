@@ -22,7 +22,6 @@ namespace RedTeam.TechArtSurvey.Foundation.Services
         private readonly IMapper _mapper;
 
         private readonly PasswordHasher _passwordHasher = new PasswordHasher();
-
         public UserService(ITechArtSurveyUnitOfWork uow, IMapper mapper)
         {
             _uow = uow;
