@@ -22,8 +22,6 @@ namespace RedTeam.TechArtSurvey.WebApi.App_Start
 
             ConfigureOAuth(app);
             var kernel = NinjectDependencyResolver.Kernel;
-            
-            //WebApiConfig.Register(config);
             app.UseCors(Microsoft.Owin.Cors.CorsOptions.AllowAll);
             app.UseWebApi(config);
         }
