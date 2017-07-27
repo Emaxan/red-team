@@ -8,6 +8,7 @@ using RedTeam.TechArtSurvey.Foundation.Interfaces.ServiceResponses;
 
 namespace RedTeam.TechArtSurvey.WebApi.Controllers
 {
+    [Authorize]
     public class UsersController : ApiController
     {
         private readonly IUserService _userService;

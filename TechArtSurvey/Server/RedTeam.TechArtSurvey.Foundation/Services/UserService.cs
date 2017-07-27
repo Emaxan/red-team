@@ -13,6 +13,7 @@ using RedTeam.TechArtSurvey.Foundation.Interfaces.ServiceResponses;
 using RedTeam.TechArtSurvey.Repositories.Interfaces;
 using Microsoft.AspNet.Identity;
 using System.Security.Claims;
+using Microsoft.Owin.Security.OAuth;
 
 namespace RedTeam.TechArtSurvey.Foundation.Services
 {
