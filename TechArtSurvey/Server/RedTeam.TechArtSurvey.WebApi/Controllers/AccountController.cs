@@ -18,14 +18,13 @@ using System.Security.Claims;
 
 namespace RedTeam.TechArtSurvey.WebApi.Controllers
 {
-   // [Filters.Authorization()]
    [Authorize]
     public class AccountController : ApiController
     {
-        private readonly IAccountService _accountService;
-        public AccountController(IAccountService accountService)
+        private readonly IUserService _userService;
+        public AccountController(IUserService userService)
         {
-            _accountService = accountService;
+            _userService = userService;
         }
 
         [Route("api/account/signup")]
@@ -33,24 +32,8 @@ namespace RedTeam.TechArtSurvey.WebApi.Controllers
         [AllowAnonymous]
         public async Task<IServiceResponse> Signup(UserDto user)
         {
-            if (HttpContext.Current.User.Identity.IsAuthenticated)
-            {
-                LoggerContext.Logger.Info($"Trying to sign up when isAuthenticated");
-            }
-            else
-            {
-                LoggerContext.Logger.Info($"Create User with email = {user.Email}");
-            }
-            return await _accountService.SingupAsync(user);
-        }
-
-        
-        [Route("api/account/logout")]
-        [HttpGet]
-        public async Task<IServiceResponse> Logout()
-        {
-            LoggerContext.Logger.Info($"Logging out");
-            return await _accountService.LogOut(HttpContext.Current);
+            
+            return await _userService.CreateAsync(user);
         }
     }
 }

@@ -76,14 +76,14 @@ namespace RedTeam.TechArtSurvey.Foundation.Services
             LoggerContext.Logger.Info($"Update user with email = {user.Email}");
 
             ServiceResponse serviceResponse = new ServiceResponse();
-            var us = await _uow.Users.GetAsync(user.Id);
+            var us = await _uow.UserManager.FindByIdAsync(user.Id.ToString());
             if (us == null)
             {
                 serviceResponse.Code = ServiceResponseCodes.NotFoundUserById;
             }
             else
             {
-                _uow.Users.Update(_mapper.Map(user, us));
+                _uow.UserManager.Update(_mapper.Map(user, us));
                 await _uow.SaveAsync();
 
                 serviceResponse.Code = ServiceResponseCodes.Ok;
@@ -97,14 +97,14 @@ namespace RedTeam.TechArtSurvey.Foundation.Services
             LoggerContext.Logger.Info($"Delete user with id = {id}");
 
             ServiceResponse serviceResponse = new ServiceResponse();
-            var us = await _uow.Users.GetAsync(id);
+            var us = await _uow.UserManager.FindByIdAsync(id.ToString());
             if (us == null)
             {
                 serviceResponse.Code = ServiceResponseCodes.NotFoundUserById;
             }
             else
             {
-                _uow.Users.Delete(us);
+                _uow.UserManager.Delete(us);
                 await _uow.SaveAsync();
 
                 serviceResponse.Code = ServiceResponseCodes.Ok;
@@ -118,7 +118,7 @@ namespace RedTeam.TechArtSurvey.Foundation.Services
             LoggerContext.Logger.Info($"Get user with id = {id}");
 
             ServiceResponse serviceResponse = new ServiceResponse();
-            var user = await _uow.Users.GetAsync(id);
+            var user = await _uow.UserManager.FindByIdAsync(id.ToString());
             if (user == null)
             {
                 serviceResponse.Code = ServiceResponseCodes.NotFoundUserById;
@@ -137,7 +137,7 @@ namespace RedTeam.TechArtSurvey.Foundation.Services
             LoggerContext.Logger.Info($"Get user with email = {email}");
 
             ServiceResponse serviceResponse = new ServiceResponse();
-            var user = await _uow.Users.GetUserByEmailAsync(email);
+            var user = await _uow.UserManager.FindByEmailAsync(email);
             if (user == null)
             {
                 serviceResponse.Code = ServiceResponseCodes.NotFoundUserByEmail;
@@ -153,15 +153,16 @@ namespace RedTeam.TechArtSurvey.Foundation.Services
 
         public async Task<IServiceResponse> GetAllAsync()
         {
-            LoggerContext.Logger.Info("Get all users");
+            //LoggerContext.Logger.Info("Get all users");
 
-            var users = await _uow.Users.GetAllAsync();
-            ServiceResponse serviceResponse = new ServiceResponse()
-            {
-                Code = ServiceResponseCodes.Ok,
-                Content = _mapper.Map<IReadOnlyCollection<User>, IReadOnlyCollection<EditUserDto>>(users)
-            };
-
+            //var users = await _uow.Users.GetAllAsync();
+            //ServiceResponse serviceResponse = new ServiceResponse()
+            //{
+            //    Code = ServiceResponseCodes.Ok,
+            //    Content = _mapper.Map<IReadOnlyCollection<User>, IReadOnlyCollection<EditUserDto>>(users)
+            //};
+            ServiceResponse serviceResponse = new ServiceResponse();
+            serviceResponse.Code = ServiceResponseCodes.Ok;
             return serviceResponse;
         }
     }

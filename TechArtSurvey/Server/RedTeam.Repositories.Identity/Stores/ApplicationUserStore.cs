@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace RedTeam.Repositories.Identity.Stores
 {
-    public class ApplicationUserstore : IUserStore<User>
+    public class ApplicationUserstore : IUserStore<User>, IUserEmailStore<User>
     {
         private IDbContext _db;
         private readonly DbSet<User> _dbSet;
@@ -66,6 +66,25 @@ namespace RedTeam.Repositories.Identity.Stores
             {
                 _db.Entry(user).State = EntityState.Modified;
             }
+        }
+
+        public async Task SetEmailAsync(User user, string email)
+        {
+        }
+
+        public async Task<string> GetEmailAsync(User user)
+        {
+            return user.Email;
+        }
+
+        public Task<bool> GetEmailConfirmedAsync(User user)
+        {
+            throw new NotImplementedException();
+        }
+
+        public async Task SetEmailConfirmedAsync(User user, bool confirmed)
+        {
+
         }
     }
 }

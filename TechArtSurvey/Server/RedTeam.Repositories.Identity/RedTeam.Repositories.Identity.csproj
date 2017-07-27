@@ -60,6 +60,10 @@
     <Compile Include="Stores\ApplicationUserStore.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\RedTeam.Repositories.EntityFramework\RedTeam.Repositories.EntityFramework.csproj">
+      <Project>{7250157B-E69A-4E89-8688-51DAE08C607C}</Project>
+      <Name>RedTeam.Repositories.EntityFramework</Name>
+    </ProjectReference>
     <ProjectReference Include="..\RedTeam.Repositories\RedTeam.Repositories.csproj">
       <Project>{433a7044-1a29-42cb-80b0-06e86aa12a2f}</Project>
       <Name>RedTeam.Repositories</Name>

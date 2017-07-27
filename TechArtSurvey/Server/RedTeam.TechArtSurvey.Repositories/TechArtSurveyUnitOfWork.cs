@@ -20,10 +20,10 @@ namespace RedTeam.TechArtSurvey.Repositories
         private ApplicationUserManager _userManager;
         private ApplicationRoleManager _roleManager;
 
-        public IUserRepository Users
-        {
-            get { return _userRepository ?? (_userRepository = new UserRepository(Context)); }
-        }
+        //public IUserRepository Users
+        //{
+        //    get { return _userRepository ?? (_userRepository = new UserRepository(Context)); }
+        //}
 
 
         public TechArtSurveyUnitOfWork(IDbContext context)

@@ -6,7 +6,7 @@ namespace RedTeam.TechArtSurvey.Repositories.Interfaces
 {
     public interface ITechArtSurveyUnitOfWork : IUnitOfWork
     {
-        IUserRepository Users { get; }
+        //IUserRepository Users { get; }
         ApplicationUserManager UserManager { get; }
         ApplicationRoleManager RoleManager { get; }
     }
