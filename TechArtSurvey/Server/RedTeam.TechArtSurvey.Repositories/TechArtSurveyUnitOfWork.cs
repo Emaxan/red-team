@@ -1,15 +1,10 @@
-﻿using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Identity.EntityFramework;
+﻿
 using RedTeam.Repositories.EntityFramework.Repositories;
 using RedTeam.Repositories.Identity.Managers;
 using RedTeam.Repositories.Identity.Stores;
 using RedTeam.Repositories.Interfaces;
-using RedTeam.TechArtSurvey.DomainModel.Entities;
 using RedTeam.TechArtSurvey.Repositories.Interfaces;
-using RedTeam.TechArtSurvey.Repositories.Interfaces.Repositories;
-using RedTeam.TechArtSurvey.Repositories.Repositories;
-using System;
-using System.Threading.Tasks;
+
 
 namespace RedTeam.TechArtSurvey.Repositories
 {

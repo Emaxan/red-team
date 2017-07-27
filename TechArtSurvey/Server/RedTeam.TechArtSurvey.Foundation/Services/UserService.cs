@@ -58,7 +58,6 @@ namespace RedTeam.TechArtSurvey.Foundation.Services
             }
             else
             {
-                var claims = await _uow.UserManager.GetClaimsAsync(user.Id);
                 serviceResponse.Code = ServiceResponseCodes.UserAlreadyExists;
                 return serviceResponse;
             }
