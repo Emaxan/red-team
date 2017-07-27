@@ -34,15 +34,17 @@ namespace RedTeam.TechArtSurvey.Foundation.Services
             ServiceResponse serviceResponse = new ServiceResponse();
             if (user == null)
             {
-                userDto.Password = _uow.UserManager.PasswordHasher.HashPassword(userDto.Password);
                 var us = _mapper.Map<UserDto, User>(userDto);
-                var result = await _uow.UserManager.CreateAsync(us);
-                // добавляем роль
-                //await _uow.UserManager.AddToRoleAsync(user.Id, userDto.Role);
+                us.Password = _uow.UserManager.PasswordHasher.HashPassword(us.Password);
+
+                var role = await _uow.RoleManager.FindByNameAsync(RoleNames.User.ToString());
+                us.RoleId = role.Id;
+                await _uow.UserManager.CreateAsync(us);
+                
                 await _uow.SaveAsync();
                 serviceResponse.Code = ServiceResponseCodes.Ok;
+                serviceResponse.Content = us;
                 return serviceResponse;
-
             }
             else
             {
@@ -51,6 +53,29 @@ namespace RedTeam.TechArtSurvey.Foundation.Services
                 return serviceResponse;
             }
         }
+        public async Task<IServiceResponse> GetClaimsByCredentialsAsync(string email, string password)
+        {
+            LoggerContext.Logger.Info($"Get creds of user with email = {email}");
+
+            ServiceResponse serviceResponse = new ServiceResponse();
+            var user = await _uow.UserManager.FindByEmailAsync(email);
+            if (user == null)
+            {
+                serviceResponse.Code = ServiceResponseCodes.NotFoundUserByEmail;
+            }
+            else if(_uow.UserManager.PasswordHasher.VerifyHashedPassword(user.Password, password) == PasswordVerificationResult.Failed)
+            {
+                serviceResponse.Code = ServiceResponseCodes.InvalidPassword;
+            }
+            else
+            {
+                serviceResponse.Code = ServiceResponseCodes.Ok;
+                serviceResponse.Content = _mapper.Map<User, EditUserDto>(user);
+            }
+
+            return serviceResponse;
+        }
+
 
         //public async Task<IServiceResponse> CreateAsync(UserDto user)
         //{

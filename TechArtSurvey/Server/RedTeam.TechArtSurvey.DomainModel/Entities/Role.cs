@@ -8,11 +8,9 @@ using System.Threading.Tasks;
 
 namespace RedTeam.TechArtSurvey.DomainModel.Entities
 {
-    public class Role : IRole
+    public class Role : IRole<int>
     {
         public int Id { get; set; }
         public string Name { get; set; }
-
-        string IRole<string>.Id => throw new NotImplementedException();
     }
 }

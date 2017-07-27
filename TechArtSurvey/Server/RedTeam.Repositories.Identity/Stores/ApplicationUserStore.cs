@@ -15,7 +15,6 @@ namespace RedTeam.Repositories.Identity.Stores
         private IDbContext _db;
         private readonly DbSet<User> _dbSet;
         private readonly DbSet<Role> _roles;
-        private readonly DbSet<Claim> _claims;
         protected IQueryable<User> DbSet
         {
             get { return _dbSet; }
@@ -26,7 +25,6 @@ namespace RedTeam.Repositories.Identity.Stores
             _db = db;
             _dbSet = _db.Set<User>();
             _roles = db.Set<Role>();
-            _claims = db.Set<Claim>();
         }
 
         public async Task CreateAsync(User user)
@@ -95,6 +93,9 @@ namespace RedTeam.Repositories.Identity.Stores
 
         public Task<IList<Claim>> GetClaimsAsync(User user)
         {
+            var claims = new ClaimsIdentity();
+            claims.AddClaim(new Claim(ClaimTypes.Email, user.Email));
+            claims.AddClaim(new Claim(ClaimTypes.Name, user.UserName));
             throw new NotImplementedException();
         }
 

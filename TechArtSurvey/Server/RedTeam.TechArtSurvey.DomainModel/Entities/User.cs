@@ -1,6 +1,7 @@
 ﻿using System;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace RedTeam.TechArtSurvey.DomainModel.Entities
 {
@@ -13,7 +14,9 @@ namespace RedTeam.TechArtSurvey.DomainModel.Entities
         public string Email { get; set; }
 
         public string Password { get; set; }
+        [ForeignKey("Role")]
+        public int RoleId { get; set; }
 
-        //string IUser<string>.Id => throw new NotImplementedException();
+        public Role Role { get; set; }
     }
 }

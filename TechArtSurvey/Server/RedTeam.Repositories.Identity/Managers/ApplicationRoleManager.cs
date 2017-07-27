@@ -9,9 +9,9 @@ using System.Threading.Tasks;
 
 namespace RedTeam.Repositories.Identity.Managers
 {
-    public class ApplicationRoleManager : RoleManager<Role>
+    public class ApplicationRoleManager : RoleManager<Role, int>
     {
-        public ApplicationRoleManager(IRoleStore<Role> store)
+        public ApplicationRoleManager(IRoleStore<Role, int> store)
                     : base(store)
         { }
     }
