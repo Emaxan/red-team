@@ -8,9 +8,9 @@ using System.Threading.Tasks;
 
 namespace RedTeam.Repositories.Identity.Managers
 {
-    public class ApplicationUserManager : UserManager<User>
+    public class ApplicationUserManager : UserManager<User, int>
     {
-        public ApplicationUserManager(IUserStore<User> store)
+        public ApplicationUserManager(IUserStore<User, int> store)
                 : base(store)
         {
         }

@@ -7,13 +7,13 @@ namespace RedTeam.TechArtSurvey.Repositories.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class Tokens_Delete : IMigrationMetadata
+    public sealed partial class roles : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(Tokens_Delete));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(roles));
         
         string IMigrationMetadata.Id
         {
-            get { return "201707251435438_Tokens_Delete"; }
+            get { return "201707270753456_roles"; }
         }
         
         string IMigrationMetadata.Source

@@ -16,7 +16,7 @@ namespace RedTeam.TechArtSurvey.Repositories
     
     public class TechArtSurveyUnitOfWork : UnitOfWork, ITechArtSurveyUnitOfWork
     {
-        private IUserRepository _userRepository;
+        //private IUserRepository _userRepository;
         private ApplicationUserManager _userManager;
         private ApplicationRoleManager _roleManager;
 
@@ -35,13 +35,13 @@ namespace RedTeam.TechArtSurvey.Repositories
 
         public ApplicationUserManager UserManager
         {
-            get { return _userManager; }
+            get { return _userManager ?? (_userManager = new ApplicationUserManager(new ApplicationUserstore(Context))); }
         }
 
 
         public ApplicationRoleManager RoleManager
         {
-            get { return _roleManager; }
+            get { return _roleManager ?? (_roleManager = new ApplicationRoleManager(new ApplicationRoleStore(Context))); }
         }
     }
 }

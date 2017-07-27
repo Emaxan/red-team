@@ -76,7 +76,7 @@ namespace RedTeam.TechArtSurvey.Foundation.Services
             LoggerContext.Logger.Info($"Update user with email = {user.Email}");
 
             ServiceResponse serviceResponse = new ServiceResponse();
-            var us = await _uow.UserManager.FindByIdAsync(user.Id.ToString());
+            var us = await _uow.UserManager.FindByIdAsync(user.Id);
             if (us == null)
             {
                 serviceResponse.Code = ServiceResponseCodes.NotFoundUserById;
@@ -97,7 +97,7 @@ namespace RedTeam.TechArtSurvey.Foundation.Services
             LoggerContext.Logger.Info($"Delete user with id = {id}");
 
             ServiceResponse serviceResponse = new ServiceResponse();
-            var us = await _uow.UserManager.FindByIdAsync(id.ToString());
+            var us = await _uow.UserManager.FindByIdAsync(id);
             if (us == null)
             {
                 serviceResponse.Code = ServiceResponseCodes.NotFoundUserById;
@@ -118,7 +118,7 @@ namespace RedTeam.TechArtSurvey.Foundation.Services
             LoggerContext.Logger.Info($"Get user with id = {id}");
 
             ServiceResponse serviceResponse = new ServiceResponse();
-            var user = await _uow.UserManager.FindByIdAsync(id.ToString());
+            var user = await _uow.UserManager.FindByIdAsync(id);
             if (user == null)
             {
                 serviceResponse.Code = ServiceResponseCodes.NotFoundUserById;

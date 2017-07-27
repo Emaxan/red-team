@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace RedTeam.Repositories.Identity.Stores
 {
-    public class ApplicationUserstore : IUserStore<User>, IUserEmailStore<User>
+    public class ApplicationUserstore : IUserStore<User, int>, IUserEmailStore<User, int>
     {
         private IDbContext _db;
         private readonly DbSet<User> _dbSet;
@@ -26,7 +26,7 @@ namespace RedTeam.Repositories.Identity.Stores
 
         public async Task CreateAsync(User user)
         {
-            _dbSet.Add(user);
+            var result = _dbSet.Add(user);
         }
 
         public async Task DeleteAsync(User user)
@@ -43,20 +43,21 @@ namespace RedTeam.Repositories.Identity.Stores
             throw new NotImplementedException();
         }
 
-        public async Task<User> FindByIdAsync(string userId)
+        public async Task<User> FindByIdAsync(int userId)
         {
             var user = await _dbSet.FindAsync(Convert.ToInt32(userId));
             return user;
         }
 
-        public Task<User> FindByNameAsync(string userName)
+        public async Task<User> FindByNameAsync(string userName)
         {
-            throw new NotImplementedException();
+            return new User();
         }
 
         public async Task<User> FindByEmailAsync(string email)
         {
-            var user = await _dbSet.FirstAsync(u => u.Email == email);
+
+            var user = await _dbSet.FirstOrDefaultAsync(u => u.Email == email);
             return user;
         }
 

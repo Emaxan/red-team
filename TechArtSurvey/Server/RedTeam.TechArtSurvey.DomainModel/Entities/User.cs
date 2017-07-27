@@ -4,7 +4,7 @@ using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace RedTeam.TechArtSurvey.DomainModel.Entities
 {
-    public class User: IUser<string>
+    public class User: IUser<int>
     {
         public int Id { get; set; }
 
@@ -14,6 +14,6 @@ namespace RedTeam.TechArtSurvey.DomainModel.Entities
 
         public string Password { get; set; }
 
-        string IUser<string>.Id => throw new NotImplementedException();
+        //string IUser<string>.Id => throw new NotImplementedException();
     }
 }

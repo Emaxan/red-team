@@ -60,9 +60,9 @@
     <Compile Include="Migrations\201707201437548_User_UniqueEmail.Designer.cs">
       <DependentUpon>201707201437548_User_UniqueEmail.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201707251435438_Tokens_Delete.cs" />
-    <Compile Include="Migrations\201707251435438_Tokens_Delete.Designer.cs">
-      <DependentUpon>201707251435438_Tokens_Delete.cs</DependentUpon>
+    <Compile Include="Migrations\201707270753456_roles.cs" />
+    <Compile Include="Migrations\201707270753456_roles.Designer.cs">
+      <DependentUpon>201707270753456_roles.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -109,8 +109,8 @@
     <EmbeddedResource Include="Migrations\201707201437548_User_UniqueEmail.resx">
       <DependentUpon>201707201437548_User_UniqueEmail.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201707251435438_Tokens_Delete.resx">
-      <DependentUpon>201707251435438_Tokens_Delete.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201707270753456_roles.resx">
+      <DependentUpon>201707270753456_roles.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -55,7 +55,7 @@ namespace RedTeam.Repositories.Identity.Stores
 
         public async Task<Role> FindByNameAsync(string roleName)
         {
-            var role = await _dbSet.FirstAsync(r => r.Name == roleName);
+            var role = await _dbSet.FirstOrDefaultAsync(r => r.Name == roleName);
             return role;
         }
 
