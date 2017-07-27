@@ -13,6 +13,8 @@ namespace RedTeam.TechArtSurvey.Repositories.EF
     {
         private PropertyAttributeSetter _attributeSetter;
         public DbSet<User> Users { get; set; }
+        public DbSet<UserClaim> Claims { get; set; }
+        public DbSet<Role> Roles { get; set; }
 
         public TechArtSurveyContext()
         {

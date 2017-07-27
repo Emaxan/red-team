@@ -34,7 +34,9 @@ namespace RedTeam.TechArtSurvey.Foundation.Services
             ServiceResponse serviceResponse = new ServiceResponse();
             if (user == null)
             {
-                await _uow.UserManager.CreateAsync(_mapper.Map<UserDto, User>(userDto));
+                userDto.Password = _uow.UserManager.PasswordHasher.HashPassword(userDto.Password);
+                var us = _mapper.Map<UserDto, User>(userDto);
+                var result = await _uow.UserManager.CreateAsync(us);
                 // добавляем роль
                 //await _uow.UserManager.AddToRoleAsync(user.Id, userDto.Role);
                 await _uow.SaveAsync();
@@ -44,6 +46,7 @@ namespace RedTeam.TechArtSurvey.Foundation.Services
             }
             else
             {
+                var claims = await _uow.UserManager.GetClaimsAsync(user.Id);
                 serviceResponse.Code = ServiceResponseCodes.UserAlreadyExists;
                 return serviceResponse;
             }
@@ -76,7 +79,7 @@ namespace RedTeam.TechArtSurvey.Foundation.Services
             LoggerContext.Logger.Info($"Update user with email = {user.Email}");
 
             ServiceResponse serviceResponse = new ServiceResponse();
-            var us = await _uow.UserManager.FindByIdAsync(user.Id);
+            var us = await _uow.UserManager.FindByIdAsync(user.Id); 
             if (us == null)
             {
                 serviceResponse.Code = ServiceResponseCodes.NotFoundUserById;
