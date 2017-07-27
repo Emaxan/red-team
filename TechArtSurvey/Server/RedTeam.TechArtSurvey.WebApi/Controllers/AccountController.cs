@@ -12,7 +12,6 @@ using RedTeam.TechArtSurvey.Foundation.Dto.UsersDto;
 using RedTeam.TechArtSurvey.Foundation.Interfaces;
 using RedTeam.TechArtSurvey.Foundation.Interfaces.ServiceResponses;
 using System.Web;
-using RedTeam.TechArtSurvey.Foundation.Dto.AccountDto;
 using Microsoft.Owin.Security;
 using System.Security.Claims;
 

@@ -19,20 +19,17 @@ namespace RedTeam.TechArtSurvey.Repositories.EF
         }
         public void SetupPropertiesAttributes()
         {
-            SetupUserPropertiesAttributes();
             SetupRolePropertiesAttributes();
+            SetupUserPropertiesAttributes();
         }
         private void SetupRolePropertiesAttributes()
         {
-            _modelBuilder.Entity<Role>().Property(u => u.Id).IsRequired();
-            _modelBuilder.Entity<Role>().Property(u => u.Name).IsRequired();
-            _modelBuilder.Entity<Role>().Property(u => u.Id).HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
-            _modelBuilder.Entity<Role>().HasKey(u => u.Id);
+            _modelBuilder.Entity<Role>().Property(r => r.Id).IsRequired();
+            _modelBuilder.Entity<Role>().Ignore(r => r.Name);
+            _modelBuilder.Entity<Role>().Property(r => r.RoleName).IsRequired();
 
-            _modelBuilder.Entity<Role>().Property(u => u.Name)
-                .HasColumnType("VARCHAR")
-                .HasMaxLength(15);
-
+            _modelBuilder.Entity<Role>().Property(r => r.Id).HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
+            _modelBuilder.Entity<Role>().HasKey(r => r.Id);
         }
         private void SetupUserPropertiesAttributes()
         {

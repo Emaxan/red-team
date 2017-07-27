@@ -12,6 +12,7 @@ using RedTeam.TechArtSurvey.Foundation.Interfaces;
 using RedTeam.TechArtSurvey.Foundation.Interfaces.ServiceResponses;
 using RedTeam.TechArtSurvey.Repositories.Interfaces;
 using Microsoft.AspNet.Identity;
+using System.Security.Claims;
 
 namespace RedTeam.TechArtSurvey.Foundation.Services
 {
@@ -27,24 +28,31 @@ namespace RedTeam.TechArtSurvey.Foundation.Services
             _uow = uow;
             _mapper = mapper;
         }
-
+        private ClaimsIdentity GetClaims(User user)
+        {
+            var claims = new ClaimsIdentity();
+            claims.AddClaim(new Claim(ClaimTypes.Email, user.Email));
+            claims.AddClaim(new Claim(ClaimTypes.Name, user.UserName));
+            claims.AddClaim(new Claim(ClaimTypes.Role, user.Role.Name));
+            return claims;
+        }
         public async Task<IServiceResponse> CreateAsync(UserDto userDto)
         {
             User user = await _uow.UserManager.FindByEmailAsync(userDto.Email);
             ServiceResponse serviceResponse = new ServiceResponse();
             if (user == null)
             {
+                userDto.Password = _uow.UserManager.PasswordHasher.HashPassword(userDto.Password);
                 var us = _mapper.Map<UserDto, User>(userDto);
-                us.Password = _uow.UserManager.PasswordHasher.HashPassword(us.Password);
 
-                var role = await _uow.RoleManager.FindByNameAsync(RoleNames.User.ToString());
-                us.RoleId = role.Id;
+                var role = _uow.RoleManager.FindByRoleNameAsync(RoleNames.User);
+                us.Role = role.Result;
                 await _uow.UserManager.CreateAsync(us);
-                
+
                 await _uow.SaveAsync();
                 serviceResponse.Code = ServiceResponseCodes.Ok;
-                serviceResponse.Content = us;
                 return serviceResponse;
+
             }
             else
             {
@@ -53,51 +61,28 @@ namespace RedTeam.TechArtSurvey.Foundation.Services
                 return serviceResponse;
             }
         }
+
         public async Task<IServiceResponse> GetClaimsByCredentialsAsync(string email, string password)
         {
-            LoggerContext.Logger.Info($"Get creds of user with email = {email}");
-
             ServiceResponse serviceResponse = new ServiceResponse();
             var user = await _uow.UserManager.FindByEmailAsync(email);
             if (user == null)
             {
-                serviceResponse.Code = ServiceResponseCodes.NotFoundUserByEmail;
+                serviceResponse.Code = ServiceResponseCodes.NotFoundUserById;
             }
-            else if(_uow.UserManager.PasswordHasher.VerifyHashedPassword(user.Password, password) == PasswordVerificationResult.Failed)
+            else if(_uow.UserManager.PasswordHasher.VerifyHashedPassword(user.Password, password) != PasswordVerificationResult.Success)
             {
                 serviceResponse.Code = ServiceResponseCodes.InvalidPassword;
             }
             else
             {
                 serviceResponse.Code = ServiceResponseCodes.Ok;
-                serviceResponse.Content = _mapper.Map<User, EditUserDto>(user);
+                var claims = GetClaims(user);
+                serviceResponse.Content = claims;
             }
 
             return serviceResponse;
         }
-
-
-        //public async Task<IServiceResponse> CreateAsync(UserDto user)
-        //{
-        //    LoggerContext.Logger.Info($"Create user with email = {user.Email}");
-
-        //    ServiceResponse serviceResponse = new ServiceResponse();
-        //    var us = await _uow.Users.GetUserByEmailAsync(user.Email);
-        //    if (us != null)
-        //    {
-        //        serviceResponse.Code = ServiceResponseCodes.UserAlreadyExists;
-        //    }
-        //    else
-        //    {
-        //        user.Password = _passwordHasher.HashPassword(user.Password);
-        //        _uow.Users.Create(_mapper.Map<UserDto, User>(user));
-        //        await _uow.SaveAsync();
-
-        //        serviceResponse.Code = ServiceResponseCodes.Ok;
-        //    }
-
-        //    return serviceResponse;
-        //}
 
         public async Task<IServiceResponse> UpdateAsync(EditUserDto user)
         {

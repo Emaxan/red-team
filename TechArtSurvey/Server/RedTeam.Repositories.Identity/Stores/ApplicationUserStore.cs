@@ -10,7 +10,7 @@ using System.Security.Claims;
 
 namespace RedTeam.Repositories.Identity.Stores
 {
-    public class ApplicationUserstore : IUserStore<User, int>, IUserEmailStore<User, int>, IUserClaimStore<User, int>
+    public class ApplicationUserstore : IUserStore<User, int>, IUserEmailStore<User, int>
     {
         private IDbContext _db;
         private readonly DbSet<User> _dbSet;
@@ -60,7 +60,7 @@ namespace RedTeam.Repositories.Identity.Stores
         public async Task<User> FindByEmailAsync(string email)
         {
 
-            var user = await _dbSet.FirstOrDefaultAsync(u => u.Email == email);
+            var user =  _dbSet.Where(u => u.Email == email).Include(r => r.Role).FirstOrDefault();
             return user;
         }
 
@@ -89,24 +89,6 @@ namespace RedTeam.Repositories.Identity.Stores
         public async Task SetEmailConfirmedAsync(User user, bool confirmed)
         {
 
-        }
-
-        public Task<IList<Claim>> GetClaimsAsync(User user)
-        {
-            var claims = new ClaimsIdentity();
-            claims.AddClaim(new Claim(ClaimTypes.Email, user.Email));
-            claims.AddClaim(new Claim(ClaimTypes.Name, user.UserName));
-            throw new NotImplementedException();
-        }
-
-        public Task AddClaimAsync(User user, Claim claim)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task RemoveClaimAsync(User user, Claim claim)
-        {
-            throw new NotImplementedException();
         }
     }
 }

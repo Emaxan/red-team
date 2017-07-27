@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace RedTeam.Repositories.Identity.Stores
 {
-    public class ApplicationRoleStore: IRoleStore<Role>
+    public class ApplicationRoleStore: IRoleStore<Role,int>
     {
         private IDbContext _db;
         private readonly DbSet<Role> _dbSet;
@@ -47,15 +47,16 @@ namespace RedTeam.Repositories.Identity.Stores
             throw new NotImplementedException();
         }
 
-        public async Task<Role> FindByIdAsync(string roleId)
+        public async Task<Role> FindByIdAsync(int roleId)
         {
-            var role = await _dbSet.FindAsync(Convert.ToInt32(roleId));
+            var role = await _dbSet.FindAsync(roleId);
             return role;
         }
 
         public async Task<Role> FindByNameAsync(string roleName)
         {
-            var role = await _dbSet.FirstOrDefaultAsync(r => r.Name == roleName);
+            Enum.TryParse(roleName, out RoleNames roleType);
+            var role = await _dbSet.FirstOrDefaultAsync(r => r.RoleName == roleType);
             return role;
         }
 

@@ -35,7 +35,6 @@
     <Reference Include="System.Web" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="IAccountService.cs" />
     <Compile Include="ServiceResponses\IServiceResponse.cs" />
     <Compile Include="IUserService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -8,7 +8,7 @@ namespace RedTeam.TechArtSurvey.DomainModel.Entities
 {
     public enum RoleNames
     {
-        Admin,
-        User
+        Admin = 1,
+        User = 2
     }
 }

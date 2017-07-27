@@ -12,5 +12,6 @@ namespace RedTeam.TechArtSurvey.DomainModel.Entities
     {
         public int Id { get; set; }
         public string Name { get; set; }
+        public RoleNames RoleName { get; set; }
     }
 }

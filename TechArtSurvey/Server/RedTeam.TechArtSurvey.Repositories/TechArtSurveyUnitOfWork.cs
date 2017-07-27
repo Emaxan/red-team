@@ -29,8 +29,7 @@ namespace RedTeam.TechArtSurvey.Repositories
         public TechArtSurveyUnitOfWork(IDbContext context)
             : base(context)
         {
-            _userManager = new ApplicationUserManager(new ApplicationUserstore(Context));
-            _roleManager = new ApplicationRoleManager(new ApplicationRoleStore(Context));
+
         }
 
         public ApplicationUserManager UserManager

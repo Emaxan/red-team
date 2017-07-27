@@ -6,6 +6,7 @@ using System.Web.Http;
 using Microsoft.Owin.Security.OAuth;
 using RedTeam.TechArtSurvey.Foundation.Interfaces;
 using System.Security.Claims;
+using System.Collections.Generic;
 
 namespace RedTeam.TechArtSurvey.WebApi.Provider
 {
@@ -15,40 +16,28 @@ namespace RedTeam.TechArtSurvey.WebApi.Provider
         {
             context.Validated();
         }
-        private IUserService _user;
+        private IUserService _userService;
         public SimpleAuthorizationServerProvider(IUserService userService)
         {
-            _user = userService;
+            _userService = userService;
         }
 
 
 
         public override async Task GrantResourceOwnerCredentials(OAuthGrantResourceOwnerCredentialsContext context)
         {
-            var user = await _user.GetByEmailAsync(context.UserName);
-
             context.OwinContext.Response.Headers.Add("Access-Control-Allow-Origin", new[] { "*" });
 
-            //var result = await _service.GetUserByCredentialsAsync(context.UserName, context.Password);
-            //var user = result.Content;
-            //if (user != null)
-            //{
-            //    var identity = new ClaimsIdentity(context.Options.AuthenticationType);
-            //    identity.AddClaim(new Claim("user", context.UserName));
-            //    identity.AddClaim(new Claim("role", "user"));
-
-            //    context.Validated(identity);
-            //}
-            //else
-            //{
-            //    context.Validated();
-            //}
-
-            var identity = new ClaimsIdentity(context.Options.AuthenticationType);
-            identity.AddClaim(new Claim("user", context.UserName));
-            identity.AddClaim(new Claim("role", "user"));
-
-            context.Validated(identity);
+            var result = _userService.GetClaimsByCredentialsAsync(context.UserName, context.Password); //here UserName == Email
+            if (result.Result.Code == Foundation.Interfaces.ServiceResponses.ServiceResponseCodes.Ok)
+            {
+                var identity = result.Result.Content as ClaimsIdentity;
+                context.Validated(identity);
+            }
+            else
+            {
+                context.Validated();
+            }
         }
     }
 }
