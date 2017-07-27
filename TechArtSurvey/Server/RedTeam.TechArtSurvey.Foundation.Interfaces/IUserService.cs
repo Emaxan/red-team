@@ -17,7 +17,6 @@ namespace RedTeam.TechArtSurvey.Foundation.Interfaces
 
         Task<IServiceResponse> GetByEmailAsync(string email);
 
-        Task<IServiceResponse> GetAllAsync();
         Task<IServiceResponse> GetClaimsByCredentialsAsync(string email, string password);
     }
 }

@@ -13,11 +13,15 @@ namespace RedTeam.Repositories.Identity.Managers
     {
         public ApplicationRoleManager(IRoleStore<Role, int> store)
                     : base(store)
-        { }
+        {
+            
+
+        }
 
         public async Task<Role> FindByRoleNameAsync(RoleNames roleName)
         {
-            return await FindByNameAsync(roleName.ToString());
+            int roleNameNum = (Int32)roleName;
+            return await FindByNameAsync(roleNameNum.ToString());
         }
     }
 }

@@ -38,6 +38,7 @@ namespace RedTeam.TechArtSurvey.Foundation.Services
         }
         public async Task<IServiceResponse> CreateAsync(UserDto userDto)
         {
+            
             User user = await _uow.UserManager.FindByEmailAsync(userDto.Email);
             ServiceResponse serviceResponse = new ServiceResponse();
             if (user == null)
@@ -161,21 +162,6 @@ namespace RedTeam.TechArtSurvey.Foundation.Services
                 serviceResponse.Content = _mapper.Map<User, EditUserDto>(user);
             }
 
-            return serviceResponse;
-        }
-
-        public async Task<IServiceResponse> GetAllAsync()
-        {
-            //LoggerContext.Logger.Info("Get all users");
-
-            //var users = await _uow.Users.GetAllAsync();
-            //ServiceResponse serviceResponse = new ServiceResponse()
-            //{
-            //    Code = ServiceResponseCodes.Ok,
-            //    Content = _mapper.Map<IReadOnlyCollection<User>, IReadOnlyCollection<EditUserDto>>(users)
-            //};
-            ServiceResponse serviceResponse = new ServiceResponse();
-            serviceResponse.Code = ServiceResponseCodes.Ok;
             return serviceResponse;
         }
     }

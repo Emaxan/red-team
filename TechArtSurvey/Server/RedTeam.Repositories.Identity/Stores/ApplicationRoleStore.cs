@@ -55,9 +55,17 @@ namespace RedTeam.Repositories.Identity.Stores
 
         public async Task<Role> FindByNameAsync(string roleName)
         {
-            Enum.TryParse(roleName, out RoleNames roleType);
-            var role = await _dbSet.FirstOrDefaultAsync(r => r.RoleName == roleType);
-            return role;
+            var roleType = (RoleNames)Convert.ToInt32(roleName);
+            try
+            {
+                var role = _dbSet.FirstOrDefault(r => r.RoleName == roleType);
+                var lel = role.RoleName;
+                return role;
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
         }
 
         public async Task UpdateAsync(Role role)
