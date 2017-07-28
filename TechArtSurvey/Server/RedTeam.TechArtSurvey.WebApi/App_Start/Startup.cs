@@ -28,9 +28,10 @@ namespace RedTeam.TechArtSurvey.WebApi.App_Start
             {
                 AllowInsecureHttp = true,
                 TokenEndpointPath = new PathString("/token"),
-                AccessTokenExpireTimeSpan = TimeSpan.FromMinutes(30),
+                AccessTokenExpireTimeSpan = TimeSpan.FromMinutes(1),
                 AuthorizeEndpointPath = new PathString("/api/account/authorization"),
-                Provider = GlobalConfiguration.Configuration.DependencyResolver.GetService(typeof(SimpleAuthorizationServerProvider)) as SimpleAuthorizationServerProvider
+                Provider = GlobalConfiguration.Configuration.DependencyResolver.GetService(typeof(SimpleAuthorizationServerProvider)) as SimpleAuthorizationServerProvider,
+                RefreshTokenProvider = new RefreshTokenProvider()
             };
 
             // Token Generation
