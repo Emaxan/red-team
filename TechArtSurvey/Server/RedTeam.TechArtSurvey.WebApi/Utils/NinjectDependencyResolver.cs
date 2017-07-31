@@ -16,7 +16,6 @@ namespace RedTeam.TechArtSurvey.WebApi.Utils
             Kernel = kernel;
         }
 
-
         public object GetService(Type serviceType)
         {
             return Kernel.TryGet(serviceType);
