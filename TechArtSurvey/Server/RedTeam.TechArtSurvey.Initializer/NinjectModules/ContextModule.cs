@@ -1,7 +1,7 @@
 ﻿using Ninject.Modules;
 using RedTeam.Repositories.Interfaces;
 using RedTeam.TechArtSurvey.Repositories.EF;
-
+using Ninject.Web.Common;
 namespace RedTeam.TechArtSurvey.Initializer.NinjectModules
 {
     public class ContextModule : NinjectModule
@@ -17,7 +17,7 @@ namespace RedTeam.TechArtSurvey.Initializer.NinjectModules
 
         public override void Load()
         {
-            Bind<IDbContext>().To<TechArtSurveyContext>().InThreadScope().WithConstructorArgument(_connectionString);
+            Bind<IDbContext>().To<TechArtSurveyContext>().InRequestScope().WithConstructorArgument(_connectionString);
         }
     }
 }
