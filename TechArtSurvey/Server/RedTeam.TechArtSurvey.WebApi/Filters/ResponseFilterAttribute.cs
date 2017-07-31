@@ -4,6 +4,8 @@ using System.Web.Http.Controllers;
 using System.Web.Http.Filters;
 using RedTeam.Logger;
 using RedTeam.TechArtSurvey.Foundation.Interfaces.ServiceResponses;
+using System.Collections.Generic;
+using Newtonsoft.Json;
 
 namespace RedTeam.TechArtSurvey.WebApi.Filters
 {
@@ -13,8 +15,13 @@ namespace RedTeam.TechArtSurvey.WebApi.Filters
         {
             if (!actionContext.ModelState.IsValid)
             {
-                actionContext.Response =
-                    actionContext.Request.CreateErrorResponse(HttpStatusCode.BadRequest, actionContext.ModelState);
+                var errors = new List<string>();
+                foreach (var state in actionContext.ModelState)
+                {
+                    errors.Add(state.Value.Errors[0].ErrorMessage);
+                }
+                var json = JsonConvert.SerializeObject(errors);
+                actionContext.Response = actionContext.Request.CreateResponse(HttpStatusCode.BadRequest, json);
             }
             base.OnActionExecuting(actionContext);
         }
@@ -39,11 +46,11 @@ namespace RedTeam.TechArtSurvey.WebApi.Filters
                         }
                         else
                         {
-                            string errorMessage =
-                                Properties.ResponseMessages.ResourceManager.GetString(serviceResponse.Code.ToString());
-
-                            response = actionExecutedContext.Request.CreateResponse(HttpStatusCode.BadRequest, errorMessage);
-                            LoggerContext.Logger.Error(errorMessage);
+                            List<string> errorMessages = new List<string>();
+                            errorMessages.Add(Properties.ResponseMessages.ResourceManager.GetString(serviceResponse.Code.ToString()));
+                            var json = JsonConvert.SerializeObject(errorMessages);
+                            response = actionExecutedContext.Request.CreateResponse(HttpStatusCode.BadRequest, json);
+                            LoggerContext.Logger.Error(errorMessages[0]);
                         }
 
                         actionExecutedContext.Response = response;
