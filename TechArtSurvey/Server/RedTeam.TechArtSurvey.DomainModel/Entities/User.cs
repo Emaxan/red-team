@@ -1,6 +1,4 @@
-﻿using System;
-using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Identity.EntityFramework;
+﻿using Microsoft.AspNet.Identity;
 
 namespace RedTeam.TechArtSurvey.DomainModel.Entities
 {
@@ -13,6 +11,8 @@ namespace RedTeam.TechArtSurvey.DomainModel.Entities
         public string Email { get; set; }
 
         public string Password { get; set; }
+
+        public int RoleId { get; set; }
 
         public Role Role { get; set; }
     }

@@ -1,10 +1,5 @@
 ﻿using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Identity.EntityFramework;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace RedTeam.TechArtSurvey.DomainModel.Entities
 {
@@ -15,5 +10,7 @@ namespace RedTeam.TechArtSurvey.DomainModel.Entities
         public string Name { get; set; }
 
         public RoleTypes RoleType { get; set; }
+
+        public ICollection<User> Users { get; set; }
     }
 }
