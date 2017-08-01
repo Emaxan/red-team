@@ -12,7 +12,9 @@ namespace RedTeam.TechArtSurvey.Repositories.EF
             Property(u => u.UserName).IsRequired();
             Property(u => u.Email).IsRequired();
             Property(u => u.Password).IsRequired();
-
+            HasRequired(u => u.Role)
+                    .WithMany(u => u.Users)
+                    .HasForeignKey(u => u.RoleId);
 
             Property(u => u.Email)
                 .HasColumnType("VARCHAR")

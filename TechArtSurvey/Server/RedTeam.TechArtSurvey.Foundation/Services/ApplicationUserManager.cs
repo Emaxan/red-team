@@ -49,7 +49,7 @@ namespace RedTeam.TechArtSurvey.Foundation.Services
             var user = await FindByEmailAsync(email);
             if (user == null)
             {
-                serviceResponse.Code = ServiceResponseCodes.NotFoundUserById;
+                serviceResponse.Code = ServiceResponseCodes.NotFoundUserByEmail;
             }
             else if (PasswordHasher.VerifyHashedPassword(user.Password, password) != PasswordVerificationResult.Success)
             {

@@ -20,14 +20,16 @@ namespace RedTeam.TechArtSurvey.Repositories.Migrations
                     Id = 1,
                     UserName = "Admin",
                     Email = "admin@admin.admin",
-                    Password = "admin"
+                    Password = "admin",
+                    RoleId = 1
                 },
                 new User()
                 {
                     Id = 2,
                     UserName = "User",
                     Email = "user@user.user",
-                    Password = "user"
+                    Password = "user",
+                    RoleId = 2
                 });
         }
     }

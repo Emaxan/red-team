@@ -36,6 +36,7 @@ namespace RedTeam.TechArtSurvey.Repositories.EF
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Configurations.Add(new UserConfiguration());
+            modelBuilder.Configurations.Add(new RoleConfiguration());
             base.OnModelCreating(modelBuilder);
         }  
     }

@@ -44,7 +44,7 @@ namespace RedTeam.Repositories.EntityFramework.Repositories
 
         public void Dispose()
         {
-            Dispose(true);
+          Dispose(true);
             GC.SuppressFinalize(this);
         }
 

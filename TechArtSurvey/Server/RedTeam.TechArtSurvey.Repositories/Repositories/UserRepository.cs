@@ -7,6 +7,7 @@ using RedTeam.Repositories.Interfaces;
 using RedTeam.TechArtSurvey.DomainModel.Entities;
 using RedTeam.TechArtSurvey.Repositories.Interfaces.Repositories;
 using System.Linq;
+using System;
 
 namespace RedTeam.TechArtSurvey.Repositories.Repositories
 {
@@ -23,7 +24,7 @@ namespace RedTeam.TechArtSurvey.Repositories.Repositories
         {
             LoggerContext.Logger.Info($"Get User with email = {email}");
 
-            return await  DbSet.Where(u => u.Email == email).Include(r => r.Role).FirstOrDefaultAsync();
+            return await DbSet.Where(u => u.Email == email).Include(r => r.Role).FirstOrDefaultAsync();
         }
 
         public override async Task<User> GetAsync(int id)
