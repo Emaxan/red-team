@@ -1,21 +1,18 @@
 ﻿using AutoMapper;
 using Microsoft.AspNet.Identity;
-using Microsoft.Owin.Security.OAuth;
 using RedTeam.Logger;
 using RedTeam.Repositories.Identity.Security;
 using RedTeam.TechArtSurvey.DomainModel.Entities;
 using RedTeam.TechArtSurvey.Foundation.Dto.UsersDto;
 using RedTeam.TechArtSurvey.Foundation.Interfaces;
 using RedTeam.TechArtSurvey.Foundation.Interfaces.ServiceResponses;
-using RedTeam.TechArtSurvey.Repositories.Interfaces;
-using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace RedTeam.TechArtSurvey.Foundation.Services
-{ 
-      //usermanager
-     //userstore
-     //uow
+{
+    //usermanager
+    //userstore
+    //uow
 
     //repository
 
