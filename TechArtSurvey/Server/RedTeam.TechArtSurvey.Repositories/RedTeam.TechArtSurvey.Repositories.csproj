@@ -39,15 +39,8 @@
     <Reference Include="JetBrains.Annotations, Version=10.4.0.0, Culture=neutral, PublicKeyToken=1010a0d8d6380325, processorArchitecture=MSIL">
       <HintPath>..\packages\JetBrains.Annotations.10.4.0\lib\net\JetBrains.Annotations.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.AspNet.Identity.Core, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.AspNet.Identity.Core.2.2.1\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.AspNet.Identity.EntityFramework, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.AspNet.Identity.EntityFramework.2.2.1\lib\net45\Microsoft.AspNet.Identity.EntityFramework.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
-    <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="EF\TechArtSurveyContext.cs" />
@@ -68,6 +61,10 @@
     <Compile Include="Migrations\201708011154404_RoleTypes.Designer.cs">
       <DependentUpon>201708011154404_RoleTypes.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201708011517007_UserRoles.cs" />
+    <Compile Include="Migrations\201708011517007_UserRoles.Designer.cs">
+      <DependentUpon>201708011517007_UserRoles.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\RoleRepository.cs" />
@@ -75,6 +72,7 @@
     <Compile Include="TechArtSurveyUnitOfWork.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
@@ -85,10 +83,6 @@
     <ProjectReference Include="..\RedTeam.Logger\RedTeam.Logger.csproj">
       <Project>{2A7D081E-C19A-476B-9E46-2D17CE1769AF}</Project>
       <Name>RedTeam.Logger</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\RedTeam.Repositories.Identity\RedTeam.Identity.csproj">
-      <Project>{2B216D5D-2CC2-460A-A94D-B4AA44DA8EED}</Project>
-      <Name>RedTeam.Identity</Name>
     </ProjectReference>
     <ProjectReference Include="..\RedTeam.TechArtSurvey.DomainModel\RedTeam.TechArtSurvey.DomainModel.csproj">
       <Project>{cba1e0f8-a057-4782-82de-162668f2b074}</Project>
@@ -119,6 +113,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201708011154404_RoleTypes.resx">
       <DependentUpon>201708011154404_RoleTypes.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201708011517007_UserRoles.resx">
+      <DependentUpon>201708011517007_UserRoles.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
