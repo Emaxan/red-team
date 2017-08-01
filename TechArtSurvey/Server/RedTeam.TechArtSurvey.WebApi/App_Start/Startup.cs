@@ -1,13 +1,9 @@
 ﻿using System;
-using System.Threading.Tasks;
 using Microsoft.Owin;
 using Owin;
 using System.Web.Http;
 using Microsoft.Owin.Security.OAuth;
-using RedTeam.TechArtSurvey.Foundation.Interfaces;
-using System.Security.Claims;
 using RedTeam.TechArtSurvey.WebApi.Provider;
-using RedTeam.TechArtSurvey.WebApi.Utils;
 
 [assembly: OwinStartup(typeof(RedTeam.TechArtSurvey.WebApi.App_Start.Startup))]
 
@@ -35,9 +31,6 @@ namespace RedTeam.TechArtSurvey.WebApi.App_Start
             // Token Generation
             app.UseOAuthAuthorizationServer(OAuthServerOptions);
             app.UseOAuthBearerAuthentication(new OAuthBearerAuthenticationOptions());
-
         }
     }
-
-    
 }

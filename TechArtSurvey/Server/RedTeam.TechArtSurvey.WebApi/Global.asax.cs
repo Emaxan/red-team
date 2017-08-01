@@ -24,6 +24,7 @@ namespace RedTeam.TechArtSurvey.WebApi
         private void RegisterWebApiFilters()
         {
             GlobalConfiguration.Configuration.Filters.Add(new ResponseFilterAttribute());
+            GlobalConfiguration.Configuration.Filters.Add(new AuthorizeAttribute());
         }
     }
 }

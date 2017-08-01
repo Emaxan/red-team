@@ -11,22 +11,28 @@ namespace RedTeam.TechArtSurvey.Repositories
     {
         private IUserRepository _userRepository;
         private IRoleRepository _roleRepository;
-
-
+        
 
         public IUserRepository Users
         {
-            get { return _userRepository ?? (_userRepository = new UserRepository(Context)); }
+            get
+            {
+                return _userRepository ?? (_userRepository = new UserRepository(Context));
+            }
         }
         public IRoleRepository Roles
         {
-            get { return _roleRepository ?? (_roleRepository = new RoleRepository(Context)); }
+            get
+            {
+                return _roleRepository ?? (_roleRepository = new RoleRepository(Context));
+            }
         }
 
 
         public TechArtSurveyUnitOfWork(IDbContext context)
             : base(context)
         {
+
         }
     }
 }

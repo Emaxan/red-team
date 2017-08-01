@@ -6,15 +6,16 @@ using RedTeam.TechArtSurvey.Foundation.Interfaces.ServiceResponses;
 
 namespace RedTeam.TechArtSurvey.WebApi.Controllers
 {
-    [Authorize]
     public class AccountController : ApiController
     {
         private readonly IApplicationUserManager _userManager;
+
   
         public AccountController(IApplicationUserManager userManager)
         {
             _userManager = userManager;
         }
+
 
         [Route("api/account/signup")]
         [HttpPost]

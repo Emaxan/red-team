@@ -67,9 +67,9 @@ namespace RedTeam.TechArtSurvey.WebApi
             try
             {
                 kernel.Bind<Func<IKernel>>().ToMethod(ctx => () => new Bootstrapper().Kernel);
-                kernel.Bind<IHttpModule>().To<HttpApplicationInitializationHttpModule>();
-
+                kernel.Bind<IHttpModule>().To<HttpApplicationInitializationHttpModule>();   
                 RegisterServices(kernel);
+
                 return kernel;
             }
             catch
@@ -86,7 +86,6 @@ namespace RedTeam.TechArtSurvey.WebApi
         /// <param name="kernel">The kernel.</param>
         private static void RegisterServices(IKernel kernel)
         {
-
             NinjectConfigurator.Configure(kernel);
         }
     }

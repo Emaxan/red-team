@@ -14,6 +14,7 @@ namespace RedTeam.TechArtSurvey.Repositories.EF
         public DbSet<User> Users { get; set; }
         public DbSet<Role> Roles { get; set; }
 
+
         public TechArtSurveyContext()
         {
             this.Configuration.LazyLoadingEnabled = false;

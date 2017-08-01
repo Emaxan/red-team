@@ -10,15 +10,10 @@ using System.Threading.Tasks;
 
 namespace RedTeam.TechArtSurvey.Foundation.Services
 {
-    //usermanager
-    //userstore
-    //uow
-
-    //repository
-
     public class ApplicationUserManager : UserManager<User, int>, IApplicationUserManager
     {
         private readonly IMapper _mapper;
+
 
         public ApplicationUserManager(IUserStore<User, int> store, IMapper mapper)
                 : base(store)
@@ -37,12 +32,13 @@ namespace RedTeam.TechArtSurvey.Foundation.Services
                 var us = _mapper.Map<UserDto, User>(userDto);
                 await CreateAsync(us);
                 serviceResponse.Code = ServiceResponseCodes.Ok;
-                return serviceResponse;
 
+                return serviceResponse;
             }
             else
             {
                 serviceResponse.Code = ServiceResponseCodes.UserAlreadyExists;
+
                 return serviceResponse;
             }
         }

@@ -21,6 +21,7 @@ namespace RedTeam.Repositories.Identity.Stores
             _uow = uow;
         }
 
+
         public async Task CreateAsync(User user)
         {
             user.Role = await _uow.Roles.FindRoleByTypeAsync(RoleTypes.User);
@@ -41,6 +42,7 @@ namespace RedTeam.Repositories.Identity.Stores
         public async Task<User> FindByIdAsync(int userId)
         {
             var user = await _uow.Users.GetAsync(Convert.ToInt32(userId));
+
             return user;
         }
 
@@ -52,6 +54,7 @@ namespace RedTeam.Repositories.Identity.Stores
         public async Task<User> FindByEmailAsync(string email)
         {
             var user = await _uow.Users.GetUserByEmailAsync(email);
+
             return user;
         }
 
@@ -62,6 +65,7 @@ namespace RedTeam.Repositories.Identity.Stores
 
         public async Task SetEmailAsync(User user, string email)
         {
+
         }
 
         public async Task<string> GetEmailAsync(User user)

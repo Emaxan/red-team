@@ -17,6 +17,7 @@ namespace RedTeam.TechArtSurvey.Repositories.Repositories
         public RoleRepository(IDbContext context)
             : base(context)
         {
+
         }
 
 

@@ -12,10 +12,11 @@ namespace RedTeam.TechArtSurvey.WebApi.Provider
     public class RefreshTokenProvider : IAuthenticationTokenProvider
     {
         private static ConcurrentDictionary<string, AuthenticationTicket> _refreshTokens = new ConcurrentDictionary<string, AuthenticationTicket>();
+
+
         public async Task CreateAsync(AuthenticationTokenCreateContext context)
         {
             var guid = Guid.NewGuid().ToString();
-
             // copy all properties and set the desired lifetime of refresh token  
             var refreshTokenProperties = new AuthenticationProperties(context.Ticket.Properties.Dictionary)
             {
@@ -23,9 +24,7 @@ namespace RedTeam.TechArtSurvey.WebApi.Provider
                 ExpiresUtc = DateTime.UtcNow.AddDays(1)
             };
             var refreshTokenTicket = new AuthenticationTicket(context.Ticket.Identity, refreshTokenProperties);
-
             _refreshTokens.TryAdd(guid, refreshTokenTicket);
-
             // consider storing only the hash of the handle  
             context.SetToken(guid);
         }
@@ -44,7 +43,6 @@ namespace RedTeam.TechArtSurvey.WebApi.Provider
         {
             AuthenticationTicket ticket;
             string header = context.OwinContext.Request.Headers["Authorization"];
-
             if (_refreshTokens.TryRemove(context.Token, out ticket))
             {
                 context.SetTicket(ticket);

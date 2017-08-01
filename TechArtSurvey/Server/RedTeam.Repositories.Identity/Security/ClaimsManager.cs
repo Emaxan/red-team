@@ -12,6 +12,7 @@ namespace RedTeam.Repositories.Identity.Security
             claims.AddClaim(new Claim(ClaimTypes.Email, user.Email));
             claims.AddClaim(new Claim(ClaimTypes.Name, user.UserName));
             claims.AddClaim(new Claim(ClaimTypes.Role, user.Role.RoleType.ToString()));
+
             return claims;
         }
     }

@@ -12,17 +12,20 @@ namespace RedTeam.TechArtSurvey.WebApi.Provider
 {
     public class SimpleAuthorizationServerProvider : OAuthAuthorizationServerProvider
     {
-        
         private IApplicationUserManager _userManager;
+
+
         public SimpleAuthorizationServerProvider(IApplicationUserManager userManager)
         {
             _userManager = userManager;
         }
 
+
         public override async Task ValidateClientAuthentication(OAuthValidateClientAuthenticationContext context)
         {
             context.Validated();
         }
+
         public override async Task GrantResourceOwnerCredentials(OAuthGrantResourceOwnerCredentialsContext context)
         {
             context.OwinContext.Response.Headers.Add("Access-Control-Allow-Origin", new[] { "*" });
