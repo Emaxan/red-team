@@ -24,7 +24,7 @@ namespace RedTeam.Identity.Stores
 
         public async Task CreateAsync(User user)
         {
-            user.Role = await _uow.Roles.FindRoleByTypeAsync(RoleTypes.User);
+            user.Role = await _uow.Roles.FindRoleByTypeAsync(default(RoleTypes));
             var result = _uow.Users.Create(user);
             await _uow.SaveAsync();
         }

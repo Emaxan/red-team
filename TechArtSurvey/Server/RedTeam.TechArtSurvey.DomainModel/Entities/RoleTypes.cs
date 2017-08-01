@@ -1,14 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace RedTeam.TechArtSurvey.DomainModel.Entities
+﻿namespace RedTeam.TechArtSurvey.DomainModel.Entities
 {
     public enum RoleTypes
     {
-        Admin = 1,
-        User = 2
+        User,
+        Admin
     }
 }

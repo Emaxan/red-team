@@ -6,6 +6,6 @@ namespace RedTeam.TechArtSurvey.Repositories.Interfaces
 {
     public interface IRoleRepository : IRepository<Role>
     {
-        Task<Role> FindRoleByTypeAsync(RoleTypes roleName);
+        Task<Role> FindRoleByTypeAsync(RoleTypes roleType);
     }
 }
