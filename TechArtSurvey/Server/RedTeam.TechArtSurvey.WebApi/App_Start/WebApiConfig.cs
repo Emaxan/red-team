@@ -1,11 +1,9 @@
 ﻿using System.Web.Http;
 using System.Web.Http.ExceptionHandling;
 using RedTeam.TechArtSurvey.WebApi.Utils;
-using System.Web.Http.Cors;
 using System.Net.Http.Formatting;
 using Newtonsoft.Json.Serialization;
 using System.Linq;
-using Microsoft.Owin.Security.OAuth;
 
 namespace RedTeam.TechArtSurvey.WebApi
 {

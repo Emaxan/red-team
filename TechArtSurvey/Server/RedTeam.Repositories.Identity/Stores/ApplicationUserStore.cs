@@ -1,12 +1,7 @@
 ﻿using Microsoft.AspNet.Identity;
-using RedTeam.Repositories.Interfaces;
 using RedTeam.TechArtSurvey.DomainModel.Entities;
 using System;
-using System.Data.Entity;
-using System.Linq;
 using System.Threading.Tasks;
-using System.Collections.Generic;
-using System.Security.Claims;
 using RedTeam.TechArtSurvey.Repositories.Interfaces;
 
 namespace RedTeam.Identity.Stores

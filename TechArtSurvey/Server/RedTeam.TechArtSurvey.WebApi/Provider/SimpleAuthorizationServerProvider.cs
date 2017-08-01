@@ -1,12 +1,7 @@
-﻿using System;
-using System.Threading.Tasks;
-using Microsoft.Owin;
-using Owin;
-using System.Web.Http;
+﻿using System.Threading.Tasks;
 using Microsoft.Owin.Security.OAuth;
 using RedTeam.TechArtSurvey.Foundation.Interfaces;
 using System.Security.Claims;
-using System.Collections.Generic;
 
 namespace RedTeam.TechArtSurvey.WebApi.Provider
 {
