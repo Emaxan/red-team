@@ -4,7 +4,7 @@ using System;
 
 using System.Threading.Tasks;
 
-namespace RedTeam.Repositories.Identity.Managers
+namespace RedTeam.TechArtSurvey.Foundation.Services
 {
     public class ApplicationRoleManager : RoleManager<Role, int>
     {
@@ -12,7 +12,6 @@ namespace RedTeam.Repositories.Identity.Managers
                     : base(store)
         {
             
-
         }
 
         public async Task<Role> FindByRoleNameAsync(RoleNames roleName)

@@ -1,34 +1,26 @@
-﻿
-using RedTeam.Repositories.EntityFramework.Repositories;
-using RedTeam.Repositories.Identity.Managers;
-using RedTeam.Repositories.Identity.Stores;
+﻿using RedTeam.Repositories.EntityFramework.Repositories;
 using RedTeam.Repositories.Interfaces;
 using RedTeam.TechArtSurvey.Repositories.Interfaces;
-
+using RedTeam.TechArtSurvey.Repositories.Interfaces.Repositories;
+using RedTeam.TechArtSurvey.Repositories.Repositories;
 
 namespace RedTeam.TechArtSurvey.Repositories
 {
-    
+
     public class TechArtSurveyUnitOfWork : UnitOfWork, ITechArtSurveyUnitOfWork
     {
-        private ApplicationUserManager _userManager;
-        private ApplicationRoleManager _roleManager;
+        private IUserRepository _userRepository;
+
+
+        public IUserRepository Users
+        {
+            get { return _userRepository ?? (_userRepository = new UserRepository(Context)); }
+        }
+
 
         public TechArtSurveyUnitOfWork(IDbContext context)
             : base(context)
         {
-
-        }
-
-        public ApplicationUserManager UserManager
-        {
-            get { return _userManager ?? (_userManager = new ApplicationUserManager(new ApplicationUserstore(Context))); }
-        }
-
-
-        public ApplicationRoleManager RoleManager
-        {
-            get { return _roleManager ?? (_roleManager = new ApplicationRoleManager(new ApplicationRoleStore(Context))); }
         }
     }
 }

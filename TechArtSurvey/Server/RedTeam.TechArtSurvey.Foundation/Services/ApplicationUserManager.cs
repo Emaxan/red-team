@@ -1,34 +1,33 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
-
-using AutoMapper;
-
-using JetBrains.Annotations;
-
+﻿using AutoMapper;
+using Microsoft.AspNet.Identity;
+using Microsoft.Owin.Security.OAuth;
 using RedTeam.Logger;
 using RedTeam.TechArtSurvey.DomainModel.Entities;
 using RedTeam.TechArtSurvey.Foundation.Dto.UsersDto;
-using RedTeam.TechArtSurvey.Foundation.Interfaces;
 using RedTeam.TechArtSurvey.Foundation.Interfaces.ServiceResponses;
 using RedTeam.TechArtSurvey.Repositories.Interfaces;
-using Microsoft.AspNet.Identity;
 using System.Security.Claims;
-using Microsoft.Owin.Security.OAuth;
+using System.Threading.Tasks;
 
 namespace RedTeam.TechArtSurvey.Foundation.Services
-{
-    [UsedImplicitly]
-    public class UserService : IUserService
+{ 
+      //usermanager
+     //userstore
+     //uow
+
+    //repository
+
+    public class ApplicationUserManager : UserManager<User, int>
     {
-        private readonly ITechArtSurveyUnitOfWork _uow;
         private readonly IMapper _mapper;
 
-
-        public UserService(ITechArtSurveyUnitOfWork uow, IMapper mapper)
+        public ApplicationUserManager(IUserStore<User, int> store, IMapper mapper)
+                : base(store)
         {
-            _uow = uow;
             _mapper = mapper;
         }
+
+
         private ClaimsIdentity GetClaims(User user)
         {
             var claims = new ClaimsIdentity(OAuthDefaults.AuthenticationType);
@@ -39,15 +38,14 @@ namespace RedTeam.TechArtSurvey.Foundation.Services
         }
         public async Task<IServiceResponse> CreateAsync(UserDto userDto)
         {
-            
-            User user = await _uow.UserManager.FindByEmailAsync(userDto.Email);
+            User user = await FindByEmailAsync(userDto.Email);
             ServiceResponse serviceResponse = new ServiceResponse();
             if (user == null)
             {
-                userDto.Password = _uow.UserManager.PasswordHasher.HashPassword(userDto.Password);
+                userDto.Password = PasswordHasher.HashPassword(userDto.Password);
                 var us = _mapper.Map<UserDto, User>(userDto);
 
-                var role = _uow.RoleManager.FindByRoleNameAsync(RoleNames.User);
+                var role = RoleManager.FindByRoleNameAsync(RoleNames.User);
                 us.Role = role.Result;
                 await _uow.UserManager.CreateAsync(us);
 
@@ -71,7 +69,7 @@ namespace RedTeam.TechArtSurvey.Foundation.Services
             {
                 serviceResponse.Code = ServiceResponseCodes.NotFoundUserById;
             }
-            else if(_uow.UserManager.PasswordHasher.VerifyHashedPassword(user.Password, password) != PasswordVerificationResult.Success)
+            else if (_uow.UserManager.PasswordHasher.VerifyHashedPassword(user.Password, password) != PasswordVerificationResult.Success)
             {
                 serviceResponse.Code = ServiceResponseCodes.InvalidPassword;
             }
@@ -90,7 +88,7 @@ namespace RedTeam.TechArtSurvey.Foundation.Services
             LoggerContext.Logger.Info($"Update user with email = {user.Email}");
 
             ServiceResponse serviceResponse = new ServiceResponse();
-            var us = await _uow.UserManager.FindByIdAsync(user.Id); 
+            var us = await _uow.UserManager.FindByIdAsync(user.Id);
             if (us == null)
             {
                 serviceResponse.Code = ServiceResponseCodes.NotFoundUserById;

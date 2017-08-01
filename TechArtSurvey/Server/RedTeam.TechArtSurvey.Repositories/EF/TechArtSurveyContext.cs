@@ -11,7 +11,6 @@ namespace RedTeam.TechArtSurvey.Repositories.EF
     [UsedImplicitly]
     public class TechArtSurveyContext : DbContext, IDbContext
     {
-        private PropertyAttributeSetter _attributeSetter;
         public DbSet<User> Users { get; set; }
         public DbSet<Role> Roles { get; set; }
 
@@ -35,8 +34,7 @@ namespace RedTeam.TechArtSurvey.Repositories.EF
          
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            _attributeSetter = new PropertyAttributeSetter(modelBuilder);
-            _attributeSetter.SetupPropertiesAttributes();
+            modelBuilder.Configurations.Add(new UserConfiguration());
             base.OnModelCreating(modelBuilder);
         }  
     }

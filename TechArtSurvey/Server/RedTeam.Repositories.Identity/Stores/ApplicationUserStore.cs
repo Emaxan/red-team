@@ -7,48 +7,47 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Collections.Generic;
 using System.Security.Claims;
+using RedTeam.TechArtSurvey.Repositories.Interfaces;
+
+//usermanager
+//userstore
+//uow
+
+//repository
+
+
 
 namespace RedTeam.Repositories.Identity.Stores
 {
     public class ApplicationUserstore : IUserStore<User, int>, IUserEmailStore<User, int>
     {
-        private IDbContext _db;
-        private readonly DbSet<User> _dbSet;
-        private readonly DbSet<Role> _roles;
-        protected IQueryable<User> DbSet
-        {
-            get { return _dbSet; }
-        }
+        private ITechArtSurveyUnitOfWork _uow;
 
-        public ApplicationUserstore(IDbContext db)
+
+        public ApplicationUserstore(ITechArtSurveyUnitOfWork uow)
         {
-            _db = db;
-            _dbSet = _db.Set<User>();
-            _roles = db.Set<Role>();
+            _uow = uow;
         }
 
         public async Task CreateAsync(User user)
         {
-            var result = _dbSet.Add(user);
+            var result = _uow.Users.Create(user);
+            await _uow.SaveAsync();
         }
 
         public async Task DeleteAsync(User user)
         {
-            if (!_dbSet.Local.Contains(user))
-            {
-                _dbSet.Attach(user);
-            }
-            _dbSet.Remove(user);
+            _uow.Users.Delete(user);
         }
 
         public void Dispose()
         {
-            throw new NotImplementedException();
+            _uow.Dispose();
         }
 
         public async Task<User> FindByIdAsync(int userId)
         {
-            var user = await _dbSet.FindAsync(Convert.ToInt32(userId));
+            var user = await _uow.Users.GetAsync(Convert.ToInt32(userId));
             return user;
         }
 
@@ -60,16 +59,13 @@ namespace RedTeam.Repositories.Identity.Stores
         public async Task<User> FindByEmailAsync(string email)
         {
 
-            var user =  _dbSet.Where(u => u.Email == email).Include(r => r.Role).FirstOrDefault();
+            var user = await _uow.Users.GetUserByEmailAsync(email);//.Where(u => u.Email == email).Include(r => r.Role).FirstOrDefault();
             return user;
         }
 
         public async Task UpdateAsync(User user)
         {
-            if (!_dbSet.Local.Contains(user))
-            {
-                _db.Entry(user).State = EntityState.Modified;
-            }
+            _uow.Users.Update(user);
         }
 
         public async Task SetEmailAsync(User user, string email)

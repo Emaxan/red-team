@@ -30,7 +30,6 @@ namespace RedTeam.TechArtSurvey.WebApi.App_Start
                 TokenEndpointPath = new PathString("/token"),
                 AccessTokenExpireTimeSpan = TimeSpan.FromMinutes(15),
                 Provider = GlobalConfiguration.Configuration.DependencyResolver.GetService(typeof(SimpleAuthorizationServerProvider)) as SimpleAuthorizationServerProvider,
-                RefreshTokenProvider = new RefreshTokenProvider()
             };
 
             // Token Generation
