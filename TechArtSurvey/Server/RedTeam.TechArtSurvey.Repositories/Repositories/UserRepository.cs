@@ -7,7 +7,6 @@ using RedTeam.Repositories.Interfaces;
 using RedTeam.TechArtSurvey.DomainModel.Entities;
 using RedTeam.TechArtSurvey.Repositories.Interfaces.Repositories;
 using System.Linq;
-using System;
 
 namespace RedTeam.TechArtSurvey.Repositories.Repositories
 {
