@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace RedTeam.TechArtSurvey.DomainModel.Entities
 {
-    public enum RoleNames
+    public enum RoleTypes
     {
         Admin = 1,
         User = 2

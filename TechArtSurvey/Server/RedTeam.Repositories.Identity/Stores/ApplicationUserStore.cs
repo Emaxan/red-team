@@ -31,6 +31,7 @@ namespace RedTeam.Repositories.Identity.Stores
 
         public async Task CreateAsync(User user)
         {
+            user.Role = await _uow.Roles.FindRoleByTypeAsync(RoleTypes.User);
             var result = _uow.Users.Create(user);
             await _uow.SaveAsync();
         }
@@ -58,8 +59,7 @@ namespace RedTeam.Repositories.Identity.Stores
 
         public async Task<User> FindByEmailAsync(string email)
         {
-
-            var user = await _uow.Users.GetUserByEmailAsync(email);//.Where(u => u.Email == email).Include(r => r.Role).FirstOrDefault();
+            var user = await _uow.Users.GetUserByEmailAsync(email);
             return user;
         }
 

@@ -2,8 +2,10 @@
 using Microsoft.AspNet.Identity;
 using Microsoft.Owin.Security.OAuth;
 using RedTeam.Logger;
+using RedTeam.Repositories.Identity.Security;
 using RedTeam.TechArtSurvey.DomainModel.Entities;
 using RedTeam.TechArtSurvey.Foundation.Dto.UsersDto;
+using RedTeam.TechArtSurvey.Foundation.Interfaces;
 using RedTeam.TechArtSurvey.Foundation.Interfaces.ServiceResponses;
 using RedTeam.TechArtSurvey.Repositories.Interfaces;
 using System.Security.Claims;
@@ -17,7 +19,7 @@ namespace RedTeam.TechArtSurvey.Foundation.Services
 
     //repository
 
-    public class ApplicationUserManager : UserManager<User, int>
+    public class ApplicationUserManager : UserManager<User, int>, IApplicationUserManager
     {
         private readonly IMapper _mapper;
 
@@ -26,16 +28,8 @@ namespace RedTeam.TechArtSurvey.Foundation.Services
         {
             _mapper = mapper;
         }
-
-
-        private ClaimsIdentity GetClaims(User user)
-        {
-            var claims = new ClaimsIdentity(OAuthDefaults.AuthenticationType);
-            claims.AddClaim(new Claim(ClaimTypes.Email, user.Email));
-            claims.AddClaim(new Claim(ClaimTypes.Name, user.UserName));
-            claims.AddClaim(new Claim(ClaimTypes.Role, user.Role.RoleName.ToString()));
-            return claims;
-        }
+        
+        
         public async Task<IServiceResponse> CreateAsync(UserDto userDto)
         {
             User user = await FindByEmailAsync(userDto.Email);
@@ -44,12 +38,7 @@ namespace RedTeam.TechArtSurvey.Foundation.Services
             {
                 userDto.Password = PasswordHasher.HashPassword(userDto.Password);
                 var us = _mapper.Map<UserDto, User>(userDto);
-
-                var role = RoleManager.FindByRoleNameAsync(RoleNames.User);
-                us.Role = role.Result;
-                await _uow.UserManager.CreateAsync(us);
-
-                await _uow.SaveAsync();
+                await CreateAsync(us);
                 serviceResponse.Code = ServiceResponseCodes.Ok;
                 return serviceResponse;
 
@@ -64,19 +53,19 @@ namespace RedTeam.TechArtSurvey.Foundation.Services
         public async Task<IServiceResponse> GetClaimsByCredentialsAsync(string email, string password)
         {
             ServiceResponse serviceResponse = new ServiceResponse();
-            var user = await _uow.UserManager.FindByEmailAsync(email);
+            var user = await FindByEmailAsync(email);
             if (user == null)
             {
                 serviceResponse.Code = ServiceResponseCodes.NotFoundUserById;
             }
-            else if (_uow.UserManager.PasswordHasher.VerifyHashedPassword(user.Password, password) != PasswordVerificationResult.Success)
+            else if (PasswordHasher.VerifyHashedPassword(user.Password, password) != PasswordVerificationResult.Success)
             {
                 serviceResponse.Code = ServiceResponseCodes.InvalidPassword;
             }
             else
             {
                 serviceResponse.Code = ServiceResponseCodes.Ok;
-                var claims = GetClaims(user);
+                var claims = ClaimsManager.GetClaims(user);
                 serviceResponse.Content = claims;
             }
 
@@ -88,16 +77,14 @@ namespace RedTeam.TechArtSurvey.Foundation.Services
             LoggerContext.Logger.Info($"Update user with email = {user.Email}");
 
             ServiceResponse serviceResponse = new ServiceResponse();
-            var us = await _uow.UserManager.FindByIdAsync(user.Id);
+            var us = await FindByIdAsync(user.Id);
             if (us == null)
             {
                 serviceResponse.Code = ServiceResponseCodes.NotFoundUserById;
             }
             else
             {
-                _uow.UserManager.Update(_mapper.Map(user, us));
-                await _uow.SaveAsync();
-
+                await UpdateAsync(_mapper.Map(user, us));
                 serviceResponse.Code = ServiceResponseCodes.Ok;
             }
 
@@ -109,16 +96,14 @@ namespace RedTeam.TechArtSurvey.Foundation.Services
             LoggerContext.Logger.Info($"Delete user with id = {id}");
 
             ServiceResponse serviceResponse = new ServiceResponse();
-            var us = await _uow.UserManager.FindByIdAsync(id);
+            var us = await FindByIdAsync(id);
             if (us == null)
             {
                 serviceResponse.Code = ServiceResponseCodes.NotFoundUserById;
             }
             else
             {
-                _uow.UserManager.Delete(us);
-                await _uow.SaveAsync();
-
+                await DeleteAsync(us);
                 serviceResponse.Code = ServiceResponseCodes.Ok;
             }
 
@@ -130,7 +115,7 @@ namespace RedTeam.TechArtSurvey.Foundation.Services
             LoggerContext.Logger.Info($"Get user with id = {id}");
 
             ServiceResponse serviceResponse = new ServiceResponse();
-            var user = await _uow.UserManager.FindByIdAsync(id);
+            var user = await FindByIdAsync(id);
             if (user == null)
             {
                 serviceResponse.Code = ServiceResponseCodes.NotFoundUserById;
@@ -149,7 +134,7 @@ namespace RedTeam.TechArtSurvey.Foundation.Services
             LoggerContext.Logger.Info($"Get user with email = {email}");
 
             ServiceResponse serviceResponse = new ServiceResponse();
-            var user = await _uow.UserManager.FindByEmailAsync(email);
+            var user = await FindByEmailAsync(email);
             if (user == null)
             {
                 serviceResponse.Code = ServiceResponseCodes.NotFoundUserByEmail;

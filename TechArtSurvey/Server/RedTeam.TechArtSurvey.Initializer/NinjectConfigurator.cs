@@ -14,7 +14,7 @@ namespace RedTeam.TechArtSurvey.Initializer
 
         private static void AddBindings(IKernel kernel)
         {
-            kernel.Bind<IUserService>().To<UserService>().InTransientScope();
+            kernel.Bind<IApplicationUserManager>().To<ApplicationUserManager>().InTransientScope();
         }
     }
 }

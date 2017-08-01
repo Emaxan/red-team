@@ -55,7 +55,7 @@ namespace RedTeam.Repositories.Identity.Stores
 
         public async Task<Role> FindByNameAsync(string roleName)
         {
-            var roleType = (RoleNames)Convert.ToInt32(roleName);
+            var roleType = (RoleTypes)Convert.ToInt32(roleName);
             try
             {
                 var role = _dbSet.FirstOrDefault(r => r.RoleName == roleType);

@@ -13,10 +13,10 @@ namespace RedTeam.TechArtSurvey.WebApi.Provider
     public class SimpleAuthorizationServerProvider : OAuthAuthorizationServerProvider
     {
         
-        private IUserService _userService;
-        public SimpleAuthorizationServerProvider(IUserService userService)
+        private IApplicationUserManager _userManager;
+        public SimpleAuthorizationServerProvider(IApplicationUserManager userManager)
         {
-            _userService = userService;
+            _userManager = userManager;
         }
 
         public override async Task ValidateClientAuthentication(OAuthValidateClientAuthenticationContext context)
@@ -27,7 +27,7 @@ namespace RedTeam.TechArtSurvey.WebApi.Provider
         {
             context.OwinContext.Response.Headers.Add("Access-Control-Allow-Origin", new[] { "*" });
 
-            var result = await _userService.GetClaimsByCredentialsAsync(context.UserName, context.Password); //here UserName == Email
+            var result = await _userManager.GetClaimsByCredentialsAsync(context.UserName, context.Password); //here UserName == Email
             if (result.Code == Foundation.Interfaces.ServiceResponses.ServiceResponseCodes.Ok)
             {
                 var identity = result.Content as ClaimsIdentity;
