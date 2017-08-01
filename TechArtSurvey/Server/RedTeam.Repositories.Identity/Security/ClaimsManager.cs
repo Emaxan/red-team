@@ -2,7 +2,7 @@
 using RedTeam.TechArtSurvey.DomainModel.Entities;
 using System.Security.Claims;
 
-namespace RedTeam.Repositories.Identity.Security
+namespace RedTeam.Identity.Security
 {
     public static class ClaimsManager
     {

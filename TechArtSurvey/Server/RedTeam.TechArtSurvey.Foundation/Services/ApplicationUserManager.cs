@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.AspNet.Identity;
 using RedTeam.Logger;
-using RedTeam.Repositories.Identity.Security;
+using RedTeam.Identity.Security;
 using RedTeam.TechArtSurvey.DomainModel.Entities;
 using RedTeam.TechArtSurvey.Foundation.Dto.UsersDto;
 using RedTeam.TechArtSurvey.Foundation.Interfaces;

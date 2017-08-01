@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNet.Identity;
 using Ninject;
-using RedTeam.Repositories.Identity.Stores;
+using RedTeam.Identity.Stores;
 using RedTeam.TechArtSurvey.DomainModel.Entities;
 using RedTeam.TechArtSurvey.Foundation.Interfaces;
 using RedTeam.TechArtSurvey.Foundation.Services;

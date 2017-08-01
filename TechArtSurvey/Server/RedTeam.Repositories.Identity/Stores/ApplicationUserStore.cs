@@ -9,7 +9,7 @@ using System.Collections.Generic;
 using System.Security.Claims;
 using RedTeam.TechArtSurvey.Repositories.Interfaces;
 
-namespace RedTeam.Repositories.Identity.Stores
+namespace RedTeam.Identity.Stores
 {
     public class ApplicationUserstore : IUserStore<User, int>, IUserEmailStore<User, int>
     {
