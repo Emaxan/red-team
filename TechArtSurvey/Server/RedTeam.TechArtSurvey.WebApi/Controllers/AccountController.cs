@@ -1,38 +1,27 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
-using System.Web.Http;
+﻿using System.Web.Http;
 using System.Threading.Tasks;
-
-
-using RedTeam.Logger;
 using RedTeam.TechArtSurvey.Foundation.Dto.UsersDto;
 using RedTeam.TechArtSurvey.Foundation.Interfaces;
 using RedTeam.TechArtSurvey.Foundation.Interfaces.ServiceResponses;
-using System.Web;
-using Microsoft.Owin.Security;
-using System.Security.Claims;
 
 namespace RedTeam.TechArtSurvey.WebApi.Controllers
 {
-   [Authorize]
+    [Authorize]
     public class AccountController : ApiController
     {
-        private readonly IUserService _userService;
-        public AccountController(IUserService userService)
+        private readonly IApplicationUserManager _userManager;
+  
+        public AccountController(IApplicationUserManager userManager)
         {
-            _userService = userService;
+            _userManager = userManager;
         }
 
         [Route("api/account/signup")]
         [HttpPost]
         [AllowAnonymous]
         public async Task<IServiceResponse> Signup(UserDto user)
-        {
-            
-            return await _userService.CreateAsync(user);
+        {      
+            return await _userManager.CreateAsync(user);
         }
     }
 }

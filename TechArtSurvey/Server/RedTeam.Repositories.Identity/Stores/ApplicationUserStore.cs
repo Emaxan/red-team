@@ -9,14 +9,6 @@ using System.Collections.Generic;
 using System.Security.Claims;
 using RedTeam.TechArtSurvey.Repositories.Interfaces;
 
-//usermanager
-//userstore
-//uow
-
-//repository
-
-
-
 namespace RedTeam.Repositories.Identity.Stores
 {
     public class ApplicationUserstore : IUserStore<User, int>, IUserEmailStore<User, int>

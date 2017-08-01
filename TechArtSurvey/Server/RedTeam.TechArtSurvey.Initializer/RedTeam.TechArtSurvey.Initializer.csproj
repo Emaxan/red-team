@@ -72,6 +72,10 @@
       <Project>{7250157B-E69A-4E89-8688-51DAE08C607C}</Project>
       <Name>RedTeam.Repositories.EntityFramework</Name>
     </ProjectReference>
+    <ProjectReference Include="..\RedTeam.Repositories.Identity\RedTeam.Repositories.Identity.csproj">
+      <Project>{2B216D5D-2CC2-460A-A94D-B4AA44DA8EED}</Project>
+      <Name>RedTeam.Repositories.Identity</Name>
+    </ProjectReference>
     <ProjectReference Include="..\RedTeam.Repositories\RedTeam.Repositories.csproj">
       <Project>{433A7044-1A29-42CB-80B0-06E86AA12A2F}</Project>
       <Name>RedTeam.Repositories</Name>

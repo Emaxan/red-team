@@ -1,5 +1,7 @@
-﻿using Ninject;
-
+﻿using Microsoft.AspNet.Identity;
+using Ninject;
+using RedTeam.Repositories.Identity.Stores;
+using RedTeam.TechArtSurvey.DomainModel.Entities;
 using RedTeam.TechArtSurvey.Foundation.Interfaces;
 using RedTeam.TechArtSurvey.Foundation.Services;
 
@@ -15,6 +17,7 @@ namespace RedTeam.TechArtSurvey.Initializer
         private static void AddBindings(IKernel kernel)
         {
             kernel.Bind<IApplicationUserManager>().To<ApplicationUserManager>().InTransientScope();
+            kernel.Bind<IUserStore<User, int>>().To<ApplicationUserstore>().InTransientScope();
         }
     }
 }
