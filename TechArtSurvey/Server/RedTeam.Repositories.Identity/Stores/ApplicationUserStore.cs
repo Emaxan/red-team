@@ -1,14 +1,13 @@
-﻿using Microsoft.AspNet.Identity;
-using RedTeam.TechArtSurvey.DomainModel.Entities;
+﻿using RedTeam.TechArtSurvey.DomainModel.Entities;
 using System;
 using System.Threading.Tasks;
 using RedTeam.TechArtSurvey.Repositories.Interfaces;
 
 namespace RedTeam.Identity.Stores
 {
-    public class ApplicationUserstore : IUserStore<User, int>, IUserEmailStore<User, int>
+    public class ApplicationUserstore : IApplicationUserStore
     {
-        private ITechArtSurveyUnitOfWork _uow;
+        private readonly ITechArtSurveyUnitOfWork _uow;
 
 
         public ApplicationUserstore(ITechArtSurveyUnitOfWork uow)

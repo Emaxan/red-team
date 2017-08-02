@@ -7,6 +7,7 @@ using RedTeam.TechArtSurvey.Foundation.Dto.UsersDto;
 using RedTeam.TechArtSurvey.Foundation.Interfaces;
 using RedTeam.TechArtSurvey.Foundation.Interfaces.ServiceResponses;
 using System.Threading.Tasks;
+using RedTeam.Identity.Stores;
 
 namespace RedTeam.TechArtSurvey.Foundation.Services
 {
@@ -15,7 +16,7 @@ namespace RedTeam.TechArtSurvey.Foundation.Services
         private readonly IMapper _mapper;
 
 
-        public ApplicationUserManager(IUserStore<User, int> store, IMapper mapper)
+        public ApplicationUserManager(IApplicationUserStore store, IMapper mapper)
                 : base(store)
         {
             _mapper = mapper;

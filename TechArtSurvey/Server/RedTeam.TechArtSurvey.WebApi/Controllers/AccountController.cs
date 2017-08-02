@@ -8,7 +8,7 @@ namespace RedTeam.TechArtSurvey.WebApi.Controllers
 {
     public class AccountController : ApiController
     {
-        private readonly IApplicationUserManager _userManager;
+        private IApplicationUserManager _userManager;
 
   
         public AccountController(IApplicationUserManager userManager)

@@ -2,17 +2,19 @@
 using Microsoft.Owin.Security.OAuth;
 using RedTeam.TechArtSurvey.Foundation.Interfaces;
 using System.Security.Claims;
+using Ninject;
 
 namespace RedTeam.TechArtSurvey.WebApi.Provider
 {
     public class SimpleAuthorizationServerProvider : OAuthAuthorizationServerProvider
     {
         private IApplicationUserManager _userManager;
+        private IKernel _kernel;
 
 
-        public SimpleAuthorizationServerProvider(IApplicationUserManager userManager)
+        public SimpleAuthorizationServerProvider(IKernel kernel)
         {
-            _userManager = userManager;
+            _kernel = kernel;
         }
 
 
@@ -23,6 +25,7 @@ namespace RedTeam.TechArtSurvey.WebApi.Provider
 
         public override async Task GrantResourceOwnerCredentials(OAuthGrantResourceOwnerCredentialsContext context)
         {
+            _userManager = _kernel.Get<IApplicationUserManager>();
             context.OwinContext.Response.Headers.Add("Access-Control-Allow-Origin", new[] { "*" });
 
             var result = await _userManager.GetClaimsByCredentialsAsync(context.UserName, context.Password); //here UserName == Email

@@ -23,7 +23,7 @@ namespace RedTeam.TechArtSurvey.Repositories.Repositories
         {
             LoggerContext.Logger.Info($"Get User with email = {email}");
 
-            return await DbSet.Where(u => u.Email == email).Include(r => r.Role).FirstOrDefaultAsync();
+            return await DbSet.Include(r => r.Role).FirstOrDefaultAsync(u => u.Email == email);
         }
 
         public override async Task<User> GetAsync(int id)

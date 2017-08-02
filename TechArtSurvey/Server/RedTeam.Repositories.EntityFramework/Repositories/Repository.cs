@@ -34,6 +34,7 @@ namespace RedTeam.Repositories.EntityFramework.Repositories
         public virtual TEntity Create(TEntity entity)
         {
             LoggerContext.Logger.Info($"Create entity in database with type {typeof(TEntity).Name}");
+
             return _dbSet.Add(entity);
         }
 
@@ -42,6 +43,7 @@ namespace RedTeam.Repositories.EntityFramework.Repositories
         {
             LoggerContext.Logger.Info($"Get entity from database with id {id}");
             var user = await _dbSet.FindAsync(id);
+
             return user;
         }
 
@@ -49,6 +51,7 @@ namespace RedTeam.Repositories.EntityFramework.Repositories
         {
             LoggerContext.Logger.Info($"Get all entities from database with type {typeof(TEntity).Name}");
             var users = await _dbSet.ToListAsync();
+
             return users;
         }
 
