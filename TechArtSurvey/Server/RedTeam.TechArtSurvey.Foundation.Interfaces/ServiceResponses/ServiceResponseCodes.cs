@@ -3,12 +3,11 @@
     public enum ServiceResponseCodes
     {
         Ok,
-        NotFoundUserById,
-        NotFoundUserByEmail,
+        UserNotFoundById,
+        UserNotFoundByEmail,
         UserAlreadyExists,
         InvalidPassword,
-        NeedToRefreshToken,
-        NotFoundByToken,
+        TokenExpired,
         TokenNotFound
     }
 }

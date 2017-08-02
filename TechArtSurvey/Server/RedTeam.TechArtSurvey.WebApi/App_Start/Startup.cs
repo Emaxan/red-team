@@ -20,12 +20,13 @@ namespace RedTeam.TechArtSurvey.WebApi.App_Start
 
         public void ConfigureOAuth(IAppBuilder app)
         {
-            OAuthAuthorizationServerOptions OAuthServerOptions = new OAuthAuthorizationServerOptions()
+            var OAuthServerOptions = new OAuthAuthorizationServerOptions()
             {
                 AllowInsecureHttp = true,
                 TokenEndpointPath = new PathString("/token"),
                 AccessTokenExpireTimeSpan = TimeSpan.FromMinutes(15),
                 Provider = GlobalConfiguration.Configuration.DependencyResolver.GetService(typeof(SimpleAuthorizationServerProvider)) as SimpleAuthorizationServerProvider,
+                RefreshTokenProvider = new RefreshTokenProvider()
             };
 
             // Token Generation
