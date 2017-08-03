@@ -4,6 +4,7 @@ using Owin;
 using System.Web.Http;
 using Microsoft.Owin.Security.OAuth;
 using RedTeam.TechArtSurvey.WebApi.Provider;
+using RedTeam.TechArtSurvey.WebApi.Utils;
 
 [assembly: OwinStartup(typeof(RedTeam.TechArtSurvey.WebApi.App_Start.Startup))]
 
@@ -25,7 +26,7 @@ namespace RedTeam.TechArtSurvey.WebApi.App_Start
                 AllowInsecureHttp = true,
                 TokenEndpointPath = new PathString("/token"),
                 AccessTokenExpireTimeSpan = TimeSpan.FromMinutes(15),
-                Provider = GlobalConfiguration.Configuration.DependencyResolver.GetService(typeof(SimpleAuthorizationServerProvider)) as SimpleAuthorizationServerProvider,
+                Provider = NinjectDependencyResolver.Kernel.GetService(typeof(SimpleAuthorizationServerProvider)) as SimpleAuthorizationServerProvider,
                 RefreshTokenProvider = new RefreshTokenProvider()
             };
 
