@@ -7,13 +7,13 @@ namespace RedTeam.TechArtSurvey.Repositories.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class User_UniqueEmail : IMigrationMetadata
+    public sealed partial class Init : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(User_UniqueEmail));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(Init));
         
         string IMigrationMetadata.Id
         {
-            get { return "201707201437548_User_UniqueEmail"; }
+            get { return "201708030902066_Init"; }
         }
         
         string IMigrationMetadata.Source
