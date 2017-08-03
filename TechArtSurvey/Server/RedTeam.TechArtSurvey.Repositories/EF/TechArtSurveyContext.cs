@@ -12,6 +12,7 @@ namespace RedTeam.TechArtSurvey.Repositories.EF
     public class TechArtSurveyContext : DbContext, IDbContext
     {
         public DbSet<User> Users { get; set; }
+
         public DbSet<Role> Roles { get; set; }
 
 

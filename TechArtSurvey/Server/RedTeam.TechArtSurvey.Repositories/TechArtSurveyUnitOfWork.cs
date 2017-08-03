@@ -6,7 +6,6 @@ using RedTeam.TechArtSurvey.Repositories.Repositories;
 
 namespace RedTeam.TechArtSurvey.Repositories
 {
-
     public class TechArtSurveyUnitOfWork : UnitOfWork, ITechArtSurveyUnitOfWork
     {
         private IUserRepository _userRepository;

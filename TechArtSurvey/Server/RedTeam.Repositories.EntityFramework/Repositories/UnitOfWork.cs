@@ -48,6 +48,7 @@ namespace RedTeam.Repositories.EntityFramework.Repositories
             GC.SuppressFinalize(this);
         }
 
+
         private void Dispose(bool disposing)
         {
             if (!_disposed)
