@@ -1,0 +1,18 @@
+@import "~bootstrap-sass/assets/stylesheets/bootstrap/variables";
+
+$navbar-margin-bottom: 20px;
+$navbar-height: 80px;
+
+$menu-line-hight: 80px;
+$menu-width: 300px;
+
+$menu-item-border-width: 1px;
+$menu-item-border-color: $gray-base;
+$menu-item-hover-border-color: $gray-light;
+$menu-item-shadow-color: $gray-base;
+$menu-item-hover-shadow-color: $gray-light;
+$menu-item-background-color: white;
+$menu-item-shadow-offset: 3px;
+$menu-item-transition: cubic-bezier(0, 0, 0.2, 1) 0.2s;
+
+$footer-height: 40px;

@@ -1,0 +1,32 @@
+@import "./variables";
+
+.navbar-collapse {
+  float: right;
+}
+
+.navbar-default .navbar__item {
+  color: $gray-light;
+}
+
+.navbar-default .navbar__item:hover,
+.navbar-default .navbar__item:focus {
+  color: $gray-dark;
+  text-decoration: none;
+}
+
+.navbar__item {
+  display: inline-block;
+  margin-left: 20px;
+  line-height: $navbar-height;
+  text-align: center;
+}
+
+@media (max-width: $screen-sm-max) {
+  .navbar-collapse {
+    float: none;
+  }
+
+  .navbar__item {
+    display: block;
+  }
+}
