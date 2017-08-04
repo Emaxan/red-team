@@ -1,14 +1,9 @@
 ﻿using System.Data.Entity;
 using System.Threading.Tasks;
-
-using RedTeam.Logger;
 using RedTeam.Repositories.EntityFramework.Repositories;
 using RedTeam.Repositories.Interfaces;
 using RedTeam.TechArtSurvey.DomainModel.Entities;
-using RedTeam.TechArtSurvey.Repositories.Interfaces.Repositories;
-using System.Linq;
 using RedTeam.TechArtSurvey.Repositories.Interfaces;
-using System;
 
 namespace RedTeam.TechArtSurvey.Repositories.Repositories
 {

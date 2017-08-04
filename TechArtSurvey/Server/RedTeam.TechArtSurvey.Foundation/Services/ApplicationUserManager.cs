@@ -8,25 +8,32 @@ using RedTeam.TechArtSurvey.Foundation.Interfaces;
 using RedTeam.TechArtSurvey.Foundation.Interfaces.ServiceResponses;
 using System.Threading.Tasks;
 using RedTeam.Identity.Stores;
+using System.Collections.Generic;
 
 namespace RedTeam.TechArtSurvey.Foundation.Services
 {
     public class ApplicationUserManager : UserManager<User, int>, IApplicationUserManager
     {
         private readonly IMapper _mapper;
+        private readonly IApplicationUserStore _store;
 
 
         public ApplicationUserManager(IApplicationUserStore store, IMapper mapper)
                 : base(store)
         {
+            _store = store;
             _mapper = mapper;
+            UserValidator = new UserValidator<User, int>(this)
+            {
+                AllowOnlyAlphanumericUserNames = false
+            };
         }
         
         
         public async Task<IServiceResponse> CreateAsync(UserDto userDto)
         {
-            User user = await FindByEmailAsync(userDto.Email);
             ServiceResponse serviceResponse = new ServiceResponse();
+            User user = await FindByEmailAsync(userDto.Email);
             if (user == null)
             {
                 userDto.Password = PasswordHasher.HashPassword(userDto.Password);
@@ -39,7 +46,6 @@ namespace RedTeam.TechArtSurvey.Foundation.Services
             else
             {
                 serviceResponse.Code = ServiceResponseCodes.UserAlreadyExists;
-
                 return serviceResponse;
             }
         }
@@ -138,6 +144,19 @@ namespace RedTeam.TechArtSurvey.Foundation.Services
                 serviceResponse.Code = ServiceResponseCodes.Ok;
                 serviceResponse.Content = _mapper.Map<User, EditUserDto>(user);
             }
+
+            return serviceResponse;
+        }
+
+        public async Task<IServiceResponse> GetAllAsync()
+        {
+            LoggerContext.Logger.Info("Get all users");
+            var users = await _store.GetAllAsync();
+            ServiceResponse serviceResponse = new ServiceResponse()
+            {
+                Code = ServiceResponseCodes.Ok,
+                Content = _mapper.Map<IReadOnlyCollection<User>, IReadOnlyCollection<EditUserDto>>(users)
+            };
 
             return serviceResponse;
         }

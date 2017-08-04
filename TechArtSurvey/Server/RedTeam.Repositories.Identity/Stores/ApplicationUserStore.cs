@@ -1,7 +1,9 @@
 ﻿using RedTeam.TechArtSurvey.DomainModel.Entities;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using RedTeam.TechArtSurvey.Repositories.Interfaces;
+using Microsoft.AspNet.Identity;
 
 namespace RedTeam.Identity.Stores
 {
@@ -19,7 +21,7 @@ namespace RedTeam.Identity.Stores
         public async Task CreateAsync(User user)
         {
             user.Role = await _uow.Roles.FindRoleByTypeAsync(default(RoleTypes));
-            var result = _uow.Users.Create(user);
+            _uow.Users.Create(user);
             await _uow.SaveAsync();
         }
 
@@ -72,9 +74,14 @@ namespace RedTeam.Identity.Stores
             throw new NotImplementedException();
         }
 
-        public async Task SetEmailConfirmedAsync(User user, bool confirmed)
+        Task IUserEmailStore<User, int>.SetEmailConfirmedAsync(User user, bool confirmed)
         {
+            return null;
+        }
 
+        public async Task<IReadOnlyCollection<User>> GetAllAsync()
+        {
+            return await _uow.Users.GetAllAsync();
         }
     }
 }

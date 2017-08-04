@@ -1,4 +1,5 @@
-﻿using System.Data.Entity;
+﻿using System.Collections.Generic;
+using System.Data.Entity;
 using System.Threading.Tasks;
 
 using RedTeam.Logger;
@@ -31,6 +32,11 @@ namespace RedTeam.TechArtSurvey.Repositories.Repositories
             LoggerContext.Logger.Info($"Get User with id = {id}");
 
             return await DbSet.Where(u => u.Id == id).Include(r => r.Role).FirstOrDefaultAsync();
+        }
+
+        public override async Task<IReadOnlyCollection<User>> GetAllAsync()
+        {
+            return await DbSet.Include(r => r.Role).ToListAsync();
         }
     }
 }

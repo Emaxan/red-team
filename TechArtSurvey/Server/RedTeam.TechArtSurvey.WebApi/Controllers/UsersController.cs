@@ -62,5 +62,12 @@ namespace RedTeam.TechArtSurvey.WebApi.Controllers
 
             return await _userManager.GetByEmailAsync(email);
         } 
+
+        [HttpGet]
+        public async Task<IServiceResponse> GetUsers()
+        {
+            LoggerContext.Logger.Info("Get all users");
+            return await _userManager.GetAllAsync();
+        }
     }
 }

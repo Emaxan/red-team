@@ -29,6 +29,7 @@ namespace RedTeam.TechArtSurvey.Initializer
                                                  {
                                                      cfg.AddProfiles(GetType().Assembly);
                                                      cfg.CreateMap<User, UserDto>().ReverseMap();
+                                                     cfg.CreateMap<Role, RoleDto>().ReverseMap();
                                                      cfg.CreateMap<User, EditUserDto>().ReverseMap();
                                                  });
             return config;
