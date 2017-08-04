@@ -1,7 +1,7 @@
 import { push } from 'react-router-redux';
 import { createActions } from 'redux-actions';
 
-import Routes from '../app/routesConstants';
+import Routes from '../../app/routesConstants';
 import { signup } from './api';
 import {
   SIGN_UP_START,

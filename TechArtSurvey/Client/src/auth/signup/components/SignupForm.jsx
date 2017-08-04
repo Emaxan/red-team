@@ -7,7 +7,7 @@ import {
   validateEmail,
   validatePassword,
   validateConfirmationPassword,
-} from '../../utils/validation/userValidation.js';
+} from '../../../utils/validation/userValidation.js';
 
 import './SignupForm.scss';
 

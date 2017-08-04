@@ -8,7 +8,7 @@ import { Header } from './components/Header';
 import { Footer } from './components/Footer';
 import { Sidebar } from './components/Sidebar';
 import UserListContainer from '../users/UserListContainer';
-import SignupContainer from '../signup/SignupContainer';
+import SignupContainer from '../auth/signup/SignupContainer';
 
 import './App.scss';
 

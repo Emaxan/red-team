@@ -3,7 +3,7 @@ import { routerReducer } from 'react-router-redux';
 
 import { usersReducer } from '../users/reducer';
 import { authReducer } from '../auth/reducer';
-import { signupReducer } from '../signup/reducer';
+import { signupReducer } from '../auth/signup/reducer';
 
 export const combinedReducer = combineReducers({
   users : usersReducer,
