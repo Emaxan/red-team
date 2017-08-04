@@ -8,6 +8,7 @@ import { Header } from './components/Header';
 import { Footer } from './components/Footer';
 import { Sidebar } from './components/Sidebar';
 import UserListContainer from '../users/UserListContainer';
+import { AboutContainer } from '../about/AboutContainer';
 
 import './App.scss';
 
@@ -29,6 +30,7 @@ export class App extends Component {
           <main className="main">
             <Switch>
               <Route path={Routes.Users.path} component={UserListContainer} />
+              <Route path={Routes.About.path} component={AboutContainer} />
             </Switch>
           </main>
         </div>

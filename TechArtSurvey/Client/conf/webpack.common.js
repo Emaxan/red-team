@@ -86,6 +86,9 @@ module.exports = new Config.Config()
       new HtmlWebpackPlugin({
         filename : 'index.html',
         inject : false,
+        scripts : [
+          'https://maps.googleapis.com/maps/api/js?key=AIzaSyDnfyOejhKXKrJ7GIVWDV8Odseqdcwg0k0',
+        ],
         template : require('html-webpack-template'),
         appMountId : 'container',
         devServer : devServerPath,
