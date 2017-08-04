@@ -34,7 +34,7 @@ function AboutUsTab() {
     <div>
       <Image className="about-us-tab__img" src={Titul} />
       <h3>Address:
-        <a href={GOOGLE_MAP_SOURCE}>
+        <a href={GOOGLE_MAP_SOURCE} target="_blank">
           <address>Belarus, Minsk, Tolstoy str. 10</address>
         </a>
       </h3>
