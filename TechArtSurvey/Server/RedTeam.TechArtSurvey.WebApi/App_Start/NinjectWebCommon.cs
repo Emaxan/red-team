@@ -14,7 +14,7 @@ namespace RedTeam.TechArtSurvey.WebApi
     {
         public static IKernel Create(HttpConfiguration config)
         {
-            IKernel container = CreateKernel(config);
+            IKernel container = CreateKernel();
             var resolver = new NinjectDependencyResolver(container);
             config.DependencyResolver = resolver;
 
@@ -22,7 +22,7 @@ namespace RedTeam.TechArtSurvey.WebApi
         }
 
 
-        private static IKernel CreateKernel(HttpConfiguration config)
+        private static IKernel CreateKernel()
         {
             var modules = new INinjectModule[]
             {
