@@ -9,6 +9,7 @@ using Ninject;
 using Ninject.Web.Common.OwinHost;
 
 [assembly: OwinStartup(typeof(RedTeam.TechArtSurvey.WebApi.App_Start.Startup))]
+[assembly: log4net.Config.XmlConfigurator(Watch = true)]
 
 namespace RedTeam.TechArtSurvey.WebApi.App_Start
 {

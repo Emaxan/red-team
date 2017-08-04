@@ -1,6 +1,5 @@
 ﻿using System.Threading.Tasks;
 using System.Web.Http;
-
 using RedTeam.Logger;
 using RedTeam.TechArtSurvey.Foundation.Dto.UsersDto;
 using RedTeam.TechArtSurvey.Foundation.Interfaces;

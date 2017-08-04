@@ -20,6 +20,8 @@ namespace RedTeam.TechArtSurvey.WebApi
             // Web API routes
             config.MapHttpAttributeRoutes();
 
+            log4net.Config.XmlConfigurator.Configure();
+
             config.Routes.MapHttpRoute(
                 "DefaultApi",
                 "api/{controller}/{id}",
