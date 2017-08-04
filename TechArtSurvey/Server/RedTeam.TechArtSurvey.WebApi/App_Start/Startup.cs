@@ -26,14 +26,7 @@ namespace RedTeam.TechArtSurvey.WebApi.App_Start
             app.UseNinjectMiddleware(CreateKernel);
             app.UseWebApi(_config);
         }
-
-        private IKernel CreateKernel()
-        {
-            var kernel = NinjectWebCommon.Create(_config);
-
-            return kernel;
-        }
-
+        
         public void ConfigureOAuth(IAppBuilder app)
         {
             var OAuthServerOptions = new OAuthAuthorizationServerOptions()
@@ -61,6 +54,13 @@ namespace RedTeam.TechArtSurvey.WebApi.App_Start
 
             config.Filters.Add(new ResponseFilterAttribute());
             config.Filters.Add(new AuthorizeAttribute());
+        }
+
+        private IKernel CreateKernel()
+        {
+            var kernel = NinjectWebCommon.Create(_config);
+
+            return kernel;
         }
     }
 }

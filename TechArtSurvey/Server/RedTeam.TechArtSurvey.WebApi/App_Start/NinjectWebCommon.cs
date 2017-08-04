@@ -12,9 +12,6 @@ namespace RedTeam.TechArtSurvey.WebApi
 {
     public static class NinjectWebCommon
     {
-        private static readonly Bootstrapper Bootstrapper = new Bootstrapper();
-
-
         public static IKernel Create(HttpConfiguration config)
         {
             IKernel container = CreateKernel(config);
