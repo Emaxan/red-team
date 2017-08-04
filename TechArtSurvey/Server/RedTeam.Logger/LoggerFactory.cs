@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Reflection;
-using System.Web.Compilation;
 
 using RedTeam.Logger.Interfaces;
+using System.Web.Compilation;
 
 namespace RedTeam.Logger
 {
