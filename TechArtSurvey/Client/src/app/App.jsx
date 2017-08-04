@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Switch, Route } from 'react-router-dom';
+import { Switch, Route, Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 import Routes from './routesConstants';
@@ -8,6 +8,7 @@ import { Header } from './components/Header';
 import { Footer } from './components/Footer';
 import { Sidebar } from './components/Sidebar';
 import UserListContainer from '../users/UserListContainer';
+import SignupContainer from '../signup/SignupContainer';
 
 import './App.scss';
 
@@ -29,6 +30,15 @@ export class App extends Component {
           <main className="main">
             <Switch>
               <Route path={Routes.Users.path} component={UserListContainer} />
+              <Route
+                path={Routes.SignUp.path} render={
+                  () => (
+                    (this.props.isAuthenticated ? false : false) ?
+                      <Redirect to={Routes.Main.path} /> :
+                      <SignupContainer />
+                  )
+                }
+              />
             </Switch>
           </main>
         </div>
