@@ -34,7 +34,6 @@ namespace RedTeam.Repositories.Identity.Managers
         
         public async Task<IServiceResponse> CreateAsync(UserDto userDto)
         {
-            var serviceResponse = new ServiceResponse();
             User user = await FindByEmailAsync(userDto.Email);
             if (user == null)
             {
@@ -49,124 +48,89 @@ namespace RedTeam.Repositories.Identity.Managers
                     RoleType = (RoleTypes) Enum.Parse(typeof(RoleTypes), userDto.RoleDto.Name)
                 };
                 await CreateAsync(us);
-                serviceResponse.Code = ServiceResponseCodes.Ok;
 
-                return serviceResponse;
+                return ServiceResponse.CreateSuccessful(us);
             }
-            serviceResponse.Code = ServiceResponseCodes.UserAlreadyExists;
-
-            return serviceResponse;
+            
+            return ServiceResponse.CreateUnsuccessful(ServiceResponseCodes.UserAlreadyExists);
         }
 
         public async Task<IServiceResponse> GetClaimsByCredentialsAsync(string email, string password)
         {
-            var serviceResponse = new ServiceResponse();
             var user = await FindByEmailAsync(email);
             if (user == null)
             {
-                serviceResponse.Code = ServiceResponseCodes.UserNotFoundByEmail;
+                return ServiceResponse.CreateUnsuccessful(ServiceResponseCodes.UserNotFoundByEmail);
             }
-            else if (PasswordHasher.VerifyHashedPassword(user.Password, password) != PasswordVerificationResult.Success)
+            if (PasswordHasher.VerifyHashedPassword(user.Password, password) != PasswordVerificationResult.Success)
             {
-                serviceResponse.Code = ServiceResponseCodes.InvalidPassword;
+                return ServiceResponse.CreateUnsuccessful(ServiceResponseCodes.InvalidPassword);
             }
-            else
-            {
-                serviceResponse.Code = ServiceResponseCodes.Ok;
-                var claims = ClaimsManager.GetClaims(user);
-                serviceResponse.Content = claims;
-            }
+            var claims = ClaimsManager.GetClaims(user);
 
-            return serviceResponse;
+            return ServiceResponse.CreateSuccessful(claims);
         }
 
         public async Task<IServiceResponse> UpdateAsync(EditUserDto user)
         {
             LoggerContext.Logger.Info($"Update user with email = {user.Email}");
 
-            var serviceResponse = new ServiceResponse();
             var us = await FindByIdAsync(user.Id);
             if (us == null)
             {
-                serviceResponse.Code = ServiceResponseCodes.UserNotFoundById;
+                return ServiceResponse.CreateUnsuccessful(ServiceResponseCodes.UserNotFoundById);
             }
-            else
-            {
-                await UpdateAsync(_mapper.Map(user, us));
-                serviceResponse.Code = ServiceResponseCodes.Ok;
-            }
+            await UpdateAsync(_mapper.Map(user, us));
 
-            return serviceResponse;
+            return ServiceResponse.CreateSuccessful(null);
         }
 
         public async Task<IServiceResponse> DeleteByIdAsync(int id)
         {
             LoggerContext.Logger.Info($"Delete user with id = {id}");
 
-            var serviceResponse = new ServiceResponse();
             var us = await FindByIdAsync(id);
             if (us == null)
             {
-                serviceResponse.Code = ServiceResponseCodes.UserNotFoundById;
+                return ServiceResponse.CreateUnsuccessful(ServiceResponseCodes.UserNotFoundById);
             }
-            else
-            {
-                await DeleteAsync(us);
-                serviceResponse.Code = ServiceResponseCodes.Ok;
-            }
+            await DeleteAsync(us);
 
-            return serviceResponse;
+            return ServiceResponse.CreateSuccessful(null);
         }
 
         public async Task<IServiceResponse> GetByIdAsync(int id)
         {
             LoggerContext.Logger.Info($"Get user with id = {id}");
 
-            var serviceResponse = new ServiceResponse();
             var user = await FindByIdAsync(id);
             if (user == null)
             {
-                serviceResponse.Code = ServiceResponseCodes.UserNotFoundById;
-            }
-            else
-            {
-                serviceResponse.Code = ServiceResponseCodes.Ok;
-                serviceResponse.Content = _mapper.Map<User, EditUserDto>(user);
+                return ServiceResponse.CreateUnsuccessful(ServiceResponseCodes.UserNotFoundById);
             }
 
-            return serviceResponse;
+            return ServiceResponse.CreateSuccessful(_mapper.Map<User, EditUserDto>(user));
         }
 
         public async Task<IServiceResponse> GetByEmailAsync(string email)
         {
             LoggerContext.Logger.Info($"Get user with email = {email}");
 
-            var serviceResponse = new ServiceResponse();
             var user = await FindByEmailAsync(email);
             if (user == null)
             {
-                serviceResponse.Code = ServiceResponseCodes.UserNotFoundByEmail;
-            }
-            else
-            {
-                serviceResponse.Code = ServiceResponseCodes.Ok;
-                serviceResponse.Content = _mapper.Map<User, EditUserDto>(user);
+                return ServiceResponse.CreateUnsuccessful(ServiceResponseCodes.UserNotFoundByEmail);
             }
 
-            return serviceResponse;
+            return ServiceResponse.CreateSuccessful(_mapper.Map<User, EditUserDto>(user));
         }
 
         public async Task<IServiceResponse> GetAllAsync()
         {
             LoggerContext.Logger.Info("Get all users");
             var users = await _store.GetAllAsync();
-            var serviceResponse = new ServiceResponse()
-            {
-                Code = ServiceResponseCodes.Ok,
-                Content = _mapper.Map<IReadOnlyCollection<User>, IReadOnlyCollection<EditUserDto>>(users)
-            };
 
-            return serviceResponse;
+            return ServiceResponse.CreateSuccessful(_mapper.Map<IReadOnlyCollection<User>, IReadOnlyCollection<EditUserDto>>(users));
         }
     }
 }
