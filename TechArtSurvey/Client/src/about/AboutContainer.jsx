@@ -8,7 +8,7 @@ export class AboutContainer extends Component {
   render() {
     return (
       <div className="about-content">
-        <BasicInfo className="about-header" />
+        <BasicInfo />
         <AboutTabs className="about-tabs" tabs={tabItems} />
       </div>
     );
