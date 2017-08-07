@@ -1,7 +1,6 @@
-﻿using System;
+﻿using RedTeam.Logger.Interfaces;
+using System;
 using System.Reflection;
-
-using RedTeam.Logger.Interfaces;
 using System.Web.Compilation;
 
 namespace RedTeam.Logger

@@ -1,12 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using JetBrains.Annotations;
+using RedTeam.Logger;
+using RedTeam.Repositories.Interfaces;
+using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
-
-using JetBrains.Annotations;
-
-using RedTeam.Logger;
-using RedTeam.Repositories.Interfaces;
 
 namespace RedTeam.Repositories.EntityFramework.Repositories
 {

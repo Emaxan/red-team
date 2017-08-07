@@ -1,8 +1,6 @@
 ﻿using AutoMapper;
-
 using Ninject;
 using Ninject.Modules;
-
 using RedTeam.TechArtSurvey.DomainModel.Entities;
 using RedTeam.TechArtSurvey.Foundation.Dto.UsersDto;
 

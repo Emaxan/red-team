@@ -1,10 +1,8 @@
-﻿using System;
+﻿using JetBrains.Annotations;
+using RedTeam.Repositories.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-
-using JetBrains.Annotations;
-
-using RedTeam.Repositories.Interfaces;
 
 namespace RedTeam.Repositories.EntityFramework.Repositories
 {

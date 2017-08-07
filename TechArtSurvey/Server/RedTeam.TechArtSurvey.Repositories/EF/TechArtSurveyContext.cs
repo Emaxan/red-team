@@ -1,8 +1,7 @@
-﻿using System.Data.Entity;
-using JetBrains.Annotations;
-
+﻿using JetBrains.Annotations;
 using RedTeam.Repositories.Interfaces;
 using RedTeam.TechArtSurvey.DomainModel.Entities;
+using System.Data.Entity;
 
 namespace RedTeam.TechArtSurvey.Repositories.EF
 {

@@ -7,7 +7,6 @@ using RedTeam.TechArtSurvey.Initializer.NinjectModules;
 using RedTeam.TechArtSurvey.WebApi.Utils;
 using System;
 
-
 namespace RedTeam.TechArtSurvey.WebApi
 {
     public static class NinjectWebCommon

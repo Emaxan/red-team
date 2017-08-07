@@ -1,9 +1,8 @@
-﻿using System.Diagnostics;
+﻿using RedTeam.Logger;
+using System.Diagnostics;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
-
-using RedTeam.Logger;
 
 namespace RedTeam.TechArtSurvey.WebApi.Utils
 {
