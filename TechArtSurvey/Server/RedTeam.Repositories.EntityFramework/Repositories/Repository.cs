@@ -71,10 +71,5 @@ namespace RedTeam.Repositories.EntityFramework.Repositories
             }
             _dbSet.Remove(entity);
         }
-
-        public virtual void Detach(TEntity entity)
-        {
-            Context.Entry(entity).State = EntityState.Detached;
-        }
     }
 }
