@@ -8,8 +8,6 @@ import { getUsers, setFilter } from './actions';
 import { UserList } from './UserList';
 import FilteredUsers from './selectors/filteredUsers';
 
-import './UserList.scss';
-
 const mapStateToProps = (state) => ({
   userList : state.users.userList,
   fetching : state.users.fetching,

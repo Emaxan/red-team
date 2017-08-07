@@ -6,7 +6,6 @@ import thunk from 'redux-thunk';
 import logger from 'redux-logger';
 import { ConnectedRouter, routerMiddleware as createRouterMiddleware } from 'react-router-redux';
 import createHistory from 'history/createBrowserHistory';
-import './bootstrap/bootstrap';
 
 import configureStore from './app/configureStore';
 import App from './app/App';

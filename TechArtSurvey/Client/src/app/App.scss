@@ -1,9 +1,6 @@
 @import "./variables";
 
-html {
-  height: 100%;
-}
-
+html,
 body {
   height: 100%;
 }
@@ -25,10 +22,12 @@ body {
 
 .menu {
   margin: -$navbar-margin-bottom auto;
+  margin-right: 40px;
 }
 
 .main {
   flex-grow: 1;
+  max-width: 800px;
 }
 
 #container {
@@ -37,8 +36,12 @@ body {
   flex-flow: column nowrap;
 }
 
-@media all and (max-width: $screen-sm-max) {
+@media all and (max-width: $screen-xs-max) {
   .content {
     display: block;
+  }
+
+  .menu {
+    margin-right: auto;
   }
 }

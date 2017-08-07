@@ -5,6 +5,8 @@ import { PropTypes } from 'prop-types';
 import { userSignupRequest } from './actions';
 import { SignupForm } from './components/SignupForm';
 
+import './SignupContainer.scss';
+
 const mapStateToProps = (state) => ({
   errors : state.signup.errors,
 });
@@ -18,13 +20,11 @@ const mapDispatchToProps = (dispatch) => ({
 export class SignupContainer extends Component {
   render() {
     return (
-      <div>
-        <main className="main">
-          <SignupForm
-            errors={this.props.errors}
-            signupRequest={this.props.signupRequest}
-          />
-        </main>
+      <div className="signup-panel">
+        <SignupForm
+          errors={this.props.errors}
+          signupRequest={this.props.signupRequest}
+        />
       </div>
     );
   }

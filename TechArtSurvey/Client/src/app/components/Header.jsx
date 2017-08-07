@@ -26,7 +26,7 @@ export class Header extends Component {
             <Link className="navbar__item" to={Routes.About.path}>{Routes.About.text}</Link>
             {
               this.props.authStatus ?
-                <UserInfo username="Admin" /> :
+                <UserInfo className="navbar__item" username="Admin" /> :
                 <Link className="navbar__item" to={Routes.LogIn.path}>{Routes.LogIn.text}</Link>
             }
           </nav>
