@@ -1,11 +1,11 @@
 import React from 'react';
 
-import AboutUsTab from './components/AboutUsTab';
+import AboutUs from './components/AboutUs';
 
 export const tabItems = [
   {
     text : 'About us',
-    content : <AboutUsTab />,
+    content : <AboutUs />,
   },
   {
     text : 'Training',

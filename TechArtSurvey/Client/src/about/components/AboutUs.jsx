@@ -10,7 +10,7 @@ import {
   GOOGLE_MAP_SOURCE,
 } from './constants';
 
-import './AboutUsTab.scss';
+import './AboutUs.scss';
 
 export const SimpleGoogleMap = withGoogleMap((props) => (
   <GoogleMap
@@ -29,10 +29,10 @@ export const SimpleGoogleMap = withGoogleMap((props) => (
   </GoogleMap>
 ));
 
-function AboutUsTab() {
+function AboutUs() {
   return (
     <div>
-      <Image className="about-us-tab__img" src={Titul} />
+      <Image className="about-us__img" src={Titul} />
       <h3>Address:
         <a href={GOOGLE_MAP_SOURCE} target="_blank">
           <address>Belarus, Minsk, Tolstoy str. 10</address>
@@ -48,10 +48,10 @@ function AboutUsTab() {
           }
         }
         containerElement={
-          <div className="about-us-tab__map"/>
+          <div className="about-us__map"/>
         }
         mapElement={
-          <div  className="about-us-tab__map"/>
+          <div  className="about-us__map"/>
         }
         markers={[
           {
@@ -63,4 +63,4 @@ function AboutUsTab() {
   );
 }
 
-export default AboutUsTab;
+export default AboutUs;
