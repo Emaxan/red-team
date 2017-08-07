@@ -15,5 +15,7 @@ namespace RedTeam.TechArtSurvey.Foundation.Dto.UsersDto
         [Required]
         [MinLength(8, ErrorMessage = "Password should be at least 8 characters")]
         public string Password { get; set; }
+
+        public RoleDto RoleDto { get; set; }
     }
 }

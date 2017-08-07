@@ -1,11 +1,11 @@
-﻿using RedTeam.TechArtSurvey.DomainModel.Entities;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using RedTeam.TechArtSurvey.Repositories.Interfaces;
 using Microsoft.AspNet.Identity;
+using RedTeam.TechArtSurvey.DomainModel.Entities;
+using RedTeam.TechArtSurvey.Repositories.Interfaces;
 
-namespace RedTeam.Identity.Stores
+namespace RedTeam.Repositories.Identity.Stores
 {
     public class ApplicationUserStore : IApplicationUserStore
     {
@@ -20,7 +20,7 @@ namespace RedTeam.Identity.Stores
 
         public async Task CreateAsync(User user)
         {
-            user.Role = await _uow.Roles.FindRoleByTypeAsync(default(RoleTypes));
+            user.Role = await _uow.Roles.FindRoleByTypeAsync(user.Role.RoleType);
             _uow.Users.Create(user);
             await _uow.SaveAsync();
         }

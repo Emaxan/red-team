@@ -1,9 +1,9 @@
-﻿using Microsoft.AspNet.Identity;
-using RedTeam.TechArtSurvey.DomainModel.Entities;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using Microsoft.AspNet.Identity;
+using RedTeam.TechArtSurvey.DomainModel.Entities;
 
-namespace RedTeam.Identity.Stores
+namespace RedTeam.Repositories.Identity.Stores
 {
     public interface IApplicationUserStore: IUserStore<User, int>, IUserEmailStore<User, int>
     {

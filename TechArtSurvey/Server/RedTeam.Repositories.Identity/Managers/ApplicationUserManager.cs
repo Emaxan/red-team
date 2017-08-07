@@ -3,13 +3,14 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNet.Identity;
 using RedTeam.Identity.Security;
-using RedTeam.Identity.Stores;
 using RedTeam.Logger;
 using RedTeam.TechArtSurvey.DomainModel.Entities;
 using RedTeam.TechArtSurvey.Foundation.Dto.UsersDto;
 using RedTeam.TechArtSurvey.Foundation.Interfaces;
 using RedTeam.TechArtSurvey.Foundation.Interfaces.ServiceResponses;
 using RedTeam.Repositories.Identity.Responses;
+using RedTeam.Repositories.Identity.Stores;
+using System;
 
 namespace RedTeam.Repositories.Identity.Managers
 {
@@ -39,6 +40,14 @@ namespace RedTeam.Repositories.Identity.Managers
             {
                 userDto.Password = PasswordHasher.HashPassword(userDto.Password);
                 var us = _mapper.Map<UserDto, User>(userDto);
+                if (userDto.RoleDto == null)
+                {
+                    userDto.RoleDto = new RoleDto();
+                }
+                us.Role = new Role()
+                {
+                    RoleType = (RoleTypes) Enum.Parse(typeof(RoleTypes), userDto.RoleDto.Name)
+                };
                 await CreateAsync(us);
                 serviceResponse.Code = ServiceResponseCodes.Ok;
 

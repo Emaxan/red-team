@@ -1,6 +1,6 @@
 ﻿using Ninject;
-using RedTeam.Identity.Stores;
 using RedTeam.Repositories.Identity.Managers;
+using RedTeam.Repositories.Identity.Stores;
 using RedTeam.TechArtSurvey.Foundation.Interfaces;
 
 namespace RedTeam.TechArtSurvey.Initializer
@@ -11,6 +11,7 @@ namespace RedTeam.TechArtSurvey.Initializer
         {
             AddBindings(kernel);
         }
+
 
         private static void AddBindings(IKernel kernel)
         {

@@ -41,5 +41,11 @@
     <Compile Include="UsersDto\RoleDto.cs" />
     <Compile Include="UsersDto\UserDto.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\RedTeam.TechArtSurvey.DomainModel\RedTeam.TechArtSurvey.DomainModel.csproj">
+      <Project>{CBA1E0F8-A057-4782-82DE-162668F2B074}</Project>
+      <Name>RedTeam.TechArtSurvey.DomainModel</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
