@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import { Tabs, Tab } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 
-import { ABOUT_TABS_DEFAULT_ACTIVE_TAB } from './constants';
-
 import './AboutTabs.scss';
+
+const ABOUT_TABS_DEFAULT_ACTIVE_TAB = 0;
 
 export class AboutTabs extends Component {
   render() {

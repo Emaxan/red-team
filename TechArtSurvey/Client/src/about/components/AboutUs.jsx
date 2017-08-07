@@ -3,14 +3,13 @@ import { Image } from 'react-bootstrap';
 import { withGoogleMap, GoogleMap, Marker } from 'react-google-maps';
 
 import Titul from './images/titul.jpg';
-import {
-  GOOGLE_MAP_ZOOM,
-  GOOGLE_MAP_COORDS_LAT,
-  GOOGLE_MAP_COORDS_LNG,
-  GOOGLE_MAP_SOURCE,
-} from './constants';
 
 import './AboutUs.scss';
+
+const GOOGLE_MAP_ZOOM = 17;
+const GOOGLE_MAP_COORDS_LAT = 53.888318;
+const GOOGLE_MAP_COORDS_LNG = 27.544352;
+const GOOGLE_MAP_SOURCE = `https://www.google.com/maps?q=${GOOGLE_MAP_COORDS_LAT}%2C${GOOGLE_MAP_COORDS_LNG}`;
 
 export const SimpleGoogleMap = withGoogleMap((props) => (
   <GoogleMap
