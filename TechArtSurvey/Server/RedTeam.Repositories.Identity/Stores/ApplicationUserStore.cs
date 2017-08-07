@@ -28,6 +28,7 @@ namespace RedTeam.Repositories.Identity.Stores
         public async Task DeleteAsync(User user)
         {
             _uow.Users.Delete(user);
+            await _uow.SaveAsync();
         }
 
         public void Dispose()
@@ -57,6 +58,7 @@ namespace RedTeam.Repositories.Identity.Stores
         public async Task UpdateAsync(User user)
         {
             _uow.Users.Update(user);
+            await _uow.SaveAsync();
         }
 
         public async Task SetEmailAsync(User user, string email)

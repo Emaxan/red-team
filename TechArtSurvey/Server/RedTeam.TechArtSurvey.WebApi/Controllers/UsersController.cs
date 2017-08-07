@@ -67,6 +67,7 @@ namespace RedTeam.TechArtSurvey.WebApi.Controllers
         public async Task<IServiceResponse> GetUsers()
         {
             LoggerContext.Logger.Info("Get all users");
+
             return await _userManager.GetAllAsync();
         }
     }
