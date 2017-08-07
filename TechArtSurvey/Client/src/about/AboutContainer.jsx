@@ -9,7 +9,7 @@ export class AboutContainer extends Component {
     return (
       <div className="about-content">
         <BasicInfo />
-        <AboutTabs className="about-tabs" tabs={tabItems} />
+        <AboutTabs tabs={tabItems} />
       </div>
     );
   }
