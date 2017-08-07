@@ -7,11 +7,9 @@ import { tabItems } from './tabItems';
 export class AboutContainer extends Component {
   render() {
     return (
-      <div className="main-content">
-        <div className="about-content">
-          <BasicInfo className="about-header" />
-          <AboutTabs className="about-tabs" tabs={tabItems} />
-        </div>
+      <div className="about-content">
+        <BasicInfo className="about-header" />
+        <AboutTabs className="about-tabs" tabs={tabItems} />
       </div>
     );
   }
