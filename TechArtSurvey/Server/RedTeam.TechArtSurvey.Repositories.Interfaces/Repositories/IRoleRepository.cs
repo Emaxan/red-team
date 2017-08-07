@@ -1,8 +1,8 @@
-﻿using RedTeam.Repositories.Interfaces;
+﻿using System.Threading.Tasks;
+using RedTeam.Repositories.Interfaces;
 using RedTeam.TechArtSurvey.DomainModel.Entities;
-using System.Threading.Tasks;
 
-namespace RedTeam.TechArtSurvey.Repositories.Interfaces
+namespace RedTeam.TechArtSurvey.Repositories.Interfaces.Repositories
 {
     public interface IRoleRepository : IRepository<Role>
     {

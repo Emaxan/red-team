@@ -14,7 +14,7 @@ namespace RedTeam.TechArtSurvey.Repositories.Migrations
 
         protected override void Seed(TechArtSurveyContext context)
         {
-            context.Roles.AddOrUpdate(u => u.Name,
+            context.Roles.AddOrUpdate(r => r.RoleType,
                new Role()
                {
                    Id = 1,

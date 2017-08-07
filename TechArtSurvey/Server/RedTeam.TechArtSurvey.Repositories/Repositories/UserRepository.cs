@@ -23,14 +23,14 @@ namespace RedTeam.TechArtSurvey.Repositories.Repositories
         {
             LoggerContext.Logger.Info($"Get User with email = {email}");
 
-            return await DbSet.Include(r => r.Role).FirstOrDefaultAsync(u => u.Email == email);
+            return await DbSet.Include(r => r.Role).SingleOrDefaultAsync(u => u.Email == email);
         }
 
-        public override async Task<User> GetAsync(int id)
+        public override async Task<User> GetByIdAsync(int id)
         {
             LoggerContext.Logger.Info($"Get User with id = {id}");
 
-            return await DbSet.Where(u => u.Id == id).Include(r => r.Role).FirstOrDefaultAsync();
+            return await DbSet.Where(u => u.Id == id).Include(r => r.Role).SingleOrDefaultAsync();
         }
 
         public override async Task<IReadOnlyCollection<User>> GetAllAsync()

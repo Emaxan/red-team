@@ -1,6 +1,6 @@
 ﻿using RedTeam.TechArtSurvey.Foundation.Interfaces.ServiceResponses;
 
-namespace RedTeam.TechArtSurvey.Foundation
+namespace RedTeam.Repositories.Identity.Responses
 {
     public class ServiceResponse : IServiceResponse
     {

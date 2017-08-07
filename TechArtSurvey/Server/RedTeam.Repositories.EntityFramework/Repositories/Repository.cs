@@ -37,7 +37,7 @@ namespace RedTeam.Repositories.EntityFramework.Repositories
         }
 
         [CanBeNull]
-        public virtual async Task<TEntity> GetAsync(int id)
+        public virtual async Task<TEntity> GetByIdAsync(int id)
         {
             LoggerContext.Logger.Info($"Get entity from database with id {id}");
             var user = await _dbSet.FindAsync(id);

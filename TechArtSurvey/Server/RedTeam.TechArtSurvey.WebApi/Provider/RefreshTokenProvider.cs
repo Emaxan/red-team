@@ -14,7 +14,6 @@ namespace RedTeam.TechArtSurvey.WebApi.Provider
         public async Task CreateAsync(AuthenticationTokenCreateContext context)
         {
             var guid = Guid.NewGuid().ToString();
-            // copy all properties and set the desired lifetime of refresh token  
             var refreshTokenProperties = new AuthenticationProperties(context.Ticket.Properties.Dictionary)
             {
                 IssuedUtc = context.Ticket.Properties.IssuedUtc,
@@ -22,7 +21,6 @@ namespace RedTeam.TechArtSurvey.WebApi.Provider
             };
             var refreshTokenTicket = new AuthenticationTicket(context.Ticket.Identity, refreshTokenProperties);
             _refreshTokens.TryAdd(guid, refreshTokenTicket);
-            // consider storing only the hash of the handle  
             context.SetToken(guid);
         }
 

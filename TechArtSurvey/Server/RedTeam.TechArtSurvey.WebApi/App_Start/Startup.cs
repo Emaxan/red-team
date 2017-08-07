@@ -30,7 +30,7 @@ namespace RedTeam.TechArtSurvey.WebApi.App_Start
         
         public void ConfigureOAuth(IAppBuilder app)
         {
-            var OAuthServerOptions = new OAuthAuthorizationServerOptions()
+            var oAuthServerOptions = new OAuthAuthorizationServerOptions()
             {
                 AllowInsecureHttp = true,
                 TokenEndpointPath = new PathString("/token"),
@@ -39,8 +39,7 @@ namespace RedTeam.TechArtSurvey.WebApi.App_Start
                 RefreshTokenProvider = new RefreshTokenProvider()
             };
 
-            // Token Generation
-            app.UseOAuthAuthorizationServer(OAuthServerOptions);
+            app.UseOAuthAuthorizationServer(oAuthServerOptions);
             app.UseOAuthBearerAuthentication(new OAuthBearerAuthenticationOptions());
         }
 

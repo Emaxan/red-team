@@ -30,6 +30,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AutoMapper, Version=6.1.1.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <HintPath>..\packages\AutoMapper.6.1.1\lib\net45\AutoMapper.dll</HintPath>
+    </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.1.0\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
@@ -63,12 +66,22 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Managers\ApplicationUserManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Responses\ServiceResponse.cs" />
     <Compile Include="Security\ClaimsManager.cs" />
     <Compile Include="Stores\ApplicationUserStore.cs" />
     <Compile Include="Stores\IApplicationUserStore.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\RedTeam.Logger.Interfaces\RedTeam.Logger.Interfaces.csproj">
+      <Project>{725EC8E0-9925-4C5C-B1EF-83CFB09704D6}</Project>
+      <Name>RedTeam.Logger.Interfaces</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\RedTeam.Logger\RedTeam.Logger.csproj">
+      <Project>{2A7D081E-C19A-476B-9E46-2D17CE1769AF}</Project>
+      <Name>RedTeam.Logger</Name>
+    </ProjectReference>
     <ProjectReference Include="..\RedTeam.Repositories\RedTeam.Repositories.csproj">
       <Project>{433a7044-1a29-42cb-80b0-06e86aa12a2f}</Project>
       <Name>RedTeam.Repositories</Name>
@@ -76,6 +89,14 @@
     <ProjectReference Include="..\RedTeam.TechArtSurvey.DomainModel\RedTeam.TechArtSurvey.DomainModel.csproj">
       <Project>{cba1e0f8-a057-4782-82de-162668f2b074}</Project>
       <Name>RedTeam.TechArtSurvey.DomainModel</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\RedTeam.TechArtSurvey.Foundation.Dto\RedTeam.TechArtSurvey.Foundation.Dto.csproj">
+      <Project>{E5E1A1E9-FF87-4AEE-9B49-8C19A2307D5D}</Project>
+      <Name>RedTeam.TechArtSurvey.Foundation.Dto</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\RedTeam.TechArtSurvey.Foundation.Interfaces\RedTeam.TechArtSurvey.Foundation.Interfaces.csproj">
+      <Project>{CDF233FB-754D-41FE-8F6C-B41F40AA680A}</Project>
+      <Name>RedTeam.TechArtSurvey.Foundation.Interfaces</Name>
     </ProjectReference>
     <ProjectReference Include="..\RedTeam.TechArtSurvey.Repositories.Interfaces\RedTeam.TechArtSurvey.Repositories.Interfaces.csproj">
       <Project>{A92EAE24-D485-4F0D-B77F-EB485A7FCBE3}</Project>

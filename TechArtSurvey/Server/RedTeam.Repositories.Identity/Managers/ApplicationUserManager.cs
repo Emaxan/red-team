@@ -1,16 +1,17 @@
-﻿using AutoMapper;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
+using AutoMapper;
 using Microsoft.AspNet.Identity;
-using RedTeam.Logger;
 using RedTeam.Identity.Security;
+using RedTeam.Identity.Stores;
+using RedTeam.Logger;
 using RedTeam.TechArtSurvey.DomainModel.Entities;
 using RedTeam.TechArtSurvey.Foundation.Dto.UsersDto;
 using RedTeam.TechArtSurvey.Foundation.Interfaces;
 using RedTeam.TechArtSurvey.Foundation.Interfaces.ServiceResponses;
-using System.Threading.Tasks;
-using RedTeam.Identity.Stores;
-using System.Collections.Generic;
+using RedTeam.Repositories.Identity.Responses;
 
-namespace RedTeam.TechArtSurvey.Foundation.Services
+namespace RedTeam.Repositories.Identity.Managers
 {
     public class ApplicationUserManager : UserManager<User, int>, IApplicationUserManager
     {
@@ -32,7 +33,7 @@ namespace RedTeam.TechArtSurvey.Foundation.Services
         
         public async Task<IServiceResponse> CreateAsync(UserDto userDto)
         {
-            ServiceResponse serviceResponse = new ServiceResponse();
+            var serviceResponse = new ServiceResponse();
             User user = await FindByEmailAsync(userDto.Email);
             if (user == null)
             {
@@ -43,16 +44,14 @@ namespace RedTeam.TechArtSurvey.Foundation.Services
 
                 return serviceResponse;
             }
-            else
-            {
-                serviceResponse.Code = ServiceResponseCodes.UserAlreadyExists;
-                return serviceResponse;
-            }
+            serviceResponse.Code = ServiceResponseCodes.UserAlreadyExists;
+
+            return serviceResponse;
         }
 
         public async Task<IServiceResponse> GetClaimsByCredentialsAsync(string email, string password)
         {
-            ServiceResponse serviceResponse = new ServiceResponse();
+            var serviceResponse = new ServiceResponse();
             var user = await FindByEmailAsync(email);
             if (user == null)
             {
@@ -76,7 +75,7 @@ namespace RedTeam.TechArtSurvey.Foundation.Services
         {
             LoggerContext.Logger.Info($"Update user with email = {user.Email}");
 
-            ServiceResponse serviceResponse = new ServiceResponse();
+            var serviceResponse = new ServiceResponse();
             var us = await FindByIdAsync(user.Id);
             if (us == null)
             {
@@ -95,7 +94,7 @@ namespace RedTeam.TechArtSurvey.Foundation.Services
         {
             LoggerContext.Logger.Info($"Delete user with id = {id}");
 
-            ServiceResponse serviceResponse = new ServiceResponse();
+            var serviceResponse = new ServiceResponse();
             var us = await FindByIdAsync(id);
             if (us == null)
             {
@@ -114,7 +113,7 @@ namespace RedTeam.TechArtSurvey.Foundation.Services
         {
             LoggerContext.Logger.Info($"Get user with id = {id}");
 
-            ServiceResponse serviceResponse = new ServiceResponse();
+            var serviceResponse = new ServiceResponse();
             var user = await FindByIdAsync(id);
             if (user == null)
             {
@@ -133,7 +132,7 @@ namespace RedTeam.TechArtSurvey.Foundation.Services
         {
             LoggerContext.Logger.Info($"Get user with email = {email}");
 
-            ServiceResponse serviceResponse = new ServiceResponse();
+            var serviceResponse = new ServiceResponse();
             var user = await FindByEmailAsync(email);
             if (user == null)
             {
@@ -152,7 +151,7 @@ namespace RedTeam.TechArtSurvey.Foundation.Services
         {
             LoggerContext.Logger.Info("Get all users");
             var users = await _store.GetAllAsync();
-            ServiceResponse serviceResponse = new ServiceResponse()
+            var serviceResponse = new ServiceResponse()
             {
                 Code = ServiceResponseCodes.Ok,
                 Content = _mapper.Map<IReadOnlyCollection<User>, IReadOnlyCollection<EditUserDto>>(users)

@@ -7,12 +7,12 @@ using Microsoft.AspNet.Identity;
 
 namespace RedTeam.Identity.Stores
 {
-    public class ApplicationUserstore : IApplicationUserStore
+    public class ApplicationUserStore : IApplicationUserStore
     {
         private readonly ITechArtSurveyUnitOfWork _uow;
 
 
-        public ApplicationUserstore(ITechArtSurveyUnitOfWork uow)
+        public ApplicationUserStore(ITechArtSurveyUnitOfWork uow)
         {
             _uow = uow;
         }
@@ -37,7 +37,7 @@ namespace RedTeam.Identity.Stores
 
         public async Task<User> FindByIdAsync(int userId)
         {
-            var user = await _uow.Users.GetAsync(Convert.ToInt32(userId));
+            var user = await _uow.Users.GetByIdAsync(Convert.ToInt32(userId));
 
             return user;
         }

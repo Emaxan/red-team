@@ -2,6 +2,7 @@
 using RedTeam.Repositories.Interfaces;
 using RedTeam.TechArtSurvey.Repositories.EF;
 using Ninject.Web.Common;
+
 namespace RedTeam.TechArtSurvey.Initializer.NinjectModules
 {
     public class ContextModule : NinjectModule
