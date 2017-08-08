@@ -38,7 +38,7 @@ export const {
   }),
 });
 
-export const userLogInRequest = (userData) => (dispatch) => {
+export const logInRequest = (userData) => (dispatch) => {
   dispatch(userLogInRequestStart());
   return logIn(userData)
     .then((response) => {

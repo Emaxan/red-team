@@ -1,8 +1,8 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 
 import { LogInForm } from './components/LogInForm';
-import { userLogInRequest } from './actions';
+import { logInRequest } from './actions';
 
 function mapStateToProps(state) {
   return {
@@ -10,24 +10,18 @@ function mapStateToProps(state) {
   };
 }
 
-const mapDispatchToProps = (dispatch) => ({
-  logInRequest : (data) => {
-    dispatch(userLogInRequest(data));
-  },
+const mapDispatchToProps = ({
+  logInRequest,
 });
 
-export class LogInContainer extends Component {
-  render() {
-    return (
-      <div className="auth-panel">
-        <LogInForm
-          errors={this.props.errors}
-          logInRequest={this.props.logInRequest}
-        />
-      </div>
-    );
-  }
-}
+const LogInContainer = ({ errors, logInRequest }) => (
+  <div className="auth-panel">
+    <LogInForm
+      errors={errors}
+      logInRequest={logInRequest}
+    />
+  </div>
+);
 
 LogInContainer.propTypes = {
   ...LogInForm.propTypes,
