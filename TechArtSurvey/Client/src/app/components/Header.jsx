@@ -1,41 +1,44 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import { Navbar } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 
 import Routes from '../routesConstants';
 import LogoImg from './images/logo.png';
-import UserInfo from './UserInfo';
+import { default as UserInfoComponent } from './UserInfo';
+import {
+  userIsAuthenticated,
+  userIsNotAuthenticated,
+} from '../../auth/auth';
 
 import './Header.scss';
 
-export class Header extends Component {
-  render() {
-    return (
-      <Navbar>
-        <Navbar.Header>
-          <Navbar.Brand>
-            <Link to={Routes.Main.path}>
-              <img src={LogoImg} alt="iTechArt logo" />
-            </Link>
-          </Navbar.Brand>
-          <Navbar.Toggle />
-        </Navbar.Header>
-        <Navbar.Collapse>
-          <nav>
-            <Link className="navbar__item" to={Routes.About.path}>{Routes.About.text}</Link>
-            {
-              this.props.authStatus ?
-                <UserInfo username="Admin" /> :
-                <Link className="navbar__item" to={Routes.LogIn.path}>{Routes.LogIn.text}</Link>
-            }
-          </nav>
-        </Navbar.Collapse>
-      </Navbar>
-    );
-  }
-}
+const UserInfo = userIsAuthenticated(UserInfoComponent);
+const LoginLink = userIsNotAuthenticated(() => <Link className="navbar__item" to={Routes.LogIn.path}>{Routes.LogIn.text}</Link>);
+
+
+const Header = ({ userName }) => (
+  <Navbar>
+    <Navbar.Header>
+      <Navbar.Brand>
+        <Link to={Routes.Main.path}>
+          <img src={LogoImg} alt="iTechArt logo" />
+        </Link>
+      </Navbar.Brand>
+      <Navbar.Toggle />
+    </Navbar.Header>
+    <Navbar.Collapse>
+      <nav>
+        <Link className="navbar__item" to={Routes.About.path}>{Routes.About.text}</Link>
+        <UserInfo username={userName} />
+        <LoginLink />
+      </nav>
+    </Navbar.Collapse>
+  </Navbar>
+);
 
 Header.propTypes = {
-  authStatus : PropTypes.bool.isRequired,
+  userName: PropTypes.string.isRequired,
 };
+
+export default Header;
