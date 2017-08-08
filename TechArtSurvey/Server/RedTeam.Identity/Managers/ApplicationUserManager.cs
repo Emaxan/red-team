@@ -39,13 +39,13 @@ namespace RedTeam.Identity.Managers
             {
                 userDto.Password = PasswordHasher.HashPassword(userDto.Password);
                 var us = _mapper.Map<UserDto, User>(userDto);
-                if (userDto.RoleDto == null)
+                if (userDto.Role == null)
                 {
-                    userDto.RoleDto = new RoleDto();
+                    userDto.Role = new RoleDto();
                 }
                 us.Role = new Role()
                 {
-                    RoleType = (RoleTypes) Enum.Parse(typeof(RoleTypes), userDto.RoleDto.Name)
+                    RoleType = (RoleTypes) Enum.Parse(typeof(RoleTypes), userDto.Role.Name)
                 };
                 await CreateAsync(us);
 
@@ -129,8 +129,8 @@ namespace RedTeam.Identity.Managers
         {
             LoggerContext.Logger.Info("Get all users");
             var users = await _store.GetAllAsync();
-
-            return ServiceResponse.CreateSuccessful(_mapper.Map<IReadOnlyCollection<User>, IReadOnlyCollection<EditUserDto>>(users));
+            var mapped = _mapper.Map<IReadOnlyCollection<User>, IReadOnlyCollection<EditUserDto>>(users);
+            return ServiceResponse.CreateSuccessful(mapped);
         }
     }
 }

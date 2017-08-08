@@ -47,6 +47,7 @@
       <HintPath>..\packages\Ninject.Web.Common.3.2.3.0\lib\net45-full\Ninject.Web.Common.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
@@ -55,9 +56,6 @@
     <Compile Include="NinjectModules\ContextModule.cs" />
     <Compile Include="NinjectModules\ServiceModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\RedTeam.Repositories.EntityFramework\RedTeam.Repositories.EntityFramework.csproj">
@@ -96,6 +94,9 @@
       <Project>{60EBC204-DBCF-4140-9690-5E2B6B4EEA87}</Project>
       <Name>RedTeam.TechArtSurvey.Repositories</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

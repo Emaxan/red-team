@@ -64,9 +64,6 @@
     <Compile Include="TechArtSurveyUnitOfWork.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\RedTeam.Logger.Interfaces\RedTeam.Logger.Interfaces.csproj">
       <Project>{725ec8e0-9925-4c5c-b1ef-83cfb09704d6}</Project>
       <Name>RedTeam.Logger.Interfaces</Name>
@@ -96,6 +93,9 @@
     <EmbeddedResource Include="Migrations\201708030902066_Init.resx">
       <DependentUpon>201708030902066_Init.cs</DependentUpon>
     </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
