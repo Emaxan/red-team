@@ -6,9 +6,9 @@ import UserImg from './images/user-icon.png';
 
 import './UserInfo.scss';
 
-const UserInfo = ({ className, username }) => (
-  <div className={'user-info ' + className}>
-    <Image src={UserImg} className="user-info__img" rounded />
+const UserInfo = ({ username }) => (
+  <div className='navbar__item'>
+    <Image src={UserImg} className="navbar__user-img" rounded />
     Hello, {username}!
     <span>&#9207;</span>
   </div>
@@ -16,7 +16,6 @@ const UserInfo = ({ className, username }) => (
 
 UserInfo.propTypes = {
   username : PropTypes.string.isRequired,
-  className : PropTypes.string,
 };
 
 export default UserInfo;

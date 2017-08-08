@@ -1,8 +1,6 @@
 @import "./variables";
 
-.user-info {
-  &__img {
-    display: inline-block;
-    height: ($navbar-height/2);
-  }
+.navbar__user-img {
+  display: inline-block;
+  height: ($navbar-height/2);
 }
