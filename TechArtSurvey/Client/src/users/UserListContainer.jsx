@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 
 import { getUsers, setFilter } from './actions';
@@ -14,20 +14,15 @@ const mapDispatchToProps = {
   getUsers,
   setFilter,
 };
-
-export class UserListContainer extends Component {
-  render() {
-    return (
-      <div className="user-list">
-        <UserList
-          filteredUserList={this.props.filteredUserList}
-          getUsers={this.props.getUsers}
-          setFilter={this.props.setFilter}
-        />
-      </div>
-    );
-  }
-}
+const UserListContainer = ({ filteredUserList, getUsers, setFilter }) => (
+  <div className="user-list">
+    <UserList
+      filteredUserList={filteredUserList}
+      getUsers={getUsers}
+      setFilter={setFilter}
+    />
+  </div>
+);
 
 UserListContainer.propTypes = {
   ...UserList.propTypes,
