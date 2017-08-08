@@ -8,11 +8,11 @@ using RedTeam.TechArtSurvey.DomainModel.Entities;
 using RedTeam.TechArtSurvey.Foundation.Dto.UsersDto;
 using RedTeam.TechArtSurvey.Foundation.Interfaces;
 using RedTeam.TechArtSurvey.Foundation.Interfaces.ServiceResponses;
-using RedTeam.Repositories.Identity.Responses;
-using RedTeam.Repositories.Identity.Stores;
+using RedTeam.Identity.Responses;
+using RedTeam.Identity.Stores;
 using System;
 
-namespace RedTeam.Repositories.Identity.Managers
+namespace RedTeam.Identity.Managers
 {
     public class ApplicationUserManager : UserManager<User, int>, IApplicationUserManager
     {

@@ -39,7 +39,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RedTeam.Logger.Interfaces",
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RedTeam.TechArtSurvey.Foundation.Dto", "RedTeam.TechArtSurvey.Foundation.Dto\RedTeam.TechArtSurvey.Foundation.Dto.csproj", "{E5E1A1E9-FF87-4AEE-9B49-8C19A2307D5D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RedTeam.Identity", "RedTeam.Repositories.Identity\RedTeam.Identity.csproj", "{2B216D5D-2CC2-460A-A94D-B4AA44DA8EED}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RedTeam.Identity", "RedTeam.Identity\RedTeam.Identity.csproj", "{2B216D5D-2CC2-460A-A94D-B4AA44DA8EED}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

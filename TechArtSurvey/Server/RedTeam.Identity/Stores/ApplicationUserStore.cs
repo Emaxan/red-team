@@ -5,7 +5,7 @@ using Microsoft.AspNet.Identity;
 using RedTeam.TechArtSurvey.DomainModel.Entities;
 using RedTeam.TechArtSurvey.Repositories.Interfaces;
 
-namespace RedTeam.Repositories.Identity.Stores
+namespace RedTeam.Identity.Stores
 {
     public class ApplicationUserStore : IApplicationUserStore
     {

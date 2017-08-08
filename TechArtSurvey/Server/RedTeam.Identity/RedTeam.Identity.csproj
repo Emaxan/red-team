@@ -7,8 +7,8 @@
     <ProjectGuid>{2B216D5D-2CC2-460A-A94D-B4AA44DA8EED}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>RedTeam.Repositories.Identity</RootNamespace>
-    <AssemblyName>RedTeam.Repositories.Identity</AssemblyName>
+    <RootNamespace>RedTeam.Identity</RootNamespace>
+    <AssemblyName>RedTeam.Identity</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
