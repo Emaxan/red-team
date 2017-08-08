@@ -32,11 +32,21 @@ export const {
   }),
 });
 
-export const getUsers = () => (dispatch) => {
+export const getUsers = (token_type, access_token) => (dispatch) => {
   dispatch(getUsersStart());
-  return getUsersFromServer()
-    .then((response) => response.json())
-    .then((json) => dispatch(getUsersSuccess(json)))
+  return getUsersFromServer(token_type, access_token)
+    .then((response) => {
+      if(response.status !== 200){
+        dispatch(getUsersError(response.status + ' ' + response.statusText));
+        return null;
+      }
+      return response.json();
+    })
+    .then((json) => {
+      if(json !== null) {
+        dispatch(getUsersSuccess(json));
+      }
+    })
     .catch((error) => dispatch(getUsersError(error)));
 };
 

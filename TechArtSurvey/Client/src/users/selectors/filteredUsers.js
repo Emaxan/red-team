@@ -11,7 +11,7 @@ const filterString = (state) => state.users
 const getFilteredUsers = (userList, input) => {
   const filteredUsers = _.filter(
     userList,
-    (user) => user.Name
+    (user) => user.userName
       .toLowerCase()
       .includes(input.toLowerCase())
   );

@@ -5,7 +5,7 @@ import { SearchBox } from './SearchBox';
 
 export class UserList extends Component {
   handleOnBtnClick() {
-    this.props.getUsers();
+    this.props.getUsers('token_type', 'access_token');
   }
 
   render() {
@@ -20,20 +20,22 @@ export class UserList extends Component {
               <td>Name</td>
               <td>Email</td>
               <td>Password</td>
+              <td>Role</td>
               <td>Actions</td>
             </tr>{
               this.props.filteredUserList.map((user) => (
-                <tr key={user.Id} className="table-row">
-                  <td>{user.Id}</td>
-                  <td>{user.Name}</td>
-                  <td>{user.Email}</td>
-                  <td>{user.Password}</td>
+                <tr key={user.id} className="table-row">
+                  <td>{user.id}</td>
+                  <td>{user.userName}</td>
+                  <td>{user.email}</td>
+                  <td>{user.password}</td>
+                  <td>{user.role.name}</td>
                   <td></td>
                 </tr>
               ))
             }
             <tr className="table-row">
-              <td colSpan="5">Total users: {this.props.filteredUserList.length}</td>
+              <td colSpan="6">Total users: {this.props.filteredUserList.length}</td>
             </tr>
           </tbody>
         </table>
