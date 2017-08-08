@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 
 import { signupRequest } from './actions';
@@ -14,18 +14,14 @@ const mapDispatchToProps = {
   signupRequest,
 };
 
-export class SignupContainer extends Component {
-  render() {
-    return (
-      <div className="auth-panel">
-        <SignupForm
-          errors={this.props.errors}
-          signupRequest={this.props.signupRequest}
-        />
-      </div>
-    );
-  }
-}
+const SignupContainer = ({ errors, signupRequest }) => (
+  <div className="auth-panel">
+    <SignupForm
+      errors={errors}
+      signupRequest={signupRequest}
+    />
+  </div>
+);
 
 SignupContainer.propTypes = {
   ...SignupForm.propTypes,
