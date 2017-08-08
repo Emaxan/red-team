@@ -4,6 +4,7 @@ using RedTeam.TechArtSurvey.Foundation.Interfaces;
 using System.Security.Claims;
 using Ninject;
 using RedTeam.TechArtSurvey.WebApi.Utils;
+using Microsoft.Owin.Security;
 
 namespace RedTeam.TechArtSurvey.WebApi.Provider
 {
@@ -24,7 +25,9 @@ namespace RedTeam.TechArtSurvey.WebApi.Provider
             if (result.Code == Foundation.Interfaces.ServiceResponses.ServiceResponseCodes.Ok)
             {
                 var identity = result.Content as ClaimsIdentity;
-                context.Validated(identity);
+                var props = new AuthenticationProperties();
+                var ticket = new AuthenticationTicket(identity, props);
+                context.Validated(ticket);
             }
             else
             {

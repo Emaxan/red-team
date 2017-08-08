@@ -1,5 +1,4 @@
-﻿using System;
-using Microsoft.Owin;
+﻿using Microsoft.Owin;
 using Owin;
 using System.Web.Http;
 using Microsoft.Owin.Security.OAuth;
@@ -7,6 +6,8 @@ using RedTeam.TechArtSurvey.WebApi.Provider;
 using RedTeam.TechArtSurvey.WebApi.Filters;
 using Ninject;
 using Ninject.Web.Common.OwinHost;
+using RedTeam.TechArtSurvey.WebApi.Formats;
+using RedTeam.TechArtSurvey.WebApi.Options;
 
 [assembly: OwinStartup(typeof(RedTeam.TechArtSurvey.WebApi.App_Start.Startup))]
 [assembly: log4net.Config.XmlConfigurator(Watch = true)]
@@ -34,13 +35,13 @@ namespace RedTeam.TechArtSurvey.WebApi.App_Start
             {
                 AllowInsecureHttp = true,
                 TokenEndpointPath = new PathString("/token"),
-                AccessTokenExpireTimeSpan = TimeSpan.FromMinutes(15),
                 Provider = new SimpleAuthorizationServerProvider(),
-                RefreshTokenProvider = new RefreshTokenProvider()
+                RefreshTokenProvider = new RefreshTokenProvider(),
+                AccessTokenFormat = new CustomJwtFormat()
             };
 
             app.UseOAuthAuthorizationServer(oAuthServerOptions);
-            app.UseOAuthBearerAuthentication(new OAuthBearerAuthenticationOptions());
+            app.UseJwtBearerAuthentication(new JwtOptions());
         }
 
 
