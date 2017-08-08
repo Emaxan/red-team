@@ -205,6 +205,6 @@ export class SignupForm extends Component {
 }
 
 SignupForm.propTypes = {
-  errors : PropTypes.object.isRequired,
+  errors : PropTypes.object.isRequired,// Use immutable-prop-types
   signupRequest : PropTypes.func.isRequired,
 };

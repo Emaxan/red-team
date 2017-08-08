@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { PropTypes } from 'prop-types';
 
 import { signupRequest } from './actions';
 import { SignupForm } from './components/SignupForm';
@@ -29,8 +28,7 @@ export class SignupContainer extends Component {
 }
 
 SignupContainer.propTypes = {
-  errors : PropTypes.object.isRequired, // Use immutable-prop-types
-  signupRequest : PropTypes.func.isRequired,
+  ...SignupForm.propTypes,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(SignupContainer);

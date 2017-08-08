@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
-import ImmutablePropTypes from 'react-immutable-proptypes';
 
 import { LogInForm } from './components/LogInForm';
 import { userLogInRequest } from './actions';
@@ -32,8 +30,7 @@ export class LogInContainer extends Component {
 }
 
 LogInContainer.propTypes = {
-  errors : ImmutablePropTypes.list.isRequired,
-  logInRequest : PropTypes.func.isRequired,
+  ...LogInForm.propTypes,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(LogInContainer);

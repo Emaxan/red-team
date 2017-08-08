@@ -1,7 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Switch, Route } from 'react-router-dom';
-import PropTypes from 'prop-types';
 
 import Routes from './routesConstants';
 import Header from './components/Header';
@@ -49,7 +48,9 @@ const App = ({ userName }) => (
 );
 
 App.propTypes = {
-  userName : PropTypes.string.isRequired,
+  ...Header.propTypes,
+  ...Sidebar.propTypes,
+  ...Footer.propTypes,
 };
 
 export default connect(mapStateToProps, null, null, { pure: false })(App);
