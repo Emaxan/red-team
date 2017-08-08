@@ -16,7 +16,18 @@
   	Method: GET
 	URL: http://localhost:13695/api/users/1
 	Params: 
-	Response: User obj by id==1 in JSON
+	Response: User obj with id==1 in JSON
+	Headers: 
+		1.Authorization: bearer access_token_hash,
+	    2.Accept: application/json,
+		3.Content-Type: application/json
+	
+  * Get user by email:
+  	Method: GET
+	URL: api/Users/?email=user@user.user
+	Params:
+		1.email
+	Response: User obj with email==1 in JSON
 	Headers: 
 		1.Authorization: bearer access_token_hash,
 	    2.Accept: application/json,
@@ -59,7 +70,7 @@
 		2.Email
 		3.Password
 		4.[RoleDto]
-	Response:
+	Response: User obj in JSON
 	Headers:
 	
 ### Token ###
@@ -69,8 +80,9 @@
 	URL: http://localhost:13695/token
 	Params: 
 		1.grant_type
-		2.[UserName]
-		3.[Password]
+		2.[UserName (if grant_type == password)]
+		3.[Password (if grant_type == password)]
+		4.[refresh_token (if grant_type == refresh_token)]
 	Response: Access_token, access_token expires, refresh_token
 	Headers: 
 		1.Content-Type: application/x-www-form-urlencoded

@@ -18,15 +18,6 @@ namespace RedTeam.TechArtSurvey.WebApi.Controllers
         }
 
 
-        // POST api/Users
-        [HttpPost]
-        public async Task<IServiceResponse> AddUser(UserDto user)
-        {
-            LoggerContext.Logger.Info($"Create User with email = {user.Email}");
-
-            return await _userManager.CreateAsync(user);
-        }
-
         // PUT api/Users/5
         [HttpPut]
         public async Task<IServiceResponse> EditUser(EditUserDto user)
