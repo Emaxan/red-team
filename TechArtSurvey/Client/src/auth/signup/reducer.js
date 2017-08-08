@@ -6,7 +6,7 @@ import {
   SIGN_UP_SUCCESS,
   SIGN_UP_FAILED,
   SIGN_UP_INVALID_DATA,
-} from './constants';
+} from './actionTypes';
 
 const signUpInitialState = Record({
   message : '',

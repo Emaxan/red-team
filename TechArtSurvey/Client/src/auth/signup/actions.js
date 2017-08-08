@@ -8,8 +8,10 @@ import {
   SIGN_UP_SUCCESS,
   SIGN_UP_FAILED,
   SIGN_UP_INVALID_DATA,
-  HTTP_STATUS_OK,
-} from './constants';
+} from './actionTypes';
+import {
+  OK,
+} from 'http-status';
 
 export const {
   signUpStart,
@@ -39,11 +41,11 @@ export const {
   }),
 });
 
-export const userSignupRequest = (userData) => (dispatch) => {
+export const signupRequest = (userData) => (dispatch) => {
   dispatch(signUpStart());
   return signup(userData)
     .then((response) => {
-      if (response.status === HTTP_STATUS_OK) {
+      if (response.status === OK) {
         dispatch(signUpSuccess());
         dispatch(push(Routes.Main.path));
       }
