@@ -40,6 +40,8 @@ export class SignupForm extends Component {
 
     this.handleOnSubmit = this.handleOnSubmit.bind(this);
 
+    this.setValidationState = this.setValidationState.bind(this);
+
     this.handleOnNameChange = this.handleOnNameChange.bind(this);
     this.handleOnEmailChange = this.handleOnEmailChange.bind(this);
     this.handleOnPasswordChange = this.handleOnPasswordChange.bind(this);
@@ -47,21 +49,23 @@ export class SignupForm extends Component {
             this.handleOnConfirmationPasswordChange.bind(this);
   }
 
-  makeConfirmationPasswordValidaion(password, confirmationPassword) {
-    this.errors.confirmationPassword =
-            validateConfirmationPassword(password, confirmationPassword);
+  handleOnSubmit(event) {
+    event.preventDefault();
+    this.props.signupRequest(this.state.user);
+  }
 
-    if (this.errors.confirmationPassword === null) {
-      this.validationStates.confirmationPassword = 'success';
+  setValidationState(fieldName) {
+    if (this.errors[fieldName] === null) {
+      this.validationStates[fieldName] = 'success';
     } else {
-      this.validationStates.confirmationPassword = 'error';
+      this.validationStates[fieldName] = 'error';
     }
   }
 
-  handleOnSubmit(event) {
-    event.preventDefault();
-
-    this.props.signupRequest(this.state.user);
+  makeConfirmationPasswordValidation(password, confirmationPassword) {
+    this.errors.confirmationPassword =
+            validateConfirmationPassword(password, confirmationPassword);
+    this.setValidationState('confirmationPassword');
   }
 
   handleOnNameChange(event) {
@@ -69,11 +73,7 @@ export class SignupForm extends Component {
     user.name = event.target.value;
 
     this.errors.name = validateName(user.name);
-    if (this.errors.name === null) {
-      this.validationStates.name = 'success';
-    } else {
-      this.validationStates.name = 'error';
-    }
+    this.setValidationState('name');
 
     this.setState({ user });
   }
@@ -83,11 +83,7 @@ export class SignupForm extends Component {
     user.email = event.target.value;
 
     this.errors.email = validateEmail(user.email);
-    if (this.errors.email === null) {
-      this.validationStates.email = 'success';
-    } else {
-      this.validationStates.email = 'error';
-    }
+    this.setValidationState('email');
 
     this.setState({ user });
   }
@@ -97,12 +93,11 @@ export class SignupForm extends Component {
     user.password = event.target.value;
 
     this.errors.password = validatePassword(user.password);
+    this.setValidationState('password');
+
     if (this.errors.password === null) {
-      this.validationStates.password = 'success';
-      this.makeConfirmationPasswordValidaion(user.password,
+      this.makeConfirmationPasswordValidation(user.password,
         this.state.user.confirmationPassword);
-    } else {
-      this.validationStates.password = 'error';
     }
 
     this.setState({ user });
@@ -112,7 +107,7 @@ export class SignupForm extends Component {
     const { user } = this.state;
     user.confirmationPassword = event.target.value;
 
-    this.makeConfirmationPasswordValidaion(this.state.user.password,
+    this.makeConfirmationPasswordValidation(this.state.user.password,
       user.confirmationPassword);
 
     this.setState({ user });
