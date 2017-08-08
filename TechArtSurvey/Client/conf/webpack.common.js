@@ -41,19 +41,6 @@ module.exports = new Config.Config()
           test : /\.jsx?$/,
           exclude : /node_modules/,
           loader : 'babel-loader',
-          query : {
-            presets : [
-              [
-                'es2015',
-                {
-                  modules : false,
-                },
-              ],
-              'react',
-              'stage-0',
-              'stage-1',
-            ],
-          },
         },
         {
           test : /\.woff2?$|\.ttf$|\.eot$|\.svg$|\.png|\.jpe?g|\.gif$/,
