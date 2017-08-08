@@ -1,57 +1,55 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
-import { Switch, Route, Redirect } from 'react-router-dom';
+import { Switch, Route } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 import Routes from './routesConstants';
-import { Header } from './components/Header';
-import { Footer } from './components/Footer';
+import Header from './components/Header';
+import Footer from './components/Footer';
 import { Sidebar } from './components/Sidebar';
 import UserListContainer from '../users/UserListContainer';
 import SignupContainer from '../auth/signup/SignupContainer';
 import LogInContainer from '../auth/login/LogInContainer';
+import {
+  userIsAuthenticatedRedir,
+  userIsNotAuthenticatedRedir,
+  userIsAdminRedir,
+  userIsAuthenticated,
+  // userIsNotAuthenticated,
+} from '../auth/auth';
 
 import './App.scss';
 
-function mapStateToProps(state) {
-  return {
-    isAuthenticated : state.auth.isAuthenticated,
-  };
-}
-
-export class App extends Component {
-  render() {
-    return (
-      <div className="wrapper">
-        <Header authStatus={this.props.isAuthenticated ? true : true} />
-        <div className="container content">
-          {
-            (this.props.isAuthenticated ? true : true) ? <Sidebar /> : ''
-          }
-          <main className="main">
-            <Switch>
-              <Route path={Routes.Users.path} component={UserListContainer} />
-              <Route
-                path={Routes.SignUp.path} render={
-                  () => (
-                    (this.props.isAuthenticated ? false : false) ?
-                      <Redirect to={Routes.Main.path} /> :
-                      <SignupContainer />
-                  )
-                }
-              />
-              <Route path={Routes.LogIn.path} component={LogInContainer} />
-            </Switch>
-          </main>
-        </div>
-        <Footer />
-      </div>
-    );
+const mapStateToProps = (state) => (
+  {
+    userName : state.auth.userName,
   }
-}
+);
+
+const UserList = userIsAuthenticatedRedir(userIsAdminRedir(UserListContainer));
+const LogIn = userIsNotAuthenticatedRedir(LogInContainer);
+const SignUp = userIsNotAuthenticatedRedir(SignupContainer);
+const SideBar = userIsAuthenticated(Sidebar);
+
+const App = ({ userName }) => (
+  <div className="wrapper">
+    <Header userName={userName} />
+    <div className="container content">
+      <SideBar />
+      <main className="main">
+        <Switch>
+          <Route path={Routes.Users.path} component={UserList} />
+          <Route path={Routes.SignUp.path} component={SignUp}/>
+          <Route path={Routes.LogIn.path} component={LogIn} />
+        </Switch>
+      </main>
+    </div>
+    <Footer />
+  </div>
+);
 
 App.propTypes = {
-  isAuthenticated : PropTypes.bool.isRequired,
+  userName : PropTypes.string.isRequired,
 };
 
 export default connect(mapStateToProps, null, null, { pure: false })(App);
