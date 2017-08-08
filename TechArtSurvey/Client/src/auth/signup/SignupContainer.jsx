@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { PropTypes } from 'prop-types';
 
-import { userSignupRequest } from './actions';
+import { signupRequest } from './actions';
 import { SignupForm } from './components/SignupForm';
 
 import './SignupContainer.scss';
@@ -11,11 +11,9 @@ const mapStateToProps = (state) => ({
   errors : state.signup.errors,
 });
 
-const mapDispatchToProps = (dispatch) => ({
-  signupRequest : (data) => {
-    dispatch(userSignupRequest(data));
-  },
-});
+const mapDispatchToProps = {
+  signupRequest,
+};
 
 export class SignupContainer extends Component {
   render() {
