@@ -54,37 +54,31 @@ export class SignupForm extends Component {
     this.props.signupRequest(this.state.user);
   }
 
-  setValidationState(fieldName) {
-    if (this.errors[fieldName] === null) {
+  setValidationState(fieldName, validationInfo) {
+    if (validationInfo.isValid) {
+      this.errors[fieldName] = null;
       this.validationStates[fieldName] = 'success';
     } else {
+      this.errors[fieldName] = validationInfo.errors[0].message;
       this.validationStates[fieldName] = 'error';
     }
   }
 
   makeConfirmationPasswordValidation(password, confirmationPassword) {
-    this.errors.confirmationPassword =
-            validateConfirmationPassword(password, confirmationPassword);
-    this.setValidationState('confirmationPassword');
+    this.setValidationState('confirmationPassword', validateConfirmationPassword(password, confirmationPassword));
   }
 
   handleOnNameChange(event) {
     const { user } = this.state;
     user.name = event.target.value;
-
-    this.errors.name = validateName(user.name);
-    this.setValidationState('name');
-
+    this.setValidationState('name', validateName(user.name));
     this.setState({ user });
   }
 
   handleOnEmailChange(event) {
     const { user } = this.state;
     user.email = event.target.value;
-
-    this.errors.email = validateEmail(user.email);
-    this.setValidationState('email');
-
+    this.setValidationState('email', validateEmail(user.email));
     this.setState({ user });
   }
 
@@ -92,10 +86,10 @@ export class SignupForm extends Component {
     const { user } = this.state;
     user.password = event.target.value;
 
-    this.errors.password = validatePassword(user.password);
-    this.setValidationState('password');
+    const validationInfo = validatePassword(user.password);
+    this.setValidationState('password', validationInfo);
 
-    if (this.errors.password === null) {
+    if (validationInfo.isValid) {
       this.makeConfirmationPasswordValidation(user.password,
         this.state.user.confirmationPassword);
     }
