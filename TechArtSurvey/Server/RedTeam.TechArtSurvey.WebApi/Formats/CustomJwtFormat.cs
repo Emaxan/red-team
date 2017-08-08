@@ -17,14 +17,7 @@ namespace RedTeam.TechArtSurvey.WebApi.Formats
             var now = DateTime.UtcNow;
             var expires = now.AddMinutes(15);
 
-            var token = new JwtSecurityToken(
-                issuer: issuer, 
-                audience: audience, 
-                claims: claims, 
-                notBefore: now, 
-                expires: expires, 
-                signingCredentials: signingCredentials
-                );
+            var token = new JwtSecurityToken(issuer, audience, claims, now, expires, signingCredentials);
 
             return new JwtSecurityTokenHandler().WriteToken(token);
         }
