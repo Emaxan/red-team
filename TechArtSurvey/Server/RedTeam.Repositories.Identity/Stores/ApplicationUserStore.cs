@@ -33,7 +33,16 @@ namespace RedTeam.Repositories.Identity.Stores
 
         public void Dispose()
         {
-            _uow.Dispose();
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (disposing && _uow != null)
+            {
+                _uow.Dispose();
+            }
         }
 
         public async Task<User> FindByIdAsync(int userId)
@@ -45,7 +54,9 @@ namespace RedTeam.Repositories.Identity.Stores
 
         public async Task<User> FindByNameAsync(string userName)
         {
-            return new User();
+            var user = await _uow.Users.GetUserByEmailAsync(userName);
+
+            return user;
         }
 
         public async Task<User> FindByEmailAsync(string email)
@@ -63,11 +74,20 @@ namespace RedTeam.Repositories.Identity.Stores
 
         public async Task SetEmailAsync(User user, string email)
         {
-
+            if (user == null)
+            {
+                throw new ArgumentNullException("user");
+            }
+            user.Email = email;
         }
 
         public async Task<string> GetEmailAsync(User user)
         {
+            if (user == null)
+            {
+                throw new ArgumentNullException("user");
+            }
+
             return user.Email;
         }
 
@@ -78,7 +98,7 @@ namespace RedTeam.Repositories.Identity.Stores
 
         Task IUserEmailStore<User, int>.SetEmailConfirmedAsync(User user, bool confirmed)
         {
-            return null;
+            throw new NotImplementedException();
         }
 
         public async Task<IReadOnlyCollection<User>> GetAllAsync()
