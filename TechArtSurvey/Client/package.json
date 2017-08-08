@@ -17,6 +17,7 @@
     "http-status": "^1.0.1",
     "immutable": "^3.8.1",
     "jquery": "^3.2.1",
+    "prop-types": "^15.5.10",
     "react": "15.6.1",
     "react-bootstrap": "^0.31.1",
     "react-dom": "15.6.1",
