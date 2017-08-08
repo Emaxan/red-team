@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import ImmutablePropTypes from 'react-immutable-proptypes';
 
 import { getUsers, setFilter } from './actions';
-import { UserList } from './UserList';
+import { UserList } from './components/UserList';
 import FilteredUsers from './selectors/filteredUsers';
 
 const mapStateToProps = (state) => ({

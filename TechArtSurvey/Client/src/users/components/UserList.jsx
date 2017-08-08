@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import { SearchBox } from './components/SearchBox';
+import { SearchBox } from './SearchBox';
 
 export class UserList extends Component {
   handleOnBtnClick() {
