@@ -3,9 +3,10 @@ import { connect } from 'react-redux';
 import { Switch, Route } from 'react-router-dom';
 
 import Routes from './routesConstants';
+import ItemSelector from './selectors/itemSelector';
 import Header from './components/Header';
 import Footer from './components/Footer';
-import { Sidebar } from './components/Sidebar';
+import Sidebar from './components/Sidebar';
 import UserListContainer from '../users/UserListContainer';
 import SignupContainer from '../auth/signup/SignupContainer';
 import LogInContainer from '../auth/login/LogInContainer';
@@ -22,6 +23,7 @@ import './App.scss';
 const mapStateToProps = (state) => (
   {
     userName : state.auth.userName,
+    menuItems : ItemSelector(state),
   }
 );
 
@@ -30,11 +32,11 @@ const LogIn = userIsNotAuthenticatedRedir(LogInContainer);
 const SignUp = userIsNotAuthenticatedRedir(SignupContainer);
 const SideBar = userIsAuthenticated(Sidebar);
 
-const App = ({ userName }) => (
+const App = ({ userName, menuItems }) => (
   <div className="wrapper">
     <Header userName={userName} />
     <div className="container content">
-      <SideBar />
+      <SideBar menuItems={menuItems} />
       <main className="main">
         <Switch>
           <Route path={Routes.Users.path} component={UserList} />
