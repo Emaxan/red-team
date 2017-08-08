@@ -22,6 +22,9 @@ module.exports = new Config.Config()
         '/api' : {
           target : apiPath,
         },
+        '/token' : {
+          target : apiPath,
+        },
       },
     },
     plugins : [

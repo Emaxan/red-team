@@ -18,7 +18,7 @@ const mapDispatchToProps = {
 export class SignupContainer extends Component {
   render() {
     return (
-      <div className="signup-panel">
+      <div className="auth-panel">
         <SignupForm
           errors={this.props.errors}
           signupRequest={this.props.signupRequest}

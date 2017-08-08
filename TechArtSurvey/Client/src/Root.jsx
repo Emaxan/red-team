@@ -10,6 +10,7 @@ import createHistory from 'history/createBrowserHistory';
 import configureStore from './app/configureStore';
 import App from './app/App';
 import { authMiddleware } from './auth/middlewares/authMiddleware';
+import { logInMiddleware } from './auth/middlewares/loginMiddleware';
 
 import './bootstrap/bootstrap.scss';
 
@@ -22,7 +23,8 @@ const store = configureStore({
     thunk,
     logger,
     routerMiddleware,
-    authMiddleware
+    authMiddleware,
+    logInMiddleware
   ),
 });
 

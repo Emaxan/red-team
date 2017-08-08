@@ -5,8 +5,9 @@ import { SET_USER_TOKEN } from './actionTypes';
 export const {
   setUserToken,
 } = createActions({
-  [SET_USER_TOKEN] : (token) => ({
-    type : [SET_USER_TOKEN],
+  [SET_USER_TOKEN] : (token, refreshToken, tokenType) => ({
     token,
+    refreshToken,
+    tokenType,
   }),
 });

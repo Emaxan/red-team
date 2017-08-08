@@ -9,6 +9,7 @@ import { Footer } from './components/Footer';
 import { Sidebar } from './components/Sidebar';
 import UserListContainer from '../users/UserListContainer';
 import SignupContainer from '../auth/signup/SignupContainer';
+import LogInContainer from '../auth/login/LogInContainer';
 
 import './App.scss';
 
@@ -39,6 +40,7 @@ export class App extends Component {
                   )
                 }
               />
+              <Route path={Routes.LogIn.path} component={LogInContainer} />
             </Switch>
           </main>
         </div>

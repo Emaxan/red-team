@@ -22,13 +22,13 @@ export default {
   SignUp : {
     text : 'SignUp',
     path : '/signup',
-    access : Roles.ALL,
+    access : Roles.ALL, // Roles.NEVER
   },
 
   LogIn : {
     text : 'LogIn',
     path : '/login',
-    access : Roles.ALL,
+    access : Roles.ALL, // Roles.NEVER
   },
 
   Surveys : {
@@ -53,5 +53,11 @@ export default {
     text : 'Surveys templates list',
     path : '/survey/templates',
     access : Roles.ADMIN,
+  },
+
+  ForgotPassword : {
+    text : 'Forgot password?',
+    path : '/forgotPassword',
+    access : Roles.ALL, // Roles.NEVER
   },
 };
