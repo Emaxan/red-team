@@ -53,7 +53,7 @@ namespace RedTeam.TechArtSurvey.WebApi.Controllers
         [Route("")]
         [AllowAnonymous]
         [HttpGet]
-        public async Task<IServiceResponse> CkeckIfEmailAlreadyExists([FromUri] string email)
+        public async Task<IServiceResponse> CheckIfEmailAlreadyExists([FromUri] string email)
         {
             LoggerContext.Logger.Info($"Get User with email = {email}");
 
