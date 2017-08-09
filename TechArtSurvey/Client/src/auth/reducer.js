@@ -3,15 +3,14 @@ import { Record } from 'immutable';
 
 import AuthService from './authService';
 import { SET_USER_TOKEN } from './actionTypes';
-import Roles from '../app/roles';
 
 const authReducerInitialState = Record({
   token : AuthService.getToken(),
   refreshToken : AuthService.getRefreshToken(),
   tokenType : AuthService.getTokenType(),
   isAuthenticated : AuthService.isAuthenticated(),
-  userName : 'Admin',
-  role : Roles.ADMIN,
+  userName : AuthService.getUserName(),
+  role : AuthService.getUserRole(),
 });
 
 const initialState = new authReducerInitialState();
