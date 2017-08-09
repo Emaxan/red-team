@@ -1,7 +1,5 @@
-import { push } from 'react-router-redux';
 import { createActions } from 'redux-actions';
 
-import Routes from '../../app/routesConstants';
 import { logIn } from './api';
 import {
   LOG_IN_START,
@@ -54,7 +52,6 @@ export const logInRequest = (userData) => (dispatch) => {
         response.data.refresh_token,
         response.data.token_type
       ));
-      dispatch(push(Routes.Main.path)); //If we dispatch it when we want redirect to another page it failed
     })
     .catch((error) => {
       dispatch(logInFailed(error));
