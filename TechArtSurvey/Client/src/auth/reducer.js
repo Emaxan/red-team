@@ -21,5 +21,7 @@ export const authReducer = handleActions({
     state.set('token', action.payload.token)
       .set('refreshToken', action.payload.refreshToken)
       .set('tokenType', action.payload.tockenType)
+      .set('userName', action.payload.userName)
+      .set('role', action.payload.userRole)
       .set('isAuthenticated', true),
 }, initialState);

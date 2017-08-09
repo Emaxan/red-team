@@ -1,6 +1,8 @@
 const token = 'auth.token';
 const refreshToken = 'auth.refreshToken';
 const tokenType = 'auth.tokenType';
+const userRole = 'auth.userRole';
+const userName = 'auth.userName';
 
 export default class AuthService {
   static setToken(accessToken) {
@@ -25,6 +27,22 @@ export default class AuthService {
 
   static getTokenType() {
     return window.localStorage.getItem(tokenType);
+  }
+
+  static setUserName(name) {
+    window.localStorage.setItem(userName, name);
+  }
+
+  static getUserName() {
+    return window.localStorage.getItem(userName);
+  }
+
+  static setUserRole(role) {
+    window.localStorage.setItem(userRole, role);
+  }
+
+  static getUserRole() {
+    return window.localStorage.getItem(userRole);
   }
 
   static isAuthenticated() {
