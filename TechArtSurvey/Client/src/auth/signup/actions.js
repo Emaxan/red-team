@@ -10,7 +10,6 @@ import {
   SIGN_UP_INVALID_DATA,
   CHECK_EMAIL_EXISTENCE_START,
   CHECK_EMAIL_EXISTENCE_SUCCESS,
-  CHECK_EMAIL_EXISTENCE_FAILED,
   CHECK_EMAIL_EXISTENCE_ERROR,
 } from './actionTypes';
 import {
@@ -53,13 +52,9 @@ export const {
     message : 'Check email existence START',
   }),
 
-  [CHECK_EMAIL_EXISTENCE_SUCCESS] : () => ({
+  [CHECK_EMAIL_EXISTENCE_SUCCESS] : (errors) => ({
     message : 'Check email existence SUCCESS',
-  }),
-
-  [CHECK_EMAIL_EXISTENCE_FAILED] : () => ({
-    message : 'Check email existence FAILED',
-    errors : ['User with this email is already exists'], // IT WILL BE FIXED AFTER SYNC WITH NEW VERSION OF WEB API
+    errors,
   }),
 
   [CHECK_EMAIL_EXISTENCE_ERROR] : (error) => ({
@@ -89,11 +84,7 @@ export const checkEmailExistenceRequest = (email) => (dispatch) => {
   dispatch(checkEmailExistenceStart());
   return checkEmailExistence(email)
     .then((response) => {
-      if (response.statusCode === BAD_REQUEST) {
-        dispatch(checkEmailExistenceSuccess());
-      } else if (response.statusCode === OK) {
-        dispatch(checkEmailExistenceFailed());
-      }
+      dispatch(checkEmailExistenceSuccess(JSON.parse(response.data)));
     })
     .catch((error) => {
       dispatch(checkEmailExistenceError(error));
