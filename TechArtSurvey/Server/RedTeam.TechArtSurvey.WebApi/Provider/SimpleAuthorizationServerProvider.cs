@@ -22,16 +22,16 @@ namespace RedTeam.TechArtSurvey.WebApi.Provider
             context.OwinContext.Response.Headers.Add("Access-Control-Allow-Origin", new[] { "*" });
 
             var result = await userManager.GetClaimsByCredentialsAsync(context.UserName, context.Password); //here UserName == Email
-            if (result.Code == Foundation.Interfaces.ServiceResponses.ServiceResponseCodes.Ok)
+            if (result.Code != Foundation.Interfaces.ServiceResponses.ServiceResponseCodes.Ok)
+            {
+                context.Validated();
+            }
+            else
             {
                 var identity = result.Content as ClaimsIdentity;
                 var props = new AuthenticationProperties();
                 var ticket = new AuthenticationTicket(identity, props);
                 context.Validated(ticket);
-            }
-            else
-            {
-                context.Validated();
             }
         }
     }

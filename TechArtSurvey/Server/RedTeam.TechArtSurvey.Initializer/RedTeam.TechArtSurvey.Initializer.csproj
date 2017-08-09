@@ -82,10 +82,6 @@
       <Project>{CDF233FB-754D-41FE-8F6C-B41F40AA680A}</Project>
       <Name>RedTeam.TechArtSurvey.Foundation.Interfaces</Name>
     </ProjectReference>
-    <ProjectReference Include="..\RedTeam.TechArtSurvey.Foundation\RedTeam.TechArtSurvey.Foundation.csproj">
-      <Project>{C1F00B46-6D0C-4D1E-B6D4-3FAC77CA9EF9}</Project>
-      <Name>RedTeam.TechArtSurvey.Foundation</Name>
-    </ProjectReference>
     <ProjectReference Include="..\RedTeam.TechArtSurvey.Repositories.Interfaces\RedTeam.TechArtSurvey.Repositories.Interfaces.csproj">
       <Project>{A92EAE24-D485-4F0D-B77F-EB485A7FCBE3}</Project>
       <Name>RedTeam.TechArtSurvey.Repositories.Interfaces</Name>

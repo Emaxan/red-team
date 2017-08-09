@@ -34,25 +34,25 @@ namespace RedTeam.Identity.Managers
         
         public async Task<IServiceResponse> CreateAsync(UserDto userDto)
         {
-            User user = await FindByEmailAsync(userDto.Email);
-            if (user == null)
+            var user = await FindByEmailAsync(userDto.Email);
+            if (user != null)
             {
-                userDto.Password = PasswordHasher.HashPassword(userDto.Password);
-                var us = _mapper.Map<UserDto, User>(userDto);
-                if (userDto.Role == null)
-                {
-                    userDto.Role = new RoleDto();
-                }
-                us.Role = new Role()
-                {
-                    RoleType = (RoleTypes) Enum.Parse(typeof(RoleTypes), userDto.Role.Name)
-                };
-                await CreateAsync(us);
-
-                return ServiceResponse.CreateSuccessful(us);
+                return ServiceResponse.CreateUnsuccessful(ServiceResponseCodes.UserAlreadyExists);
             }
-            
-            return ServiceResponse.CreateUnsuccessful(ServiceResponseCodes.UserAlreadyExists);
+
+            userDto.Password = PasswordHasher.HashPassword(userDto.Password);
+            var us = _mapper.Map<UserDto, User>(userDto);
+            if (userDto.Role == null)
+            {
+                userDto.Role = new RoleDto();
+            }
+            us.Role = new Role()
+            {
+                RoleType = (RoleTypes)Enum.Parse(typeof(RoleTypes), userDto.Role.Name)
+            };
+            await CreateAsync(us);
+
+            return ServiceResponse.CreateSuccessful(us);
         }
 
         public async Task<IServiceResponse> GetClaimsByCredentialsAsync(string email, string password)
@@ -130,6 +130,7 @@ namespace RedTeam.Identity.Managers
             LoggerContext.Logger.Info("Get all users");
             var users = await _store.GetAllAsync();
             var mapped = _mapper.Map<IReadOnlyCollection<User>, IReadOnlyCollection<EditUserDto>>(users);
+
             return ServiceResponse.CreateSuccessful(mapped);
         }
     }
