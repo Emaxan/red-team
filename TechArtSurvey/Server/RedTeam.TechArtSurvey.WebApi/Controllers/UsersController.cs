@@ -7,6 +7,7 @@ using RedTeam.TechArtSurvey.Foundation.Interfaces.ServiceResponses;
 
 namespace RedTeam.TechArtSurvey.WebApi.Controllers
 {
+    
     public class UsersController : ApiController
     {
         private readonly IApplicationUserManager _userManager;
@@ -19,6 +20,7 @@ namespace RedTeam.TechArtSurvey.WebApi.Controllers
 
 
         // PUT api/Users/5
+        [Route("api/users/{user}")]
         [HttpPut]
         public async Task<IServiceResponse> EditUser(EditUserDto user)
         {
@@ -28,6 +30,7 @@ namespace RedTeam.TechArtSurvey.WebApi.Controllers
         }
 
         // DELETE api/Users
+        [Route("api/users/{id}")]
         [HttpDelete]
         public async Task<IServiceResponse> RemoveUser(int id)
         {
@@ -37,6 +40,7 @@ namespace RedTeam.TechArtSurvey.WebApi.Controllers
         }
 
         // GET api/Users/5
+        [Route("api/users/{id}")]
         [HttpGet]
         public async Task<IServiceResponse> GetUser(int id)
         {
@@ -52,8 +56,9 @@ namespace RedTeam.TechArtSurvey.WebApi.Controllers
             LoggerContext.Logger.Info($"Get User with email = {email}");
 
             return await _userManager.GetByEmailAsync(email);
-        } 
+        }
 
+        [Route("api/users")]
         [HttpGet]
         public async Task<IServiceResponse> GetUsers()
         {
