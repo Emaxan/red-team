@@ -6,6 +6,10 @@ import {
   SIGN_UP_SUCCESS,
   SIGN_UP_FAILED,
   SIGN_UP_INVALID_DATA,
+  CHECK_EMAIL_EXISTENCE_START,
+  CHECK_EMAIL_EXISTENCE_SUCCESS,
+  CHECK_EMAIL_EXISTENCE_FAILED,
+  CHECK_EMAIL_EXISTENCE_ERROR,
 } from './actionTypes';
 
 const signUpInitialState = Record({
@@ -35,6 +39,28 @@ export const signupReducer = handleActions({
     let newState = state.set('errors', state.get('errors')
       .merge(List(action.payload.errors)));
     newState = newState.set('message', action.payload.message);
+    return newState;
+  },
+
+  [CHECK_EMAIL_EXISTENCE_START] : (state, action) => {
+    const newState = state.set('message', action.payload.message);
+    return newState;
+  },
+
+  [CHECK_EMAIL_EXISTENCE_SUCCESS] : (state, action) => {
+    const newState = state.set('message', action.payload.message);
+    return newState;
+  },
+
+  [CHECK_EMAIL_EXISTENCE_FAILED] : (state, action) => {
+    let newState = state.set('errors', state.get('errors')
+      .merge(List(action.payload.errors)));
+    newState = newState.set('message', action.payload.message);
+    return newState;
+  },
+
+  [CHECK_EMAIL_EXISTENCE_ERROR] : (state, action) => {
+    const newState = state.set('message', action.payload.message);
     return newState;
   },
 }, initialState);

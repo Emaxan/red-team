@@ -44,6 +44,7 @@ export class SignupForm extends Component {
 
     this.handleOnNameChange = this.handleOnNameChange.bind(this);
     this.handleOnEmailChange = this.handleOnEmailChange.bind(this);
+    this.handleOnEmailBlur = this.handleOnEmailBlur.bind(this);
     this.handleOnPasswordChange = this.handleOnPasswordChange.bind(this);
     this.handleOnConfirmationPasswordChange =
             this.handleOnConfirmationPasswordChange.bind(this);
@@ -80,6 +81,11 @@ export class SignupForm extends Component {
     user.email = event.target.value;
     this.setValidationState('email', validateEmail(user.email));
     this.setState({ user });
+  }
+
+  handleOnEmailBlur(event) {
+    const email = event.target.value;
+    this.props.checkEmailExistenceRequest(email);
   }
 
   handleOnPasswordChange(event) {
@@ -153,6 +159,7 @@ export class SignupForm extends Component {
               placeholder="Enter e-mail"
               value={this.state.user.email}
               onChange={this.handleOnEmailChange}
+              onBlur={this.handleOnEmailBlur}
               className="form-control"
             />
           </FormGroup>
@@ -207,4 +214,5 @@ export class SignupForm extends Component {
 SignupForm.propTypes = {
   errors : PropTypes.object.isRequired,// Use immutable-prop-types
   signupRequest : PropTypes.func.isRequired,
+  checkEmailExistenceRequest : PropTypes.func.isRequired,
 };

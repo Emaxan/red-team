@@ -2,15 +2,20 @@ import { push } from 'react-router-redux';
 import { createActions } from 'redux-actions';
 
 import Routes from '../../app/routesConstants';
-import { signup } from './api';
+import { signup, checkEmailExistence } from './api';
 import {
   SIGN_UP_START,
   SIGN_UP_SUCCESS,
   SIGN_UP_FAILED,
   SIGN_UP_INVALID_DATA,
+  CHECK_EMAIL_EXISTENCE_START,
+  CHECK_EMAIL_EXISTENCE_SUCCESS,
+  CHECK_EMAIL_EXISTENCE_FAILED,
+  CHECK_EMAIL_EXISTENCE_ERROR,
 } from './actionTypes';
 import {
   OK,
+  BAD_REQUEST,
 } from 'http-status';
 
 export const {
@@ -18,15 +23,19 @@ export const {
   signUpSuccess,
   signUpFailed,
   signUpInvalidData,
+  checkEmailExistenceStart,
+  checkEmailExistenceSuccess,
+  checkEmailExistenceFailed,
+  checkEmailExistenceError,
 } = createActions({
   [SIGN_UP_START] : () => ({
     type : [SIGN_UP_START],
-    message : 'User signup request START',
+    message : 'User signUp request START',
   }),
 
   [SIGN_UP_SUCCESS] : () => ({
     type : [SIGN_UP_SUCCESS],
-    message : 'User signup request SUCCESS',
+    message : 'User signUp request SUCCESS',
   }),
 
   [SIGN_UP_FAILED] : (error) => ({
@@ -36,8 +45,25 @@ export const {
 
   [SIGN_UP_INVALID_DATA] : (errors) => ({
     type : [SIGN_UP_INVALID_DATA],
-    message : 'User signup request INVALID DATA',
+    message : 'User signUp request INVALID DATA',
     errors,
+  }),
+
+  [CHECK_EMAIL_EXISTENCE_START] : () => ({
+    message : 'Check email existence START',
+  }),
+
+  [CHECK_EMAIL_EXISTENCE_SUCCESS] : () => ({
+    message : 'Check email existence SUCCESS',
+  }),
+
+  [CHECK_EMAIL_EXISTENCE_FAILED] : () => ({
+    message : 'Check email existence FAILED',
+    errors : ['User with this email is already exists'], // IT WILL BE FIXED AFTER SYNC WITH NEW VERSION OF WEB API
+  }),
+
+  [CHECK_EMAIL_EXISTENCE_ERROR] : (error) => ({
+    message : error,
   }),
 });
 
@@ -45,21 +71,31 @@ export const signupRequest = (userData) => (dispatch) => {
   dispatch(signUpStart());
   return signup(userData)
     .then((response) => {
-      if (response.status === OK) {
+      if (response.statusCode === OK) {
         dispatch(signUpSuccess());
         dispatch(push(Routes.Main.path));
+      } else if (response.statusCode === BAD_REQUEST && response.data !== null) {
+        dispatch(signUpInvalidData(response.data));
       }
 
       // Различать 500-е и 400-е ерроры
-
-      return response.json();
-    })
-    .then((json) => {
-      if (json !== null) {
-        dispatch(signUpInvalidData(json));
-      }
     })
     .catch((error) => {
       dispatch(signUpFailed(error));
+    });
+};
+
+export const checkEmailExistenceRequest = (email) => (dispatch) => {
+  dispatch(checkEmailExistenceStart());
+  return checkEmailExistence(email)
+    .then((response) => {
+      if (response.statusCode === BAD_REQUEST) {
+        dispatch(checkEmailExistenceSuccess());
+      } else if (response.statusCode === OK) {
+        dispatch(checkEmailExistenceFailed());
+      }
+    })
+    .catch((error) => {
+      dispatch(checkEmailExistenceError(error));
     });
 };

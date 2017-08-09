@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { signupRequest } from './actions';
+import { signupRequest, checkEmailExistenceRequest } from './actions';
 import { SignupForm } from './components/SignupForm';
 
 import './SignupContainer.scss';
@@ -12,6 +12,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = {
   signupRequest,
+  checkEmailExistenceRequest,
 };
 
 const SignupContainer = ({ errors, signupRequest }) => (
@@ -19,12 +20,14 @@ const SignupContainer = ({ errors, signupRequest }) => (
     <SignupForm
       errors={errors}
       signupRequest={signupRequest}
+      checkEmailExistenceRequest={this.props.checkEmailExistenceRequest}
     />
   </div>
 );
 
 SignupContainer.propTypes = {
   ...SignupForm.propTypes,
+  checkEmailExistenceRequest : PropTypes.func.isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(SignupContainer);
