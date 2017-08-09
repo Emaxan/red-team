@@ -18,6 +18,7 @@ module.exports = new Config.Config()
     output : {
       filename : 'bundle.js',
       library : '[name]',
+      publicPath : devServerPath + '/',
     },
     entry : {
       bundle : path.join(sourcePath, '/Root.jsx'),
@@ -49,8 +50,11 @@ module.exports = new Config.Config()
         {
           test : /\.css$/,
           use : ExtractTextPlugin.extract({
-            fallback : 'style-loader',
-            use : 'css-loader',
+            // fallback : 'style-loader',
+            loader : 'css-loader',
+            options : {
+              minimize : true,
+            },
           }),
         },
         {
