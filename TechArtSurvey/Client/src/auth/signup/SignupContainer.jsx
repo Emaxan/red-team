@@ -27,7 +27,6 @@ const SignupContainer = ({ errors, signupRequest }) => (
 
 SignupContainer.propTypes = {
   ...SignupForm.propTypes,
-  checkEmailExistenceRequest : PropTypes.func.isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(SignupContainer);
