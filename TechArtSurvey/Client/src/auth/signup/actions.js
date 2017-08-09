@@ -70,7 +70,7 @@ export const signupRequest = (userData) => (dispatch) => {
         dispatch(signUpSuccess());
         dispatch(push(Routes.Main.path));
       } else if (response.statusCode === BAD_REQUEST && response.data !== null) {
-        dispatch(signUpInvalidData(response.data));
+        dispatch(signUpInvalidData(JSON.parse(response.data)));
       }
 
       // Различать 500-е и 400-е ерроры
