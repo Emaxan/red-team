@@ -13,9 +13,45 @@ export default {
     access : Roles.ADMIN,
   },
 
-  About : {
+  AboutUs : {
     text : 'About company',
-    path : '/about',
+    path : '/about/about-us',
+    access : Roles.NEVER,
+  },
+
+  Training : {
+    text : 'Training',
+    path : '/about/training',
+    access : Roles.NEVER,
+  },
+
+  Benefist : {
+    text : 'Benefist',
+    path : '/about/benefits',
+    access : Roles.NEVER,
+  },
+
+  ForStudents : {
+    text : 'For students',
+    path : '/about/for-students',
+    access : Roles.NEVER,
+  },
+
+  OurAdvantages : {
+    text : 'Our advantages',
+    path : '/about/our-advantages',
+    access : Roles.NEVER,
+  },
+
+  Careers : {
+    text : 'Careers',
+    path : '/about/careers',
+    access : Roles.NEVER,
+  },
+
+  Contacts : {
+    text : 'Contacts',
+    path : '/about/contacts',
     access : Roles.NEVER,
   },
 

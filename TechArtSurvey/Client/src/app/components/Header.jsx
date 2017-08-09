@@ -23,7 +23,7 @@ export class Header extends Component {
         </Navbar.Header>
         <Navbar.Collapse>
           <nav>
-            <Link className="navbar__item" to={Routes.About.path}>{Routes.About.text}</Link>
+            <Link className="navbar__item" to={Routes.AboutUs.path}>{Routes.AboutUs.text}</Link>
             {
               this.props.authStatus ?
                 <UserInfo username="Admin" /> :
