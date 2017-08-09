@@ -19,41 +19,27 @@ const signUpInitialState = Record({
 const initialState = signUpInitialState();
 
 export const signupReducer = handleActions({
-  [SIGN_UP_START] : (state, action) => {
-    const newState = state.set('message', action.payload.message);
-    return newState;
-  },
+  [SIGN_UP_START] : (state, action) =>
+    state.set('message', action.payload.message),
 
-  [SIGN_UP_SUCCESS] : (state, action) => {
-    const newState = state.set('message', action.payload.message);
-    return newState;
-  },
+  [SIGN_UP_SUCCESS] : (state, action) =>
+    state.set('message', action.payload.message),
 
-  [SIGN_UP_FAILED] : (state, action) => {
-    const newState = state.set('message', action.payload.er);
-    return newState;
-  },
+  [SIGN_UP_FAILED] : (state, action) =>
+    state.set('message', action.payload.message),
 
-  [SIGN_UP_INVALID_DATA] : (state, action) => {
-    let newState = state.set('errors', state.get('errors')
-      .merge(List(action.payload.errors)));
-    newState = newState.set('message', action.payload.message);
-    return newState;
-  },
+  [SIGN_UP_INVALID_DATA] : (state, action) =>
+    state.set('errors', state.get('errors')
+      .merge(List(action.payload.errors)))
+      .set('message', action.payload.message),
 
-  [CHECK_EMAIL_EXISTENCE_START] : (state, action) => {
-    const newState = state.set('message', action.payload.message);
-    return newState;
-  },
+  [CHECK_EMAIL_EXISTENCE_START] : (state, action) =>
+    state.set('message', action.payload.message),
 
-  [CHECK_EMAIL_EXISTENCE_SUCCESS] : (state, action) => {
-    let newState = state.set('errors', List(action.payload.errors));
-    newState = newState.set('message', action.payload.message);
-    return newState;
-  },
+  [CHECK_EMAIL_EXISTENCE_SUCCESS] : (state, action) =>
+    state.set('errors', List(action.payload.errors))
+      .set('message', action.payload.message),
 
-  [CHECK_EMAIL_EXISTENCE_ERROR] : (state, action) => {
-    const newState = state.set('message', action.payload.message);
-    return newState;
-  },
+  [CHECK_EMAIL_EXISTENCE_ERROR] : (state, action) =>
+    state.set('message', action.payload.message),
 }, initialState);
