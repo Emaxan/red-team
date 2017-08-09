@@ -24,17 +24,16 @@
 		3.Content-Type: application/json  
 	
 	
-  * Get user by email:  
+  * Check by email if user already exists:  
   	Method: GET  
-	URL: api/Users/?email=user@user.user  
+	URL: api/Users?email=user@user.user  
 	Params:  
 		1.email  
-	Response: User obj with email==1 in JSON  
-	Headers:   
-		1.Authorization: bearer access_token_hash,  
-	    2.Accept: application/json,  
-		3.Content-Type: application/json  
-			 
+	Response: User obj with email==user@user.user in JSON  
+	Headers:    
+	    1.Accept: application/json,  
+		2.Content-Type: application/json  
+
 			 
   * Update user by id:  
   	Method: PUT  
