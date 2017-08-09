@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
-import { BasicInfo } from './components/BasicInfo';
-import { AboutTabs } from './components/AboutTabs';
+import BasicInfo from './components/BasicInfo';
+import AboutTabs from './components/AboutTabs';
 import { tabItems } from './tabItems';
 
 export class AboutContainer extends Component {
