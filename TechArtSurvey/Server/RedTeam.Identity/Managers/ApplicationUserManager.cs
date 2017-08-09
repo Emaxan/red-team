@@ -112,17 +112,17 @@ namespace RedTeam.Identity.Managers
             return ServiceResponse.CreateSuccessful(_mapper.Map<User, EditUserDto>(user));
         }
 
-        public async Task<IServiceResponse> GetByEmailAsync(string email)
+        public async Task<IServiceResponse> CheckByEmailAsync(string email)
         {
             LoggerContext.Logger.Info($"Get user with email = {email}");
 
             var user = await FindByEmailAsync(email);
             if (user == null)
             {
-                return ServiceResponse.CreateUnsuccessful(ServiceResponseCodes.UserNotFoundByEmail);
+                return ServiceResponse.CreateSuccessful(null);
             }
 
-            return ServiceResponse.CreateSuccessful(_mapper.Map<User, EditUserDto>(user));
+            return ServiceResponse.CreateUnsuccessful(ServiceResponseCodes.UserAlreadyExists);
         }
 
         public async Task<IServiceResponse> GetAllAsync()

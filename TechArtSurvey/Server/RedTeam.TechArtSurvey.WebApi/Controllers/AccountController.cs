@@ -6,6 +6,7 @@ using RedTeam.TechArtSurvey.Foundation.Interfaces.ServiceResponses;
 
 namespace RedTeam.TechArtSurvey.WebApi.Controllers
 {
+    [RoutePrefix("account")]
     public class AccountController : ApiController
     {
         private readonly IApplicationUserManager _userManager;
@@ -17,7 +18,7 @@ namespace RedTeam.TechArtSurvey.WebApi.Controllers
         }
 
 
-        [Route("api/account/signup")]
+        [Route("signup")]
         [HttpPost]
         [AllowAnonymous]
         public async Task<IServiceResponse> Signup(UserDto user)

@@ -7,7 +7,7 @@ using RedTeam.TechArtSurvey.Foundation.Interfaces.ServiceResponses;
 
 namespace RedTeam.TechArtSurvey.WebApi.Controllers
 {
-    
+    [RoutePrefix("users")]
     public class UsersController : ApiController
     {
         private readonly IApplicationUserManager _userManager;
@@ -20,7 +20,7 @@ namespace RedTeam.TechArtSurvey.WebApi.Controllers
 
 
         // PUT api/Users/5
-        [Route("api/users/{user}")]
+        [Route("{user}")]
         [HttpPut]
         public async Task<IServiceResponse> EditUser(EditUserDto user)
         {
@@ -30,7 +30,7 @@ namespace RedTeam.TechArtSurvey.WebApi.Controllers
         }
 
         // DELETE api/Users
-        [Route("api/users/{id}")]
+        [Route("{id}")]
         [HttpDelete]
         public async Task<IServiceResponse> RemoveUser(int id)
         {
@@ -40,7 +40,7 @@ namespace RedTeam.TechArtSurvey.WebApi.Controllers
         }
 
         // GET api/Users/5
-        [Route("api/users/{id}")]
+        [Route("")]
         [HttpGet]
         public async Task<IServiceResponse> GetUser(int id)
         {
@@ -50,15 +50,16 @@ namespace RedTeam.TechArtSurvey.WebApi.Controllers
         }
 
         // GET api/Users/?email=user@user.user
+        [Route("")]
         [HttpGet]
-        public async Task<IServiceResponse> GetUserByEmail([FromUri] string email)
+        public async Task<IServiceResponse> CkeckIfEmailAlreadyExists([FromUri] string email)
         {
             LoggerContext.Logger.Info($"Get User with email = {email}");
 
-            return await _userManager.GetByEmailAsync(email);
+            return await _userManager.CheckByEmailAsync(email);
         }
 
-        [Route("api/users")]
+        [Route("")]
         [HttpGet]
         public async Task<IServiceResponse> GetUsers()
         {

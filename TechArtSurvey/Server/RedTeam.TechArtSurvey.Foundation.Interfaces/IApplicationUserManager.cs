@@ -10,7 +10,7 @@ namespace RedTeam.TechArtSurvey.Foundation.Interfaces
 
         Task<IServiceResponse> DeleteByIdAsync(int id);
 
-        Task<IServiceResponse> GetByEmailAsync(string email);
+        Task<IServiceResponse> CheckByEmailAsync(string email);
 
         Task<IServiceResponse> GetByIdAsync(int id);
 

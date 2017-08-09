@@ -161,6 +161,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>ResponseMessages.resx</DependentUpon>
     </Compile>
+    <Compile Include="Provider\CentralizedPrefixProvider.cs" />
     <Compile Include="Provider\RefreshTokenProvider.cs" />
     <Compile Include="Provider\SimpleAuthorizationServerProvider.cs" />
     <Compile Include="Utils\TechArtSurveyExceptionHandler.cs" />
