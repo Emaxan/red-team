@@ -5,7 +5,7 @@ import { SearchBox } from './SearchBox';
 
 export class UserList extends Component {
   handleOnBtnClick() {
-    this.props.getUsers('token_type', 'access_token');
+    this.props.getUsers(this.props.tokenType, this.props.accessToken);
   }
 
   render() {
@@ -49,4 +49,6 @@ UserList.propTypes = {
   filteredUserList : PropTypes.array.isRequired,
   getUsers : PropTypes.func.isRequired,
   setFilter : PropTypes.func.isRequired,
+  tokenType : PropTypes.string.isRequired,
+  accessToken : PropTypes.string.isRequired,
 };
