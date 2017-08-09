@@ -1,4 +1,4 @@
-import { SET_USER_TOKEN } from '../actionTypes';
+import { SET_USER_TOKEN, RESET_USER_TOKEN } from '../actionTypes';
 import AuthService from '../authService';
 
 export const authMiddleware = () => (next) => (action) => {
@@ -8,6 +8,10 @@ export const authMiddleware = () => (next) => (action) => {
     AuthService.setRefreshToken(action.payload.refreshToken);
     AuthService.setUserName(action.payload.userName);
     AuthService.setUserRole(action.payload.userRole);
+  }
+
+  if (action.type === RESET_USER_TOKEN) {
+    AuthService.clearUserInfo();
   }
 
   return next(action);

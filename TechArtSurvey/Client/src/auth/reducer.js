@@ -2,7 +2,7 @@ import { handleActions } from 'redux-actions';
 import { Record } from 'immutable';
 
 import AuthService from './authService';
-import { SET_USER_TOKEN } from './actionTypes';
+import { SET_USER_TOKEN, RESET_USER_TOKEN } from './actionTypes';
 
 const authInitialState = Record({
   token : AuthService.getToken(),
@@ -23,4 +23,7 @@ export const authReducer = handleActions({
       .set('userName', action.payload.userName)
       .set('role', action.payload.userRole)
       .set('isAuthenticated', true),
+
+  [RESET_USER_TOKEN] : () =>
+    initialState,
 }, initialState);

@@ -1,21 +1,42 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import { Image } from 'react-bootstrap';
+import { Image, MenuItem, Dropdown } from 'react-bootstrap';
+import { connect } from 'react-redux';
 
+import {
+  userIsAuthenticated,
+} from '../../auth/auth';
 import UserImg from './images/user-icon.png';
+import { logOutRequest } from '../../auth/login/actions';
 
 import './UserInfo.scss';
 
-const UserInfo = ({ username }) => (
+const LogoutLink = userIsAuthenticated(({ logout }) => <span onClick={() => logout()}>Logout</span>);
+
+const UserInfo = ({ username, logOutRequest }) => (
   <div className='navbar__item'>
-    <Image src={UserImg} className="navbar__user-img" rounded />
-    Hello, {username}!
-    <span>&#9207;</span>
+    {/* DROPDOWN MENU STYLE WILL BE FIXED */}
+    <Dropdown id="userInfoDropdown">
+      <Dropdown.Toggle>
+        <Image src={UserImg} className="navbar__user-img" rounded />
+        Hello, {username}!
+      </Dropdown.Toggle>
+      <Dropdown.Menu>
+        <MenuItem>Something</MenuItem>
+        <MenuItem divider />
+        <MenuItem>
+          <LogoutLink logout={logOutRequest} />
+        </MenuItem>
+      </Dropdown.Menu>
+    </Dropdown>
   </div>
 );
 
 UserInfo.propTypes = {
-  username : PropTypes.string.isRequired,
+  ...UserInfo.propTypes,
 };
 
-export default UserInfo;
+const mapDispatchToProps = ({
+  logOutRequest,
+});
+
+export default connect(null, mapDispatchToProps)(UserInfo);

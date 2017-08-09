@@ -48,4 +48,12 @@ export default class AuthService {
   static isAuthenticated() {
     return this.getToken() !== null;
   }
+
+  static clearUserInfo() {
+    window.localStorage.removeItem(token);
+    window.localStorage.removeItem(refreshToken);
+    window.localStorage.removeItem(tokenType);
+    window.localStorage.removeItem(userName);
+    window.localStorage.removeItem(userRole);
+  }
 }

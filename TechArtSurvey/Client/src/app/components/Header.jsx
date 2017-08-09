@@ -38,7 +38,7 @@ const Header = ({ userName }) => (
 );
 
 Header.propTypes = {
-  userName: PropTypes.string.isRequired,
+  userName: PropTypes.string,
 };
 
 export default Header;

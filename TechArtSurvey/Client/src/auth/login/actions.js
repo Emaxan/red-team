@@ -6,6 +6,7 @@ import {
   LOG_IN_SUCCESS,
   LOG_IN_FAILED,
   LOG_IN_INVALID_DATA,
+  LOG_OUT,
 } from './actionTypes';
 import {
   BAD_REQUEST,
@@ -16,6 +17,7 @@ export const {
   logInSuccess,
   logInFailed,
   logInInvalidData,
+  logOut,
 } = createActions({
   [LOG_IN_START] : () => ({
     message : 'User LogIn request START',
@@ -35,6 +37,10 @@ export const {
   [LOG_IN_INVALID_DATA] : (errors) => ({
     message : 'User LogIn request INVALID DATA',
     errors,
+  }),
+
+  [LOG_OUT] : () => ({
+    message : 'User LogOut request',
   }),
 });
 
@@ -56,4 +62,8 @@ export const logInRequest = (userData) => (dispatch) => {
     .catch((error) => {
       dispatch(logInFailed(error));
     });
+};
+
+export const logOutRequest = () => (dispatch) => {
+  dispatch(logOut());
 };
