@@ -4,7 +4,7 @@ import { Record } from 'immutable';
 import AuthService from './authService';
 import { SET_USER_TOKEN } from './actionTypes';
 
-const authReducerInitialState = Record({
+const authInitialState = Record({
   token : AuthService.getToken(),
   refreshToken : AuthService.getRefreshToken(),
   tokenType : AuthService.getTokenType(),
@@ -13,7 +13,7 @@ const authReducerInitialState = Record({
   role : AuthService.getUserRole(),
 });
 
-const initialState = new authReducerInitialState();
+const initialState = new authInitialState();
 
 export const authReducer = handleActions({
   [SET_USER_TOKEN] : (state, action) =>

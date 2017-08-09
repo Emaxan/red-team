@@ -8,14 +8,14 @@ import {
   GET_USERS_FILTER,
 } from './actionTypes';
 
-const rec = Record({
+const usersInitialState = Record({
   message : '',
   fetching : false,
   userList : List(),
   filterInput : '',
 });
 
-const initialState = new rec();
+const initialState = new usersInitialState();
 
 export const usersReducer = handleActions({
   [GET_USERS_START] : (state, action) => {
