@@ -3,7 +3,7 @@ export const httpUtility = {
     const responseInfo = await fetch(url, {
       method : 'POST',
       headers,
-      body : JSON.stringify(data),
+      body : data,
     });
 
     return {

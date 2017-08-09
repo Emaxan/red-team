@@ -8,8 +8,10 @@ import {
   LOG_IN_SUCCESS,
   LOG_IN_FAILED,
   LOG_IN_INVALID_DATA,
-  HTTP_STATUS_BAD_REQUEST,
 } from './actionTypes';
+import {
+  BAD_REQUEST,
+} from 'http-status';
 
 export const {
   logInStart,
@@ -42,22 +44,17 @@ export const logInRequest = (userData) => (dispatch) => {
   dispatch(logInStart());
   return logIn(userData)
     .then((response) => {
-      if (response.status === HTTP_STATUS_BAD_REQUEST) {
+      if (response.statusCode === BAD_REQUEST) {
         dispatch(logInInvalidData(['Wrong email or password.']));
         return null;
       }
 
-      return response.json();
-    })
-    .then((json) => {
-      if (json !== null) {
-        dispatch(logInSuccess(
-          json.access_token,
-          json.refresh_token,
-          json.token_type
-        ));
-        dispatch(push(Routes.Main.path));//If we dispath it when we want redirect to anothr page it failed
-      }
+      dispatch(logInSuccess(
+        response.data.access_token,
+        response.data.refresh_token,
+        response.data.token_type
+      ));
+      dispatch(push(Routes.Main.path)); //If we dispatch it when we want redirect to another page it failed
     })
     .catch((error) => {
       dispatch(logInFailed(error));

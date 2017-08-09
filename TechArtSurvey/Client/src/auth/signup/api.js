@@ -6,11 +6,11 @@ export const signup = (signupData) => httpUtility.post(
   {
     'Content-type' : 'application/json',
   },
-  {
+  JSON.stringify({
     username : signupData.name,
     email : signupData.email,
     password : signupData.password,
-  }
+  }),
 );
 
 export const checkEmailExistence = (email) => httpUtility.get(
