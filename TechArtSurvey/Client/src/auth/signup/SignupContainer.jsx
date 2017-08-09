@@ -15,12 +15,12 @@ const mapDispatchToProps = {
   checkEmailExistenceRequest,
 };
 
-const SignupContainer = ({ errors, signupRequest }) => (
+const SignupContainer = ({ errors, signupRequest, checkEmailExistenceRequest }) => (
   <div className="auth-panel">
     <SignupForm
       errors={errors}
       signupRequest={signupRequest}
-      checkEmailExistenceRequest={this.props.checkEmailExistenceRequest}
+      checkEmailExistenceRequest={checkEmailExistenceRequest}
     />
   </div>
 );
