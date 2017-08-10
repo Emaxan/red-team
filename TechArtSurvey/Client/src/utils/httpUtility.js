@@ -1,3 +1,35 @@
+import { isString } from 'lodash';
+
+import {
+  OK,
+  BAD_REQUEST,
+} from 'http-status';
+
+async function prepareResponse (responseInfo) {
+  const statusCode = responseInfo.status;
+  const data = await responseInfo.json();
+
+  switch (responseInfo.status) {
+  case OK:
+    return {
+      statusCode,
+      data : isString(data) ? JSON.parse(data) : data,
+    };
+
+  case BAD_REQUEST:
+    throw {
+      statusCode,
+      data : isString(data) ? JSON.parse(data) : data,
+    };
+
+  default:
+    throw {
+      statusCode,
+      data : responseInfo.statusText,
+    };
+  }
+}
+
 export const httpUtility = {
   post : async (url, headers, data) => {
     const responseInfo = await fetch(url, {
@@ -6,10 +38,7 @@ export const httpUtility = {
       body : data,
     });
 
-    return {
-      statusCode : responseInfo.status,
-      data : await responseInfo.json(),
-    };
+    return await prepareResponse(responseInfo);
   },
 
   get : async (url, headers) => {
@@ -18,9 +47,6 @@ export const httpUtility = {
       headers,
     });
 
-    return {
-      statusCode : responseInfo.status,
-      data : await responseInfo.json(),
-    };
+    return await prepareResponse(responseInfo);
   },
 };
