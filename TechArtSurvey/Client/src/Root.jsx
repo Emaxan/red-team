@@ -8,8 +8,9 @@ import { ConnectedRouter, routerMiddleware as createRouterMiddleware } from 'rea
 import createHistory from 'history/createBrowserHistory';
 
 import configureStore from './app/configureStore';
-import App from './app/App';
 import { authMiddleware } from './auth/middlewares/authMiddleware';
+import routes from './app/routes';
+import RouteWithSubRoutes from './components/RouteWithSubRoutes';
 
 const history = createHistory();
 
@@ -27,7 +28,13 @@ const store = configureStore({
 render(
   <Provider store={store}>
     <ConnectedRouter history={history}>
-      <App />
+      <div>
+        {
+          routes.map((route, i) => (
+            <RouteWithSubRoutes key={i} {...route}/>
+          ))
+        }
+      </div>
     </ConnectedRouter>
   </Provider>,
   document.getElementById('container')

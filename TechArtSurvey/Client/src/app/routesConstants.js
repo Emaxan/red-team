@@ -13,8 +13,14 @@ export default {
     access : Roles.ADMIN,
   },
 
-  AboutUs : {
+  About : {
     text : 'About company',
+    path : '/about',
+    access : Roles.NEVER,
+  },
+
+  AboutUs : {
+    text : 'About us',
     path : '/about/about-us',
     access : Roles.NEVER,
   },
@@ -25,7 +31,7 @@ export default {
     access : Roles.NEVER,
   },
 
-  Benefist : {
+  Benefits : {
     text : 'Benefist',
     path : '/about/benefits',
     access : Roles.NEVER,
