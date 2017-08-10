@@ -9,6 +9,7 @@ import {
   CHECK_EMAIL_EXISTENCE_START,
   CHECK_EMAIL_EXISTENCE_SUCCESS,
   CHECK_EMAIL_EXISTENCE_ERROR,
+  CHECK_EMAIL_EXISTENCE_INVALID,
 } from './actionTypes';
 
 const signUpInitialState = Record({
@@ -37,9 +38,13 @@ export const signupReducer = handleActions({
     state.set('message', action.payload.message),
 
   [CHECK_EMAIL_EXISTENCE_SUCCESS] : (state, action) =>
-    state.set('errors', List(action.payload.errors))
-      .set('message', action.payload.message),
+    state.set('message', action.payload.message)
+      .set('errors', List()),
 
   [CHECK_EMAIL_EXISTENCE_ERROR] : (state, action) =>
     state.set('message', action.payload.message),
+
+  [CHECK_EMAIL_EXISTENCE_INVALID] : (state, action) =>
+    state.set('errors', List(action.payload.errors))
+      .set('message', action.payload.message),
 }, initialState);

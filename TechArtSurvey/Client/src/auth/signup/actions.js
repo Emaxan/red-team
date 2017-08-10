@@ -11,9 +11,9 @@ import {
   CHECK_EMAIL_EXISTENCE_START,
   CHECK_EMAIL_EXISTENCE_SUCCESS,
   CHECK_EMAIL_EXISTENCE_ERROR,
+  CHECK_EMAIL_EXISTENCE_INVALID,
 } from './actionTypes';
 import {
-  OK,
   BAD_REQUEST,
 } from 'http-status';
 
@@ -26,6 +26,7 @@ export const {
   checkEmailExistenceSuccess,
   checkEmailExistenceFailed,
   checkEmailExistenceError,
+  checkEmailExistenceInvalid,
 } = createActions({
   [SIGN_UP_START] : () => ({
     type : [SIGN_UP_START],
@@ -52,41 +53,47 @@ export const {
     message : 'Check email existence START',
   }),
 
-  [CHECK_EMAIL_EXISTENCE_SUCCESS] : (errors) => ({
+  [CHECK_EMAIL_EXISTENCE_SUCCESS] : () => ({
     message : 'Check email existence SUCCESS',
-    errors,
   }),
 
   [CHECK_EMAIL_EXISTENCE_ERROR] : (error) => ({
     message : error,
+  }),
+
+  [CHECK_EMAIL_EXISTENCE_INVALID] : (errors) => ({
+    message : 'Check email existence INVALID',
+    errors,
   }),
 });
 
 export const signupRequest = (userData) => (dispatch) => {
   dispatch(signUpStart());
   return signup(userData)
-    .then((response) => {
-      if (response.statusCode === OK) {
-        dispatch(signUpSuccess());
-        dispatch(push(Routes.Main.path));
-      } else if (response.statusCode === BAD_REQUEST && response.data !== null) {
-        dispatch(signUpInvalidData(JSON.parse(response.data)));
-      }
-
-      // Различать 500-е и 400-е ерроры
+    .then(() => {
+      dispatch(signUpSuccess());
+      dispatch(push(Routes.Main.path));
     })
     .catch((error) => {
-      dispatch(signUpFailed(error));
+      if (error.statusCode === BAD_REQUEST) {
+        dispatch(signUpInvalidData(error.data));
+      } else {
+        dispatch(signUpFailed(error));
+      }
     });
 };
 
 export const checkEmailExistenceRequest = (email) => (dispatch) => {
   dispatch(checkEmailExistenceStart());
   return checkEmailExistence(email)
-    .then((response) => {
-      dispatch(checkEmailExistenceSuccess(JSON.parse(response.data)));
+    .then(() => {
+      dispatch(checkEmailExistenceSuccess());
     })
     .catch((error) => {
-      dispatch(checkEmailExistenceError(error));
+      if (error.statusCode === BAD_REQUEST) {
+        dispatch(checkEmailExistenceInvalid(error.data));
+      } else {
+        dispatch(checkEmailExistenceError(error.data));
+      }
     });
 };

@@ -48,11 +48,6 @@ export const logInRequest = (userData) => (dispatch) => {
   dispatch(logInStart());
   return logIn(userData)
     .then((response) => {
-      if (response.statusCode === BAD_REQUEST) {
-        dispatch(logInInvalidData(['Wrong email or password.']));
-        return null;
-      }
-
       dispatch(logInSuccess(
         response.data.access_token,
         response.data.refresh_token,
@@ -60,7 +55,11 @@ export const logInRequest = (userData) => (dispatch) => {
       ));
     })
     .catch((error) => {
-      dispatch(logInFailed(error));
+      if (error.statusCode === BAD_REQUEST) {
+        dispatch(logInInvalidData(['Wrong email or password.']));
+      } else {
+        dispatch(logInFailed(error));
+      }
     });
 };
 

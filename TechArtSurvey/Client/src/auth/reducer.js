@@ -19,7 +19,7 @@ export const authReducer = handleActions({
   [SET_USER_TOKEN] : (state, action) =>
     state.set('token', action.payload.token)
       .set('refreshToken', action.payload.refreshToken)
-      .set('tokenType', action.payload.tockenType)
+      .set('tokenType', action.payload.tokenType)
       .set('userName', action.payload.userName)
       .set('role', action.payload.userRole)
       .set('isAuthenticated', true),

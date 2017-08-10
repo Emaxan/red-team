@@ -1,8 +1,4 @@
 import { createActions } from 'redux-actions';
-import {
-  OK,
-  BAD_REQUEST,
-} from 'http-status';
 
 import {
   GET_USERS_START,
@@ -40,17 +36,11 @@ export const getUsers = (token_type, access_token) => (dispatch) => {
   dispatch(getUsersStart());
   return getUsersFromServer(token_type, access_token)
     .then((response) => {
-      if (response.statusCode === OK) {
-        dispatch(getUsersSuccess(response.data));
-      } else if (response.statusCode === BAD_REQUEST) {
-        if(response.data !== null) {
-          dispatch(getUsersError(response.data));
-        } else {
-          dispatch(getUsersError(response.statusCode));
-        }
-      }
+      dispatch(getUsersSuccess(response.data));
     })
-    .catch((error) => dispatch(getUsersError(error)));
+    .catch((error) => {
+      dispatch(getUsersError(error.data));
+    });
 };
 
 export const setFilter = (filterInput) => getUsersFilter(filterInput);
