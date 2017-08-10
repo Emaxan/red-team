@@ -35,7 +35,7 @@ export const httpUtility = {
     const responseInfo = await fetch(url, {
       method : 'POST',
       headers,
-      body : data,
+      body : isString(data) ? data : JSON.stringify(data),
     });
 
     return await prepareResponse(responseInfo);

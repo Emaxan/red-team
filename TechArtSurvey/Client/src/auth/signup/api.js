@@ -3,11 +3,11 @@ import { httpUtility } from '../../utils/httpUtility';
 
 export const signup = (signupData) => {
   const headers = { 'Content-type' : 'application/json' };
-  const body = JSON.stringify({
+  const body = {
     username : signupData.name,
     email : signupData.email,
     password : signupData.password,
-  });
+  };
 
   return httpUtility.post(`${API_URL}/account/signup`, headers, body);
 };
