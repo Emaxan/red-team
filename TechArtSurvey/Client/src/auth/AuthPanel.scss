@@ -1,0 +1,26 @@
+.form-control:-webkit-autofill,
+.form-control:-webkit-autofill:hover,
+.form-control:-webkit-autofill:focus {
+  box-shadow: 0 0 0 1000px white inset;
+  transition: background-color 5000s ease-in-out 0s;
+}
+
+.auth__title {
+  text-align: center;
+}
+
+.auth-panel {
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  height: 100%;
+}
+
+.form-group {
+  max-height: 55px;
+  box-sizing: border-box;
+}
+
+.form-horizontal .control-label {
+  height: 21px;
+}

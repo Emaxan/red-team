@@ -1,29 +1,33 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { LogInForm } from './components/LogInForm';
 import { logInRequest } from './actions';
+import { LogInForm } from './components/LogInForm';
+import { AuthPanel } from '../AuthPanel';
 
-function mapStateToProps(state) {
-  return {
-    errors : state.login.errors,
-  };
-}
+const mapStateToProps = (state) => ({
+  errors : state.login.errors,
+  actionString : 'Log In',
+});
 
 const mapDispatchToProps = ({
   logInRequest,
 });
 
-const LogInContainer = ({ errors, logInRequest }) => (
-  <div className="auth-panel">
+const LogInContainer = ({ errors, actionString, logInRequest }) => (
+  <AuthPanel
+    actionString={actionString}
+    errors={errors}
+  >
     <LogInForm
-      errors={errors}
+      actionString={actionString}
       logInRequest={logInRequest}
     />
-  </div>
+  </AuthPanel>
 );
 
 LogInContainer.propTypes = {
+  ...AuthPanel.propTypes,
   ...LogInForm.propTypes,
 };
 

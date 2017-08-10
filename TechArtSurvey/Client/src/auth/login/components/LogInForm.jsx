@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import ImmutablePropTypes from 'react-immutable-proptypes';
-import { Form, FormGroup, FormControl, ControlLabel, Button, Panel } from 'react-bootstrap';
+import { Form, FormGroup, FormControl, ControlLabel, Button } from 'react-bootstrap';
 
 import Routes from '../../../app/routesConstants';
 import {
@@ -68,63 +67,55 @@ export class LogInForm extends Component {
     const formValid = this.isInputValid();
 
     return (
-      <Panel className="col-md-6 col-md-offset-3">
-        <h2 className="login__title">Log In</h2>
-        <FormGroup>
-          {
-            this.props.errors.map((error, i) => (
-              <FormControl.Static key={i} className="text-danger">
-                <strong>{error}</strong>
-              </FormControl.Static>
-            ))
-          }
+      <Form onSubmit={this.handleOnSubmit} horizontal>
+        <FormGroup validationState={this.validationStates.email}>
+          <ControlLabel>
+            {this.errors.email}
+          </ControlLabel>
+          <FormControl
+            name="email"
+            type="text"
+            placeholder="Enter e-mail"
+            value={this.state.user.email}
+            onChange={this.handleOnEmailChange}
+          />
+          <FormControl.Feedback />
         </FormGroup>
-        <Form onSubmit={this.handleOnSubmit} horizontal>
-          <FormGroup validationState={this.validationStates.email}>
-            <ControlLabel hidden={!this.errors.email}>
-              {this.errors.email}
-            </ControlLabel>
-            <FormControl
-              name="email"
-              type="text"
-              placeholder="Enter e-mail"
-              value={this.state.user.email}
-              onChange={this.handleOnEmailChange}
-            />
-          </FormGroup>
 
-          <FormGroup validationState={this.validationStates.password}>
-            <ControlLabel hidden={!this.errors.password}>
-              {this.errors.password}
-            </ControlLabel>
-            <FormControl
-              name="password"
-              type="password"
-              placeholder="Enter password"
-              value={this.state.user.password}
-              onChange={this.handleOnPasswordChange}
-            />
-          </FormGroup>
-          <div className="logIn-links">
-            <Link to={Routes.SignUp.path} >{Routes.SignUp.text}</Link>
-            <Link to={Routes.ForgotPassword.path} >{Routes.ForgotPassword.text}</Link>
-          </div>
-          <FormGroup className="text-center">
-            <Button
-              type="submit"
-              disabled={!formValid}
-              title={formValid ? '' : 'All fields must be filled'}
-            >
-                LogIn
-            </Button>
-          </FormGroup>
-        </Form>
-      </Panel>
+        <FormGroup validationState={this.validationStates.password}>
+          <ControlLabel>
+            {this.errors.password}
+          </ControlLabel>
+          <FormControl
+            name="password"
+            type="password"
+            placeholder="Enter password"
+            value={this.state.user.password}
+            onChange={this.handleOnPasswordChange}
+          />
+          <FormControl.Feedback />
+        </FormGroup>
+
+        <div className="logIn-links">
+          <Link to={Routes.SignUp.path} >{Routes.SignUp.text}</Link>
+          <Link to={Routes.ForgotPassword.path} >{Routes.ForgotPassword.text}</Link>
+        </div>
+
+        <FormGroup className="text-center">
+          <Button
+            type="submit"
+            disabled={!formValid}
+            title={formValid ? '' : 'All fields must be filled'}
+          >
+            {this.props.actionString}
+          </Button>
+        </FormGroup>
+      </Form>
     );
   }
 }
 
 LogInForm.propTypes = {
-  errors : ImmutablePropTypes.list.isRequired,
+  actionString : PropTypes.string.isRequired,
   logInRequest : PropTypes.func.isRequired,
 };

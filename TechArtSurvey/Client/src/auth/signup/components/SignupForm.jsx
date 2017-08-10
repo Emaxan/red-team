@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import ImmutablePropTypes from 'react-immutable-proptypes';
-import { Form, FormGroup, FormControl, ControlLabel, Button, Panel } from 'react-bootstrap';
+import { Form, FormGroup, FormControl, ControlLabel, Button } from 'react-bootstrap';
 
 import {
   validateName,
@@ -9,8 +8,6 @@ import {
   validatePassword,
   validateConfirmationPassword,
 } from '../../../utils/validation/userValidation.js';
-
-import './SignupForm.scss';
 
 export class SignupForm extends Component {
   constructor(props) {
@@ -100,97 +97,88 @@ export class SignupForm extends Component {
     const formValid = this.isInputValid();
 
     return (
-      <Panel className="col-md-6 col-md-offset-3">
-        <h2 className="signup__title">Sign Up</h2>
-        <FormGroup>
-          {
-            this.props.errors.map((error, i) => (
-              <FormControl.Static key={i} className="text-danger">
-                <strong>{error}</strong>
-              </FormControl.Static>
-            ))
-          }
+      <Form onSubmit={this.handleOnSubmit} horizontal>
+        <FormGroup validationState={this.validationStates.name}>
+          <ControlLabel>
+            {this.errors.name}
+          </ControlLabel>
+          <FormControl
+            name="name"
+            type="text"
+            placeholder="Enter name"
+            value={this.state.user.name}
+            onChange={this.handleOnNameChange}
+            className="form-control"
+          />
+          <FormControl.Feedback />
         </FormGroup>
 
-        <Form onSubmit={this.handleOnSubmit} horizontal>
-          <FormGroup validationState={this.validationStates.name}>
-            <ControlLabel hidden={!this.errors.name}>
-              {this.errors.name}
-            </ControlLabel>
-            <FormControl
-              name="name"
-              type="text"
-              placeholder="Enter name"
-              value={this.state.user.name}
-              onChange={this.handleOnNameChange}
-              className="form-control"
-            />
-          </FormGroup>
+        <FormGroup validationState={this.validationStates.email}>
+          <ControlLabel>
+            {this.errors.email}
+          </ControlLabel>
+          <FormControl
+            name="email"
+            type="text"
+            placeholder="Enter e-mail"
+            value={this.state.user.email}
+            onChange={this.handleOnEmailChange}
+            onBlur={this.handleOnEmailBlur}
+            className="form-control"
+          />
+          <FormControl.Feedback />
+        </FormGroup>
 
-          <FormGroup validationState={this.validationStates.email}>
-            <ControlLabel hidden={!this.errors.email}>
-              {this.errors.email}
-            </ControlLabel>
-            <FormControl
-              name="email"
-              type="text"
-              placeholder="Enter e-mail"
-              value={this.state.user.email}
-              onChange={this.handleOnEmailChange}
-              onBlur={this.handleOnEmailBlur}
-              className="form-control"
-            />
-          </FormGroup>
+        <FormGroup validationState={this.validationStates.password}>
+          <ControlLabel>
+            {this.errors.password}
+          </ControlLabel>
+          <FormControl
+            name="password"
+            type="password"
+            placeholder="Enter password"
+            value={this.state.user.password}
+            onChange={this.handleOnPasswordChange}
+            className="form-control"
+          />
+          <FormControl.Feedback />
+        </FormGroup>
 
-          <FormGroup validationState={this.validationStates.password}>
-            <ControlLabel hidden={!this.errors.password}>
-              {this.errors.password}
-            </ControlLabel>
-            <FormControl
-              name="password"
-              type="password"
-              placeholder="Enter password"
-              value={this.state.user.password}
-              onChange={this.handleOnPasswordChange}
-              className="form-control"
-            />
-          </FormGroup>
+        <FormGroup validationState={this.validationStates.confirmationPassword}>
+          <ControlLabel>
+            {this.errors.confirmationPassword}
+          </ControlLabel>
+          <FormControl
+            name="confirmationPassword"
+            type="password"
+            placeholder="Confirm password"
+            value={this.state.user.confirmationPassword}
+            onChange={this.handleOnConfirmationPasswordChange}
+            className="form-control"
+          />
+          <FormControl.Feedback />
+        </FormGroup>
 
-          <FormGroup validationState={this.validationStates.confirmationPassword}>
-            <ControlLabel hidden={!this.errors.confirmationPassword}>
-              {this.errors.confirmationPassword}
-            </ControlLabel>
-            <FormControl
-              name="confirmationPassword"
-              type="password"
-              placeholder="Confirm password"
-              value={this.state.user.confirmationPassword}
-              onChange={this.handleOnConfirmationPasswordChange}
-              className="form-control"
-            />
-          </FormGroup>
-
-          <FormGroup className="text-center">
-            <Button
-              type="submit"
-              disabled={!formValid}
-              title={
-                formValid ?
-                  '' :
-                  'All fields must be filled'
-              }
-            >
-              Create account
-            </Button>
-          </FormGroup>
-        </Form>
-      </Panel>
+        <FormGroup className="text-center">
+          <Button
+            type="submit"
+            disabled={!formValid}
+            title={
+              formValid ?
+                '' :
+                'All fields must be filled'
+            }
+          >
+            {this.props.actionString}
+          </Button>
+        </FormGroup>
+      </Form>
     );
   }
 }
 
 SignupForm.propTypes = {
-  errors : ImmutablePropTypes.list.isRequired,
+  actionString : PropTypes.string.isRequired,
   signupRequest : PropTypes.func.isRequired,
   checkEmailExistenceRequest : PropTypes.func.isRequired,
 };

@@ -3,11 +3,11 @@ import { connect } from 'react-redux';
 
 import { signupRequest, checkEmailExistenceRequest } from './actions';
 import { SignupForm } from './components/SignupForm';
-
-import './SignupContainer.scss';
+import { AuthPanel } from '../AuthPanel';
 
 const mapStateToProps = (state) => ({
   errors : state.signup.errors,
+  actionString : 'Sign Up',
 });
 
 const mapDispatchToProps = {
@@ -15,17 +15,22 @@ const mapDispatchToProps = {
   checkEmailExistenceRequest,
 };
 
-const SignupContainer = ({ errors, signupRequest, checkEmailExistenceRequest }) => (
-  <div className="auth-panel">
+const SignupContainer = ({ errors, actionString, signupRequest, checkEmailExistenceRequest }) => (
+  <AuthPanel
+    actionString={actionString}
+    errors={errors}
+  >
     <SignupForm
       errors={errors}
+      actionString={actionString}
       signupRequest={signupRequest}
       checkEmailExistenceRequest={checkEmailExistenceRequest}
     />
-  </div>
+  </AuthPanel>
 );
 
 SignupContainer.propTypes = {
+  ...AuthPanel.propTypes,
   ...SignupForm.propTypes,
 };
 
