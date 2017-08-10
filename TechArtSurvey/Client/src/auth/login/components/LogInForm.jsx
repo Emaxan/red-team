@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import ImmutablePropTypes from 'react-immutable-proptypes';
-import { FormGroup, FormControl, ControlLabel, Button, Panel } from 'react-bootstrap';
+import { Form, FormGroup, FormControl, ControlLabel, Button, Panel } from 'react-bootstrap';
 
 import Routes from '../../../app/routesConstants';
 import {
@@ -32,21 +32,14 @@ export class LogInForm extends Component {
       email : null,
       password : null,
     };
-
-    this.handleOnSubmit = this.handleOnSubmit.bind(this);
-
-    this.setValidationState = this.setValidationState.bind(this);
-
-    this.handleOnEmailChange = this.handleOnEmailChange.bind(this);
-    this.handleOnPasswordChange = this.handleOnPasswordChange.bind(this);
   }
 
-  handleOnSubmit(event) {
+  handleOnSubmit = (event) => {
     event.preventDefault();
     this.props.logInRequest(this.state.user);
   }
 
-  setValidationState(fieldName, validationInfo) {
+  setValidationState = (fieldName, validationInfo) => {
     if (validationInfo.isValid) {
       this.errors[fieldName] = null;
       this.validationStates[fieldName] = 'success';
@@ -56,14 +49,14 @@ export class LogInForm extends Component {
     }
   }
 
-  handleOnEmailChange(event) {
+  handleOnEmailChange = (event) => {
     const { user } = this.state;
     user.email = event.target.value;
     this.setValidationState('email', validateEmail(user.email));
     this.setState({ user });
   }
 
-  handleOnPasswordChange(event) {
+  handleOnPasswordChange = (event) => {
     const { user } = this.state;
     user.password = event.target.value;
 
@@ -93,7 +86,7 @@ export class LogInForm extends Component {
             ))
           }
         </FormGroup>
-        <form onSubmit={this.handleOnSubmit} className="form-horizontal">
+        <Form onSubmit={this.handleOnSubmit} horizontal>
           <FormGroup validationState={this.validationStates.email}>
             <ControlLabel hidden={!this.errors.email}>
               {this.errors.email}
@@ -132,7 +125,7 @@ export class LogInForm extends Component {
                 LogIn
             </Button>
           </FormGroup>
-        </form>
+        </Form>
       </Panel>
     );
   }

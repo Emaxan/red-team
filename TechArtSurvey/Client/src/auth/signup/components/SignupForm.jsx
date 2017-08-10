@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { PropTypes } from 'prop-types';
-import { FormGroup, FormControl, ControlLabel, Button, Panel } from 'react-bootstrap';
+import { Form, FormGroup, FormControl, ControlLabel, Button, Panel } from 'react-bootstrap';
 
 import {
   validateName,
@@ -37,25 +37,14 @@ export class SignupForm extends Component {
       password : null,
       confirmationPassword : null,
     };
-
-    this.handleOnSubmit = this.handleOnSubmit.bind(this);
-
-    this.setValidationState = this.setValidationState.bind(this);
-
-    this.handleOnNameChange = this.handleOnNameChange.bind(this);
-    this.handleOnEmailChange = this.handleOnEmailChange.bind(this);
-    this.handleOnEmailBlur = this.handleOnEmailBlur.bind(this);
-    this.handleOnPasswordChange = this.handleOnPasswordChange.bind(this);
-    this.handleOnConfirmationPasswordChange =
-            this.handleOnConfirmationPasswordChange.bind(this);
   }
 
-  handleOnSubmit(event) {
+  handleOnSubmit = (event) => {
     event.preventDefault();
     this.props.signupRequest(this.state.user);
   }
 
-  setValidationState(fieldName, validationInfo) {
+  setValidationState = (fieldName, validationInfo) => {
     if (validationInfo.isValid) {
       this.errors[fieldName] = null;
       this.validationStates[fieldName] = 'success';
@@ -65,30 +54,30 @@ export class SignupForm extends Component {
     }
   }
 
-  makeConfirmationPasswordValidation(password, confirmationPassword) {
+  makeConfirmationPasswordValidation = (password, confirmationPassword)  =>{
     this.setValidationState('confirmationPassword', validateConfirmationPassword(password, confirmationPassword));
   }
 
-  handleOnNameChange(event) {
+  handleOnNameChange = (event) => {
     const { user } = this.state;
     user.name = event.target.value;
     this.setValidationState('name', validateName(user.name));
     this.setState({ user });
   }
 
-  handleOnEmailChange(event) {
+  handleOnEmailChange = (event) => {
     const { user } = this.state;
     user.email = event.target.value;
     this.setValidationState('email', validateEmail(user.email));
     this.setState({ user });
   }
 
-  handleOnEmailBlur(event) {
+  handleOnEmailBlur = (event) => {
     const email = event.target.value;
     this.props.checkEmailExistenceRequest(email);
   }
 
-  handleOnPasswordChange(event) {
+  handleOnPasswordChange = (event) => {
     const { user } = this.state;
     user.password = event.target.value;
 
@@ -103,7 +92,7 @@ export class SignupForm extends Component {
     this.setState({ user });
   }
 
-  handleOnConfirmationPasswordChange(event) {
+  handleOnConfirmationPasswordChange = (event) => {
     const { user } = this.state;
     user.confirmationPassword = event.target.value;
 
@@ -134,7 +123,7 @@ export class SignupForm extends Component {
           }
         </FormGroup>
 
-        <form onSubmit={this.handleOnSubmit} className="form-horizontal">
+        <Form onSubmit={this.handleOnSubmit} horizontal>
           <FormGroup validationState={this.validationStates.name}>
             <ControlLabel hidden={!this.errors.name}>
               {this.errors.name}
@@ -205,7 +194,7 @@ export class SignupForm extends Component {
               Create account
             </Button>
           </FormGroup>
-        </form>
+        </Form>
       </Panel>
     );
   }
