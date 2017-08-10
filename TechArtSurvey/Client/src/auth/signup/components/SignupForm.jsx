@@ -60,17 +60,13 @@ export class SignupForm extends Component {
   }
 
   handleOnNameChange = (event) => {
-    const { user } = this.state;
-    user.name = event.target.value;
-    this.setValidationState('name', validateName(user.name));
-    this.setState({ user });
+    this.setValidationState('name', validateName(event.target.value));
+    this.setState({ user : { ...this.state.user, name : event.target.value }});
   }
 
   handleOnEmailChange = (event) => {
-    const { user } = this.state;
-    user.email = event.target.value;
-    this.setValidationState('email', validateEmail(user.email));
-    this.setState({ user });
+    this.setValidationState('email', validateEmail(event.target.value));
+    this.setState({ user : { ...this.state.user, email : event.target.value }});
   }
 
   handleOnEmailBlur = (event) => {
@@ -79,28 +75,20 @@ export class SignupForm extends Component {
   }
 
   handleOnPasswordChange = (event) => {
-    const { user } = this.state;
-    user.password = event.target.value;
-
-    const validationInfo = validatePassword(user.password);
+    const validationInfo = validatePassword(event.target.value);
     this.setValidationState('password', validationInfo);
 
     if (validationInfo.isValid) {
-      this.makeConfirmationPasswordValidation(user.password,
+      this.makeConfirmationPasswordValidation(event.target.value,
         this.state.user.confirmationPassword);
     }
 
-    this.setState({ user });
+    this.setState({ user : { ...this.state.user, password : event.target.value }});
   }
 
   handleOnConfirmationPasswordChange = (event) => {
-    const { user } = this.state;
-    user.confirmationPassword = event.target.value;
-
-    this.makeConfirmationPasswordValidation(this.state.user.password,
-      user.confirmationPassword);
-
-    this.setState({ user });
+    this.makeConfirmationPasswordValidation(this.state.user.password, event.target.value);
+    this.setState({ user : { ...this.state.user, confirmationPassword : event.target.value}});
   }
 
   isInputValid() {

@@ -50,20 +50,13 @@ export class LogInForm extends Component {
   }
 
   handleOnEmailChange = (event) => {
-    const { user } = this.state;
-    user.email = event.target.value;
-    this.setValidationState('email', validateEmail(user.email));
-    this.setState({ user });
+    this.setValidationState('email', validateEmail(event.target.value));
+    this.setState({ user : { ...this.state.user, email : event.target.value }});
   }
 
   handleOnPasswordChange = (event) => {
-    const { user } = this.state;
-    user.password = event.target.value;
-
-    const validationInfo = validatePassword(user.password);
-    this.setValidationState('password', validationInfo);
-
-    this.setState({ user });
+    this.setValidationState('password', validatePassword(event.target.value));
+    this.setState({ user : { ...this.state.user, password : event.target.value}});
   }
 
   isInputValid() {
