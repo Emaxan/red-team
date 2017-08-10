@@ -27,6 +27,11 @@ const routes = [
         component : AboutContainer,
         routes : [
           {
+            redirect : true,
+            from : Routes.About.path,
+            to : Routes.AboutUs.path,
+          },
+          {
             path : Routes.AboutUs.path,
             component : AboutUs,
           },
