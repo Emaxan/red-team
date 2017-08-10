@@ -55,4 +55,8 @@ App.propTypes = {
   ...Footer.propTypes,
 };
 
+App.defaultProps = {
+  userName : '',
+};
+
 export default connect(mapStateToProps, null, null, { pure: false })(App);

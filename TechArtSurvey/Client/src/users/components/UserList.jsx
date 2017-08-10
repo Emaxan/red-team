@@ -52,8 +52,3 @@ UserList.propTypes = {
   tokenType : PropTypes.string.isRequired,
   accessToken : PropTypes.string.isRequired,
 };
-
-UserList.defaultProps = {
-  tokenType : '',
-  accessToken : '',
-};

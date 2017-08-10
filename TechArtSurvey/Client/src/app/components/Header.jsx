@@ -16,7 +16,6 @@ import './Header.scss';
 const UserInfo = userIsAuthenticated(UserInfoComponent);
 const LoginLink = userIsNotAuthenticated(() => <Link className="navbar__item" to={Routes.LogIn.path}>{Routes.LogIn.text}</Link>);
 
-
 const Header = ({ userName }) => (
   <Navbar>
     <Navbar.Header>
@@ -39,10 +38,6 @@ const Header = ({ userName }) => (
 
 Header.propTypes = {
   userName : PropTypes.string.isRequired,
-};
-
-Header.defaultProps = {
-  userName : '',
 };
 
 export default Header;

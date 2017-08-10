@@ -32,4 +32,9 @@ UserListContainer.propTypes = {
   ...UserList.propTypes,
 };
 
+UserListContainer.defaultProps = {
+  tokenType : '',
+  accessToken : '',
+};
+
 export default connect(mapStateToProps, mapDispatchToProps)(UserListContainer);
