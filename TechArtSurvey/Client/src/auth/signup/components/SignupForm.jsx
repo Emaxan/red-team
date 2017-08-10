@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { PropTypes } from 'prop-types';
+import PropTypes from 'prop-types';
+import ImmutablePropTypes from 'react-immutable-proptypes';
 import { Form, FormGroup, FormControl, ControlLabel, Button, Panel } from 'react-bootstrap';
 
 import {
@@ -201,7 +202,7 @@ export class SignupForm extends Component {
 }
 
 SignupForm.propTypes = {
-  errors : PropTypes.object.isRequired,// Use immutable-prop-types
+  errors : ImmutablePropTypes.list.isRequired,
   signupRequest : PropTypes.func.isRequired,
   checkEmailExistenceRequest : PropTypes.func.isRequired,
 };
