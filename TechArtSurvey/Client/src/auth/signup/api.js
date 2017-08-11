@@ -1,3 +1,5 @@
+import urljoin from 'url-join';
+
 import { API_URL } from '../../app/config';
 import { httpUtility } from '../../utils/httpUtility';
 
@@ -9,9 +11,9 @@ export const signup = (signupData) => {
     password : signupData.password,
   };
 
-  return httpUtility.post(`${API_URL}/account/signup`, headers, body);
+  return httpUtility.post(urljoin(API_URL, '/account/signup'), headers, body);
 };
 
 export const checkEmailExistence = (email) => {
-  return httpUtility.get(`${API_URL}/users/?email=${email}`);
+  return httpUtility.get(urljoin(API_URL, `/users/?email=${email}`));
 };
