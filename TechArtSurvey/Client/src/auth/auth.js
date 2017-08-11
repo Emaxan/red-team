@@ -24,7 +24,7 @@ export const userIsAuthenticatedRedirect = connectedRouterRedirect({
 export const userIsAdminRedirect = connectedRouterRedirect({
   redirectPath: Routes.Main.path,
   allowRedirectBack: false,
-  authenticatedSelector: state => state.auth.isAuthenticated && state.auth.userInfo.role === Roles.ADMIN,
+  authenticatedSelector: state => state.auth.isAuthenticated && state.auth.userInfo.role === Role.ADMIN,
   wrapperDisplayName: 'UserIsAdmin',
 });
 

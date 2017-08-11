@@ -6,7 +6,7 @@ export const logInMiddleware = (store) => (next) => (action) => {
     store.dispatch(setUserToken(
       action.payload.token,
       action.payload.refreshToken,
-      action.payload.tokenType
+      action.payload.tokenType,
     ));
   }
 
