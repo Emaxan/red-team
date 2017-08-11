@@ -1,10 +1,7 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
-using System.Data.Entity;
-using System.Data.Entity.Infrastructure.Annotations;
-using JetBrains.Annotations;
-
+﻿using JetBrains.Annotations;
 using RedTeam.Repositories.Interfaces;
 using RedTeam.TechArtSurvey.DomainModel.Entities;
+using System.Data.Entity;
 
 namespace RedTeam.TechArtSurvey.Repositories.EF
 {
@@ -13,14 +10,18 @@ namespace RedTeam.TechArtSurvey.Repositories.EF
     {
         public DbSet<User> Users { get; set; }
 
+        public DbSet<Role> Roles { get; set; }
+
 
         public TechArtSurveyContext()
         {
+            this.Configuration.LazyLoadingEnabled = false;
         }
 
         public TechArtSurveyContext(string connectionString)
             : base(connectionString)
         {
+            this.Configuration.LazyLoadingEnabled = false;
         }
 
 
@@ -29,27 +30,12 @@ namespace RedTeam.TechArtSurvey.Repositories.EF
             return base.Set<TEntity>();
         }
 
-
+         
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<User>().Property(u => u.Id).IsRequired();
-            modelBuilder.Entity<User>().Property(u => u.Name).IsRequired();
-            modelBuilder.Entity<User>().Property(u => u.Email).IsRequired();
-            modelBuilder.Entity<User>().Property(u => u.Password).IsRequired();
-
-            modelBuilder.Entity<User>().Property(u => u.Id).HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
-            modelBuilder.Entity<User>().HasKey(u => u.Id);
-
-            modelBuilder.Entity<User>().Property(u => u.Email)
-                .HasColumnType("VARCHAR")
-                .HasMaxLength(50);
-
-            modelBuilder.Entity<User>().Property(u => u.Email)
-                .HasColumnAnnotation(
-                    IndexAnnotation.AnnotationName,
-                    new IndexAnnotation(new IndexAttribute("IX_Email", 1) { IsUnique = true }));
-
+            modelBuilder.Configurations.Add(new UserConfiguration());
+            modelBuilder.Configurations.Add(new RoleConfiguration());
             base.OnModelCreating(modelBuilder);
-        }
+        }  
     }
 }

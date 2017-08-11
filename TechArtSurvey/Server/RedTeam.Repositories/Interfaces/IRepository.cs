@@ -18,7 +18,7 @@ namespace RedTeam.Repositories.Interfaces
         /// <summary>
         ///     Finds one entity based on its Identifier.
         /// </summary>
-        Task<TEntity> GetAsync(int id);
+        Task<TEntity> GetByIdAsync(int id);
 
         /// <summary>
         ///     Updates the existing entity.

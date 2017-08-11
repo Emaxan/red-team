@@ -39,10 +39,15 @@
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Core, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" />
     <Reference Include="Ninject, Version=3.2.0.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
       <HintPath>..\packages\Ninject.3.2.2.0\lib\net45-full\Ninject.dll</HintPath>
     </Reference>
+    <Reference Include="Ninject.Web.Common, Version=3.2.0.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
+      <HintPath>..\packages\Ninject.Web.Common.3.2.3.0\lib\net45-full\Ninject.Web.Common.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
@@ -53,20 +58,13 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\RedTeam.Logger.Interfaces\RedTeam.Logger.Interfaces.csproj">
-      <Project>{725ec8e0-9925-4c5c-b1ef-83cfb09704d6}</Project>
-      <Name>RedTeam.Logger.Interfaces</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\RedTeam.Logger\RedTeam.Logger.csproj">
-      <Project>{2A7D081E-C19A-476B-9E46-2D17CE1769AF}</Project>
-      <Name>RedTeam.Logger</Name>
-    </ProjectReference>
     <ProjectReference Include="..\RedTeam.Repositories.EntityFramework\RedTeam.Repositories.EntityFramework.csproj">
       <Project>{7250157B-E69A-4E89-8688-51DAE08C607C}</Project>
       <Name>RedTeam.Repositories.EntityFramework</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\RedTeam.Identity\RedTeam.Identity.csproj">
+      <Project>{2B216D5D-2CC2-460A-A94D-B4AA44DA8EED}</Project>
+      <Name>RedTeam.Identity</Name>
     </ProjectReference>
     <ProjectReference Include="..\RedTeam.Repositories\RedTeam.Repositories.csproj">
       <Project>{433A7044-1A29-42CB-80B0-06E86AA12A2F}</Project>
@@ -84,10 +82,6 @@
       <Project>{CDF233FB-754D-41FE-8F6C-B41F40AA680A}</Project>
       <Name>RedTeam.TechArtSurvey.Foundation.Interfaces</Name>
     </ProjectReference>
-    <ProjectReference Include="..\RedTeam.TechArtSurvey.Foundation\RedTeam.TechArtSurvey.Foundation.csproj">
-      <Project>{C1F00B46-6D0C-4D1E-B6D4-3FAC77CA9EF9}</Project>
-      <Name>RedTeam.TechArtSurvey.Foundation</Name>
-    </ProjectReference>
     <ProjectReference Include="..\RedTeam.TechArtSurvey.Repositories.Interfaces\RedTeam.TechArtSurvey.Repositories.Interfaces.csproj">
       <Project>{A92EAE24-D485-4F0D-B77F-EB485A7FCBE3}</Project>
       <Name>RedTeam.TechArtSurvey.Repositories.Interfaces</Name>
@@ -96,6 +90,9 @@
       <Project>{60EBC204-DBCF-4140-9690-5E2B6B4EEA87}</Project>
       <Name>RedTeam.TechArtSurvey.Repositories</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

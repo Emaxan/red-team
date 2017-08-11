@@ -14,20 +14,36 @@ namespace RedTeam.TechArtSurvey.Repositories.Migrations
 
         protected override void Seed(TechArtSurveyContext context)
         {
-            context.Users.AddOrUpdate(u => u.Email, 
+            context.Roles.AddOrUpdate(r => r.RoleType,
+               new Role()
+               {
+                   Id = 1,
+                   Name = "Admin",
+                   RoleType = RoleTypes.Admin
+               },
+               new Role()
+               {
+                   Id = 2,
+                   Name = "User",
+                   RoleType = RoleTypes.User
+               });
+
+            context.Users.AddOrUpdate(u => u.Email,
                 new User()
                 {
                     Id = 1,
-                    Name = "Admin",
+                    UserName = "Admin",
                     Email = "admin@admin.admin",
-                    Password = "admin"
+                    Password = "AMv5z9i6ZmvSQzzeZLYJ+xPDXjhKDK+hEoWscrqTIMKyhDhmzMdp/XkP30wP0/wQxA==",
+                    RoleId = 1
                 },
                 new User()
                 {
                     Id = 2,
-                    Name = "User",
+                    UserName = "User",
                     Email = "user@user.user",
-                    Password = "user"
+                    Password = "AMv5z9i6ZmvSQzzeZLYJ+xPDXjhKDK+hEoWscrqTIMKyhDhmzMdp/XkP30wP0/wQxA==",
+                    RoleId = 2
                 });
         }
     }
