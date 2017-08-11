@@ -6,13 +6,10 @@ import thunk from 'redux-thunk';
 import logger from 'redux-logger';
 import { ConnectedRouter, routerMiddleware as createRouterMiddleware } from 'react-router-redux';
 import createHistory from 'history/createBrowserHistory';
-import './bootstrap/bootstrap';
 
 import configureStore from './app/configureStore';
 import App from './app/App';
 import { authMiddleware } from './auth/middlewares/authMiddleware';
-
-import './bootstrap/bootstrap.scss';
 
 const history = createHistory();
 

@@ -18,6 +18,7 @@ module.exports = new Config.Config()
     output : {
       filename : 'bundle.js',
       library : '[name]',
+      publicPath : devServerPath + '/',
     },
     entry : {
       bundle : path.join(sourcePath, '/Root.jsx'),

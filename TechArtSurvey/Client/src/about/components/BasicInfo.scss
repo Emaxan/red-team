@@ -1,0 +1,17 @@
+.basic-info {
+  padding-bottom: 15px;
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+
+  &__logo {
+    margin: auto 30px;
+    font-size: 3em;
+  }
+
+  &__img {
+    flex-grow: 1;
+    height: auto;
+    width: 60%;
+  }
+}
