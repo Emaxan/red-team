@@ -1,13 +1,21 @@
 import React from 'react';
+import { Route, Switch, Redirect } from 'react-router-dom';
 import { Nav, NavItem } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
-import PropTypes from 'prop-types';
 
 import BasicInfo from './components/BasicInfo';
-import RouteWithSubRoutes from '../components/RouteWithSubRoutes';
 import Routes from '../app/routesConstants';
+import {
+  AboutUs,
+  Training,
+  Benefits,
+  ForStudents,
+  OurAdvantages,
+  Careers,
+  Contacts,
+} from './components';
 
-export const AboutContainer = ({ routes }) => (
+export const AboutContainer = () => (
   <div className="about-content">
     <BasicInfo />
     <Nav bsStyle="tabs" justified>
@@ -33,14 +41,16 @@ export const AboutContainer = ({ routes }) => (
         <NavItem eventKey={Routes.Contacts.id}>{Routes.Contacts.text}</NavItem>
       </LinkContainer>
     </Nav>
-    {
-      routes.map((route, i) => (
-        <RouteWithSubRoutes key={i} {...route}/>
-      ))
-    }
+
+    <Switch>
+      <Route exact path={Routes.About.path} render={() => <Redirect to={Routes.AboutUs.path} />} />
+      <Route path={Routes.AboutUs.path} component={AboutUs} />
+      <Route path={Routes.Training.path} component={Training} />
+      <Route path={Routes.Benefits.path} component={Benefits} />
+      <Route path={Routes.ForStudents.path} component={ForStudents} />
+      <Route path={Routes.OurAdvantages.path} component={OurAdvantages} />
+      <Route path={Routes.Careers.path} component={Careers} />
+      <Route path={Routes.Contacts.path} component={Contacts} />
+    </Switch>
   </div>
 );
-
-AboutContainer.propTypes = {
-  routes: PropTypes.array.isRequired,
-};

@@ -1,11 +1,14 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { Route, Switch } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
+import Routes from './routesConstants';
 import { Header } from './components/Header';
 import { Footer } from './components/Footer';
 import { Sidebar } from './components/Sidebar';
-import RouteWithSubRoutes from '../components/RouteWithSubRoutes';
+import UserListContainer from '../users/UserListContainer';
+import { AboutContainer } from '../about/AboutContainer';
 
 import './App.scss';
 
@@ -15,7 +18,7 @@ function mapStateToProps(state) {
   };
 }
 
-const App = ({ isAuthenticated, routes }) => (
+const App = ({ isAuthenticated }) => (
   <div className="wrapper">
     <Header authStatus={isAuthenticated ? true : true} />
     <div className="container content">
@@ -23,11 +26,10 @@ const App = ({ isAuthenticated, routes }) => (
         (isAuthenticated ? true : true) ? <Sidebar /> : ''
       }
       <main className="main">
-        {
-          routes.map((route, i) => (
-            <RouteWithSubRoutes key={i} {...route}/>
-          ))
-        }
+        <Switch>
+          <Route path={Routes.Users.path} component={UserListContainer} />
+          <Route path={Routes.About.path} component={AboutContainer} />
+        </Switch>
       </main>
     </div>
     <Footer />
@@ -36,7 +38,6 @@ const App = ({ isAuthenticated, routes }) => (
 
 App.propTypes = {
   isAuthenticated : PropTypes.bool.isRequired,
-  routes : PropTypes.array.isRequired,
 };
 
 export default connect(mapStateToProps, null, null, { pure: false })(App);
