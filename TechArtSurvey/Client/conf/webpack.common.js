@@ -30,7 +30,7 @@ module.exports = new Config.Config()
       loaders : [
         {
           enforce : 'pre',
-          test : /\.jsx?$/,
+          test : /\.jsx?$|\.json$/,
           exclude : /node_modules/,
           loader : 'eslint-loader',
           options : {
@@ -44,7 +44,7 @@ module.exports = new Config.Config()
           loader : 'babel-loader',
         },
         {
-          test : /\.woff2?$|\.ttf$|\.eot$|\.svg$|\.png|\.jpe?g|\.gif$/,
+          test : /\.woff2?$|\.ttf$|\.eot$|\.svg$|\.png$|\.jpe?g$|\.gif$/,
           loader : 'file-loader',
         },
         {

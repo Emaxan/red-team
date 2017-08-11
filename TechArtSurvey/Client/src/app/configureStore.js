@@ -6,7 +6,7 @@ export default function configureStore({ initialState, middleware }) {
   const store = createStore(
     combinedReducer,
     initialState,
-    middleware
+    middleware,
   );
 
   if (module.hot) {

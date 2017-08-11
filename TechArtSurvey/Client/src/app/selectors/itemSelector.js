@@ -22,5 +22,5 @@ const getFilteredRoutes = (routeList, role) => {
 export default createSelector(
   routesSelector,
   roleSelector,
-  getFilteredRoutes
+  getFilteredRoutes,
 );

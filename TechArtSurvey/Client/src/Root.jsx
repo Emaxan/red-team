@@ -24,7 +24,7 @@ const store = configureStore({
     logger,
     routerMiddleware,
     authMiddleware,
-    logInMiddleware
+    logInMiddleware,
   ),
 });
 
@@ -34,5 +34,5 @@ render(
       <App />
     </ConnectedRouter>
   </Provider>,
-  document.getElementById('container')
+  document.getElementById('container'),
 );

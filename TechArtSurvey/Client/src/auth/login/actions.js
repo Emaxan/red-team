@@ -51,7 +51,7 @@ export const logInRequest = (userData) => (dispatch) => {
       dispatch(logInSuccess(
         response.data.access_token,
         response.data.refresh_token,
-        response.data.token_type
+        response.data.token_type,
       ));
     })
     .catch((error) => {

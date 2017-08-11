@@ -13,7 +13,7 @@ export const logInMiddleware = (store) => (next) => (action) => {
       action.payload.refreshToken,
       action.payload.tokenType,
       unique_name,
-      role
+      role,
     ));
   }
 

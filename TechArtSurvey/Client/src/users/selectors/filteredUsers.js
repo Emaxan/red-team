@@ -13,7 +13,7 @@ const getFilteredUsers = (userList, input) => {
     userList,
     (user) => user.userName
       .toLowerCase()
-      .includes(input.toLowerCase())
+      .includes(input.toLowerCase()),
   );
 
   return filteredUsers;
@@ -22,5 +22,5 @@ const getFilteredUsers = (userList, input) => {
 export default createSelector(
   userListSelector,
   filterString,
-  getFilteredUsers
+  getFilteredUsers,
 );
