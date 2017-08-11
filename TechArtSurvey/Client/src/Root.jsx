@@ -11,6 +11,7 @@ import configureStore from './app/configureStore';
 import App from './app/App';
 import { authMiddleware } from './auth/middlewares/authMiddleware';
 import { logInMiddleware } from './auth/middlewares/loginMiddleware';
+import { syncUserToken } from './auth/actions';
 
 import './bootstrap/bootstrap.scss';
 
@@ -27,6 +28,8 @@ const store = configureStore({
     logInMiddleware,
   ),
 });
+
+window.addEventListener('storage', () => store.dispatch(syncUserToken()));
 
 render(
   <Provider store={store}>
