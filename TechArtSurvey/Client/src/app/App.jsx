@@ -18,7 +18,7 @@ import {
 import './App.scss';
 
 const mapStateToProps = (state) => ({
-  userName : state.auth.userName,
+  userName : state.auth.userInfo.userName,
   menuItems : ItemSelector(state),
 });
 

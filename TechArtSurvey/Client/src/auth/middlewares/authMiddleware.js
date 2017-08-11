@@ -6,8 +6,6 @@ export const authMiddleware = () => (next) => (action) => {
     AuthService.setToken(action.payload.token);
     AuthService.setTokenType(action.payload.tokenType);
     AuthService.setRefreshToken(action.payload.refreshToken);
-    AuthService.setUserName(action.payload.userName);
-    AuthService.setUserRole(action.payload.userRole);
   }
 
   if (action.type === RESET_USER_TOKEN) {

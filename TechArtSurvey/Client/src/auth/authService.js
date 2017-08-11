@@ -1,8 +1,8 @@
+import jwt_decode from 'jwt-decode';
+
 const token = 'auth.token';
 const refreshToken = 'auth.refreshToken';
 const tokenType = 'auth.tokenType';
-const userRole = 'auth.userRole';
-const userName = 'auth.userName';
 
 export default class AuthService {
   static setToken(accessToken) {
@@ -29,20 +29,18 @@ export default class AuthService {
     return window.localStorage.getItem(tokenType);
   }
 
-  static setUserName(name) {
-    window.localStorage.setItem(userName, name);
-  }
+  static getUserInfo() {
+    const token = this.getToken();
 
-  static getUserName() {
-    return window.localStorage.getItem(userName);
-  }
+    if (token) {
+      const jwt = jwt_decode(this.getToken());
+      return {
+        userName : jwt.unique_name,
+        role : jwt.role,
+      };
+    }
 
-  static setUserRole(role) {
-    window.localStorage.setItem(userRole, role);
-  }
-
-  static getUserRole() {
-    return window.localStorage.getItem(userRole);
+    return { };
   }
 
   static isAuthenticated() {
@@ -53,7 +51,5 @@ export default class AuthService {
     window.localStorage.removeItem(token);
     window.localStorage.removeItem(refreshToken);
     window.localStorage.removeItem(tokenType);
-    window.localStorage.removeItem(userName);
-    window.localStorage.removeItem(userRole);
   }
 }

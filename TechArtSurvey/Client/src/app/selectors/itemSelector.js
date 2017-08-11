@@ -5,7 +5,7 @@ import Routes from '../routesConstants';
 
 const routesSelector = () => Routes;
 
-const roleSelector = (state) => state.auth.role;
+const roleSelector = (state) => state.auth.userInfo.role;
 
 const getFilteredRoutes = (routeList, role) => {
   const filteredRoutes = [];
