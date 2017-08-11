@@ -21,6 +21,3 @@ For what: when you change the project (add some changes in js, css, html and etc
 Root.jsx - entry point for webpack
 
 Server will return built html file, so you don't need to find it and open by yourselves.
-
-## Google api key for application: ##
-AIzaSyDnfyOejhKXKrJ7GIVWDV8Odseqdcwg0k0
