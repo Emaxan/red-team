@@ -9,11 +9,11 @@ export const logInMiddleware = (store) => (next) => (action) => {
     let { unique_name } = jwt;
     const { role } = jwt;
     store.dispatch(setUserToken(
-      action.payload.token,
-      action.payload.refreshToken,
-      action.payload.tokenType,
       unique_name,
       role,
+      action.payload.token,
+      action.payload.refreshToken,
+      action.payload.tokenType
     ));
   }
 

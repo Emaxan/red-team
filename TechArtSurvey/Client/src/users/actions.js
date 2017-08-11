@@ -1,4 +1,7 @@
 import { createActions } from 'redux-actions';
+import {
+  UNAUTHORIZED,
+} from 'http-status';
 
 import {
   GET_USERS_START,
@@ -7,6 +10,7 @@ import {
   GET_USERS_FILTER,
 } from './actionTypes';
 import { getUsers as getUsersFromServer } from './api';
+import { tokenUtility } from '../utils/tokenUtility';
 
 export const {
   getUsersStart,
@@ -32,14 +36,19 @@ export const {
   }),
 });
 
-export const getUsers = (token_type, access_token) => (dispatch) => {
+export const getUsers = () => (dispatch) => {
   dispatch(getUsersStart());
-  return getUsersFromServer(token_type, access_token)
+  return getUsersFromServer()
     .then((response) => {
       dispatch(getUsersSuccess(response.data));
     })
     .catch((error) => {
       dispatch(getUsersError(error.data));
+
+      if (error.statusCode === UNAUTHORIZED) {
+        tokenUtility.updateTokens();
+        dispatch(getUsers());
+      }
     });
 };
 
