@@ -14,15 +14,12 @@ const LogoutLink = userIsAuthenticated(({ logout }) => <span onClick={() => logo
 
 const UserInfo = ({ username, logoutRequest }) => (
   <div className='navbar__item'>
-    {/* DROPDOWN MENU STYLE WILL BE FIXED */}
     <Dropdown id="userInfoDropdown">
-      <Dropdown.Toggle>
+      <Dropdown.Toggle className="navbar__item-wrapper">
         <Image src={UserImg} className="navbar__user-img" rounded />
-        Hello, {username}!
+        {username}
       </Dropdown.Toggle>
       <Dropdown.Menu>
-        <MenuItem>Something</MenuItem>
-        <MenuItem divider />
         <MenuItem>
           <LogoutLink logout={logoutRequest} />
         </MenuItem>

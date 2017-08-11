@@ -16,9 +16,19 @@
 
 .navbar__item {
   display: inline-block;
-  margin-left: 20px;
-  line-height: $navbar-height;
-  text-align: center;
+}
+
+.navbar__item-wrapper {
+  background-color: inherit !important;
+  border: none !important;
+  line-height: $navbar-height !important;
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+  text-align: center !important;
+}
+
+.navbar__item-wrapper:hover {
+  background-color: #f2f2f2 !important;
 }
 
 @media (max-width: $screen-xs-max) {

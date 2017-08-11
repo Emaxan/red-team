@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Navbar } from 'react-bootstrap';
+import { Button, Navbar } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 
 import Routes from '../routes';
@@ -14,7 +14,13 @@ import {
 import './Header.scss';
 
 const UserInfo = userIsAuthenticated(UserInfoComponent);
-const LoginLink = userIsNotAuthenticated(() => <Link className="navbar__item" to={Routes.Login.path}>{Routes.Login.text}</Link>);
+const LoginLink = userIsNotAuthenticated(() => {
+  return (
+    <Button className="navbar__item-wrapper">
+      <Link className="navbar__item" to={Routes.Login.path}>{Routes.Login.text}</Link>
+    </Button>
+  );
+});
 
 const Header = ({ userName }) => (
   <Navbar>
@@ -28,9 +34,11 @@ const Header = ({ userName }) => (
     </Navbar.Header>
     <Navbar.Collapse>
       <nav>
-        <Link className="navbar__item" to={Routes.About.path}>{Routes.About.text}</Link>
-        <UserInfo username={userName} />
+        <Button className="navbar__item-wrapper">
+          <Link className="navbar__item" to={Routes.About.path}>{Routes.About.text}</Link>
+        </Button>
         <LoginLink />
+        <UserInfo username={userName} />
       </nav>
     </Navbar.Collapse>
   </Navbar>
