@@ -1,7 +1,7 @@
 import { createSelector } from 'reselect';
 
 import Role from '../role';
-import Routes from '../routesConstants';
+import Routes from '../routes';
 
 const routesSelector = () => Routes;
 

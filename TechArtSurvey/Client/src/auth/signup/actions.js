@@ -4,7 +4,7 @@ import {
   BAD_REQUEST,
 } from 'http-status';
 
-import Routes from '../../app/routesConstants';
+import Routes from '../../app/routes';
 import { signup, checkEmailExistence } from './api';
 import {
   SIGN_UP_START,

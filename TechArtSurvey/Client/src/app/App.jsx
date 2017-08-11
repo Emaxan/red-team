@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Switch, Route } from 'react-router-dom';
 
-import Routes from './routesConstants';
+import Routes from './routes';
 import ItemSelector from './selectors/itemSelector';
 import { Header, Footer, Sidebar } from './components';
 import UserListContainer from '../users/UserListContainer';

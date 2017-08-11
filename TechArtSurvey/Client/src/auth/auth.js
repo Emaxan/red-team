@@ -3,7 +3,7 @@ import locationHelperBuilder from 'redux-auth-wrapper/history4/locationHelper';
 import { connectedRouterRedirect } from 'redux-auth-wrapper/history4/redirect';
 import connectedAuthWrapper from 'redux-auth-wrapper/connectedAuthWrapper';
 
-import Routes from '../app/routesConstants';
+import Routes from '../app/routes';
 import Role from '../app/role';
 
 const locationHelper = locationHelperBuilder({});

@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { Form, FormGroup, FormControl, ControlLabel, Button } from 'react-bootstrap';
 
-import Routes from '../../../app/routesConstants';
+import Routes from '../../../app/routes';
 import {
   validateEmail,
   validatePassword,

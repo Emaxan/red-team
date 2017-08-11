@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { Navbar } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 
-import Routes from '../routesConstants';
+import Routes from '../routes';
 import LogoImg from './images/logo.png';
 import { default as UserInfoComponent } from './UserInfo';
 import {
