@@ -1,63 +1,63 @@
-import Roles from './roles';
+import Role from './role';
 
 export default {
   Main : {
     text : 'Main',
     path : '/',
-    access : Roles.NEVER,
+    access : Role.NOBODY,
   },
 
   Users : {
     text : 'Users list',
     path : '/users',
-    access : Roles.ADMIN,
+    access : Role.ADMIN,
   },
 
   About : {
     text : 'About company',
     path : '/about',
-    access : Roles.NEVER,
+    access : Role.NOBODY,
   },
 
   SignUp : {
     text : 'SignUp',
     path : '/signup',
-    access : Roles.USERS, // Roles.NEVER
+    access : Role.NOBODY,
   },
 
   LogIn : {
     text : 'LogIn',
     path : '/login',
-    access : Roles.USERS, // Roles.NEVER
+    access : Role.NOBODY,
   },
 
   Surveys : {
     text : 'Surveys list',
     path : '/survey',
-    access : Roles.USERS,
+    access : Role.ANY,
   },
 
   NewSurvey : {
     text : 'New survey',
     path : '/survey/new',
-    access : Roles.ADMIN,
+    access : Role.ADMIN,
   },
 
   MySurveys : {
     text : 'My surveys',
     path : '/survey/my',
-    access : Roles.ADMIN,
+    access : Role.ADMIN,
   },
 
   SurveyTemplates : {
     text : 'Surveys templates list',
     path : '/survey/templates',
-    access : Roles.ADMIN,
+    access : Role.ADMIN,
   },
 
   ForgotPassword : {
     text : 'Forgot password?',
     path : '/forgotPassword',
-    access : Roles.USERS, // Roles.NEVER
+    access : Role.NOBODY,
   },
 };

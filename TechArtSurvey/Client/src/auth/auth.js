@@ -4,7 +4,7 @@ import { connectedRouterRedirect } from 'redux-auth-wrapper/history4/redirect';
 import connectedAuthWrapper from 'redux-auth-wrapper/connectedAuthWrapper';
 
 import Routes from '../app/routesConstants';
-import Roles from '../app/roles';
+import Role from '../app/role';
 
 const locationHelper = locationHelperBuilder({});
 
@@ -24,7 +24,7 @@ export const userIsAuthenticatedRedir = connectedRouterRedirect({
 export const userIsAdminRedir = connectedRouterRedirect({
   redirectPath: Routes.Main.path,
   allowRedirectBack: false,
-  authenticatedSelector: state => state.auth.isAuthenticated && state.auth.role === Roles.ADMIN,
+  authenticatedSelector: state => state.auth.isAuthenticated && state.auth.role === Role.ADMIN,
   wrapperDisplayName: 'UserIsAdmin',
 });
 
