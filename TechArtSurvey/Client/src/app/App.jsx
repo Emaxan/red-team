@@ -4,9 +4,7 @@ import { Switch, Route } from 'react-router-dom';
 
 import Routes from './routesConstants';
 import ItemSelector from './selectors/itemSelector';
-import Header from './components/Header';
-import Footer from './components/Footer';
-import Sidebar from './components/Sidebar';
+import { Header, Footer, Sidebar } from './components';
 import UserListContainer from '../users/UserListContainer';
 import SignupContainer from '../auth/signup/SignupContainer';
 import LogInContainer from '../auth/login/LogInContainer';

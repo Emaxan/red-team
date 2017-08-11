@@ -1,6 +1,9 @@
 import { createActions } from 'redux-actions';
 
-import { SET_USER_TOKEN, RESET_USER_TOKEN } from './actionTypes';
+import {
+  SET_USER_TOKEN,
+  RESET_USER_TOKEN,
+} from './actionTypes';
 
 export const {
   setUserToken,
