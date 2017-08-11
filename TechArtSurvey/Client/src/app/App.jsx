@@ -9,25 +9,22 @@ import UserListContainer from '../users/UserListContainer';
 import SignupContainer from '../auth/signup/SignupContainer';
 import LogInContainer from '../auth/login/LogInContainer';
 import {
-  userIsAuthenticatedRedir,
-  userIsNotAuthenticatedRedir,
-  userIsAdminRedir,
+  userIsAuthenticatedRedirect,
+  userIsNotAuthenticatedRedirect,
+  userIsAdminRedirect,
   userIsAuthenticated,
-  // userIsNotAuthenticated,
 } from '../auth/auth';
 
 import './App.scss';
 
-const mapStateToProps = (state) => (
-  {
-    userName : state.auth.userName,
-    menuItems : ItemSelector(state),
-  }
-);
+const mapStateToProps = (state) => ({
+  userName : state.auth.userName,
+  menuItems : ItemSelector(state),
+});
 
-const UserList = userIsAuthenticatedRedir(userIsAdminRedir(UserListContainer));
-const LogIn = userIsNotAuthenticatedRedir(LogInContainer);
-const SignUp = userIsNotAuthenticatedRedir(SignupContainer);
+const UserList = userIsAuthenticatedRedirect(userIsAdminRedirect(UserListContainer));
+const LogIn = userIsNotAuthenticatedRedirect(LogInContainer);
+const SignUp = userIsNotAuthenticatedRedirect(SignupContainer);
 const SideBar = userIsAuthenticated(Sidebar);
 
 const App = ({ userName, menuItems }) => (
