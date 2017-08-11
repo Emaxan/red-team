@@ -10,9 +10,7 @@ export class AuthPanel extends Component {
     return(
       <div className="auth-panel">
         <Panel className="col-md-6 col-md-offset-3">
-
           <h2 className="auth__title">{this.props.actionString}</h2>
-
           <FormGroup>
             {
               this.props.errors.map((error, i) => (
@@ -22,9 +20,7 @@ export class AuthPanel extends Component {
               ))
             }
           </FormGroup>
-
           {this.props.children}
-
         </Panel>
       </div>
     );

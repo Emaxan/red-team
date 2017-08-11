@@ -1,4 +1,7 @@
 import { createActions } from 'redux-actions';
+import {
+  BAD_REQUEST,
+} from 'http-status';
 
 import { logIn } from './api';
 import {
@@ -8,9 +11,6 @@ import {
   LOG_IN_INVALID_DATA,
   LOG_OUT,
 } from './actionTypes';
-import {
-  BAD_REQUEST,
-} from 'http-status';
 
 export const {
   logInStart,

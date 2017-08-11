@@ -16,26 +16,18 @@ const logInInitialState = Record({
 const initialState = logInInitialState();
 
 export const logInReducer = handleActions({
-  [LOG_IN_START] : (state, action) => {
-    const newState = state.set('message', action.payload.message)
-      .set('errors', List());
-    return newState;
-  },
+  [LOG_IN_START] : (state, action) =>
+    state.set('message', action.payload.message)
+      .set('errors', List()),
 
-  [LOG_IN_SUCCESS] : (state, action) => {
-    const newState = state.set('message', action.payload.message);
-    return newState;
-  },
+  [LOG_IN_SUCCESS] : (state, action) =>
+    state.set('message', action.payload.message),
 
-  [LOG_IN_FAILED] : (state, action) => {
-    const newState = state.set('message', action.payload.er);
-    return newState;
-  },
+  [LOG_IN_FAILED] : (state, action) =>
+    state.set('message', action.payload.message),
 
-  [LOG_IN_INVALID_DATA] : (state, action) => {
-    let newState = state.set('errors', state.get('errors')
-      .merge(List(action.payload.errors)));
-    newState = newState.set('message', action.payload.message);
-    return newState;
-  },
+  [LOG_IN_INVALID_DATA] : (state, action) =>
+    state.set('errors', state.get('errors')
+      .merge(List(action.payload.errors)))
+      .set('message', action.payload.message),
 }, initialState);

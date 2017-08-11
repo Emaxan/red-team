@@ -1,5 +1,8 @@
 import { push } from 'react-router-redux';
 import { createActions } from 'redux-actions';
+import {
+  BAD_REQUEST,
+} from 'http-status';
 
 import Routes from '../../app/routesConstants';
 import { signup, checkEmailExistence } from './api';
@@ -13,9 +16,6 @@ import {
   CHECK_EMAIL_EXISTENCE_ERROR,
   CHECK_EMAIL_EXISTENCE_INVALID,
 } from './actionTypes';
-import {
-  BAD_REQUEST,
-} from 'http-status';
 
 export const {
   signUpStart,
