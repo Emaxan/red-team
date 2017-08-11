@@ -6,13 +6,13 @@ import {
   userIsAuthenticated,
 } from '../../auth/auth';
 import UserImg from './images/user-icon.png';
-import { logOutRequest } from '../../auth/login/actions';
+import { logoutRequest } from '../../auth/login/actions';
 
 import './UserInfo.scss';
 
 const LogoutLink = userIsAuthenticated(({ logout }) => <span onClick={() => logout()}>Logout</span>);
 
-const UserInfo = ({ username, logOutRequest }) => (
+const UserInfo = ({ username, logoutRequest }) => (
   <div className='navbar__item'>
     {/* DROPDOWN MENU STYLE WILL BE FIXED */}
     <Dropdown id="userInfoDropdown">
@@ -24,7 +24,7 @@ const UserInfo = ({ username, logOutRequest }) => (
         <MenuItem>Something</MenuItem>
         <MenuItem divider />
         <MenuItem>
-          <LogoutLink logout={logOutRequest} />
+          <LogoutLink logout={logoutRequest} />
         </MenuItem>
       </Dropdown.Menu>
     </Dropdown>
@@ -36,7 +36,7 @@ UserInfo.propTypes = {
 };
 
 const mapDispatchToProps = ({
-  logOutRequest,
+  logoutRequest,
 });
 
 export default connect(null, mapDispatchToProps)(UserInfo);

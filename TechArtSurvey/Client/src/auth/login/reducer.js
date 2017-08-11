@@ -2,31 +2,31 @@ import { handleActions } from 'redux-actions';
 import { Record, List } from 'immutable';
 
 import {
-  LOG_IN_START,
-  LOG_IN_SUCCESS,
-  LOG_IN_FAILED,
-  LOG_IN_INVALID_DATA,
+  LOGIN_START,
+  LOGIN_SUCCESS,
+  LOGIN_FAILED,
+  LOGIN_INVALID_DATA,
 } from './actionTypes';
 
-const logInInitialState = Record({
+const loginInitialState = Record({
   message : '',
   errors : List(),
 });
 
-const initialState = logInInitialState();
+const initialState = loginInitialState();
 
-export const logInReducer = handleActions({
-  [LOG_IN_START] : (state, action) =>
+export const loginReducer = handleActions({
+  [LOGIN_START] : (state, action) =>
     state.set('message', action.payload.message)
       .set('errors', List()),
 
-  [LOG_IN_SUCCESS] : (state, action) =>
+  [LOGIN_SUCCESS] : (state, action) =>
     state.set('message', action.payload.message),
 
-  [LOG_IN_FAILED] : (state, action) =>
+  [LOGIN_FAILED] : (state, action) =>
     state.set('message', action.payload.message),
 
-  [LOG_IN_INVALID_DATA] : (state, action) =>
+  [LOGIN_INVALID_DATA] : (state, action) =>
     state.set('errors', state.get('errors')
       .merge(List(action.payload.errors)))
       .set('message', action.payload.message),

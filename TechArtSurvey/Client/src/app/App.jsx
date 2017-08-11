@@ -7,7 +7,7 @@ import ItemSelector from './selectors/itemSelector';
 import { Header, Footer, Sidebar } from './components';
 import UserListContainer from '../users/UserListContainer';
 import SignupContainer from '../auth/signup/SignupContainer';
-import LogInContainer from '../auth/login/LogInContainer';
+import LoginContainer from '../auth/login/LoginContainer';
 import {
   userIsAuthenticatedRedirect,
   userIsNotAuthenticatedRedirect,
@@ -23,7 +23,7 @@ const mapStateToProps = (state) => ({
 });
 
 const UserList = userIsAuthenticatedRedirect(userIsAdminRedirect(UserListContainer));
-const LogIn = userIsNotAuthenticatedRedirect(LogInContainer);
+const Login = userIsNotAuthenticatedRedirect(LoginContainer);
 const SignUp = userIsNotAuthenticatedRedirect(SignupContainer);
 const SideBar = userIsAuthenticated(Sidebar);
 
@@ -36,7 +36,7 @@ const App = ({ userName, menuItems }) => (
         <Switch>
           <Route path={Routes.Users.path} component={UserList} />
           <Route path={Routes.SignUp.path} component={SignUp}/>
-          <Route path={Routes.LogIn.path} component={LogIn} />
+          <Route path={Routes.Login.path} component={Login} />
         </Switch>
       </main>
     </div>

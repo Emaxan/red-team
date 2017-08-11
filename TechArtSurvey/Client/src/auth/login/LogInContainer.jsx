@@ -1,8 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { logInRequest } from './actions';
-import { LogInForm } from './components/LogInForm';
+import { loginRequest } from './actions';
+import { LoginForm } from './components/LoginForm';
 import { AuthPanel } from '../AuthPanel';
 
 const mapStateToProps = (state) => ({
@@ -11,24 +11,24 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = ({
-  logInRequest,
+  loginRequest,
 });
 
-const LogInContainer = ({ errors, actionString, logInRequest }) => (
+const LoginContainer = ({ errors, actionString, loginRequest }) => (
   <AuthPanel
     actionString={actionString}
     errors={errors}
   >
-    <LogInForm
+    <LoginForm
       actionString={actionString}
-      logInRequest={logInRequest}
+      loginRequest={loginRequest}
     />
   </AuthPanel>
 );
 
-LogInContainer.propTypes = {
+LoginContainer.propTypes = {
   ...AuthPanel.propTypes,
-  ...LogInForm.propTypes,
+  ...LoginForm.propTypes,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(LogInContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(LoginContainer);

@@ -9,9 +9,9 @@ import {
   validatePassword,
 } from '../../../utils/validation/userValidation.js';
 
-import './LogInForm.scss';
+import './LoginForm.scss';
 
-export class LogInForm extends Component {
+export class LoginForm extends Component {
   constructor(props) {
     super(props);
 
@@ -35,7 +35,7 @@ export class LogInForm extends Component {
 
   handleOnSubmit = (event) => {
     event.preventDefault();
-    this.props.logInRequest(this.state.user);
+    this.props.loginRequest(this.state.user);
   }
 
   setValidationState = (fieldName, validationInfo) => {
@@ -96,7 +96,7 @@ export class LogInForm extends Component {
           <FormControl.Feedback />
         </FormGroup>
 
-        <div className="logIn-links">
+        <div className="login-links">
           <Link to={Routes.SignUp.path} >{Routes.SignUp.text}</Link>
           <Link to={Routes.ForgotPassword.path} >{Routes.ForgotPassword.text}</Link>
         </div>
@@ -115,7 +115,7 @@ export class LogInForm extends Component {
   }
 }
 
-LogInForm.propTypes = {
+LoginForm.propTypes = {
   actionString : PropTypes.string.isRequired,
-  logInRequest : PropTypes.func.isRequired,
+  loginRequest : PropTypes.func.isRequired,
 };

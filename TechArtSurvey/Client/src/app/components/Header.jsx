@@ -14,7 +14,7 @@ import {
 import './Header.scss';
 
 const UserInfo = userIsAuthenticated(UserInfoComponent);
-const LoginLink = userIsNotAuthenticated(() => <Link className="navbar__item" to={Routes.LogIn.path}>{Routes.LogIn.text}</Link>);
+const LoginLink = userIsNotAuthenticated(() => <Link className="navbar__item" to={Routes.Login.path}>{Routes.Login.text}</Link>);
 
 const Header = ({ userName }) => (
   <Navbar>

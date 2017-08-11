@@ -1,9 +1,9 @@
-import { LOG_IN_SUCCESS, LOG_OUT } from '../login/actionTypes';
+import { LOGIN_SUCCESS, LOGOUT } from '../login/actionTypes';
 import { setUserToken, resetUserToken } from '../actions';
 
-export const logInMiddleware = (store) => (next) => (action) => {
+export const loginMiddleware = (store) => (next) => (action) => {
   switch (action.type) {
-  case LOG_IN_SUCCESS:
+  case LOGIN_SUCCESS:
     store.dispatch(setUserToken(
       action.payload.token,
       action.payload.refreshToken,
@@ -11,7 +11,7 @@ export const logInMiddleware = (store) => (next) => (action) => {
     ));
     break;
 
-  case LOG_OUT:
+  case LOGOUT:
     store.dispatch(resetUserToken());
     break;
   }

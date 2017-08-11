@@ -25,8 +25,8 @@ export default {
     access : Role.NOBODY,
   },
 
-  LogIn : {
-    text : 'LogIn',
+  Login : {
+    text : 'Login',
     path : '/login',
     access : Role.NOBODY,
   },
