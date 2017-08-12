@@ -1,4 +1,6 @@
-@import "./variables";
+@import "./components/variables";
+
+$main-height-decrease: ($navbar-height + 2 + $navbar-margin-bottom + $footer-height);
 
 html,
 body {
@@ -19,28 +21,14 @@ body {
   flex-grow: 1;
 }
 
-.menu {
-  margin: -$navbar-margin-bottom auto;
-  margin-right: 40px;
-}
-
 .main {
   flex-grow: 1;
-  max-width: 800px;
+  margin-left: 40px;
+  height: calc(100vh - #{$main-height-decrease});
 }
 
 #container {
   min-height: 100%;
   display: flex;
   flex-flow: column nowrap;
-}
-
-@media all and (max-width: $screen-xs-max) {
-  .content {
-    display: block;
-  }
-
-  .menu {
-    margin-right: auto;
-  }
 }

@@ -19,15 +19,15 @@
     &:hover {
       text-decoration: none;
       border-color: $menu-item-hover-border-color;
-      box-shadow: $menu-item-shadow-offset $menu-item-shadow-offset 0 0 $menu-item-hover-shadow-color;
+      box-shadow: 3px 3px 0 0 $menu-item-hover-shadow-color;
       transition: all $menu-item-transition;
     }
 
     &:active {
       text-decoration: none;
       position: relative;
-      top: $menu-item-shadow-offset;
-      left: $menu-item-shadow-offset;
+      top: 3px;
+      left: 3px;
       box-shadow: none;
       transition: all $menu-item-transition;
     }

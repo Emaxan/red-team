@@ -1,0 +1,18 @@
+@import "./customScroll";
+
+.main {
+  display: flex;
+  max-width: 800px;
+}
+
+.custom-scroll .custom-scrollbar {
+  width: 6px;
+}
+
+.custom-scroll .inner-handle {
+  background-color: red;
+}
+
+.user-list {
+  height: 1000px;
+}
