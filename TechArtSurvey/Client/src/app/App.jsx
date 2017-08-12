@@ -1,10 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import Routes from './routes';
 import ItemSelector from './selectors/itemSelector';
 import { Header, Footer, Sidebar, Main } from './components';
-import LoginContainer from '../auth/login/LoginContainer';
 import {
   userIsAuthenticated,
 } from '../auth/auth';
@@ -16,7 +14,6 @@ const mapStateToProps = (state) => ({
   menuItems : ItemSelector(state),
 });
 
-const Login = userIsNotAuthenticatedRedirect(LoginContainer);
 const SideBar = userIsAuthenticated(Sidebar);
 
 const App = ({ userName, menuItems }) => (

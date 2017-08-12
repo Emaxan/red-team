@@ -3,10 +3,10 @@ import CustomScroll from 'react-custom-scroll';
 import { Switch, Route } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
-import Routes from '../routesConstants';
+import Routes from '../routes';
 import UserListContainer from '../../users/UserListContainer';
 import SignupContainer from '../../auth/signup/SignupContainer';
-import LogInContainer from '../../auth/login/LogInContainer';
+import LoginContainer from '../../auth/login/LoginContainer';
 import {
   userIsAuthenticatedRedirect,
   userIsNotAuthenticatedRedirect,
@@ -16,7 +16,7 @@ import {
 import './Main.scss';
 
 const UserList = userIsAuthenticatedRedirect(userIsAdminRedirect(UserListContainer));
-const LogIn = userIsNotAuthenticatedRedirect(LogInContainer);
+const Login = userIsNotAuthenticatedRedirect(LoginContainer);
 const SignUp = userIsNotAuthenticatedRedirect(SignupContainer);
 
 const Main = ({ className }) => (
@@ -25,7 +25,7 @@ const Main = ({ className }) => (
       <Switch>
         <Route path={Routes.Users.path} component={UserList} />
         <Route path={Routes.SignUp.path} component={SignUp}/>
-        <Route path={Routes.LogIn.path} component={LogIn} />
+        <Route path={Routes.Login.path} component={Login} />
       </Switch>
     </CustomScroll>
   </div>
