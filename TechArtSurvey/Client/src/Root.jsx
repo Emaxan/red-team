@@ -12,6 +12,7 @@ import App from './app/App';
 import { authMiddleware } from './auth/middlewares/authMiddleware';
 import { loginMiddleware } from './auth/middlewares/loginMiddleware';
 import { syncUserToken } from './auth/actions';
+import './bootstrap/bootstrap.js';
 
 import './bootstrap/bootstrap.scss';
 

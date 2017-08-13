@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { Form, FormGroup, FormControl, ControlLabel, Button } from 'react-bootstrap';
-
 import Routes from '../../../app/routes';
 import {
   validateEmail,
@@ -68,28 +67,27 @@ export class LoginForm extends Component {
 
     return (
       <Form onSubmit={this.handleOnSubmit} horizontal>
-        <FormGroup validationState={this.validationStates.email}>
-          <ControlLabel>
-            {this.errors.email}
+        <FormGroup validationState={this.validationStates.email} className="label-floating">
+          <ControlLabel htmlFor="email">
+            { this.errors.email || 'Email' }
           </ControlLabel>
           <FormControl
+            id="email"
             name="email"
             type="text"
-            placeholder="Enter e-mail"
             value={this.state.user.email}
             onChange={this.handleOnEmailChange}
           />
           <FormControl.Feedback />
         </FormGroup>
 
-        <FormGroup validationState={this.validationStates.password}>
+        <FormGroup validationState={this.validationStates.password} className="label-floating">
           <ControlLabel>
-            {this.errors.password}
+            { this.errors.password || 'Password' }
           </ControlLabel>
           <FormControl
             name="password"
             type="password"
-            placeholder="Enter password"
             value={this.state.user.password}
             onChange={this.handleOnPasswordChange}
           />

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import ItemSelector from './selectors/itemSelector';
@@ -16,16 +16,24 @@ const mapStateToProps = (state) => ({
 
 const SideBar = userIsAuthenticated(Sidebar);
 
-const App = ({ userName, menuItems }) => (
-  <div className="wrapper">
-    <Header userName={userName} />
-    <div className="container content">
-      <SideBar menuItems={menuItems} />
-      <Main className="main" />
-    </div>
-    <Footer />
-  </div>
-);
+class App extends Component {
+  componentDidUpdate(){
+    $.material.init({validate : false}); //eslint-disable-line
+  }
+
+  render() {
+    return (
+      <div className="wrapper">
+        <Header userName={this.props.userName} />
+        <div className="container content">
+          <SideBar menuItems={this.props.menuItems} />
+          <Main className="main" />
+        </div>
+        <Footer />
+      </div>
+    );
+  }
+}
 
 App.propTypes = {
   ...Header.propTypes,

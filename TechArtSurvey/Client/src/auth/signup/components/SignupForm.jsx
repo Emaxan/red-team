@@ -98,14 +98,13 @@ export class SignupForm extends Component {
 
     return (
       <Form onSubmit={this.handleOnSubmit} horizontal>
-        <FormGroup validationState={this.validationStates.name}>
+        <FormGroup validationState={this.validationStates.name} className="label-floating">
           <ControlLabel>
-            {this.errors.name}
+            {this.errors.name || 'Name'}
           </ControlLabel>
           <FormControl
             name="name"
             type="text"
-            placeholder="Enter name"
             value={this.state.user.name}
             onChange={this.handleOnNameChange}
             className="form-control"
@@ -113,14 +112,13 @@ export class SignupForm extends Component {
           <FormControl.Feedback />
         </FormGroup>
 
-        <FormGroup validationState={this.validationStates.email}>
+        <FormGroup validationState={this.validationStates.email} className="label-floating">
           <ControlLabel>
-            {this.errors.email}
+            {this.errors.email || 'Email'}
           </ControlLabel>
           <FormControl
             name="email"
             type="text"
-            placeholder="Enter e-mail"
             value={this.state.user.email}
             onChange={this.handleOnEmailChange}
             onBlur={this.handleOnEmailBlur}
@@ -129,14 +127,13 @@ export class SignupForm extends Component {
           <FormControl.Feedback />
         </FormGroup>
 
-        <FormGroup validationState={this.validationStates.password}>
+        <FormGroup validationState={this.validationStates.password} className="label-floating">
           <ControlLabel>
-            {this.errors.password}
+            {this.errors.password || 'Password'}
           </ControlLabel>
           <FormControl
             name="password"
             type="password"
-            placeholder="Enter password"
             value={this.state.user.password}
             onChange={this.handleOnPasswordChange}
             className="form-control"
@@ -144,14 +141,13 @@ export class SignupForm extends Component {
           <FormControl.Feedback />
         </FormGroup>
 
-        <FormGroup validationState={this.validationStates.confirmationPassword}>
+        <FormGroup validationState={this.validationStates.confirmationPassword} className="label-floating">
           <ControlLabel>
-            {this.errors.confirmationPassword}
+            {this.errors.confirmationPassword || 'Confirm password'}
           </ControlLabel>
           <FormControl
             name="confirmationPassword"
             type="password"
-            placeholder="Confirm password"
             value={this.state.user.confirmationPassword}
             onChange={this.handleOnConfirmationPasswordChange}
             className="form-control"
