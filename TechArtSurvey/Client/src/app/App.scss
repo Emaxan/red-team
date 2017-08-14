@@ -1,6 +1,7 @@
 @import "./components/variables";
 
-$main-height-decrease: ($navbar-height + 2 + $navbar-margin-bottom + $footer-height);
+$main-margin-left: 30px;
+$main-width-decrease: ($content-padding-horizontal + $menu-width + $content-padding-horizontal + $main-margin-left);
 
 html,
 body {
@@ -23,8 +24,10 @@ body {
 
 .main {
   flex-grow: 1;
-  margin-left: 40px;
+  margin-left: $main-margin-left;
   height: calc(100vh - #{$main-height-decrease});
+  min-width: 0;
+  max-width: calc(100vw - #{$main-width-decrease});
 }
 
 #container {

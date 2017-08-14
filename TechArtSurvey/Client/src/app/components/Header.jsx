@@ -23,11 +23,11 @@ const LoginLink = userIsNotAuthenticated(() => {
 });
 
 const Header = ({ userName }) => (
-  <Navbar>
+  <Navbar fluid>
     <Navbar.Header>
       <Navbar.Brand>
-        <Link to={Routes.Main.path}>
-          <img src={LogoImg} alt="iTechArt logo" />
+        <Link className="navbar-brand__link" to={Routes.Main.path}>
+          <img className="navbar-brand__image" src={LogoImg} alt="iTechArt logo" />
         </Link>
       </Navbar.Brand>
       <Navbar.Toggle />

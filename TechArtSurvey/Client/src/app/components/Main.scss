@@ -1,8 +1,9 @@
 @import "./customScroll";
+@import "./variables";
 
 .main {
   display: flex;
-  max-width: 800px;
+  padding: 0 $content-padding-horizontal;
 }
 
 .custom-scroll .custom-scrollbar {

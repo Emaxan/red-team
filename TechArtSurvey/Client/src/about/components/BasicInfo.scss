@@ -1,8 +1,11 @@
+@import "../../app/components/variables";
+
 .basic-info {
   padding-bottom: 15px;
   display: flex;
   flex-flow: row nowrap;
   align-items: center;
+  justify-content: space-around;
 
   &__logo {
     margin: auto 30px;
@@ -10,8 +13,6 @@
   }
 
   &__img {
-    flex-grow: 1;
-    height: auto;
-    width: 60%;
+    max-height: calc((100vh - #{$main-height-decrease}) * 0.4);
   }
 }

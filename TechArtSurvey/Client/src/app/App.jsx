@@ -25,7 +25,7 @@ class App extends Component {
     return (
       <div className="wrapper">
         <Header userName={this.props.userName} />
-        <div className="container content">
+        <div className="content">
           <SideBar menuItems={this.props.menuItems} />
           <Main className="main" />
         </div>

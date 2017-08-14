@@ -1,16 +1,14 @@
 @import "../variables";
 
-$navbar-height: 60px;
+$navbar-height: 80px;
 
-$menu-line-hight: 80px;
-$menu-width: 300px;
-
-$menu-item-border-width: 1px;
-$menu-item-border-color: black;
-$menu-item-hover-border-color: #777;
-$menu-item-shadow-color: black;
-$menu-item-hover-shadow-color: #777;
+$menu-width: 40px;
+$expand-menu-width: 300px;
+$menu-line-height: 50px;
 $menu-item-background-color: white;
-$menu-item-transition: cubic-bezier(0, 0, 0.2, 1) 0.2s;
+
+$content-padding-horizontal: 10px;
 
 $footer-height: 40px;
+
+$main-height-decrease: ($navbar-height + 2 + $navbar-margin-bottom + $footer-height);

@@ -6,29 +6,46 @@
 
 .navbar-default .navbar__item {
   color: $gray-light;
+
+  &:hover,
+  &:focus {
+    color: $gray-dark;
+    text-decoration: none;
+  }
 }
 
-.navbar-default .navbar__item:hover,
-.navbar-default .navbar__item:focus {
-  color: $gray-dark;
-  text-decoration: none;
-}
+.navbar {
+  &-brand {
+    &__link {
+      width: auto;
+      height: $navbar-height !important;
+    }
 
-.navbar__item {
-  display: inline-block;
-}
+    &__image {
+      height: 100%;
+    }
+  }
 
-.navbar__item-wrapper {
-  background-color: inherit !important;
-  border: none !important;
-  line-height: $navbar-height !important;
-  padding-top: 0 !important;
-  padding-bottom: 0 !important;
-  text-align: center !important;
-}
+  &-collapse {
+    margin-right: 20px !important;
+  }
 
-.navbar__item-wrapper:hover {
-  background-color: #f2f2f2 !important;
+  &__item {
+    display: inline-block;
+
+    &-wrapper {
+      background-color: $navbar-default-bg !important;
+      border: none !important;
+      line-height: $navbar-height !important;
+      padding-top: 0 !important;
+      padding-bottom: 0 !important;
+      text-align: center !important;
+
+      &:hover {
+        background-color: darken($navbar-default-bg, 10%) !important;
+      }
+    }
+  }
 }
 
 @media (max-width: $screen-xs-max) {

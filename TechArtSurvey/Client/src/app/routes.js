@@ -7,12 +7,6 @@ export default {
     access : Role.NOBODY,
   },
 
-  Users : {
-    text : 'Users list',
-    path : '/users',
-    access : Role.ADMIN,
-  },
-
   About : {
     text : 'About company',
     path : '/about',
@@ -73,33 +67,44 @@ export default {
     access : Role.NOBODY,
   },
 
+  ForgotPassword : {
+    text : 'Forgot password?',
+    path : '/forgotPassword',
+    access : Role.NOBODY,
+  },
+
   Surveys : {
     text : 'Surveys list',
     path : '/survey',
     access : Role.ANY,
+    icon : 'glyphicon glyphicon-th-list',
   },
 
   NewSurvey : {
     text : 'New survey',
     path : '/survey/new',
     access : Role.ADMIN,
+    icon : 'glyphicon glyphicon-plus',
   },
 
   MySurveys : {
     text : 'My surveys',
     path : '/survey/my',
     access : Role.ADMIN,
+    icon : 'glyphicon glyphicon-tasks',
   },
 
   SurveyTemplates : {
     text : 'Surveys templates list',
     path : '/survey/templates',
     access : Role.ADMIN,
+    icon : 'glyphicon glyphicon-book',
   },
 
-  ForgotPassword : {
-    text : 'Forgot password?',
-    path : '/forgotPassword',
-    access : Role.NOBODY,
+  Users : {
+    text : 'Users list',
+    path : '/users',
+    access : Role.ADMIN,
+    icon : 'glyphicon glyphicon-user',
   },
 };
