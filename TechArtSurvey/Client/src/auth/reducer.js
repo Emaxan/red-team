@@ -7,11 +7,7 @@ import {
   RESET_USER_TOKEN,
   SYNC_USER_TOKEN,
 } from './actionTypes';
-
-const UserInfoRecord = new Record({
-  userName : '',
-  role : '',
-});
+import { UserInfoRecord } from './UserInfoRecord';
 
 const authInitialState = Record({
   isAuthenticated : AuthService.isAuthenticated(),
