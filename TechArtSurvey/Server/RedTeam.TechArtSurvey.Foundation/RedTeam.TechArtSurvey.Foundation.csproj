@@ -30,56 +30,15 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="AutoMapper, Version=6.1.1.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
-      <HintPath>..\packages\AutoMapper.6.1.1\lib\net45\AutoMapper.dll</HintPath>
-    </Reference>
-    <Reference Include="JetBrains.Annotations, Version=10.4.0.0, Culture=neutral, PublicKeyToken=1010a0d8d6380325, processorArchitecture=MSIL">
-      <HintPath>..\packages\JetBrains.Annotations.10.4.0\lib\net\JetBrains.Annotations.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ServiceResponse.cs" />
-    <Compile Include="Services\UserService.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="BusinessModel\" />
     <Folder Include="Exceptions\" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\RedTeam.Logger.Interfaces\RedTeam.Logger.Interfaces.csproj">
-      <Project>{725ec8e0-9925-4c5c-b1ef-83cfb09704d6}</Project>
-      <Name>RedTeam.Logger.Interfaces</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\RedTeam.Logger\RedTeam.Logger.csproj">
-      <Project>{2A7D081E-C19A-476B-9E46-2D17CE1769AF}</Project>
-      <Name>RedTeam.Logger</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\RedTeam.Repositories\RedTeam.Repositories.csproj">
-      <Project>{433a7044-1a29-42cb-80b0-06e86aa12a2f}</Project>
-      <Name>RedTeam.Repositories</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\RedTeam.TechArtSurvey.DomainModel\RedTeam.TechArtSurvey.DomainModel.csproj">
-      <Project>{cba1e0f8-a057-4782-82de-162668f2b074}</Project>
-      <Name>RedTeam.TechArtSurvey.DomainModel</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\RedTeam.TechArtSurvey.Foundation.Dto\RedTeam.TechArtSurvey.Foundation.Dto.csproj">
-      <Project>{e5e1a1e9-ff87-4aee-9b49-8c19a2307d5d}</Project>
-      <Name>RedTeam.TechArtSurvey.Foundation.Dto</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\RedTeam.TechArtSurvey.Foundation.Interfaces\RedTeam.TechArtSurvey.Foundation.Interfaces.csproj">
-      <Project>{cdf233fb-754d-41fe-8f6c-b41f40aa680a}</Project>
-      <Name>RedTeam.TechArtSurvey.Foundation.Interfaces</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\RedTeam.TechArtSurvey.Repositories.Interfaces\RedTeam.TechArtSurvey.Repositories.Interfaces.csproj">
-      <Project>{a92eae24-d485-4f0d-b77f-eb485a7fcbe3}</Project>
-      <Name>RedTeam.TechArtSurvey.Repositories.Interfaces</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

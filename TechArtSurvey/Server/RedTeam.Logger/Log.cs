@@ -1,7 +1,6 @@
-﻿using System;
+﻿using RedTeam.Logger.Interfaces;
+using System;
 using System.Diagnostics;
-
-using RedTeam.Logger.Interfaces;
 
 namespace RedTeam.Logger
 {

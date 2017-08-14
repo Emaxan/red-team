@@ -1,12 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using JetBrains.Annotations;
+using RedTeam.Logger;
+using RedTeam.Repositories.Interfaces;
+using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
-
-using JetBrains.Annotations;
-
-using RedTeam.Logger;
-using RedTeam.Repositories.Interfaces;
 
 namespace RedTeam.Repositories.EntityFramework.Repositories
 {
@@ -34,14 +32,16 @@ namespace RedTeam.Repositories.EntityFramework.Repositories
         public virtual TEntity Create(TEntity entity)
         {
             LoggerContext.Logger.Info($"Create entity in database with type {typeof(TEntity).Name}");
+
             return _dbSet.Add(entity);
         }
 
         [CanBeNull]
-        public virtual async Task<TEntity> GetAsync(int id)
+        public virtual async Task<TEntity> GetByIdAsync(int id)
         {
             LoggerContext.Logger.Info($"Get entity from database with id {id}");
             var user = await _dbSet.FindAsync(id);
+
             return user;
         }
 
@@ -49,6 +49,7 @@ namespace RedTeam.Repositories.EntityFramework.Repositories
         {
             LoggerContext.Logger.Info($"Get all entities from database with type {typeof(TEntity).Name}");
             var users = await _dbSet.ToListAsync();
+
             return users;
         }
 
@@ -69,11 +70,6 @@ namespace RedTeam.Repositories.EntityFramework.Repositories
                 _dbSet.Attach(entity);
             }
             _dbSet.Remove(entity);
-        }
-
-        public virtual void Detach(TEntity entity)
-        {
-            Context.Entry(entity).State = EntityState.Detached;
         }
     }
 }

@@ -4,6 +4,8 @@ using System.Web.Http.Controllers;
 using System.Web.Http.Filters;
 using RedTeam.Logger;
 using RedTeam.TechArtSurvey.Foundation.Interfaces.ServiceResponses;
+using System.Collections.Generic;
+using Newtonsoft.Json;
 
 namespace RedTeam.TechArtSurvey.WebApi.Filters
 {
@@ -13,41 +15,48 @@ namespace RedTeam.TechArtSurvey.WebApi.Filters
         {
             if (!actionContext.ModelState.IsValid)
             {
-                actionContext.Response =
-                    actionContext.Request.CreateErrorResponse(HttpStatusCode.BadRequest, actionContext.ModelState);
+                var errors = new List<string>();
+                foreach (var state in actionContext.ModelState)
+                {
+                    errors.Add(state.Value.Errors[0].ErrorMessage);
+                }
+                var json = JsonConvert.SerializeObject(errors);
+                actionContext.Response = actionContext.Request.CreateResponse(HttpStatusCode.BadRequest, json);
             }
             base.OnActionExecuting(actionContext);
         }
 
         public override void OnActionExecuted(HttpActionExecutedContext actionExecutedContext)
         {
-            var objectContent = actionExecutedContext.Response.Content as ObjectContent;
-            if (objectContent != null)
+            if (actionExecutedContext.Response != null)
             {
-                var serviceResponse = objectContent.Value as IServiceResponse;
-                if (serviceResponse != null)
+                var objectContent = actionExecutedContext.Response.Content as ObjectContent;
+                if (objectContent != null)
                 {
-                    HttpResponseMessage response = actionExecutedContext.Response;
-
-                    if (serviceResponse.Code == ServiceResponseCodes.Ok)
+                    var serviceResponse = objectContent.Value as IServiceResponse;
+                    if (serviceResponse != null)
                     {
-                        response = actionExecutedContext.Request.CreateResponse(
-                            HttpStatusCode.OK,
-                            serviceResponse.Content);
-                    }
-                    else
-                    {
-                        string errorMessage =
-                            Properties.ResponseMessages.ResourceManager.GetString(serviceResponse.Code.ToString());
+                        HttpResponseMessage response = actionExecutedContext.Response;
 
-                        response = actionExecutedContext.Request.CreateResponse(HttpStatusCode.BadRequest, errorMessage);
-                        LoggerContext.Logger.Error(errorMessage);
-                    }
+                        if (serviceResponse.Code == ServiceResponseCodes.Ok)
+                        {
+                            response = actionExecutedContext.Request.CreateResponse(
+                                HttpStatusCode.OK,
+                                serviceResponse.Content);
+                        }
+                        else
+                        {
+                            List<string> errorMessages = new List<string>();
+                            errorMessages.Add(Properties.ResponseMessages.ResourceManager.GetString(serviceResponse.Code.ToString()));
+                            var json = JsonConvert.SerializeObject(errorMessages);
+                            response = actionExecutedContext.Request.CreateResponse(HttpStatusCode.BadRequest, json);
+                            LoggerContext.Logger.Error(errorMessages[0]);
+                        }
 
-                    actionExecutedContext.Response = response;
+                        actionExecutedContext.Response = response;
+                    }
                 }
             }
-
             base.OnActionExecuted(actionExecutedContext);
         }
     }

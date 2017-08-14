@@ -21,7 +21,3 @@ For what: when you change the project (add some changes in js, css, html and etc
 Root.jsx - entry point for webpack
 
 Server will return built html file, so you don't need to find it and open by yourselves.
-
-### Most frequent errors: ###
-* Errors of parsing (showed in console). <p>Reason: These errors will appear if you have any mistakes in webpack configs. Loaders (for example, css loaders) could be added wrongly. Most often it happens because of adding loaders by tutorials for webpack versions < 3.</p>
-* Errors of resolving any files. <p>Reason: It happens if there is no such file in a directory. Check up url. Such error also happened when I hadn't required extensions (for example ".jsx") in webpack config file.</p>
