@@ -1,4 +1,5 @@
 import { createActions } from 'redux-actions';
+import AuthService from './authService';
 
 import {
   SET_USER_TOKEN,
@@ -11,13 +12,14 @@ export const {
   resetUserToken,
   syncUserToken,
 } = createActions({
-  [SET_USER_TOKEN] : (token, refreshToken, tokenType) => ({
-    token,
-    refreshToken,
-    tokenType,
+  [SET_USER_TOKEN] : () => ({
+    userInfo : AuthService.getUserInfo(),
   }),
 
   [RESET_USER_TOKEN] : () => {},
 
-  [SYNC_USER_TOKEN] : () => {},
+  [SYNC_USER_TOKEN] : () => ({
+    userInfo : AuthService.getUserInfo(),
+    isAuthenticated : AuthService.isAuthenticated(),
+  }),
 });
