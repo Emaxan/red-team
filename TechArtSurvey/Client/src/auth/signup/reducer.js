@@ -8,7 +8,6 @@ import {
 } from './actionTypes';
 
 const signUpInitialState = Record({
-  message : '',
   errors : List(),
 });
 

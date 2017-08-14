@@ -7,7 +7,6 @@ import {
 } from './actionTypes';
 
 const loginInitialState = Record({
-  message : '',
   errors : List(),
 });
 
