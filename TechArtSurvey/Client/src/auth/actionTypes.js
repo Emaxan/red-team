@@ -1,4 +1,3 @@
-export const SET_USER_TOKEN = 'SET_USER_TOKEN';
-export const SET_TOKEN_TYPE = 'SET_TOKEN_TYPE';
-export const RESET_USER_TOKEN = 'RESET_USER_TOKEN';
-export const SYNC_USER_TOKEN = 'SYNC_USER_TOKEN';
+export const SET_USER_INFO = 'SET_USER_TOKEN';
+export const RESET_USER_INFO = 'RESET_USER_TOKEN';
+export const SYNC_USER_INFO = 'SYNC_USER_TOKEN';

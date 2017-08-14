@@ -3,9 +3,9 @@ import { Record } from 'immutable';
 
 import AuthService from './authService';
 import {
-  SET_USER_TOKEN,
-  RESET_USER_TOKEN,
-  SYNC_USER_TOKEN,
+  SET_USER_INFO,
+  RESET_USER_INFO,
+  SYNC_USER_INFO,
 } from './actionTypes';
 import { UserInfoRecord } from './UserInfoRecord';
 
@@ -17,15 +17,15 @@ const authInitialState = Record({
 const initialState = new authInitialState();
 
 export const authReducer = handleActions({
-  [SET_USER_TOKEN] : (state, action) =>
+  [SET_USER_INFO] : (state, action) =>
     state.set('userInfo', new UserInfoRecord(action.payload.userInfo))
       .set('isAuthenticated', true),
 
-  [RESET_USER_TOKEN] : (state) =>
+  [RESET_USER_INFO] : (state) =>
     state.set('userInfo', new UserInfoRecord())
       .set('isAuthenticated', false),
 
-  [SYNC_USER_TOKEN] : (state, action) =>
+  [SYNC_USER_INFO] : (state, action) =>
     state.set('userInfo', new UserInfoRecord(action.payload.userInfo))
       .set('isAuthenticated', action.payload.isAuthenticated),
 }, initialState);
