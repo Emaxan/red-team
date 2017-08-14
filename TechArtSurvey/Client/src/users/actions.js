@@ -18,18 +18,13 @@ export const {
   getUsersError,
   getUsersFilter,
 } = createActions({
-  [GET_USERS_START] : () => ({
-    message : 'request started',
-  }),
+  [GET_USERS_START] : () => {},
 
   [GET_USERS_SUCCESS] : (userList) => ({
     userList,
-    message : 'request succeeded',
   }),
 
-  [GET_USERS_ERROR] : (message) => ({
-    message,
-  }),
+  [GET_USERS_ERROR] : () => {},
 
   [GET_USERS_FILTER] : (filterInput) => ({
     filterInput,
@@ -43,7 +38,7 @@ export const getUsers = () => (dispatch) => {
       dispatch(getUsersSuccess(response.data));
     })
     .catch((error) => {
-      dispatch(getUsersError(error.data));
+      dispatch(getUsersError());
 
       if (error.statusCode === UNAUTHORIZED) {
         tokenUtility.updateTokens();

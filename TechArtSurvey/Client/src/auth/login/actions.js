@@ -19,29 +19,21 @@ export const {
   logInInvalidData,
   logOut,
 } = createActions({
-  [LOGIN_START] : () => ({
-    message : 'User Login request START',
-  }),
+  [LOGIN_START] : () => {},
 
   [LOGIN_SUCCESS] : (token, refreshToken, tokenType) => ({
     token,
     refreshToken,
     tokenType,
-    message : 'User Login request SUCCESS',
   }),
 
-  [LOGIN_FAILED] : (error) => ({
-    message : error,
-  }),
+  [LOGIN_FAILED] : () => {},
 
   [LOGIN_INVALID_DATA] : (errors) => ({
-    message : 'User Login request INVALID DATA',
     errors,
   }),
 
-  [LOGOUT] : () => ({
-    message : 'User Logout request',
-  }),
+  [LOGOUT] : () => {},
 });
 
 export const loginRequest = (userData) => (dispatch) => {
@@ -58,7 +50,7 @@ export const loginRequest = (userData) => (dispatch) => {
       if (error.statusCode === BAD_REQUEST) {
         dispatch(logInInvalidData(['Wrong email or password.']));
       } else {
-        dispatch(logInFailed(error));
+        dispatch(logInFailed());
       }
     });
 };

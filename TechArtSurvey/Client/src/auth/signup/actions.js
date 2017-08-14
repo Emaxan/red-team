@@ -28,41 +28,23 @@ export const {
   checkEmailExistenceError,
   checkEmailExistenceInvalid,
 } = createActions({
-  [SIGN_UP_START] : () => ({
-    type : [SIGN_UP_START],
-    message : 'User signUp request START',
-  }),
+  [SIGN_UP_START] : () => {},
 
-  [SIGN_UP_SUCCESS] : () => ({
-    type : [SIGN_UP_SUCCESS],
-    message : 'User signUp request SUCCESS',
-  }),
+  [SIGN_UP_SUCCESS] : () => {},
 
-  [SIGN_UP_FAILED] : (error) => ({
-    type : [SIGN_UP_FAILED],
-    message : error,
-  }),
+  [SIGN_UP_FAILED] : () => {},
 
   [SIGN_UP_INVALID_DATA] : (errors) => ({
-    type : [SIGN_UP_INVALID_DATA],
-    message : 'User signUp request INVALID DATA',
     errors,
   }),
 
-  [CHECK_EMAIL_EXISTENCE_START] : () => ({
-    message : 'Check email existence START',
-  }),
+  [CHECK_EMAIL_EXISTENCE_START] : () => {},
 
-  [CHECK_EMAIL_EXISTENCE_SUCCESS] : () => ({
-    message : 'Check email existence SUCCESS',
-  }),
+  [CHECK_EMAIL_EXISTENCE_SUCCESS] : () => {},
 
-  [CHECK_EMAIL_EXISTENCE_ERROR] : (error) => ({
-    message : error,
-  }),
+  [CHECK_EMAIL_EXISTENCE_ERROR] : () => {},
 
   [CHECK_EMAIL_EXISTENCE_INVALID] : (errors) => ({
-    message : 'Check email existence INVALID',
     errors,
   }),
 });
@@ -78,7 +60,7 @@ export const signupRequest = (userData) => (dispatch) => {
       if (error.statusCode === BAD_REQUEST) {
         dispatch(signUpInvalidData(error.data));
       } else {
-        dispatch(signUpFailed(error));
+        dispatch(signUpFailed());
       }
     });
 };
@@ -93,7 +75,7 @@ export const checkEmailExistenceRequest = (email) => (dispatch) => {
       if (error.statusCode === BAD_REQUEST) {
         dispatch(checkEmailExistenceInvalid(error.data));
       } else {
-        dispatch(checkEmailExistenceError(error.data));
+        dispatch(checkEmailExistenceError());
       }
     });
 };
