@@ -22,43 +22,43 @@ export default {
   AboutUs : {
     text : 'About us',
     path : '/about/about-us',
-    access : Roles.NEVER,
+    access : Role.NEVER,
   },
 
   Training : {
     text : 'Training',
     path : '/about/training',
-    access : Roles.NEVER,
+    access : Role.NEVER,
   },
 
   Benefits : {
     text : 'Benefist',
     path : '/about/benefits',
-    access : Roles.NEVER,
+    access : Role.NEVER,
   },
 
   ForStudents : {
     text : 'For students',
     path : '/about/for-students',
-    access : Roles.NEVER,
+    access : Role.NEVER,
   },
 
   OurAdvantages : {
     text : 'Our advantages',
     path : '/about/our-advantages',
-    access : Roles.NEVER,
+    access : Role.NEVER,
   },
 
   Careers : {
     text : 'Careers',
     path : '/about/careers',
-    access : Roles.NEVER,
+    access : Role.NEVER,
   },
 
   Contacts : {
     text : 'Contacts',
     path : '/about/contacts',
-    access : Roles.NEVER,
+    access : Role.NEVER,
   },
 
   SignUp : {

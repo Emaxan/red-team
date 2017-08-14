@@ -4,7 +4,7 @@ import { Nav, NavItem } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
 
 import BasicInfo from './components/BasicInfo';
-import Routes from '../app/routesConstants';
+import Routes from '../app/routes';
 import {
   AboutUs,
   Training,

@@ -7,6 +7,7 @@ import Routes from '../routes';
 import UserListContainer from '../../users/UserListContainer';
 import SignupContainer from '../../auth/signup/SignupContainer';
 import LoginContainer from '../../auth/login/LoginContainer';
+import { AboutContainer } from '../../about/AboutContainer';
 import {
   userIsAuthenticatedRedirect,
   userIsNotAuthenticatedRedirect,
@@ -26,6 +27,7 @@ const Main = ({ className }) => (
         <Route path={Routes.Users.path} component={UserList} />
         <Route path={Routes.SignUp.path} component={SignUp}/>
         <Route path={Routes.Login.path} component={Login} />
+        <Route path={Routes.About.path} component={AboutContainer} />
       </Switch>
     </CustomScroll>
   </div>
