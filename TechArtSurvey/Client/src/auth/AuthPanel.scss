@@ -1,3 +1,5 @@
+@import "../app/variables";
+
 .form-control:-webkit-autofill,
 .form-control:-webkit-autofill:hover,
 .form-control:-webkit-autofill:focus {
@@ -18,4 +20,8 @@
 
 .has-feedback label ~ .form-control-feedback {
   top: 0 !important;
+}
+
+.panel {
+  background-color: rgba($navbar-default-bg, 0.7);
 }

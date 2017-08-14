@@ -7,12 +7,9 @@
   align-items: center;
   justify-content: space-around;
 
-  &__logo {
-    margin: auto 30px;
-    font-size: 3em;
-  }
-
   &__img {
     max-height: calc((100vh - #{$main-height-decrease}) * 0.4);
+    margin-top: 35px;
+    margin-bottom: 35px;
   }
 }

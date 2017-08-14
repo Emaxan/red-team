@@ -2,7 +2,9 @@ import React from 'react';
 import Routes from '../../app/routes';
 
 const OurAdvantages = () => (
-  <p>{Routes.OurAdvantages.text}</p>
+  <div>
+    <p>{Routes.OurAdvantages.text}</p>
+  </div>
 );
 
 export default OurAdvantages;

@@ -94,11 +94,6 @@ export class LoginForm extends Component {
           <FormControl.Feedback />
         </FormGroup>
 
-        <div className="login-links">
-          <Link to={Routes.SignUp.path} >{Routes.SignUp.text}</Link>
-          <Link to={Routes.ForgotPassword.path} >{Routes.ForgotPassword.text}</Link>
-        </div>
-
         <FormGroup className="text-center">
           <Button
             type="submit"
@@ -108,6 +103,11 @@ export class LoginForm extends Component {
             {this.props.actionString}
           </Button>
         </FormGroup>
+
+        <div className="login-links">
+          <Link to={Routes.SignUp.path} >{Routes.SignUp.text}</Link>
+          <Link to={Routes.ForgotPassword.path} >{Routes.ForgotPassword.text}</Link>
+        </div>
       </Form>
     );
   }
