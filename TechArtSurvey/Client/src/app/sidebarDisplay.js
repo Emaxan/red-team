@@ -1,4 +1,5 @@
 export default {
-  USER : 'User',
+  ANY : 'Any',
   ADMIN : 'Admin',
+  NOBODY : '',
 };
