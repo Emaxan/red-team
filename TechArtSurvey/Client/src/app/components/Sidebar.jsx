@@ -11,7 +11,7 @@ const Sidebar = ({ menuItems, className }) => (
       menuItems.map((item, i) => (
         <Button key={i} className="menu__item-wrapper">
           <span className={item.icon || 'glyphicon glyphicon-asterisk'}/>
-          <Link to={item.path} className="menu__item">{item.text}</Link>
+          <Link to={item.path} className="menu__item react-bootstrap-link">{item.text}</Link>
         </Button>
       ))
     }

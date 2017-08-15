@@ -30,22 +30,27 @@
     text-decoration: none;
     color: $gray-light;
 
-    &:hover,
-    &:active,
-    &:focus {
-      text-decoration: none !important;
-      color: $gray-dark;
+    &.react-bootstrap-link {
+      &:hover,
+      &:active,
+      &:focus {
+        text-decoration: none;
+        color: $gray-dark;
+      }
     }
-    &-wrapper {
-      position: relative;
-      background-color: $navbar-default-bg !important;
-      border: none !important;
-      line-height: $navbar-height !important;
-      padding: 0 !important;
-      text-align: center !important;
 
-      &:hover {
-        background-color: darken($navbar-default-bg, 10%) !important;
+    &-wrapper {
+      &.btn {
+        position: relative;
+        background-color: $navbar-default-bg;
+        border: none;
+        line-height: $navbar-height;
+        padding: 0;
+        text-align: center;
+
+        &:hover {
+          background-color: darken($navbar-default-bg, 10%);
+        }
       }
     }
   }
