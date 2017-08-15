@@ -4,6 +4,15 @@ import {
   BAD_REQUEST,
 } from 'http-status';
 
+import AuthService from '../auth/authService';
+
+const prepareHeaders = (headers) => {
+  return {
+    ...headers,
+    'Authorization' : `${AuthService.getTokenType()} ${AuthService.getToken()}`,
+  };
+};
+
 async function prepareResponse (responseInfo) {
   const statusCode = responseInfo.status;
   const data = await responseInfo.json();
@@ -33,7 +42,7 @@ export const httpUtility = {
   post : async (url, headers, data) => {
     const responseInfo = await fetch(url, {
       method : 'POST',
-      headers,
+      headers : prepareHeaders(headers),
       body : isString(data) ? data : JSON.stringify(data),
     });
 
@@ -43,7 +52,7 @@ export const httpUtility = {
   get : async (url, headers) => {
     const responseInfo = await fetch(url, {
       method : 'GET',
-      headers,
+      headers : prepareHeaders(headers),
     });
 
     return await prepareResponse(responseInfo);
