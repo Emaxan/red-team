@@ -9,8 +9,8 @@ import createHistory from 'history/createBrowserHistory';
 
 import configureStore from './app/configureStore';
 import App from './app/App';
-import { authMiddleware } from './auth/middlewares/authMiddleware';
-import { loginMiddleware } from './auth/middlewares/loginMiddleware';
+import { authMiddleware } from './auth/authMiddleware';
+import { loginMiddleware } from './auth/login/loginMiddleware';
 import { syncUserToken } from './auth/actions';
 import './bootstrap/bootstrap.js';
 

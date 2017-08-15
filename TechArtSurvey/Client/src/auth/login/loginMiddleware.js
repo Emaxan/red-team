@@ -1,4 +1,4 @@
-import { LOGIN_SUCCESS, LOGOUT } from '../login/actionTypes';
+import { LOGIN_SUCCESS, LOGOUT } from './actionTypes';
 import { setUserToken, resetUserToken } from '../actions';
 import AuthService from '../authService';
 
