@@ -16,43 +16,43 @@ export default {
   AboutUs : {
     text : 'About us',
     path : '/about/about-us',
-    access : Role.NEVER,
+    access : Role.NOBODY,
   },
 
   Training : {
     text : 'Training',
     path : '/about/training',
-    access : Role.NEVER,
+    access : Role.NOBODY,
   },
 
   Benefits : {
     text : 'Benefist',
     path : '/about/benefits',
-    access : Role.NEVER,
+    access : Role.NOBODY,
   },
 
   ForStudents : {
     text : 'For students',
     path : '/about/for-students',
-    access : Role.NEVER,
+    access : Role.NOBODY,
   },
 
   OurAdvantages : {
     text : 'Our advantages',
     path : '/about/our-advantages',
-    access : Role.NEVER,
+    access : Role.NOBODY,
   },
 
   Careers : {
     text : 'Careers',
     path : '/about/careers',
-    access : Role.NEVER,
+    access : Role.NOBODY,
   },
 
   Contacts : {
     text : 'Contacts',
     path : '/about/contacts',
-    access : Role.NEVER,
+    access : Role.NOBODY,
   },
 
   SignUp : {
@@ -70,6 +70,12 @@ export default {
   ForgotPassword : {
     text : 'Forgot password?',
     path : '/forgotPassword',
+    access : Role.NOBODY,
+  },
+
+  Forbidden : {
+    text : 'HTTP Forbidden (403)',
+    path : '/forbidden',
     access : Role.NOBODY,
   },
 
@@ -106,11 +112,5 @@ export default {
     path : '/users',
     access : Role.ADMIN,
     icon : 'glyphicon glyphicon-user',
-  },
-
-  Forbidden : {
-    text : 'HTTP Forbidden (403)',
-    path : '/forbidden',
-    access : Role.NOBODY,
   },
 };
