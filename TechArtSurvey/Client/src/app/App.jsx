@@ -11,6 +11,7 @@ import './App.scss';
 
 const mapStateToProps = (state) => ({
   userName : state.auth.userInfo.userName,
+  email : state.auth.userInfo.email,
   menuItems : ItemSelector(state),
 });
 
@@ -24,7 +25,7 @@ class App extends Component {
   render() {
     return (
       <div className="wrapper">
-        <Header userName={this.props.userName} />
+        <Header userName={this.props.userName} email={this.props.email} />
         <div className="content">
           <SideBar menuItems={this.props.menuItems} />
           <Main className="main" />
@@ -44,6 +45,7 @@ App.propTypes = {
 
 App.defaultProps = {
   userName : '',
+  email : '',
 };
 
 export default connect(mapStateToProps, null, null, { pure: false })(App);

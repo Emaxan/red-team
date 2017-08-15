@@ -36,6 +36,7 @@ export default class AuthService {
       const jwt = jwt_decode(this.getToken());
       return {
         userName : jwt.unique_name,
+        email : jwt.email,
         role : jwt.role,
       };
     }

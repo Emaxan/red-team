@@ -22,7 +22,7 @@ const LoginLink = userIsNotAuthenticated(() => {
   );
 });
 
-const Header = ({ userName }) => (
+const Header = ({ userName, email }) => (
   <Navbar fluid>
     <Navbar.Header>
       <Navbar.Brand>
@@ -38,7 +38,7 @@ const Header = ({ userName }) => (
           <Link className="navbar__item" to={Routes.About.path}>{Routes.About.text}</Link>
         </Button>
         <LoginLink />
-        <UserInfo username={userName} />
+        <UserInfo username={userName} email={email} />
       </nav>
     </Navbar.Collapse>
   </Navbar>
@@ -46,6 +46,7 @@ const Header = ({ userName }) => (
 
 Header.propTypes = {
   userName : PropTypes.string.isRequired,
+  email : PropTypes.string.isRequired,
 };
 
 export default Header;
