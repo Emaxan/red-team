@@ -17,7 +17,7 @@ const UserInfo = userIsAuthenticated(UserInfoComponent);
 const LoginLink = userIsNotAuthenticated(() => {
   return (
     <Button className="navbar__item-wrapper">
-      <Link className="navbar__item" to={Routes.Login.path}>{Routes.Login.text}</Link>
+      <Link className="navbar__item react-bootstrap-link" to={Routes.Login.path}>{Routes.Login.text}</Link>
     </Button>
   );
 });
@@ -25,14 +25,14 @@ const LoginLink = userIsNotAuthenticated(() => {
 const Header = ({ userName, email }) => (
   <Navbar fluid>
     <Navbar.Header>
-      <Navbar.Brand>
-        <Link className="navbar-brand__link" to={Routes.Main.path}>
+      <Navbar.Brand className="navbar-brand">
+        <Link className="navbar-brand__link react-bootstrap-link" to={Routes.Main.path}>
           <img className="navbar-brand__image" src={LogoImg} alt="iTechArt logo" />
         </Link>
       </Navbar.Brand>
       <Navbar.Toggle />
     </Navbar.Header>
-    <Navbar.Collapse>
+    <Navbar.Collapse className="react-bootstrap-navbar-collapse">
       <nav>
         <Button className="navbar__item-wrapper">
           <Link className="navbar__item" to={Routes.About.path}>{Routes.About.text}</Link>

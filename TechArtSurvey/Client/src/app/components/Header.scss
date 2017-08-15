@@ -17,8 +17,10 @@
 .navbar {
   &-brand {
     &__link {
-      width: auto;
-      height: $navbar-height !important;
+      &.react-bootstrap-link {
+        width: auto;
+        height: $navbar-height;
+      }
     }
 
     &__image {
@@ -26,23 +28,27 @@
     }
   }
 
-  &-collapse {
-    margin-right: 20px !important;
+  .react-bootstrap-navbar-collapse {
+    &.navbar-collapse {
+      margin-right: 20px;
+    }
   }
 
   &__item {
     display: inline-block;
 
     &-wrapper {
-      background-color: $navbar-default-bg !important;
-      border: none !important;
-      line-height: $navbar-height !important;
-      padding-top: 0 !important;
-      padding-bottom: 0 !important;
-      text-align: center !important;
+      &.btn {
+        background-color: $navbar-default-bg;
+        border: none;
+        line-height: $navbar-height;
+        padding-top: 0;
+        padding-bottom: 0;
+        text-align: center;
 
-      &:hover {
-        background-color: darken($navbar-default-bg, 10%) !important;
+        &:hover {
+          background-color: darken($navbar-default-bg, 10%);
+        }
       }
     }
   }
