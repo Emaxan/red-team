@@ -14,6 +14,7 @@ import {
   Careers,
   Contacts,
 } from './components';
+import { NotFound } from '../error/NotFound';
 
 import './AboutContainer.scss';
 
@@ -54,6 +55,7 @@ export const AboutContainer = () => (
         <Route path={Routes.OurAdvantages.path} component={OurAdvantages} />
         <Route path={Routes.Careers.path} component={Careers} />
         <Route path={Routes.Contacts.path} component={Contacts} />
+        <Route component={NotFound}/>
       </Switch>
     </div>
   </div>

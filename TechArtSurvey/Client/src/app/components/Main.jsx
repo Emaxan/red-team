@@ -13,7 +13,7 @@ import {
   userIsNotAuthenticatedRedirect,
   userIsAdminRedirect,
 } from '../../auth/auth';
-import {NotFound} from '../../error/NotFound';
+import { NotFound } from '../../error/NotFound';
 
 import './Main.scss';
 
@@ -25,6 +25,7 @@ const Main = ({ className }) => (
   <div className={'main ' + className}>
     <CustomScroll flex="1">
       <Switch>
+        <Route exact path={Routes.Main.path} render={() => <div />} />
         <Route path={Routes.Users.path} component={UserList} />
         <Route path={Routes.SignUp.path} component={SignUp}/>
         <Route path={Routes.Login.path} component={Login} />
