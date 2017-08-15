@@ -5,8 +5,8 @@ import Gravatar from 'react-gravatar';
 
 import {
   userIsAuthenticated,
-} from '../../auth/auth';
-import { logoutRequest } from '../../auth/login/actions';
+} from '../../../auth/auth';
+import { logoutRequest } from '../../../auth/login/actions';
 
 import './UserInfo.scss';
 

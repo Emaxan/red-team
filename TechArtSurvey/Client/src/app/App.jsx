@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import ItemSelector from './selectors/itemSelector';
-import { Header, Footer, Sidebar, Main } from './components';
+import { Footer, Sidebar, Main } from './components';
+import Header from './components/header/Header';
 import {
   userIsAuthenticated,
 } from '../auth/auth';
