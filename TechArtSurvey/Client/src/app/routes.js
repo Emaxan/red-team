@@ -107,4 +107,10 @@ export default {
     access : Role.ADMIN,
     icon : 'glyphicon glyphicon-user',
   },
+
+  Forbidden : {
+    text : 'HTTP Forbidden (403)',
+    path : '/forbidden',
+    access : Role.NOBODY,
+  },
 };

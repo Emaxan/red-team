@@ -14,6 +14,7 @@ import {
   userIsAdminRedirect,
 } from '../../auth/auth';
 import { NotFound } from '../../error/NotFound';
+import { Forbidden } from '../../error/Forbidden';
 
 import './Main.scss';
 
@@ -25,6 +26,7 @@ const Main = ({ className }) => (
   <div className={'main ' + className}>
     <CustomScroll flex="1">
       <Switch>
+        <Route path={Routes.Forbidden.path} component={Forbidden} />
         <Route exact path={Routes.Main.path} render={() => <div />} />
         <Route path={Routes.Users.path} component={UserList} />
         <Route path={Routes.SignUp.path} component={SignUp}/>
