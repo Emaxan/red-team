@@ -20,7 +20,7 @@ const SideBar = userIsAuthenticated(Sidebar);
 
 class App extends Component {
   componentDidUpdate(){
-    $.material.init({validate : false}); //eslint-disable-line
+    $.material.init({validate : false});
   }
 
   render() {
