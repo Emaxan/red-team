@@ -6,6 +6,7 @@ import './Error.scss';
 
 export const Forbidden = () =>
   <div className="error-wrapper">
-    <h1>Your request was forbidden.</h1>
-    <img src={Image} alt="403 forbidden" />
+    <div className="error-image-wrapper">
+      <img className="error-image-wrapper__image" src={Image} alt="403 forbidden" />
+    </div>
   </div>;

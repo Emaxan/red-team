@@ -7,7 +7,7 @@ import './Error.scss';
 export const NotFound = () =>
   <div className="error-wrapper">
     <h1 className="error-wrapper__title">Resources you are looking for are not found.</h1>
-    <p className="error-wrapper__paragraph">
-      <img src={Image} alt="404 not found" />
-    </p>
+    <div className="error-image-wrapper">
+      <img className="error-image-wrapper__image" src={Image} alt="404 not found" />
+    </div>
   </div>;

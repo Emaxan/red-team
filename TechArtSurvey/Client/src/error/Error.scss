@@ -7,8 +7,16 @@
   text-align: center;
 }
 
-.error-wrapper__paragraph {
+.error-image-wrapper {
+  display: flex;
+
   margin: 0;
   padding: 50px;
-  text-align: center;
+
+  justify-content: center;
+  align-items: center;
+}
+
+.error-image-wrapper__image {
+  max-width: 100%;
 }
