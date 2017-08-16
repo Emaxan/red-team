@@ -15,6 +15,7 @@ import {
 } from '../../auth/auth';
 import { NotFound } from '../../error/NotFound';
 import { Forbidden } from '../../error/Forbidden';
+import { Home } from '../../home/Home';
 
 import './AppContent.scss';
 
@@ -27,7 +28,7 @@ const AppContent = ({ className }) => (
     <CustomScroll flex="1">
       <Switch>
         <Route path={Routes.Forbidden.path} component={Forbidden} />
-        <Route exact path={Routes.Main.path} render={() => <div />} />
+        <Route exact path={Routes.Main.path} component={Home}/>
         <Route path={Routes.Users.path} component={UserList} />
         <Route path={Routes.SignUp.path} component={SignUp}/>
         <Route path={Routes.Login.path} component={Login} />

@@ -2,6 +2,8 @@ import React from 'react';
 
 import Image from './images/403.jpg';
 
+import './Error.scss';
+
 export const Forbidden = () =>
   <div className="error-wrapper">
     <h1>Your request was forbidden.</h1>
