@@ -13,7 +13,7 @@ const signUpInitialState = Record({
 
 const initialState = signUpInitialState();
 
-export const signupReducer = handleActions({
+export const signUpReducer = handleActions({
   [SIGN_UP_INVALID_DATA] : (state, action) =>
     state.set('errors', state.get('errors')
       .merge(List(action.payload.errors))),

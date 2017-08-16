@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 
 import Routes from '../routes';
 import UserListContainer from '../../users/UserListContainer';
-import SignupContainer from '../../auth/signup/SignupContainer';
+import SignUpContainer from '../../auth/signUp/SignUpContainer';
 import LoginContainer from '../../auth/login/LoginContainer';
 import { AboutContainer } from '../../about/AboutContainer';
 import {
@@ -20,7 +20,7 @@ import './AppContent.scss';
 
 const UserList = userIsAuthenticatedRedirect(userIsAdminRedirect(UserListContainer));
 const Login = userIsNotAuthenticatedRedirect(LoginContainer);
-const SignUp = userIsNotAuthenticatedRedirect(SignupContainer);
+const SignUp = userIsNotAuthenticatedRedirect(SignUpContainer);
 
 const AppContent = () => (
   <div className="main">

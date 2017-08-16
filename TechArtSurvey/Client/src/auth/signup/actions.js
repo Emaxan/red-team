@@ -5,7 +5,7 @@ import {
 } from 'http-status';
 
 import Routes from '../../app/routes';
-import { signup, checkEmailExistence } from './api';
+import { signUp, checkEmailExistence } from './api';
 import {
   SIGN_UP_START,
   SIGN_UP_SUCCESS,
@@ -49,9 +49,9 @@ export const {
   }),
 });
 
-export const signupRequest = (userData) => (dispatch) => {
+export const signUpRequest = (userData) => (dispatch) => {
   dispatch(signUpStart());
-  return signup(userData)
+  return signUp(userData)
     .then(() => {
       dispatch(signUpSuccess());
       dispatch(push(Routes.Main.path));

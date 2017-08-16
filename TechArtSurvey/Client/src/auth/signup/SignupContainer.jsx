@@ -1,37 +1,37 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { signupRequest, checkEmailExistenceRequest } from './actions';
-import { SignupForm } from './components/SignupForm';
+import { signUpRequest, checkEmailExistenceRequest } from './actions';
+import { SignUpForm } from './components/SignUpForm';
 import { AuthPanel } from '../AuthPanel';
 
 const mapStateToProps = (state) => ({
-  errors : state.signup.errors,
+  errors : state.signUp.errors,
   actionString : 'Sign Up',
 });
 
 const mapDispatchToProps = {
-  signupRequest,
+  signUpRequest,
   checkEmailExistenceRequest,
 };
 
-const SignupContainer = ({ errors, actionString, signupRequest, checkEmailExistenceRequest }) => (
+const SignUpContainer = ({ errors, actionString, signUpRequest, checkEmailExistenceRequest }) => (
   <AuthPanel
     actionString={actionString}
     errors={errors}
   >
-    <SignupForm
+    <SignUpForm
       errors={errors}
       actionString={actionString}
-      signupRequest={signupRequest}
+      signUpRequest={signUpRequest}
       checkEmailExistenceRequest={checkEmailExistenceRequest}
     />
   </AuthPanel>
 );
 
-SignupContainer.propTypes = {
+SignUpContainer.propTypes = {
   ...AuthPanel.propTypes,
-  ...SignupForm.propTypes,
+  ...SignUpForm.propTypes,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(SignupContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(SignUpContainer);

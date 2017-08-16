@@ -9,7 +9,7 @@ import {
   validateConfirmationPassword,
 } from '../../../utils/validation/userValidation.js';
 
-export class SignupForm extends Component {
+export class SignUpForm extends Component {
   constructor(props) {
     super(props);
 
@@ -39,7 +39,7 @@ export class SignupForm extends Component {
 
   handleOnSubmit = (event) => {
     event.preventDefault();
-    this.props.signupRequest(this.state.user);
+    this.props.signUpRequest(this.state.user);
   }
 
   setValidationState = (fieldName, validationInfo) => {
@@ -173,8 +173,8 @@ export class SignupForm extends Component {
   }
 }
 
-SignupForm.propTypes = {
+SignUpForm.propTypes = {
   actionString : PropTypes.string.isRequired,
-  signupRequest : PropTypes.func.isRequired,
+  signUpRequest : PropTypes.func.isRequired,
   checkEmailExistenceRequest : PropTypes.func.isRequired,
 };
