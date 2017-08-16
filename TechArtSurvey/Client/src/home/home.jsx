@@ -1,12 +1,12 @@
 import React from 'react';
 
 import {userIsNotAuthenticated} from '../auth/auth';
-import {NotAuth} from './NotAuth';
+import {SignUpLink} from './SignUpLink';
 import Image from './images/main.jpg';
 
 import './Home.scss';
 
-const NotAuthMessage = userIsNotAuthenticated(NotAuth);
+const SignUp = userIsNotAuthenticated(SignUpLink);
 
 export const Home = () => (
   <div className="home-wrapper">
@@ -20,7 +20,7 @@ export const Home = () => (
           about our company and etc. After signing in as admin you may try to make
           new surveys, using existing templates or without it.
       </p>
-      <NotAuthMessage/>
+      <SignUp/>
     </div>
   </div>
 );
