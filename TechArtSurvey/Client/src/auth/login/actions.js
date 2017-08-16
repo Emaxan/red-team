@@ -10,6 +10,8 @@ import {
   LOGIN_FAILED,
   LOGIN_INVALID_DATA,
   LOGOUT,
+  ENABLE_GREETING,
+  DISABLE_GREETING,
 } from './actionTypes';
 
 export const {
@@ -18,6 +20,8 @@ export const {
   logInFailed,
   logInInvalidData,
   logOut,
+  enableGreeting,
+  disableGreeting,
 } = createActions({
   [LOGIN_START] : () => {},
 
@@ -34,6 +38,10 @@ export const {
   }),
 
   [LOGOUT] : () => {},
+
+  [ENABLE_GREETING] : () => {},
+
+  [DISABLE_GREETING] : () => {},
 });
 
 export const loginRequest = (userData) => (dispatch) => {

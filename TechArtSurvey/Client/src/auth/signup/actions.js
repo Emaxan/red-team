@@ -16,6 +16,7 @@ import {
   CHECK_EMAIL_EXISTENCE_ERROR,
   CHECK_EMAIL_EXISTENCE_INVALID,
 } from './actionTypes';
+import { enableGreeting } from '../login/actions';
 
 export const {
   signUpStart,
@@ -54,7 +55,8 @@ export const signUpRequest = (userData) => (dispatch) => {
   return signUp(userData)
     .then(() => {
       dispatch(signUpSuccess());
-      dispatch(push(Routes.Main.path));
+      dispatch(enableGreeting());
+      dispatch(push(Routes.Login.path));
     })
     .catch((error) => {
       if (error.statusCode === BAD_REQUEST) {
