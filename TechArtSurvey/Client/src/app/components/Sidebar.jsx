@@ -5,8 +5,8 @@ import PropTypes from 'prop-types';
 
 import './Sidebar.scss';
 
-const Sidebar = ({ menuItems, className }) => (
-  <aside className={'menu ' + (className || '')}>
+const Sidebar = ({ menuItems }) => (
+  <aside className="menu">
     {
       menuItems.map((item, i) => (
         <Button key={i} className="menu__item-wrapper">
@@ -20,7 +20,6 @@ const Sidebar = ({ menuItems, className }) => (
 
 Sidebar.propTypes = {
   menuItems : PropTypes.array.isRequired,
-  className : PropTypes.string,
 };
 
 export default Sidebar;
