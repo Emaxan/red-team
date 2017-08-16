@@ -18,25 +18,27 @@ const UserInfo = userIsAuthenticated(UserInfoComponent);
 const LoginLink = userIsNotAuthenticated(HeaderLink);
 
 const Header = ({ userName, email }) => (
-  <Navbar fluid>
-    <Navbar.Header>
-      <Navbar.Brand className="navbar-brand">
-        <Link className="navbar-brand__link react-bootstrap-link" to={Routes.Main.path}>
-          <img className="navbar-brand__image" src={LogoImg} alt="iTechArt logo" />
-        </Link>
-      </Navbar.Brand>
-      <Navbar.Toggle />
-    </Navbar.Header>
-    <Navbar.Collapse className="react-bootstrap-navbar-collapse">
-      <nav>
-        <Button className="navbar__item-wrapper">
-          <Link className="navbar__item" to={Routes.About.path}>{Routes.About.text}</Link>
-        </Button>
-        <LoginLink />
-        <UserInfo username={userName} email={email} />
-      </nav>
-    </Navbar.Collapse>
-  </Navbar>
+  <header>
+    <Navbar fluid>
+      <Navbar.Header>
+        <Navbar.Brand className="navbar-brand">
+          <Link className="navbar-brand__link react-bootstrap-link" to={Routes.Main.path}>
+            <img className="navbar-brand__image" src={LogoImg} alt="iTechArt logo" />
+          </Link>
+        </Navbar.Brand>
+        <Navbar.Toggle />
+      </Navbar.Header>
+      <Navbar.Collapse className="react-bootstrap-navbar-collapse">
+        <nav>
+          <Button className="navbar__item-wrapper">
+            <Link className="navbar__item" to={Routes.About.path}>{Routes.About.text}</Link>
+          </Button>
+          <LoginLink />
+          <UserInfo username={userName} email={email} />
+        </nav>
+      </Navbar.Collapse>
+    </Navbar>
+  </header>
 );
 
 Header.propTypes = {
