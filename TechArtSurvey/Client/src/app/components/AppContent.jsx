@@ -22,8 +22,8 @@ const UserList = userIsAuthenticatedRedirect(userIsAdminRedirect(UserListContain
 const Login = userIsNotAuthenticatedRedirect(LoginContainer);
 const SignUp = userIsNotAuthenticatedRedirect(SignUpContainer);
 
-const AppContent = () => (
-  <div className="main">
+const AppContent = ({ className }) => (
+  <div className={'main ' + className}>
     <CustomScroll flex="1">
       <Switch>
         <Route path={Routes.Forbidden.path} component={Forbidden} />

@@ -29,7 +29,7 @@ class App extends Component {
         <Header userName={this.props.userName} email={this.props.email} />
         <div className="content">
           <SideBar menuItems={this.props.menuItems} />
-          <AppContent />
+          <AppContent className="app-content" />
         </div>
         <Footer />
       </div>
