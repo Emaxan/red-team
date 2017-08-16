@@ -1,6 +1,6 @@
 import { createSelector } from 'reselect';
 
-import Role from '../role';
+import SidebarDisplay from '../sidebarDisplay';
 import Routes from '../routes';
 
 const routesSelector = () => Routes;
@@ -11,7 +11,7 @@ const getFilteredRoutes = (routeList, role) => {
   const filteredRoutes = [];
 
   for(const route in routeList) {
-    if((routeList[route].access === Role.ANY) || (routeList[route].access === role)) {
+    if((routeList[route].display === SidebarDisplay.ANY) || (routeList[route].display === role)) {
       filteredRoutes.push(routeList[route]);
     }
   }
