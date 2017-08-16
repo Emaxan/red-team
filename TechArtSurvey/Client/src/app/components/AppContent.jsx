@@ -16,13 +16,13 @@ import {
 import { NotFound } from '../../error/NotFound';
 import { Forbidden } from '../../error/Forbidden';
 
-import './Main.scss';
+import './AppContent.scss';
 
 const UserList = userIsAuthenticatedRedirect(userIsAdminRedirect(UserListContainer));
 const Login = userIsNotAuthenticatedRedirect(LoginContainer);
 const SignUp = userIsNotAuthenticatedRedirect(SignupContainer);
 
-const Main = () => (
+const AppContent = () => (
   <div className="main">
     <CustomScroll flex="1">
       <Switch>
@@ -38,8 +38,8 @@ const Main = () => (
   </div>
 );
 
-Main.propTypes = {
+AppContent.propTypes = {
   className : PropTypes.string,
 };
 
-export default Main;
+export default AppContent;

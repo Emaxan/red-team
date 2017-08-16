@@ -1,9 +1,9 @@
 import Header from './header/Header';
 import Sidebar from './Sidebar';
-import Main from './Main';
+import AppContent from './AppContent';
 import Footer from './Footer';
 
 export { Header };
 export { Sidebar };
-export { Main };
+export { AppContent };
 export { Footer };

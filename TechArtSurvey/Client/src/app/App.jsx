@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import ItemSelector from './selectors/itemSelector';
-import { Footer, Sidebar, Main } from './components';
+import { Footer, Sidebar, AppContent } from './components';
 import Header from './components/header/Header';
 import {
   userIsAuthenticated,
@@ -29,7 +29,7 @@ class App extends Component {
         <Header userName={this.props.userName} email={this.props.email} />
         <div className="content">
           <SideBar menuItems={this.props.menuItems} />
-          <Main />
+          <AppContent />
         </div>
         <Footer />
       </div>
@@ -40,7 +40,7 @@ class App extends Component {
 App.propTypes = {
   ...Header.propTypes,
   ...Sidebar.propTypes,
-  ...Main.propTypes,
+  ...AppContent.propTypes,
   ...Footer.propTypes,
 };
 
