@@ -4,8 +4,8 @@ import { httpUtility } from '../../utils/httpUtility';
 export const resetPassword = (id, code, newPassword) => {
   const headers = { 'Content-type' : 'application/json' };
   const body = {
-    Id : id,
-    Code : code,
+    UserId : id,
+    ResetPasswordToken : code,
     NewPassword : newPassword,
   };
 
@@ -15,8 +15,8 @@ export const resetPassword = (id, code, newPassword) => {
 export const checkCode = (id, code) => {
   const headers = { 'Content-type' : 'application/json' };
   const body = {
-    Id : id,
-    Code : code,
+    UserId : id,
+    Token : code,
   };
 
   return httpUtility.post(`${API_URL}/account/check_code/`, headers, body);

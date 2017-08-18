@@ -5,7 +5,7 @@ export const forgotPassword = (email) => {
   const headers = { 'Content-type' : 'application/json' };
   const body = {
     Email : email,
-    Link : 'http://localhost:3000/reset_password',
+    CallbackUrl : 'http://localhost:3000/reset_password',
   };
 
   return httpUtility.post(`${API_URL}/account/forgot_password/`, headers, body);
