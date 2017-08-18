@@ -11,7 +11,7 @@ namespace RedTeam.TechArtSurvey.WebApi.Provider
         private static readonly ConcurrentDictionary<string, AuthenticationTicket> RefreshTokens = new ConcurrentDictionary<string, AuthenticationTicket>();
 
 
-        public async Task CreateAsync(AuthenticationTokenCreateContext context)
+        public Task CreateAsync(AuthenticationTokenCreateContext context)
         {
             var guid = Guid.NewGuid().ToString();
             var refreshTokenProperties = new AuthenticationProperties(context.Ticket.Properties.Dictionary)
@@ -22,6 +22,8 @@ namespace RedTeam.TechArtSurvey.WebApi.Provider
             var refreshTokenTicket = new AuthenticationTicket(context.Ticket.Identity, refreshTokenProperties);
             RefreshTokens.TryAdd(guid, refreshTokenTicket);
             context.SetToken(guid);
+
+            return Task.FromResult(0);
         }
 
         public void Create(AuthenticationTokenCreateContext context)
@@ -34,7 +36,7 @@ namespace RedTeam.TechArtSurvey.WebApi.Provider
             throw new NotImplementedException();
         }
 
-        public async Task ReceiveAsync(AuthenticationTokenReceiveContext context)
+        public Task ReceiveAsync(AuthenticationTokenReceiveContext context)
         {
             AuthenticationTicket ticket;
             var header = context.OwinContext.Request.Headers["Authorization"];
@@ -42,6 +44,8 @@ namespace RedTeam.TechArtSurvey.WebApi.Provider
             {
                 context.SetTicket(ticket);
             }
+
+            return Task.FromResult(0);
         }
     }
 }
