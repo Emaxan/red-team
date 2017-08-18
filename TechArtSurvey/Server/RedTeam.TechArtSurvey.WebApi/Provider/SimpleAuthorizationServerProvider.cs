@@ -19,7 +19,6 @@ namespace RedTeam.TechArtSurvey.WebApi.Provider
         {
             var kernel = NinjectDependencyResolver.Kernel;
             var userManager = kernel.Get<IApplicationUserManager>();
-            context.OwinContext.Response.Headers.Add("Access-Control-Allow-Origin", new[] { "*" });
 
             var result = await userManager.GetClaimsByCredentialsAsync(context.UserName, context.Password); //here UserName == Email
             if (result.Code != Foundation.Interfaces.ServiceResponses.ServiceResponseCodes.Ok)
