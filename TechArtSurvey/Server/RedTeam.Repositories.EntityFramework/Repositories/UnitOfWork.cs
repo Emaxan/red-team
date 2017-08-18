@@ -42,21 +42,16 @@ namespace RedTeam.Repositories.EntityFramework.Repositories
 
         public void Dispose()
         {
-          Dispose(true);
+            Dispose(true);
             GC.SuppressFinalize(this);
         }
 
 
         private void Dispose(bool disposing)
         {
-            if (!_disposed)
-            {
-                if (disposing)
-                {
-                    Context.Dispose();
-                }
-                _disposed = true;
-            }
+            if (!_disposed) return;
+            Context.Dispose();
+            _disposed = true;
         }
     }
 }

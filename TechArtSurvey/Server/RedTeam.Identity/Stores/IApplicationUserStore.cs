@@ -5,7 +5,7 @@ using RedTeam.TechArtSurvey.DomainModel.Entities;
 
 namespace RedTeam.Identity.Stores
 {
-    public interface IApplicationUserStore: IUserStore<User, int>, IUserEmailStore<User, int>
+    public interface IApplicationUserStore: IUserEmailStore<User, int>
     {
         Task<IReadOnlyCollection<User>> GetAllAsync();
     }

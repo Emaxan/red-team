@@ -8,6 +8,7 @@ using Ninject;
 using Ninject.Web.Common.OwinHost;
 using RedTeam.TechArtSurvey.WebApi.Formats;
 using RedTeam.TechArtSurvey.WebApi.Options;
+using JetBrains.Annotations;
 
 [assembly: OwinStartup(typeof(RedTeam.TechArtSurvey.WebApi.App_Start.Startup))]
 [assembly: log4net.Config.XmlConfigurator(Watch = true)]
@@ -16,9 +17,9 @@ namespace RedTeam.TechArtSurvey.WebApi.App_Start
 {
     public class Startup
     {
-        HttpConfiguration _config;
+        private HttpConfiguration _config;
 
-
+        [UsedImplicitly]
         public void Configuration(IAppBuilder app)
         {
             _config = new HttpConfiguration();

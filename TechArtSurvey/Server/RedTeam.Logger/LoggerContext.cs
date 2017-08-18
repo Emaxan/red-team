@@ -5,7 +5,7 @@ namespace RedTeam.Logger
     public static class LoggerContext
     {
         private static ILog _current;
-        private static readonly ILog DefaultLogger = LoggerFactory.GetLogger(typeof(Log));
+        private static readonly ILog DefaultLogger = LoggerFactory.GetLogger();
 
 
         public static ILog Logger {

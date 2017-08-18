@@ -20,7 +20,7 @@ namespace RedTeam.TechArtSurvey.WebApi.Controllers
 
 
         // PUT api/Users/5
-        [Route("{user}")]
+        [Route("")]
         [HttpPut]
         public async Task<IServiceResponse> EditUser(EditUserDto user)
         {

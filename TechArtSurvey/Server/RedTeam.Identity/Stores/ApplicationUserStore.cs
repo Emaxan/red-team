@@ -4,9 +4,11 @@ using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
 using RedTeam.TechArtSurvey.DomainModel.Entities;
 using RedTeam.TechArtSurvey.Repositories.Interfaces;
+using JetBrains.Annotations;
 
 namespace RedTeam.Identity.Stores
 {
+    [UsedImplicitly]
     public class ApplicationUserStore : IApplicationUserStore
     {
         private readonly ITechArtSurveyUnitOfWork _uow;
@@ -39,9 +41,9 @@ namespace RedTeam.Identity.Stores
 
         protected virtual void Dispose(bool disposing)
         {
-            if (disposing && _uow != null)
+            if ( disposing )
             {
-                _uow.Dispose();
+                _uow?.Dispose();
             }
         }
 
@@ -72,23 +74,14 @@ namespace RedTeam.Identity.Stores
             await _uow.SaveAsync();
         }
 
-        public async Task SetEmailAsync(User user, string email)
+        public Task SetEmailAsync(User user, string email)
         {
-            if (user == null)
-            {
-                throw new ArgumentNullException("user");
-            }
-            user.Email = email;
+            throw new NotImplementedException();
         }
 
-        public async Task<string> GetEmailAsync(User user)
+        public Task<string> GetEmailAsync(User user)
         {
-            if (user == null)
-            {
-                throw new ArgumentNullException("user");
-            }
-
-            return user.Email;
+            throw new NotImplementedException();
         }
 
         public Task<bool> GetEmailConfirmedAsync(User user)

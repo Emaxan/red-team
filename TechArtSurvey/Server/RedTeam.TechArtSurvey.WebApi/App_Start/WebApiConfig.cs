@@ -15,7 +15,7 @@ namespace RedTeam.TechArtSurvey.WebApi
             config.MessageHandlers.Add(new TechArtSurveyLoggerHandler());
             config.Services.Replace(typeof(IExceptionLogger), new TechArtSurveyExceptionLogger());
             config.Services.Replace(typeof(IExceptionHandler), new TechArtSurveyExceptionHandler());
-            config.MapHttpAttributeRoutes(new CentralizedPrefixProvider("api"));
+            config.MapHttpAttributeRoutes(new GlobalRoutePrefixProvider("api"));
             log4net.Config.XmlConfigurator.Configure();
 
             var jsonFormatter = config.Formatters.OfType<JsonMediaTypeFormatter>().First();

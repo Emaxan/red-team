@@ -3,12 +3,12 @@ using System.Web.Http.Routing;
 
 namespace RedTeam.TechArtSurvey.WebApi.Provider
 {
-    public class CentralizedPrefixProvider : DefaultDirectRouteProvider
+    public class GlobalRoutePrefixProvider : DefaultDirectRouteProvider
     {
         private readonly string _centralizedPrefix;
 
 
-        public CentralizedPrefixProvider(string centralizedPrefix)
+        public GlobalRoutePrefixProvider(string centralizedPrefix)
         {
             _centralizedPrefix = centralizedPrefix;
         }
@@ -19,7 +19,7 @@ namespace RedTeam.TechArtSurvey.WebApi.Provider
             var existingPrefix = base.GetRoutePrefix(controllerDescriptor);
             if (existingPrefix == null) return _centralizedPrefix;
 
-            return string.Format("{0}/{1}", _centralizedPrefix, existingPrefix);
+            return $"{_centralizedPrefix}/{existingPrefix}";
         }
     }
 }

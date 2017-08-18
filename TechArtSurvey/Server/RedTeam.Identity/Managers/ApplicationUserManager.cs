@@ -11,9 +11,11 @@ using RedTeam.TechArtSurvey.Foundation.Interfaces.ServiceResponses;
 using RedTeam.Identity.Responses;
 using RedTeam.Identity.Stores;
 using System;
+using JetBrains.Annotations;
 
 namespace RedTeam.Identity.Managers
 {
+    [UsedImplicitly]
     public class ApplicationUserManager : UserManager<User, int>, IApplicationUserManager
     {
         private readonly IMapper _mapper;

@@ -1,9 +1,11 @@
 using System.Data.Entity.Migrations;
 using RedTeam.TechArtSurvey.DomainModel.Entities;
 using RedTeam.TechArtSurvey.Repositories.EF;
+using JetBrains.Annotations;
 
 namespace RedTeam.TechArtSurvey.Repositories.Migrations
 {
+    [UsedImplicitly]
     internal sealed class Configuration : DbMigrationsConfiguration<TechArtSurveyContext>
     {
         public Configuration()
