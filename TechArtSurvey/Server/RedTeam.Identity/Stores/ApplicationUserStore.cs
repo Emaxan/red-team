@@ -22,7 +22,7 @@ namespace RedTeam.Identity.Stores
 
         public async Task CreateAsync(User user)
         {
-            user.Role = await _uow.Roles.FindRoleByTypeAsync(user.Role.RoleType);
+            //user.Role = await _uow.Roles.FindRoleByTypeAsync(user.Role.RoleType);
             _uow.Users.Create(user);
             await _uow.SaveAsync();
         }
@@ -81,7 +81,11 @@ namespace RedTeam.Identity.Stores
 
         public Task<string> GetEmailAsync(User user)
         {
-            throw new NotImplementedException();
+            if (user == null)
+            {
+                throw new ArgumentNullException(nameof(user));
+            }
+            return Task.FromResult(user.Email);
         }
 
         public Task<bool> GetEmailConfirmedAsync(User user)
@@ -97,6 +101,46 @@ namespace RedTeam.Identity.Stores
         public async Task<IReadOnlyCollection<User>> GetAllAsync()
         {
             return await _uow.Users.GetAllAsync();
+        }
+
+        public Task SetPasswordHashAsync(User user, string passwordHash)
+        {
+            user.Password = passwordHash;
+            return Task.FromResult(0);
+        }
+
+        public Task<string> GetPasswordHashAsync(User user)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<bool> HasPasswordAsync(User user)
+        {
+            throw new NotImplementedException();
+        }
+
+        public async Task AddToRoleAsync(User user, string roleName)
+        {
+            if (user == null)
+            {
+                throw new ArgumentNullException(nameof(user));
+            }
+            //user.Role = await _uow.Roles.FindRoleByNameAsync(roleName);
+        }
+
+        public Task RemoveFromRoleAsync(User user, string roleName)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<IList<string>> GetRolesAsync(User user)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<bool> IsInRoleAsync(User user, string roleName)
+        {
+            throw new NotImplementedException();
         }
     }
 }

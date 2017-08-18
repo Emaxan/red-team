@@ -29,30 +29,25 @@ namespace RedTeam.Identity.Managers
             _mapper = mapper;
             UserValidator = new UserValidator<User, int>(this)
             {
-                AllowOnlyAlphanumericUserNames = false
+                AllowOnlyAlphanumericUserNames = false,
+                RequireUniqueEmail = true
             };
         }
         
         
         public async Task<IServiceResponse> CreateAsync(UserDto userDto)
         {
-            var user = await FindByEmailAsync(userDto.Email);
-            if (user != null)
-            {
-                return ServiceResponse.CreateUnsuccessful(ServiceResponseCodes.UserAlreadyExists);
-            }
-
-            userDto.Password = PasswordHasher.HashPassword(userDto.Password);
             var us = _mapper.Map<UserDto, User>(userDto);
-            if (userDto.Role == null)
-            {
-                userDto.Role = new RoleDto();
-            }
-            us.Role = new Role()
-            {
-                RoleType = (RoleTypes)Enum.Parse(typeof(RoleTypes), userDto.Role.Name)
-            };
-            await CreateAsync(us);
+            await CreateAsync(us, us.Password);
+            await AddToRoleAsync(us.Id, default(RoleTypes).ToString());
+//            if (userDto.Role == null)
+//            {
+//                userDto.Role = new RoleDto();
+//            }
+//            us.Role = new Role()
+//            {
+//                RoleType = (RoleTypes)Enum.Parse(typeof(RoleTypes), userDto.Role.Name)
+//            };
 
             return ServiceResponse.CreateSuccessful(us);
         }

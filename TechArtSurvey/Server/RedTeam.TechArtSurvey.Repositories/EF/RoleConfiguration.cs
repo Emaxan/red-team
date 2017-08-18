@@ -8,7 +8,7 @@ namespace RedTeam.TechArtSurvey.Repositories.EF
         public RoleConfiguration()
         {
             HasMany(r => r.Users)
-                    .WithRequired(u => u.Role)
+                    .WithOptional(u => u.Role)
                     .HasForeignKey(u => u.RoleId);
         }
     }
