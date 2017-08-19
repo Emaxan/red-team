@@ -57,6 +57,10 @@
     <Compile Include="Migrations\201708030902066_Init.Designer.cs">
       <DependentUpon>201708030902066_Init.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201708191322393_OptionalUserFK.cs" />
+    <Compile Include="Migrations\201708191322393_OptionalUserFK.Designer.cs">
+      <DependentUpon>201708191322393_OptionalUserFK.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\RoleRepository.cs" />
@@ -92,6 +96,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201708030902066_Init.resx">
       <DependentUpon>201708030902066_Init.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201708191322393_OptionalUserFK.resx">
+      <DependentUpon>201708191322393_OptionalUserFK.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

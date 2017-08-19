@@ -125,7 +125,9 @@ namespace RedTeam.Identity.Stores
             {
                 throw new ArgumentNullException(nameof(user));
             }
-            //user.Role = await _uow.Roles.FindRoleByNameAsync(roleName);
+            user.Role = await _uow.Roles.FindRoleByNameAsync(roleName);
+            _uow.Users.Update(user);
+            await _uow.SaveAsync();
         }
 
         public Task RemoveFromRoleAsync(User user, string roleName)
@@ -135,7 +137,16 @@ namespace RedTeam.Identity.Stores
 
         public Task<IList<string>> GetRolesAsync(User user)
         {
-            throw new NotImplementedException();
+            if (user == null)
+            {
+                throw new ArgumentNullException(nameof(user));
+            }
+            if (user.Role == null)
+            {
+                return Task.FromResult<IList<string>>(new List<string>());
+            }
+
+            return Task.FromResult<IList<string>>(new List<string> { user.Role.Name });
         }
 
         public Task<bool> IsInRoleAsync(User user, string roleName)
