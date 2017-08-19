@@ -1,7 +1,7 @@
-﻿using RedTeam.TechArtSurvey.Foundation.Interfaces.ServiceResponses;
-using System;
+﻿using System;
+using RedTeam.TechArtSurvey.Foundation.Interfaces.ServiceResponses;
 
-namespace RedTeam.Identity.Responses
+namespace RedTeam.TechArtSurvey.Foundation.Responses
 {
     public class ServiceResponse : IServiceResponse
     {

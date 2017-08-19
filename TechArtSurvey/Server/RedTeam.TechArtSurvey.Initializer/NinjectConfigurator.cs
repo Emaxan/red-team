@@ -1,7 +1,7 @@
 ﻿using Ninject;
-using RedTeam.Identity;
-using RedTeam.Identity.Managers;
-using RedTeam.Identity.Stores;
+using RedTeam.TechArtSurvey.Foundation;
+using RedTeam.TechArtSurvey.Foundation.Identity.Managers;
+using RedTeam.TechArtSurvey.Foundation.Identity.Stores;
 using RedTeam.TechArtSurvey.Foundation.Interfaces;
 
 namespace RedTeam.TechArtSurvey.Initializer

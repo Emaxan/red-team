@@ -2,13 +2,13 @@
 using System.Collections.Generic;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using JetBrains.Annotations;
 using Microsoft.AspNet.Identity;
 using RedTeam.TechArtSurvey.DomainModel.Entities;
 using RedTeam.TechArtSurvey.Repositories.Interfaces;
-using JetBrains.Annotations;
-using RedTeam.Identity.Security;
+using RedTeam.TechArtSurvey.Foundation.Identity.Security;
 
-namespace RedTeam.Identity.Stores
+namespace RedTeam.TechArtSurvey.Foundation.Identity.Stores
 {
     [UsedImplicitly]
     public class ApplicationUserStore : IApplicationUserStore

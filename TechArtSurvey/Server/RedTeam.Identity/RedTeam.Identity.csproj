@@ -69,15 +69,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Managers\ApplicationRoleManager.cs" />
-    <Compile Include="Stores\RoleStore.cs" />
-    <Compile Include="Managers\ApplicationUserManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Responses\ServiceResponse.cs" />
-    <Compile Include="Security\ClaimsManager.cs" />
-    <Compile Include="Stores\ApplicationUserStore.cs" />
-    <Compile Include="Stores\IApplicationUserStore.cs" />
-    <Compile Include="UserService.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\RedTeam.Logger.Interfaces\RedTeam.Logger.Interfaces.csproj">

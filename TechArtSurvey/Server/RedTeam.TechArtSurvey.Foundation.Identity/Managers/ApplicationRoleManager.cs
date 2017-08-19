@@ -2,7 +2,7 @@
 using Microsoft.AspNet.Identity;
 using RedTeam.TechArtSurvey.DomainModel.Entities;
 
-namespace RedTeam.Identity.Managers
+namespace RedTeam.TechArtSurvey.Foundation.Identity.Managers
 {
     [UsedImplicitly]
     public class ApplicationRoleManager : RoleManager<Role, int>

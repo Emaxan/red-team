@@ -62,10 +62,6 @@
       <Project>{7250157B-E69A-4E89-8688-51DAE08C607C}</Project>
       <Name>RedTeam.Repositories.EntityFramework</Name>
     </ProjectReference>
-    <ProjectReference Include="..\RedTeam.Identity\RedTeam.Identity.csproj">
-      <Project>{2B216D5D-2CC2-460A-A94D-B4AA44DA8EED}</Project>
-      <Name>RedTeam.Identity</Name>
-    </ProjectReference>
     <ProjectReference Include="..\RedTeam.Repositories\RedTeam.Repositories.csproj">
       <Project>{433A7044-1A29-42CB-80B0-06E86AA12A2F}</Project>
       <Name>RedTeam.Repositories</Name>
@@ -78,9 +74,17 @@
       <Project>{e5e1a1e9-ff87-4aee-9b49-8c19a2307d5d}</Project>
       <Name>RedTeam.TechArtSurvey.Foundation.Dto</Name>
     </ProjectReference>
+    <ProjectReference Include="..\RedTeam.TechArtSurvey.Foundation.Identity\RedTeam.TechArtSurvey.Foundation.Identity.csproj">
+      <Project>{A31F5D28-449F-49FE-A1E0-B7D87DD35215}</Project>
+      <Name>RedTeam.TechArtSurvey.Foundation.Identity</Name>
+    </ProjectReference>
     <ProjectReference Include="..\RedTeam.TechArtSurvey.Foundation.Interfaces\RedTeam.TechArtSurvey.Foundation.Interfaces.csproj">
       <Project>{CDF233FB-754D-41FE-8F6C-B41F40AA680A}</Project>
       <Name>RedTeam.TechArtSurvey.Foundation.Interfaces</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\RedTeam.TechArtSurvey.Foundation\RedTeam.TechArtSurvey.Foundation.csproj">
+      <Project>{C1F00B46-6D0C-4D1E-B6D4-3FAC77CA9EF9}</Project>
+      <Name>RedTeam.TechArtSurvey.Foundation</Name>
     </ProjectReference>
     <ProjectReference Include="..\RedTeam.TechArtSurvey.Repositories.Interfaces\RedTeam.TechArtSurvey.Repositories.Interfaces.csproj">
       <Project>{A92EAE24-D485-4F0D-B77F-EB485A7FCBE3}</Project>

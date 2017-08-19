@@ -5,7 +5,7 @@ using Microsoft.AspNet.Identity;
 using RedTeam.TechArtSurvey.DomainModel.Entities;
 using RedTeam.TechArtSurvey.Repositories.Interfaces;
 
-namespace RedTeam.Identity.Stores
+namespace RedTeam.TechArtSurvey.Foundation.Identity.Stores
 {
     [UsedImplicitly]
     public class RoleStore : IRoleStore<Role, int>

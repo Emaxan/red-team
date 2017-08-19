@@ -1,20 +1,18 @@
-﻿using AutoMapper;
-using JetBrains.Annotations;
-using RedTeam.Identity.Managers;
-using RedTeam.Identity.Responses;
-using RedTeam.Logger;
-using RedTeam.TechArtSurvey.DomainModel.Entities;
-using RedTeam.TechArtSurvey.Foundation.Dto.UsersDto;
-using RedTeam.TechArtSurvey.Foundation.Interfaces.ServiceResponses;
-using System.Collections.Generic;
-using System.Data.Entity;
-using System.Linq;
-using System.Threading.Tasks;
-using RedTeam.TechArtSurvey.Foundation.Interfaces;
-using Microsoft.Owin.Security.OAuth;
+﻿using System.Collections.Generic;
 using System.Security.Claims;
+using System.Threading.Tasks;
+using AutoMapper;
+using JetBrains.Annotations;
+using Microsoft.Owin.Security.OAuth;
+using RedTeam.TechArtSurvey.Foundation.Interfaces;
+using RedTeam.TechArtSurvey.Foundation.Interfaces.ServiceResponses;
+using RedTeam.TechArtSurvey.Foundation.Identity.Managers;
+using RedTeam.TechArtSurvey.Foundation.Dto.UsersDto;
+using RedTeam.TechArtSurvey.DomainModel.Entities;
+using RedTeam.Logger;
+using RedTeam.TechArtSurvey.Foundation.Responses;
 
-namespace RedTeam.Identity
+namespace RedTeam.TechArtSurvey.Foundation
 {
     [UsedImplicitly]
     public class UserService : IUserService
