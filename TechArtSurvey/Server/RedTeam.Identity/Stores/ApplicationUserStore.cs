@@ -22,7 +22,6 @@ namespace RedTeam.Identity.Stores
 
         public async Task CreateAsync(User user)
         {
-            //user.Role = await _uow.Roles.FindRoleByTypeAsync(user.Role.RoleType);
             _uow.Users.Create(user);
             await _uow.SaveAsync();
         }
@@ -146,12 +145,21 @@ namespace RedTeam.Identity.Stores
                 return Task.FromResult<IList<string>>(new List<string>());
             }
 
-            return Task.FromResult<IList<string>>(new List<string> { user.Role.Name });
+            return Task.FromResult<IList<string>>(new List<string> { user.Role.RoleType.ToString() });
         }
 
         public Task<bool> IsInRoleAsync(User user, string roleName)
         {
-            throw new NotImplementedException();
+            if (user == null)
+            {
+                throw new ArgumentNullException(nameof(user));
+            }
+            if (user.Role == null)
+            {
+                throw new ArgumentNullException(nameof(user.Role));
+            }
+
+            return Task.FromResult(user.Role.RoleType.ToString() == roleName);
         }
     }
 }
