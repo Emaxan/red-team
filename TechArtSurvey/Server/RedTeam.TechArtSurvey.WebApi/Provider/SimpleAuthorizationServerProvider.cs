@@ -18,7 +18,7 @@ namespace RedTeam.TechArtSurvey.WebApi.Provider
         public override async Task GrantResourceOwnerCredentials(OAuthGrantResourceOwnerCredentialsContext context)
         {
             var kernel = NinjectDependencyResolver.Kernel;
-            var userManager = kernel.Get<IApplicationUserManager>();
+            var userManager = kernel.Get<IUserService>();
 
             var result = await userManager.GetClaimsByCredentialsAsync(context.UserName, context.Password); //here UserName == Email
             if (result.Code != Foundation.Interfaces.ServiceResponses.ServiceResponseCodes.Ok)

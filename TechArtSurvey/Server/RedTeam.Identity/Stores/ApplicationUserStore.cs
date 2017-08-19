@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
 using RedTeam.TechArtSurvey.DomainModel.Entities;
 using RedTeam.TechArtSurvey.Repositories.Interfaces;
 using JetBrains.Annotations;
+using RedTeam.Identity.Security;
 
 namespace RedTeam.Identity.Stores
 {
@@ -97,11 +99,6 @@ namespace RedTeam.Identity.Stores
             throw new NotImplementedException();
         }
 
-        public async Task<IReadOnlyCollection<User>> GetAllAsync()
-        {
-            return await _uow.Users.GetAllAsync();
-        }
-
         public Task SetPasswordHashAsync(User user, string passwordHash)
         {
             user.Password = passwordHash;
@@ -124,7 +121,7 @@ namespace RedTeam.Identity.Stores
             {
                 throw new ArgumentNullException(nameof(user));
             }
-            user.Role = await _uow.Roles.FindRoleByNameAsync(roleName);
+            user.Role = await _uow.Roles.FindByNameAsync(roleName);
             _uow.Users.Update(user);
             await _uow.SaveAsync();
         }
@@ -160,6 +157,28 @@ namespace RedTeam.Identity.Stores
             }
 
             return Task.FromResult(user.Role.RoleType.ToString() == roleName);
+        }
+
+        public Task<IList<Claim>> GetClaimsAsync(User user)
+        {
+            IList<Claim> claims = ClaimsManager.GetClaims(user);
+
+            return Task.FromResult(claims);
+        }
+
+        public Task AddClaimAsync(User user, Claim claim)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task RemoveClaimAsync(User user, Claim claim)
+        {
+            throw new NotImplementedException();
+        }
+
+        public async Task<IReadOnlyCollection<User>> GetAllAsync()
+        {
+            return await _uow.Users.GetAllAsync();
         }
     }
 }

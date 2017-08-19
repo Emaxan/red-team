@@ -10,13 +10,14 @@ namespace RedTeam.TechArtSurvey.WebApi.Controllers
     [RoutePrefix("users")]
     public class UsersController : ApiController
     {
-        private readonly IApplicationUserManager _userManager;
+        private readonly IUserService _userService;
 
 
-        public UsersController(IApplicationUserManager userManager)
+        public UsersController(IUserService userService)
         {
-            _userManager = userManager;
+            _userService = userService;
         }
+
 
 
         // PUT api/Users/5
@@ -26,7 +27,7 @@ namespace RedTeam.TechArtSurvey.WebApi.Controllers
         {
             LoggerContext.Logger.Info($"Update User with email = {user.Email}");
 
-            return await _userManager.UpdateAsync(user);
+            return await _userService.UpdateAsync(user);
         }
 
         // DELETE api/Users
@@ -36,7 +37,7 @@ namespace RedTeam.TechArtSurvey.WebApi.Controllers
         {
             LoggerContext.Logger.Info($"Delete User with id = {id}");
 
-            return await _userManager.DeleteByIdAsync(id);
+            return await _userService.DeleteByIdAsync(id);
         }
 
         // GET api/Users/5
@@ -46,7 +47,7 @@ namespace RedTeam.TechArtSurvey.WebApi.Controllers
         {
             LoggerContext.Logger.Info($"Get User with id = {id}");
 
-            return await _userManager.GetByIdAsync(id);
+            return await _userService.GetByIdAsync(id);
         }
 
         // GET api/Users/?email=user@user.user
@@ -57,7 +58,7 @@ namespace RedTeam.TechArtSurvey.WebApi.Controllers
         {
             LoggerContext.Logger.Info($"Get User with email = {email}");
 
-            return await _userManager.CheckByEmailAsync(email);
+            return await _userService.CheckByEmailAsync(email);
         }
 
         [Route("")]
@@ -66,7 +67,7 @@ namespace RedTeam.TechArtSurvey.WebApi.Controllers
         {
             LoggerContext.Logger.Info("Get all users");
 
-            return await _userManager.GetAllAsync();
+            return await _userService.GetAllAsync();
         }
     }
 }

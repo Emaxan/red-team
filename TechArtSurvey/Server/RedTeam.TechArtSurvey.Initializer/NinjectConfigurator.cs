@@ -1,4 +1,5 @@
 ﻿using Ninject;
+using RedTeam.Identity;
 using RedTeam.Identity.Managers;
 using RedTeam.Identity.Stores;
 using RedTeam.TechArtSurvey.Foundation.Interfaces;
@@ -15,7 +16,8 @@ namespace RedTeam.TechArtSurvey.Initializer
 
         private static void AddBindings(IKernel kernel)
         {
-            kernel.Bind<IApplicationUserManager>().To<ApplicationUserManager>().InTransientScope();
+            kernel.Bind<IUserService>().To<UserService>().InTransientScope();
+            kernel.Bind<ApplicationUserManager>().ToSelf();
             kernel.Bind<IApplicationUserStore>().To<ApplicationUserStore>().InTransientScope();
         }
     }

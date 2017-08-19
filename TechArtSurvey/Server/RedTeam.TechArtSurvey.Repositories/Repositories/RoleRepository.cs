@@ -17,7 +17,7 @@ namespace RedTeam.TechArtSurvey.Repositories.Repositories
         }
 
 
-        public async Task<Role> FindRoleByNameAsync(string roleName)
+        public async Task<Role> FindByNameAsync(string roleName)
         {
             RoleTypes roleType;
             Enum.TryParse(roleName, out roleType);

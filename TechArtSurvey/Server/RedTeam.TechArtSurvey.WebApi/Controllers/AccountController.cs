@@ -9,12 +9,12 @@ namespace RedTeam.TechArtSurvey.WebApi.Controllers
     [RoutePrefix("account")]
     public class AccountController : ApiController
     {
-        private readonly IApplicationUserManager _userManager;
+        private readonly IUserService _userService;
 
   
-        public AccountController(IApplicationUserManager userManager)
+        public AccountController(IUserService userService)
         {
-            _userManager = userManager;
+            _userService = userService;
         }
 
 
@@ -23,7 +23,7 @@ namespace RedTeam.TechArtSurvey.WebApi.Controllers
         [AllowAnonymous]
         public async Task<IServiceResponse> Signup(UserDto user)
         {      
-            return await _userManager.CreateAsync(user);
+            return await _userService.CreateAsync(user);
         }
     }
 }

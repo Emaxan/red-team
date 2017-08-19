@@ -50,7 +50,6 @@
     <Compile Include="Entities\Role.cs" />
     <Compile Include="Entities\RoleTypes.cs" />
     <Compile Include="Entities\User.cs" />
-    <Compile Include="Entities\UserRole.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

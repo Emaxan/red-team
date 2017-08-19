@@ -12,20 +12,9 @@ namespace RedTeam.TechArtSurvey.Repositories
         private IRoleRepository _roleRepository;
         
 
-        public IUserRepository Users
-        {
-            get
-            {
-                return _userRepository ?? (_userRepository = new UserRepository(Context));
-            }
-        }
-        public IRoleRepository Roles
-        {
-            get
-            {
-                return _roleRepository ?? (_roleRepository = new RoleRepository(Context));
-            }
-        }
+        public IUserRepository Users => _userRepository ?? (_userRepository = new UserRepository(Context));
+
+        public IRoleRepository Roles => _roleRepository ?? (_roleRepository = new RoleRepository(Context));
 
 
         public TechArtSurveyUnitOfWork(IDbContext context)
