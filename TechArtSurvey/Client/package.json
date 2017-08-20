@@ -1,5 +1,5 @@
 {
-  "name": "techart-survey-client",
+  "name": "itechart-survey-client",
   "version": "1.0.0",
   "description": "client version of TechArtSurvey",
   "main": "src/Root.jsx",
@@ -9,11 +9,10 @@
   },
   "scripts": {
     "prod": "set NODE_ENV=production && webpack-dev-server --env=production --progress",
-    "start": "set NODE_ENV=development && webpack-dev-server --env=development --progress"
+    "start": "webpack-dev-server --env=development --progress"
   },
   "license": "ISC",
   "dependencies": {
-    "babili-webpack-plugin": "^0.1.2",
     "bootstrap-material-design": "^0.5.10",
     "bootstrap-sass": "^3.3.7",
     "http-status": "^1.0.1",
@@ -59,8 +58,9 @@
     "babel-preset-react": "^6.23.0",
     "babel-preset-stage-0": "^6.24.1",
     "babel-runtime": "^6.22.0",
+    "babili-webpack-plugin": "^0.1.2",
     "clean-webpack-plugin": "^0.1.16",
-    "css-loader": "0.28.4",
+    "css-loader": "0.28.5",
     "eslint": "^4.2.0",
     "eslint-loader": "^1.9.0",
     "eslint-plugin-react": "^7.1.0",
@@ -85,8 +85,8 @@
     "webpack": "^3.3.0",
     "webpack-cleanup-plugin": "^0.5.1",
     "webpack-config": "^7.0.0",
-    "webpack-dashboard": "^0.4.0",
-    "webpack-dev-server": "^2.4.1",
+    "webpack-dashboard": "^1.0.0-3",
+    "webpack-dev-server": "^2.7.1",
     "webpack-hot-middleware": "^2.18.2"
   }
 }

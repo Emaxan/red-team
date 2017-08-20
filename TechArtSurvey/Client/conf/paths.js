@@ -1,13 +1,6 @@
-const path = require('path');
+import path from 'path';
 
-const sourcePath = path.join(__dirname, '../src');
-const outputPath = path.join(sourcePath, '/build');
-const devServerPath = 'http://localhost:3000';
-const apiPath = 'http://localhost:13695';
-
-module.exports = {
-  sourcePath,
-  outputPath,
-  devServerPath,
-  apiPath,
-};
+export const sourcePath = path.join(__dirname, '../src');
+export const outputPath = path.join(sourcePath, '/build');
+export const devServerPath = 'http://localhost:3000';
+export const apiPath = 'http://localhost:13695';
