@@ -1,19 +1,19 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import ItemSelector from './selectors/itemSelector';
+import MenuItemsSelector from './selectors/menuItemsSelector';
 import { Footer, Sidebar, AppContent } from './components';
 import Header from './components/header/Header';
 import {
   userIsAuthenticated,
-} from '../auth/auth';
+} from '../auth/authWrappers';
 
 import './App.scss';
 
 const mapStateToProps = (state) => ({
   userName : state.auth.userInfo.userName,
   email : state.auth.userInfo.email,
-  menuItems : ItemSelector(state),
+  menuItems : MenuItemsSelector(state),
 });
 
 const SideBar = userIsAuthenticated(Sidebar);
