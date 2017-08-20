@@ -6,7 +6,7 @@ import { Footer, Sidebar, AppContent } from './components';
 import Header from './components/header/Header';
 import {
   userIsAuthenticated,
-} from '../auth/auth';
+} from '../auth/authWrappers';
 
 import './App.scss';
 

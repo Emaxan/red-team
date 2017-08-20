@@ -10,7 +10,7 @@ import HeaderLink from './HeaderLink';
 import {
   userIsAuthenticated,
   userIsNotAuthenticated,
-} from '../../../auth/auth';
+} from '../../../auth/authWrappers';
 
 import './Header.scss';
 

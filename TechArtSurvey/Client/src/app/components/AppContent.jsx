@@ -12,7 +12,7 @@ import {
   userIsAuthenticatedRedirect,
   userIsNotAuthenticatedRedirect,
   userIsAdminRedirect,
-} from '../../auth/auth';
+} from '../../auth/authWrappers';
 import { NotFound } from '../../error/NotFound';
 import { Forbidden } from '../../error/Forbidden';
 import { Home } from '../../home/Home';

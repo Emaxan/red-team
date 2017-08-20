@@ -1,6 +1,6 @@
 import React from 'react';
 
-import {userIsNotAuthenticated} from '../auth/auth';
+import {userIsNotAuthenticated} from '../auth/authWrappers';
 import {SignUpLink} from './SignUpLink';
 import Image from './images/main.jpg';
 
