@@ -1,35 +1,29 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { signUpRequest, checkEmailExistenceRequest } from './actions';
-import { SignUpForm } from './components/SignUpForm';
-import { AuthPanel } from '../AuthPanel';
+import {questionTypes, defaultType} from './questionTypes';
+import {createSurveyRequest} from './actions';
+import {SurveyEditPanel} from './components/SurveyEditPanel';
 
 const mapStateToProps = (state) => ({
-  questionTypes : state.createSurvey.params.questionTypes,
-  surveyParams: state.createSurvey.params.surveyParams,
+  errors : state.surveys.errors,
 });
 
 const mapDispatchToProps = {
   createSurveyRequest,
-  createTemplateRequest,
-  getParams
 };
 
-class NewSurveyContainer extends Component {
-  componentDidMount() {
-    this.props.getParams();
-  }
+const NewSurveyContainer = ({ errors, createSurveyRequest }) => (
+  <SurveyEditPanel
+    questionTypes = {questionTypes}
+    defaultType = {defaultType}
+    createSurvey = {createSurveyRequest}
+    errors = {errors}
+  />
+);
 
-  render() {
-    return <SurveyEditPanel
-      questionTypes={this.props.questionTypes}
-      surveyParams={this.props.surveyParams}
-      createSurvey ={this.props.createSurveyRequest}
-      createTemplate={this.props.createTemplateRequest}
-      />
-  }
-}
-
+NewSurveyContainer.propTypes = {
+  ...SurveyEditPanel.propTypes,
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(NewSurveyContainer);

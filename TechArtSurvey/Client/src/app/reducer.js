@@ -5,6 +5,7 @@ import { authReducer } from '../auth/reducer';
 import { signUpReducer } from '../auth/signUp/reducer';
 import { loginReducer } from '../auth/login/reducer';
 import { routerReducer } from './routerReducer';
+import { createSurveyReducer } from '../surveys/reducer';
 
 export const combinedReducer = combineReducers({
   users : usersReducer,
@@ -12,6 +13,7 @@ export const combinedReducer = combineReducers({
   auth : authReducer,
   signUp : signUpReducer,
   login : loginReducer,
+  surveys: createSurveyReducer,
 });
 
 export default combinedReducer;

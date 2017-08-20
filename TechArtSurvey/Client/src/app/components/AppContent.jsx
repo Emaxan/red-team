@@ -16,6 +16,7 @@ import {
 import { NotFound } from '../../error/NotFound';
 import { Forbidden } from '../../error/Forbidden';
 import { Home } from '../../home/Home';
+import NewSurveyContainer from '../../surveys/NewSurvey';
 
 import './AppContent.scss';
 
@@ -33,6 +34,7 @@ const AppContent = ({ className }) => (
         <Route path={Routes.SignUp.path} component={SignUp}/>
         <Route path={Routes.Login.path} component={Login} />
         <Route path={Routes.About.path} component={AboutContainer} />
+        <Route path={Routes.NewSurvey.path} component={NewSurveyContainer} />
         <Route component={NotFound}/>
       </Switch>
     </CustomScroll>
