@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Form, FormGroup, FormControl, ControlLabel, Button } from 'react-bootstrap';
+import { isEmpty } from 'lodash';
 
 import {
   validateName,
@@ -68,7 +69,9 @@ export class SignUpForm extends Component {
 
   handleOnEmailBlur = (event) => {
     const email = event.target.value;
-    this.props.checkEmailExistenceRequest(email);
+    if (!isEmpty(email)) {
+      this.props.checkEmailExistenceRequest(email);
+    }
   }
 
   handleOnPasswordChange = (event) => {
