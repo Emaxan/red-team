@@ -86,6 +86,7 @@ namespace RedTeam.TechArtSurvey.Foundation.Identity.Stores
             {
                 throw new ArgumentNullException(nameof(user));
             }
+
             return Task.FromResult(user.Email);
         }
 
@@ -102,6 +103,7 @@ namespace RedTeam.TechArtSurvey.Foundation.Identity.Stores
         public Task SetPasswordHashAsync(User user, string passwordHash)
         {
             user.Password = passwordHash;
+
             return Task.FromResult(0);
         }
 
@@ -122,6 +124,10 @@ namespace RedTeam.TechArtSurvey.Foundation.Identity.Stores
                 throw new ArgumentNullException(nameof(user));
             }
             user.Role = await _uow.Roles.FindByNameAsync(roleName);
+            if (user.Role == null)
+            {
+                throw new NullReferenceException(nameof(user.Role));
+            }
             _uow.Users.Update(user);
             await _uow.SaveAsync();
         }
