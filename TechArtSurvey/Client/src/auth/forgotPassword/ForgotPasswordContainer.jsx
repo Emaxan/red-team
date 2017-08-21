@@ -1,75 +1,35 @@
-import React, { Component } from 'react';
-import { Form, FormGroup, FormControl, ControlLabel, Button } from 'react-bootstrap';
+import React from 'react';
+import { connect } from 'react-redux';
 
-import { forgotPassword } from './api';
+import { AuthPanel } from '../components/AuthPanel';
+import { ForgotPasswordForm } from './components/ForgotPasswordForm';
+import { checkEmailExistenceRequest } from '../actions';
 
-import './ForgotPasswordContainer.scss';
+const mapStateToProps = (state) => ({
+  errors : state.auth.errors,
+  actionString : 'Forgot password? Do not worry! Enter your e-mail below:',
+  isEmailRegistered : state.auth.isEmailRegistered,
+});
 
-export class ForgotPasswordContainer extends Component {
-  constructor(props) {
-    super(props);
+const mapDispatchToProps = {
+  checkEmailExistenceRequest,
+};
 
-    this.state = {
-      emailInput : '',
-      emailError : '',
-      emailValidationState : null,
-    };
-  }
+const ForgotPasswordContainer = ({ errors, actionString, isEmailRegistered, checkEmailExistenceRequest }) => (
+  <AuthPanel
+    actionString={actionString}
+    errors={errors}
+  >
+    <ForgotPasswordForm
+      checkEmailExistenceRequest={checkEmailExistenceRequest}
+      isEmailRegistered={isEmailRegistered}
+    />
+  </AuthPanel>
+);
 
-  handleOnSubmit = (event) => {
-    event.preventDefault();
+ForgotPasswordContainer.propTypes = {
+  ...AuthPanel.propTypes,
+  ...ForgotPasswordForm.propTypes,
+};
 
-    forgotPassword(this.state.emailInput)
-      .then(data => {
-        if (data.statusCode === 200) {
-          alert('Check your email!');
-        }
-      });
-  }
-
-  setValidationState = (fieldName, validationInfo) => {
-    if (validationInfo.isValid) {
-      this.errors[fieldName] = null;
-      this.validationStates[fieldName] = 'success';
-    } else {
-      this.errors[fieldName] = validationInfo.errors[0].message;
-      this.validationStates[fieldName] = 'error';
-    }
-  }
-
-  handleOnEmailChange = (event) => {
-    // this.setValidationState('email', validateEmail(event.target.value));
-    this.setState({ emailInput : event.target.value });
-  }
-
-  render() {
-    return (
-      <div className="forgot-password-container">
-        <h1>Forgot password? Do not worry! Enter your e-mail below</h1>
-        <Form onSubmit={this.handleOnSubmit} horizontal>
-          <FormGroup validationState={this.state.emailValidationState} className="label-floating">
-            <ControlLabel htmlFor="email">
-              { this.state.emailError || 'Email' }
-            </ControlLabel>
-            <FormControl
-              id="email"
-              name="email"
-              type="text"
-              value={this.state.emailInput}
-              onChange={this.handleOnEmailChange}
-            />
-            <FormControl.Feedback />
-          </FormGroup>
-
-          <FormGroup className="text-center">
-            <Button
-              type="submit"
-            >
-              Send
-            </Button>
-          </FormGroup>
-        </Form>
-      </div>
-    );
-  }
-}
+export default connect(mapStateToProps, mapDispatchToProps)(ForgotPasswordContainer);

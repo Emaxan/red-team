@@ -13,7 +13,3 @@ export const signUp = (signUpData) => {
 
   return httpUtility.post(urljoin(API_URL, '/account/signup'), headers, body);
 };
-
-export const checkEmailExistence = (email) => {
-  return httpUtility.get(urljoin(API_URL, `/users/?email=${email}`));
-};

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Form, FormGroup, FormControl, ControlLabel, Button } from 'react-bootstrap';
+import { isEmpty } from 'lodash';
 
 import {
   validateName,
@@ -66,9 +67,16 @@ export class SignUpForm extends Component {
     this.setState({ user : { ...this.state.user, email : event.target.value }});
   }
 
-  handleOnEmailBlur = (event) => {
+  handleOnEmailBlur = async (event) => {
     const email = event.target.value;
-    this.props.checkEmailExistenceRequest(email);
+    if (!isEmpty(email)) {
+      await this.props.checkEmailExistenceRequest(email);
+
+      if (this.props.isEmailRegistered) {
+        this.setValidationState('email', { isValid : false, errors : [ { message : 'User with this email is already exists' } ] });
+        this.setState({ user : { ...this.state.user, email : email }});
+      }
+    }
   }
 
   handleOnPasswordChange = (event) => {
@@ -175,6 +183,7 @@ export class SignUpForm extends Component {
 
 SignUpForm.propTypes = {
   actionString : PropTypes.string.isRequired,
+  isEmailRegistered : PropTypes.bool.isRequired,
   signUpRequest : PropTypes.func.isRequired,
   checkEmailExistenceRequest : PropTypes.func.isRequired,
 };
