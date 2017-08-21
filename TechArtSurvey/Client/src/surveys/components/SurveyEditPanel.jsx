@@ -1,6 +1,10 @@
 import React, { Component } from 'react';
-import { Form, Panel, FormGroup, FormControl, ControlLabel } from 'react-bootstrap';
+import { Form, Col, Button, Panel, FormGroup, FormControl, ControlLabel } from 'react-bootstrap';
 import PropTypes from 'prop-types';
+
+import {questionTypesArray, questionComponents} from './questionTypesPresentation';
+import {QuestionTypesPanel} from './QuestionTypesPanel';
+import {QuestionList} from './QuestionList';
 
 export class SurveyEditPanel extends Component {
   constructor(props) {
@@ -40,40 +44,40 @@ export class SurveyEditPanel extends Component {
       isRequired: false,
     });
     this.setState({ survey : { ...this.state.survey, questions : newQuestionsArray }});
+    console.log(this.state.survey);
   }
 
   handleOnTitleChange = (event) => {
     this.setState({ survey : { ...this.state.survey, title : event.target.value }});
   }
 
+  handleOnQuestionTypeClick = (event) => {
+    alert(event.target);
+  }
+
   render() {
     return (
       <div className="survey-edit-panel">
-        <Panel className="col-md-8">
-          <Form>
-            <FormGroup
-              controlId="Title"
-            >
-              <ControlLabel>New survey</ControlLabel>
-              <FormControl
-                type="text"
-                value={this.state.survey.title}
-                placeholder="Enter title"
-                onChange={this.handleOnTitleChange}
-              />
-              <FormControl.Feedback />
+        <Panel className="col-md-6">
+          <Form horizontal>
+            <FormGroup controlId="title" >
+              <Col componentClass={ControlLabel} sm={2}>
+                New survey
+              </Col>
+              <Col sm={10}>
+                <FormControl
+                  type="text"
+                  value={this.state.survey.title}
+                  placeholder="Enter title"
+                  onChange={this.handleOnTitleChange}
+                />
+              </Col>
             </FormGroup>
+            <QuestionList components={questionComponents} questions={this.state.survey.questions}/>
+            <Button onClick={this.handleOnAddQuestionBtnClick}>Add question</Button>
           </Form>
         </Panel>
-        <Panel header="Kek" bsStyle="primary">
-          <ul>
-            <li>kek</li>
-            <li>kek</li>
-            <li>kek</li>
-            <li>kek</li>
-            <li>kek</li>
-          </ul>
-        </Panel >
+        <QuestionTypesPanel handleOnQuestionTypeClick={this.handleOnQuestionTypeClick} questionTypesArray={questionTypesArray}/>
       </div>
     );
   }
@@ -82,5 +86,6 @@ export class SurveyEditPanel extends Component {
 SurveyEditPanel.propTypes = {
   createSurvey : PropTypes.func.isRequired,
   addPage : PropTypes.func.isRequired,
-  defaultType : PropTypes.string.isRequired,
+  defaultType : PropTypes.string,
+  questionTypes : PropTypes.object,
 };
