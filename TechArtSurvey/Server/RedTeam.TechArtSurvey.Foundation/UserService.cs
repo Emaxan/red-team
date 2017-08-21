@@ -45,7 +45,7 @@ namespace RedTeam.TechArtSurvey.Foundation
             var user = await _userManager.FindByEmailAsync(email);
             if (user == null)
             {
-                return ServiceResponse<object>.CreateUnsuccessful(ServiceResponseCodes.UserNotFoundByEmail);
+                return ServiceResponse.CreateUnsuccessful(ServiceResponseCode.UserNotFoundByEmail);
             }
             var claims = await _userManager.GetClaimsAsync(user.Id);
             var claimsIdentity = new ClaimsIdentity(OAuthDefaults.AuthenticationType);
@@ -61,11 +61,11 @@ namespace RedTeam.TechArtSurvey.Foundation
             var us = await _userManager.FindByIdAsync(user.Id);
             if (us == null)
             {
-                return ServiceResponse<object>.CreateUnsuccessful(ServiceResponseCodes.UserNotFoundById);
+                return ServiceResponse.CreateUnsuccessful(ServiceResponseCode.UserNotFoundById);
             }
             await _userManager.UpdateAsync(_mapper.Map(user, us));
 
-            return ServiceResponse<object>.CreateSuccessful(null);
+            return ServiceResponse.CreateSuccessful(null);
         }
 
         public async Task<IServiceResponse> DeleteByIdAsync(int id)
@@ -75,11 +75,11 @@ namespace RedTeam.TechArtSurvey.Foundation
             var us = await _uow.Users.GetByIdAsync(id);
             if (us == null)
             {
-                return ServiceResponse<object>.CreateUnsuccessful(ServiceResponseCodes.UserNotFoundById);
+                return ServiceResponse.CreateUnsuccessful(ServiceResponseCode.UserNotFoundById);
             }
             _uow.Users.Delete(us);
 
-            return ServiceResponse<object>.CreateSuccessful(null);
+            return ServiceResponse.CreateSuccessful(null);
         }
 
         public async Task<IServiceResponse> GetByIdAsync(int id)
@@ -89,7 +89,7 @@ namespace RedTeam.TechArtSurvey.Foundation
             var user = await _uow.Users.GetByIdAsync(id);
             if (user == null)
             {
-                return ServiceResponse<object>.CreateUnsuccessful(ServiceResponseCodes.UserNotFoundById);
+                return ServiceResponse.CreateUnsuccessful(ServiceResponseCode.UserNotFoundById);
             }
 
             return ServiceResponse<EditUserDto>.CreateSuccessful(_mapper.Map<User, EditUserDto>(user));
@@ -101,8 +101,8 @@ namespace RedTeam.TechArtSurvey.Foundation
 
             var user = await _uow.Users.GetUserByEmailAsync(email);
             return user == null ?
-                ServiceResponse<object>.CreateSuccessful(null) : 
-                ServiceResponse<object>.CreateUnsuccessful(ServiceResponseCodes.UserAlreadyExists);
+                ServiceResponse.CreateSuccessful(null) : 
+                ServiceResponse.CreateUnsuccessful(ServiceResponseCode.UserAlreadyExists);
         }
 
         public async Task<IServiceResponse> GetAllAsync()

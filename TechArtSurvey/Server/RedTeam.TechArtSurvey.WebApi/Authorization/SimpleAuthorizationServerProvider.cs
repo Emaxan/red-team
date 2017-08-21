@@ -25,7 +25,7 @@ namespace RedTeam.TechArtSurvey.WebApi.Authorization
             var userManager = serviceProvider.GetService<IUserService>();
 
             var result = await userManager.GetClaimsByCredentialsAsync(context.UserName, context.Password); //here UserName == Email
-            if (result.Code != Foundation.Interfaces.ServiceResponses.ServiceResponseCodes.Ok)
+            if (result.Code != Foundation.Interfaces.ServiceResponses.ServiceResponseCode.Ok)
             {
                 context.Validated();
             }

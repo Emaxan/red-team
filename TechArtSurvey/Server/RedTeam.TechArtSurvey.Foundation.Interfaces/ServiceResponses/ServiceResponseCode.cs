@@ -1,6 +1,6 @@
 ﻿namespace RedTeam.TechArtSurvey.Foundation.Interfaces.ServiceResponses
 {
-    public enum ServiceResponseCodes
+    public enum ServiceResponseCode
     {
         Ok,
         UserNotFoundById,

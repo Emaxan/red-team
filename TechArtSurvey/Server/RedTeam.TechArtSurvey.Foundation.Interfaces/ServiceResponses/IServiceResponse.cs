@@ -2,8 +2,8 @@
 {
     public interface IServiceResponse
     {
-        ServiceResponseCodes Code { get; set; }
+        ServiceResponseCode Code { get; }
 
-        object Content { get; set; }
+        object Content { get; }
     }
 }

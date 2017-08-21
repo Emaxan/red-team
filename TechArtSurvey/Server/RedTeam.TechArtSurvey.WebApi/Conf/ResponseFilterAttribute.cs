@@ -36,7 +36,7 @@ namespace RedTeam.TechArtSurvey.WebApi.Conf
             {
                 HttpResponseMessage response;
 
-                if (serviceResponse.Code == ServiceResponseCodes.Ok)
+                if (serviceResponse.Code == ServiceResponseCode.Ok)
                 {
                     response = actionExecutedContext.Request.CreateResponse(
                                                                             HttpStatusCode.OK,
