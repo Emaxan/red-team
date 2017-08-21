@@ -36,16 +36,7 @@ namespace RedTeam.TechArtSurvey.Foundation.Identity.Stores
 
         public void Dispose()
         {
-            Dispose(true);
             GC.SuppressFinalize(this);
-        }
-
-        protected virtual void Dispose(bool disposing)
-        {
-            if ( disposing )
-            {
-                _uow?.Dispose();
-            }
         }
 
         public async Task<User> FindByIdAsync(int userId)
