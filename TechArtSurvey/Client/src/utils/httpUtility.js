@@ -9,6 +9,7 @@ import AuthService from '../auth/authService';
 const prepareHeaders = (headers) => {
   return {
     ...headers,
+    'Accept' : 'application/json',
     'Authorization' : `${AuthService.getTokenType()} ${AuthService.getToken()}`,
   };
 };
