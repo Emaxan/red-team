@@ -19,7 +19,7 @@ const LoginLink = userIsNotAuthenticated(HeaderLink);
 
 const Header = ({ userName, email }) => (
   <header>
-    <Navbar fluid>
+    <Navbar fluid className="navbar-wrapper">
       <Navbar.Header>
         <Navbar.Brand className="navbar-brand">
           <Link className="navbar-brand__link react-bootstrap-link" to={Routes.Main.path}>

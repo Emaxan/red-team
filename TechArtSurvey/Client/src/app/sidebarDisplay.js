@@ -1,5 +1,7 @@
+import role from './role';
+
 export default {
   ANY : 'Any',
-  ADMIN : 'Admin',
+  ADMIN : role.ADMIN,
   NOBODY : 'Nobody',
 };
