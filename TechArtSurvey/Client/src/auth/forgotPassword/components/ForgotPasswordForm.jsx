@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { Form, FormGroup, FormControl, ControlLabel, Button } from 'react-bootstrap';
 import { isEmpty } from 'lodash';
 
-import { forgotPassword } from '../api';
 import { validateEmail } from '../../../utils/validation/userValidation';
 
 export class ForgotPasswordForm extends Component {
@@ -20,13 +19,7 @@ export class ForgotPasswordForm extends Component {
 
   handleOnSubmit = (event) => {
     event.preventDefault();
-
-    forgotPassword(this.state.emailInput)
-      .then(data => {
-        if (data.statusCode === 200) {
-          alert('Check your email!');
-        }
-      });
+    this.props.forgotPasswordRequest(this.state.emailInput);
   }
 
   setValidationState = (validationInfo) => {
@@ -88,5 +81,6 @@ export class ForgotPasswordForm extends Component {
 
 ForgotPasswordForm.propTypes = {
   checkEmailExistenceRequest : PropTypes.func.isRequired,
+  forgotPasswordRequest : PropTypes.func.isRequired,
   isEmailRegistered : PropTypes.bool.isRequired,
 };
