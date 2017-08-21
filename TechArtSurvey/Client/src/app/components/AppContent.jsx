@@ -7,7 +7,7 @@ import Routes from '../routes';
 import UserListContainer from '../../users/UserListContainer';
 import SignUpContainer from '../../auth/signUp/SignUpContainer';
 import LoginContainer from '../../auth/login/LoginContainer';
-import { ResetPasswordContainer } from '../../auth/resetPassword/ResetPasswordContainer';
+import ResetPasswordContainer from '../../auth/resetPassword/ResetPasswordContainer';
 import ForgotPasswordContainer from '../../auth/forgotPassword/ForgotPasswordContainer';
 import { AboutContainer } from '../../about/AboutContainer';
 import {

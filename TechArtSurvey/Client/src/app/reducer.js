@@ -1,11 +1,12 @@
 import { combineReducers } from 'redux';
 
-import { forgotPasswordReducer } from '../auth/forgotPassword/reducer';
+import { routerReducer } from './routerReducer';
 import { usersReducer } from '../users/reducer';
 import { authReducer } from '../auth/reducer';
 import { signUpReducer } from '../auth/signUp/reducer';
 import { loginReducer } from '../auth/login/reducer';
-import { routerReducer } from './routerReducer';
+import { forgotPasswordReducer } from '../auth/forgotPassword/reducer';
+import { resetPasswordReducer } from '../auth/resetPassword/reducer';
 
 export const combinedReducer = combineReducers({
   routing : routerReducer,
@@ -14,6 +15,7 @@ export const combinedReducer = combineReducers({
   signUp : signUpReducer,
   login : loginReducer,
   forgotPassword : forgotPasswordReducer,
+  resetPassword : resetPasswordReducer,
 });
 
 export default combinedReducer;

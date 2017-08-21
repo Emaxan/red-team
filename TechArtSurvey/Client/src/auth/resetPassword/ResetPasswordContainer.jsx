@@ -1,38 +1,61 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
+import { AuthPanel } from '../components/AuthPanel';
 import { InvalidTokenMessage } from './components/InvalidTokenMessage';
 import { NewPasswordForm } from './components/NewPasswordForm';
-import { checkCode } from './api';
+import { checkPasswordResetTokenRequest } from './actions';
+
+const mapStateToProps = (state) => ({
+  errors : state.auth.errors,
+  actionString : 'Reset password',
+  tokenValid : state.resetPassword.tokenValid,
+});
+
+const mapDispatchToProps = () => ({
+  checkPasswordResetTokenRequest,
+});
 
 export class ResetPasswordContainer extends Component {
   constructor(props) {
     super(props);
-
-    this.state = {
-      isTokenValid : false,
-    };
   }
 
   componentWillMount() {
-    checkCode(this.props.match.params.id, this.props.match.params.code)
-      .then(data => {
-        if (data.statusCode === 200) {
-          this.setState({... this.state, isTokenValid : true});
-        }
-      });
+    console.log('componentWillMount');
+    this.props.checkPasswordResetTokenRequest(
+      this.props.match.params.userId,
+      this.props.match.params.token,
+    );
+    console.log('componentWillMount: end');
   }
 
   render() {
+    console.log('render');
+    if (!this.props.tokenValid) {
+      return <InvalidTokenMessage />;
+    }
+
     return (
-      <div>
-        <h1>Forgot password page</h1>
-        {this.state.isTokenValid ? <NewPasswordForm id={this.props.match.params.id} code={this.props.match.params.code} /> : <InvalidTokenMessage />}
-      </div>
+      <AuthPanel
+        actionString={this.props.actionString}
+        errors={this.props.errors}
+      >
+        <NewPasswordForm
+          userId={this.props.match.params.userId}
+          token={this.props.match.params.token}
+        />
+      </AuthPanel>
     );
   }
 }
 
 ResetPasswordContainer.propTypes = {
+  ...AuthPanel.propTypes,
   match : PropTypes.object.isRequired,
+  tokenValid : PropTypes.bool.isRequired,
+  checkPasswordResetTokenRequest : PropTypes.func.isRequired,
 };
+
+export default connect(mapStateToProps, mapDispatchToProps)(ResetPasswordContainer);

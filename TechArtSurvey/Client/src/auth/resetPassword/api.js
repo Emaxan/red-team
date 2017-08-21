@@ -2,7 +2,7 @@ import { API_URL } from '../../app/config';
 import { httpUtility } from '../../utils/httpUtility';
 
 export const resetPassword = (id, code, newPassword) => {
-  const headers = { 'Content-type' : 'application/json' };
+  const headers = { 'Content-type' : 'application/json' };  // remove when sign up pull request will be approved
   const body = {
     UserId : id,
     ResetPasswordToken : code,
@@ -12,12 +12,12 @@ export const resetPassword = (id, code, newPassword) => {
   return httpUtility.post(`${API_URL}/account/reset_password/`, headers, body);
 };
 
-export const checkCode = (id, code) => {
-  const headers = { 'Content-type' : 'application/json' };
+export const checkPasswordResetToken = (userId, token) => {
+  const headers = { 'Content-type' : 'application/json' };  // remove when sign up pull request will be approved
   const body = {
-    UserId : id,
-    Token : code,
+    UserId : userId,
+    Token : token,
   };
 
-  return httpUtility.post(`${API_URL}/account/check_code/`, headers, body);
+  return httpUtility.post(`${API_URL}/account/check_token/`, headers, body);
 };

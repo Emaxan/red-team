@@ -75,7 +75,7 @@ export default {
 
   ResetPassword : {
     text : 'Reset password',
-    path : '/reset_password/:id/:code+',
+    path : '/reset_password/:userId/:token+',
     access : sidebarDisplay.NOBODY,
   },
 

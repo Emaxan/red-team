@@ -36,8 +36,8 @@ export class NewPasswordForm extends Component {
     event.preventDefault();
 
     resetPassword(
-      this.props.id,
-      this.props.code,
+      this.props.userId,
+      this.props.token,
       this.state.userData.newPassword,
     )
       .then(data => {
@@ -123,6 +123,6 @@ export class NewPasswordForm extends Component {
 }
 
 NewPasswordForm.propTypes = {
-  id : PropTypes.string.isRequired,
-  code : PropTypes.string.isRequired,
+  userId : PropTypes.string.isRequired,
+  token : PropTypes.string.isRequired,
 };
