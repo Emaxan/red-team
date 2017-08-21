@@ -3,33 +3,33 @@ using RedTeam.TechArtSurvey.Foundation.Interfaces.ServiceResponses;
 
 namespace RedTeam.TechArtSurvey.Foundation.Responses
 {
-    public class ServiceResponse : IServiceResponse
+    public class ServiceResponse<TContent> : IServiceResponse
     {
         public ServiceResponseCodes Code { get; set; }
 
         public object Content { get; set; }
 
 
-        private ServiceResponse(ServiceResponseCodes code, object content = null)
+        private ServiceResponse(ServiceResponseCodes code, TContent content = default(TContent))
         {
             Code = code;
             Content = content;
         }
 
 
-        public static ServiceResponse CreateSuccessful(object content)
+        public static ServiceResponse<TContent> CreateSuccessful(TContent content)
         {
-            return new ServiceResponse(ServiceResponseCodes.Ok, content);
+            return new ServiceResponse<TContent>(ServiceResponseCodes.Ok, content);
         }
 
-        public static ServiceResponse CreateUnsuccessful(ServiceResponseCodes code)
+        public static ServiceResponse<TContent> CreateUnsuccessful(ServiceResponseCodes code)
         {
             if (code == ServiceResponseCodes.Ok)
             {
                 throw new ArgumentException("Invalid code.");
             }
 
-            return new ServiceResponse(code);
+            return new ServiceResponse<TContent>(code);
         }
     }
 }

@@ -22,6 +22,7 @@ namespace RedTeam.TechArtSurvey.Foundation
         private readonly IMapper _mapper;
         private readonly ITechArtSurveyUnitOfWork _uow;
 
+
         public UserService(ApplicationUserManager manager, ITechArtSurveyUnitOfWork uow, IMapper mapper)
         {
             _userManager = manager;
@@ -36,7 +37,7 @@ namespace RedTeam.TechArtSurvey.Foundation
             await _userManager.CreateAsync(us, us.Password);
             await _userManager.AddToRoleAsync(us.Id, default(RoleTypes).ToString());
 
-            return ServiceResponse.CreateSuccessful(us);
+            return ServiceResponse<UserDto>.CreateSuccessful(_mapper.Map<User, UserDto>(us));
         }
 
         public async Task<IServiceResponse> GetClaimsByCredentialsAsync(string email, string password)
@@ -44,13 +45,13 @@ namespace RedTeam.TechArtSurvey.Foundation
             var user = await _userManager.FindByEmailAsync(email);
             if (user == null)
             {
-                return ServiceResponse.CreateUnsuccessful(ServiceResponseCodes.UserNotFoundByEmail);
+                return ServiceResponse<object>.CreateUnsuccessful(ServiceResponseCodes.UserNotFoundByEmail);
             }
             var claims = await _userManager.GetClaimsAsync(user.Id);
             var claimsIdentity = new ClaimsIdentity(OAuthDefaults.AuthenticationType);
             claimsIdentity.AddClaims(claims);
 
-            return ServiceResponse.CreateSuccessful(claimsIdentity);
+            return ServiceResponse<ClaimsIdentity>.CreateSuccessful(claimsIdentity);
         }
 
         public async Task<IServiceResponse> UpdateAsync(EditUserDto user)
@@ -60,11 +61,11 @@ namespace RedTeam.TechArtSurvey.Foundation
             var us = await _userManager.FindByIdAsync(user.Id);
             if (us == null)
             {
-                return ServiceResponse.CreateUnsuccessful(ServiceResponseCodes.UserNotFoundById);
+                return ServiceResponse<object>.CreateUnsuccessful(ServiceResponseCodes.UserNotFoundById);
             }
             await _userManager.UpdateAsync(_mapper.Map(user, us));
 
-            return ServiceResponse.CreateSuccessful(null);
+            return ServiceResponse<object>.CreateSuccessful(null);
         }
 
         public async Task<IServiceResponse> DeleteByIdAsync(int id)
@@ -74,11 +75,11 @@ namespace RedTeam.TechArtSurvey.Foundation
             var us = await _uow.Users.GetByIdAsync(id);
             if (us == null)
             {
-                return ServiceResponse.CreateUnsuccessful(ServiceResponseCodes.UserNotFoundById);
+                return ServiceResponse<object>.CreateUnsuccessful(ServiceResponseCodes.UserNotFoundById);
             }
             _uow.Users.Delete(us);
 
-            return ServiceResponse.CreateSuccessful(null);
+            return ServiceResponse<object>.CreateSuccessful(null);
         }
 
         public async Task<IServiceResponse> GetByIdAsync(int id)
@@ -88,10 +89,10 @@ namespace RedTeam.TechArtSurvey.Foundation
             var user = await _uow.Users.GetByIdAsync(id);
             if (user == null)
             {
-                return ServiceResponse.CreateUnsuccessful(ServiceResponseCodes.UserNotFoundById);
+                return ServiceResponse<object>.CreateUnsuccessful(ServiceResponseCodes.UserNotFoundById);
             }
 
-            return ServiceResponse.CreateSuccessful(_mapper.Map<User, EditUserDto>(user));
+            return ServiceResponse<EditUserDto>.CreateSuccessful(_mapper.Map<User, EditUserDto>(user));
         }
         
         public async Task<IServiceResponse> CheckByEmailAsync(string email)
@@ -99,12 +100,9 @@ namespace RedTeam.TechArtSurvey.Foundation
             LoggerContext.Logger.Info($"Get user with email = {email}");
 
             var user = await _uow.Users.GetUserByEmailAsync(email);
-            if (user == null)
-            {
-                return ServiceResponse.CreateSuccessful(null);
-            }
-
-            return ServiceResponse.CreateUnsuccessful(ServiceResponseCodes.UserAlreadyExists);
+            return user == null ?
+                ServiceResponse<object>.CreateSuccessful(null) : 
+                ServiceResponse<object>.CreateUnsuccessful(ServiceResponseCodes.UserAlreadyExists);
         }
 
         public async Task<IServiceResponse> GetAllAsync()
@@ -114,7 +112,7 @@ namespace RedTeam.TechArtSurvey.Foundation
             var users = await _uow.Users.GetAllAsync();
             var mapped = _mapper.Map<IReadOnlyCollection<User>, IReadOnlyCollection<EditUserDto>>(users);
 
-            return ServiceResponse.CreateSuccessful(mapped);
+            return ServiceResponse<IReadOnlyCollection<EditUserDto>>.CreateSuccessful(mapped);
         }
     }
 }
