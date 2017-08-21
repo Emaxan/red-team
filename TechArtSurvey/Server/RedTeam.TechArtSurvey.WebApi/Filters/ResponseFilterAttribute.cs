@@ -16,7 +16,12 @@ namespace RedTeam.TechArtSurvey.WebApi.Filters
         {
             if (!actionContext.ModelState.IsValid)
             {
-                var errors = actionContext.ModelState.Select(state => state.Value.Errors[0].ErrorMessage).ToList();
+                List<string> errors = new List<string>();
+                foreach ( var state in actionContext.ModelState )
+                {
+                    errors.AddRange(state.Value.Errors.Select(em => em.ErrorMessage));
+                }
+
                 var json = JsonConvert.SerializeObject(errors);
                 actionContext.Response = actionContext.Request.CreateResponse(HttpStatusCode.BadRequest, json);
             }
