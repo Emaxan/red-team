@@ -3,7 +3,7 @@ import {
   USER_PASSWORD_MIN_LENGTH,
 } from './constants';
 
-export const errorsInformation = {
+export const validationErrors = {
   userNameRequired : {
     id : 1,
     message : 'Name is required',
