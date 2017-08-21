@@ -18,7 +18,10 @@ namespace RedTeam.TechArtSurvey.Initializer.AutofacModules
 
         protected override void Load(ContainerBuilder builder)
         {
-            builder.Register(c => new TechArtSurveyContext(_connectionString)).As<IDbContext>().InstancePerRequest();
+            builder.RegisterType<TechArtSurveyContext>().
+                WithParameter(new TypedParameter(typeof( string ), _connectionString)).
+                As<IDbContext>().
+                InstancePerRequest();
         }
     }
 }
