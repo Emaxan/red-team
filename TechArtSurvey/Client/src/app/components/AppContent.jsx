@@ -18,6 +18,7 @@ import { Forbidden } from '../../error/Forbidden';
 import { Home } from '../../home/Home';
 
 import './AppContent.scss';
+import './customScroll.scss';
 
 const UserList = userIsAuthenticatedRedirect(userIsAdminRedirect(UserListContainer));
 const Login = userIsNotAuthenticatedRedirect(LoginContainer);
