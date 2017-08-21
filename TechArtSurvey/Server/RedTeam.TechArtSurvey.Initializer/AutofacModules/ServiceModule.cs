@@ -12,6 +12,8 @@ namespace RedTeam.TechArtSurvey.Initializer.AutofacModules
         {
             builder.RegisterType<UserService>().As<IUserService>().InstancePerRequest();
             builder.RegisterType<ApplicationUserManager>().AsSelf().InstancePerRequest();
+            builder.RegisterType<ApplicationRoleManager>().AsSelf().InstancePerRequest();
+            builder.RegisterType<RoleStore>().As<IApplicationRoleStore>().InstancePerRequest();
             builder.RegisterType<ApplicationUserStore>().As<IApplicationUserStore>().InstancePerRequest();
         }
     }

@@ -1,14 +1,13 @@
 ﻿using System;
 using System.Threading.Tasks;
 using JetBrains.Annotations;
-using Microsoft.AspNet.Identity;
 using RedTeam.TechArtSurvey.DomainModel.Entities;
 using RedTeam.TechArtSurvey.Repositories.Interfaces;
 
 namespace RedTeam.TechArtSurvey.Foundation.Identity.Stores
 {
     [UsedImplicitly]
-    public class RoleStore : IRoleStore<Role, int>
+    public class RoleStore : IApplicationRoleStore
     {
         private readonly ITechArtSurveyUnitOfWork _uow;
 

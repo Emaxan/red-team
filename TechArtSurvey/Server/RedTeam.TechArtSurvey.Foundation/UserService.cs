@@ -21,11 +21,12 @@ namespace RedTeam.TechArtSurvey.Foundation
         private readonly ApplicationUserManager _userManager;
         private readonly IMapper _mapper;
         private readonly ITechArtSurveyUnitOfWork _uow;
+        private readonly ApplicationRoleManager _roleManager;
 
-
-        public UserService(ApplicationUserManager manager, ITechArtSurveyUnitOfWork uow, IMapper mapper)
+        public UserService(ApplicationUserManager userManager, ApplicationRoleManager roleManager, ITechArtSurveyUnitOfWork uow, IMapper mapper)
         {
-            _userManager = manager;
+            _userManager = userManager;
+            _roleManager = roleManager;
             _mapper = mapper;
             _uow = uow;
         }
@@ -34,8 +35,8 @@ namespace RedTeam.TechArtSurvey.Foundation
         public async Task<IServiceResponse> CreateAsync(UserDto userDto)
         {
             var us = _mapper.Map<UserDto, User>(userDto);
+            us.Role = await _roleManager.FindByNameAsync(default(RoleTypes).ToString());
             await _userManager.CreateAsync(us, us.Password);
-            await _userManager.AddToRoleAsync(us.Id, default(RoleTypes).ToString());
 
             return ServiceResponse<UserDto>.CreateSuccessful(_mapper.Map<User, UserDto>(us));
         }

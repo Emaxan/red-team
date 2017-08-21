@@ -7,13 +7,13 @@ namespace RedTeam.TechArtSurvey.Repositories.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class OptionalUserFK : IMigrationMetadata
+    public sealed partial class requiredRole : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(OptionalUserFK));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(requiredRole));
         
         string IMigrationMetadata.Id
         {
-            get { return "201708191322393_OptionalUserFK"; }
+            get { return "201708211924101_requiredRole"; }
         }
         
         string IMigrationMetadata.Source
