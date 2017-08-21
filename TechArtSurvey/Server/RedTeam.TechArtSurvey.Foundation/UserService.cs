@@ -36,7 +36,11 @@ namespace RedTeam.TechArtSurvey.Foundation
         {
             var us = _mapper.Map<UserDto, User>(userDto);
             us.Role = await _roleManager.FindByNameAsync(default(RoleTypes).ToString());
-            await _userManager.CreateAsync(us, us.Password);
+            var result = await _userManager.CreateAsync(us, us.Password);
+            if (!result.Succeeded)
+            {
+                return ServiceResponse.CreateUnsuccessful(ServiceResponseCode.UserAlreadyExists);
+            }
 
             return ServiceResponse<UserDto>.CreateSuccessful(_mapper.Map<User, UserDto>(us));
         }
