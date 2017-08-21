@@ -1,19 +1,22 @@
-﻿using Microsoft.Owin;
-using Owin;
+﻿using System;
 using System.Web.Http;
+using Autofac.Integration.WebApi;
+using JetBrains.Annotations;
+using Microsoft.Owin;
 using Microsoft.Owin.Security.OAuth;
-using RedTeam.TechArtSurvey.WebApi.Provider;
+using Owin;
+using RedTeam.TechArtSurvey.Initializer;
+using RedTeam.TechArtSurvey.WebApi;
 using RedTeam.TechArtSurvey.WebApi.Filters;
-using Ninject;
-using Ninject.Web.Common.OwinHost;
 using RedTeam.TechArtSurvey.WebApi.Formats;
 using RedTeam.TechArtSurvey.WebApi.Options;
-using JetBrains.Annotations;
+using RedTeam.TechArtSurvey.WebApi.Owin;
+using RedTeam.TechArtSurvey.WebApi.Provider;
 
-[assembly: OwinStartup(typeof(RedTeam.TechArtSurvey.WebApi.App_Start.Startup))]
+[assembly: OwinStartup(typeof(Startup))]
 [assembly: log4net.Config.XmlConfigurator(Watch = true)]
 
-namespace RedTeam.TechArtSurvey.WebApi.App_Start
+namespace RedTeam.TechArtSurvey.WebApi
 {
     public class Startup
     {
@@ -23,10 +26,19 @@ namespace RedTeam.TechArtSurvey.WebApi.App_Start
         public void Configuration(IAppBuilder app)
         {
             _config = new HttpConfiguration();
+
+            var container = AutofacConfigurator.Configure("TechArtSurveyContext");
+            _config.DependencyResolver = new AutofacWebApiDependencyResolver(container);
+            app.UseAutofacMiddleware(container);
+
             WebApiConfig.Register(_config);
+
+            app.CreateInstancePerOwinContext<IServiceProvider>(ctx => new AutofacServiceProvider(ctx));
+
             Configurate(_config);
             ConfigureOAuth(app);
-            app.UseNinjectMiddleware(CreateKernel);
+
+            app.UseAutofacWebApi(_config);
             app.UseWebApi(_config);
         }
         
@@ -56,13 +68,6 @@ namespace RedTeam.TechArtSurvey.WebApi.App_Start
 
             config.Filters.Add(new ResponseFilterAttribute());
             config.Filters.Add(new AuthorizeAttribute());
-        }
-
-        private IKernel CreateKernel()
-        {
-            var kernel = NinjectWebCommon.Create(_config);
-
-            return kernel;
         }
     }
 }

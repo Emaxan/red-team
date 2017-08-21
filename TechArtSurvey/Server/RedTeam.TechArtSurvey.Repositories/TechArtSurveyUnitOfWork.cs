@@ -17,6 +17,7 @@ namespace RedTeam.TechArtSurvey.Repositories
         public IRoleRepository Roles => _roleRepository ?? (_roleRepository = new RoleRepository(Context));
 
 
+
         public TechArtSurveyUnitOfWork(IDbContext context)
             : base(context)
         {

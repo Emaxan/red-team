@@ -1,10 +1,11 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using Microsoft.Owin.Security.OAuth;
 using RedTeam.TechArtSurvey.Foundation.Interfaces;
 using System.Security.Claims;
-using Ninject;
-using RedTeam.TechArtSurvey.WebApi.Utils;
+using Microsoft.Owin.Hosting.Services;
 using Microsoft.Owin.Security;
+using RedTeam.TechArtSurvey.WebApi.Owin;
 
 namespace RedTeam.TechArtSurvey.WebApi.Provider
 {
@@ -19,8 +20,9 @@ namespace RedTeam.TechArtSurvey.WebApi.Provider
 
         public override async Task GrantResourceOwnerCredentials(OAuthGrantResourceOwnerCredentialsContext context)
         {
-            var kernel = NinjectDependencyResolver.Kernel;
-            var userManager = kernel.Get<IUserService>();
+            
+            var serviceProvider = context.OwinContext.Get<IServiceProvider>();
+            var userManager = serviceProvider.GetService<IApplicationUserManager>();
 
             var result = await userManager.GetClaimsByCredentialsAsync(context.UserName, context.Password); //here UserName == Email
             if (result.Code != Foundation.Interfaces.ServiceResponses.ServiceResponseCodes.Ok)
