@@ -1,10 +1,10 @@
-﻿using System.Web.Http;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
+using System.Web.Http;
 using RedTeam.TechArtSurvey.Foundation.Dto.UsersDto;
 using RedTeam.TechArtSurvey.Foundation.Interfaces;
 using RedTeam.TechArtSurvey.Foundation.Interfaces.ServiceResponses;
 
-namespace RedTeam.TechArtSurvey.WebApi.Controllers
+namespace RedTeam.TechArtSurvey.WebApi.Users
 {
     [RoutePrefix("account")]
     public class AccountController : ApiController

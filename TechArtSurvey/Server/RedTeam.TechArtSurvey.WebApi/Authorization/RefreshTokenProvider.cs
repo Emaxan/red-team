@@ -1,10 +1,10 @@
-﻿using Microsoft.Owin.Security;
-using Microsoft.Owin.Security.Infrastructure;
-using System;
+﻿using System;
 using System.Collections.Concurrent;
 using System.Threading.Tasks;
+using Microsoft.Owin.Security;
+using Microsoft.Owin.Security.Infrastructure;
 
-namespace RedTeam.TechArtSurvey.WebApi.Provider
+namespace RedTeam.TechArtSurvey.WebApi.Authorization
 {
     public class RefreshTokenProvider : IAuthenticationTokenProvider
     {

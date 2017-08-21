@@ -1,8 +1,8 @@
-﻿using Microsoft.Owin.Security;
-using System;
+﻿using System;
 using System.IdentityModel.Tokens;
+using Microsoft.Owin.Security;
 
-namespace RedTeam.TechArtSurvey.WebApi.Formats
+namespace RedTeam.TechArtSurvey.WebApi.Authorization
 {
     public class CustomJwtFormat : ISecureDataFormat<AuthenticationTicket>
     {

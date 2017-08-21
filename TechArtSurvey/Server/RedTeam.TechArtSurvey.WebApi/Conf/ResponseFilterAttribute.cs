@@ -1,14 +1,14 @@
-﻿using System.Net;
+﻿using System.Collections.Generic;
+using System.Linq;
+using System.Net;
 using System.Net.Http;
 using System.Web.Http.Controllers;
 using System.Web.Http.Filters;
+using Newtonsoft.Json;
 using RedTeam.Logger;
 using RedTeam.TechArtSurvey.Foundation.Interfaces.ServiceResponses;
-using System.Collections.Generic;
-using System.Linq;
-using Newtonsoft.Json;
 
-namespace RedTeam.TechArtSurvey.WebApi.Filters
+namespace RedTeam.TechArtSurvey.WebApi.Conf
 {
     public class ResponseFilterAttribute : ActionFilterAttribute
     {

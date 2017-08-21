@@ -1,7 +1,7 @@
 ﻿using System.Net;
 using System.Web.Http.ExceptionHandling;
 
-namespace RedTeam.TechArtSurvey.WebApi.Utils
+namespace RedTeam.TechArtSurvey.WebApi.Conf
 {
     public class TechArtSurveyExceptionHandler : ExceptionHandler
     {

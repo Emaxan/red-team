@@ -1,13 +1,13 @@
 ﻿using System;
-using System.Threading.Tasks;
-using Microsoft.Owin.Security.OAuth;
-using RedTeam.TechArtSurvey.Foundation.Interfaces;
 using System.Security.Claims;
+using System.Threading.Tasks;
 using Microsoft.Owin.Hosting.Services;
 using Microsoft.Owin.Security;
+using Microsoft.Owin.Security.OAuth;
+using RedTeam.TechArtSurvey.Foundation.Interfaces;
 using RedTeam.TechArtSurvey.WebApi.Owin;
 
-namespace RedTeam.TechArtSurvey.WebApi.Provider
+namespace RedTeam.TechArtSurvey.WebApi.Authorization
 {
     public class SimpleAuthorizationServerProvider : OAuthAuthorizationServerProvider
     {

@@ -1,12 +1,11 @@
-﻿using System.Web.Http;
-using System.Web.Http.ExceptionHandling;
-using RedTeam.TechArtSurvey.WebApi.Utils;
+﻿using System.Linq;
 using System.Net.Http.Formatting;
+using System.Web.Http;
+using System.Web.Http.ExceptionHandling;
 using Newtonsoft.Json.Serialization;
-using System.Linq;
-using RedTeam.TechArtSurvey.WebApi.Provider;
+using RedTeam.TechArtSurvey.WebApi.Logger;
 
-namespace RedTeam.TechArtSurvey.WebApi
+namespace RedTeam.TechArtSurvey.WebApi.Conf
 {
     public static class WebApiConfig
     {

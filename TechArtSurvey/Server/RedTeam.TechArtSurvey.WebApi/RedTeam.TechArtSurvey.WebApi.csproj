@@ -144,17 +144,17 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="App_Start\AutofacConfigurator.cs" />
-    <Compile Include="App_Start\AutofacServiceProvider.cs" />
+    <Compile Include="DI\AutofacConfigurator.cs" />
+    <Compile Include="DI\AutofacServiceProvider.cs" />
     <Compile Include="Owin\CreateInstancePerOwinContextMiddlewareExtensions.cs" />
     <Compile Include="Owin\CreateInstancePerRequestMiddleware.cs" />
-    <Compile Include="App_Start\Startup.cs" />
-    <Compile Include="App_Start\WebApiConfig.cs" />
-    <Compile Include="Controllers\AccountController.cs" />
-    <Compile Include="Controllers\UsersController.cs" />
-    <Compile Include="Filters\ResponseFilterAttribute.cs" />
-    <Compile Include="Formats\CustomJwtFormat.cs" />
-    <Compile Include="Options\JwtOptions.cs" />
+    <Compile Include="Conf\Startup.cs" />
+    <Compile Include="Conf\WebApiConfig.cs" />
+    <Compile Include="Users\AccountController.cs" />
+    <Compile Include="Users\UsersController.cs" />
+    <Compile Include="Conf\ResponseFilterAttribute.cs" />
+    <Compile Include="Authorization\CustomJwtFormat.cs" />
+    <Compile Include="Authorization\JwtOptions.cs" />
     <Compile Include="Owin\OwinContextExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\ResponseMessages.Designer.cs">
@@ -162,13 +162,13 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>ResponseMessages.resx</DependentUpon>
     </Compile>
-    <Compile Include="Provider\GlobalRoutePrefixProvider.cs" />
-    <Compile Include="Provider\RefreshTokenProvider.cs" />
-    <Compile Include="Provider\SimpleAuthorizationServerProvider.cs" />
-    <Compile Include="Utils\TechArtSurveyExceptionHandler.cs" />
-    <Compile Include="Utils\TechArtSurveyExceptionHttpResponse.cs" />
-    <Compile Include="Utils\TechArtSurveyExceptionLogger.cs" />
-    <Compile Include="Utils\TechArtSurveyLoggerHandler.cs" />
+    <Compile Include="Conf\GlobalRoutePrefixProvider.cs" />
+    <Compile Include="Authorization\RefreshTokenProvider.cs" />
+    <Compile Include="Authorization\SimpleAuthorizationServerProvider.cs" />
+    <Compile Include="Conf\TechArtSurveyExceptionHandler.cs" />
+    <Compile Include="Conf\TechArtSurveyExceptionHttpResponse.cs" />
+    <Compile Include="Logger\TechArtSurveyExceptionLogger.cs" />
+    <Compile Include="Logger\TechArtSurveyLoggerHandler.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

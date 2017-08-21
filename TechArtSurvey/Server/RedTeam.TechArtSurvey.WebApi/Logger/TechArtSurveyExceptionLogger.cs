@@ -1,7 +1,7 @@
 ﻿using System.Web.Http.ExceptionHandling;
 using RedTeam.Logger;
 
-namespace RedTeam.TechArtSurvey.WebApi.Utils
+namespace RedTeam.TechArtSurvey.WebApi.Logger
 {
     public class TechArtSurveyExceptionLogger : ExceptionLogger
     {

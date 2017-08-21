@@ -4,7 +4,7 @@ using Autofac.Integration.WebApi;
 using JetBrains.Annotations;
 using RedTeam.TechArtSurvey.Initializer.AutofacModules;
 
-namespace RedTeam.TechArtSurvey.WebApi
+namespace RedTeam.TechArtSurvey.WebApi.DI
 {
     [UsedImplicitly]
     public class AutofacConfigurator

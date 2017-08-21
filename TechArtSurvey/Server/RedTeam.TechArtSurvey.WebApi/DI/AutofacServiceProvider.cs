@@ -3,7 +3,7 @@ using Autofac;
 using Autofac.Integration.Owin;
 using Microsoft.Owin;
 
-namespace RedTeam.TechArtSurvey.WebApi
+namespace RedTeam.TechArtSurvey.WebApi.DI
 {
     public class AutofacServiceProvider : IServiceProvider
     {

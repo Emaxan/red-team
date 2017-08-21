@@ -1,7 +1,7 @@
 ﻿using System.Web.Http.Controllers;
 using System.Web.Http.Routing;
 
-namespace RedTeam.TechArtSurvey.WebApi.Provider
+namespace RedTeam.TechArtSurvey.WebApi.Conf
 {
     public class GlobalRoutePrefixProvider : DefaultDirectRouteProvider
     {

@@ -1,7 +1,7 @@
-﻿using Microsoft.Owin.Security.Jwt;
-using System;
+﻿using System;
+using Microsoft.Owin.Security.Jwt;
 
-namespace RedTeam.TechArtSurvey.WebApi.Options
+namespace RedTeam.TechArtSurvey.WebApi.Authorization
 {
     public class JwtOptions : JwtBearerAuthenticationOptions
     {

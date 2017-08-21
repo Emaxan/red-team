@@ -5,7 +5,7 @@ using RedTeam.TechArtSurvey.Foundation.Dto.UsersDto;
 using RedTeam.TechArtSurvey.Foundation.Interfaces;
 using RedTeam.TechArtSurvey.Foundation.Interfaces.ServiceResponses;
 
-namespace RedTeam.TechArtSurvey.WebApi.Controllers
+namespace RedTeam.TechArtSurvey.WebApi.Users
 {
     [RoutePrefix("users")]
     public class UsersController : ApiController
