@@ -2,7 +2,6 @@
 using Autofac;
 using Autofac.Integration.Owin;
 using Microsoft.Owin;
-using RedTeam.TechArtSurvey.WebApi.Provider;
 
 namespace RedTeam.TechArtSurvey.WebApi
 {

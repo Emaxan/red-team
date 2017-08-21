@@ -1,9 +1,8 @@
 ﻿using Autofac;
-using AutoMapper;
-using RedTeam.Identity.Managers;
-using RedTeam.Identity.Stores;
+using RedTeam.TechArtSurvey.Foundation;
+using RedTeam.TechArtSurvey.Foundation.Identity.Managers;
+using RedTeam.TechArtSurvey.Foundation.Identity.Stores;
 using RedTeam.TechArtSurvey.Foundation.Interfaces;
-using RedTeam.TechArtSurvey.Repositories.Interfaces;
 
 namespace RedTeam.TechArtSurvey.Initializer.AutofacModules
 {
@@ -11,14 +10,9 @@ namespace RedTeam.TechArtSurvey.Initializer.AutofacModules
     {
         protected override void Load(ContainerBuilder builder)
         {
-            builder.Register(
-                c => new ApplicationUserManager(c.Resolve<IApplicationUserStore>(),
-                c.Resolve<IMapper>())
-            ).As<IApplicationUserManager>().InstancePerRequest();
-
-            builder.Register(
-                c => new ApplicationUserStore(c.Resolve<ITechArtSurveyUnitOfWork>())
-            ).As<IApplicationUserStore>().InstancePerRequest();
+            builder.RegisterType<UserService>().As<IUserService>().InstancePerRequest();
+            builder.RegisterType<ApplicationUserManager>().AsSelf().InstancePerRequest();
+            builder.RegisterType<ApplicationUserStore>().As<IApplicationUserStore>().InstancePerRequest();
         }
     }
 }

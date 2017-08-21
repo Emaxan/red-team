@@ -22,7 +22,7 @@ namespace RedTeam.TechArtSurvey.WebApi.Provider
         {
             
             var serviceProvider = context.OwinContext.Get<IServiceProvider>();
-            var userManager = serviceProvider.GetService<IApplicationUserManager>();
+            var userManager = serviceProvider.GetService<IUserService>();
 
             var result = await userManager.GetClaimsByCredentialsAsync(context.UserName, context.Password); //here UserName == Email
             if (result.Code != Foundation.Interfaces.ServiceResponses.ServiceResponseCodes.Ok)
