@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Form, FormGroup, FormControl, ControlLabel } from 'react-bootstrap';
+import { Form, Panel, FormGroup, FormControl, ControlLabel } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 
 export class SurveyEditPanel extends Component {
@@ -49,20 +49,31 @@ export class SurveyEditPanel extends Component {
   render() {
     return (
       <div className="survey-edit-panel">
-        <Form horizontal>
-          <FormGroup className="label-floating" controlId="title">
-            <ControlLabel>
-                New survey
-            </ControlLabel>
-            <FormControl
-              name="title"
-              type="text"
-              value={this.state.survey.title}
-              onChange={this.handleOnTitleChange}
-            />
-            <FormControl.Feedback />
-          </FormGroup>
-        </Form>
+        <Panel className="col-md-8">
+          <Form>
+            <FormGroup
+              controlId="Title"
+            >
+              <ControlLabel>New survey</ControlLabel>
+              <FormControl
+                type="text"
+                value={this.state.survey.title}
+                placeholder="Enter title"
+                onChange={this.handleOnTitleChange}
+              />
+              <FormControl.Feedback />
+            </FormGroup>
+          </Form>
+        </Panel>
+        <Panel header="Kek" bsStyle="primary">
+          <ul>
+            <li>kek</li>
+            <li>kek</li>
+            <li>kek</li>
+            <li>kek</li>
+            <li>kek</li>
+          </ul>
+        </Panel >
       </div>
     );
   }
