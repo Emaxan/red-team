@@ -11,11 +11,11 @@ export const validateName = (name) => {
   let errors = [];
 
   if (validator.isEmpty(name)) {
-    errors.push(validationErrors.userNameRequired);
+    errors.push(validationErrors.UserNameRequired);
   }
 
   if (name.length < USER_NAME_MIN_LENGTH) {
-    errors.push(validationErrors.userNameMinLength);
+    errors.push(validationErrors.UserNameMinLength);
   }
 
   return new ValidationResult(errors.length === 0, errors);
@@ -25,11 +25,11 @@ export const validateEmail = (email) => {
   const errors = [];
 
   if (validator.isEmpty(email)) {
-    errors.push(validationErrors.userEmailRequired);
+    errors.push(validationErrors.UserEmailRequired);
   }
 
   if (validator.isEmail(email) === false) {
-    errors.push(validationErrors.userEmailIncorrect);
+    errors.push(validationErrors.UserEmailIncorrect);
   }
 
   return new ValidationResult(errors.length === 0, errors);
@@ -39,11 +39,11 @@ export const validatePassword = (password) => {
   const errors = [];
 
   if (validator.isEmpty(password)) {
-    errors.push(validationErrors.userPasswordRequired);
+    errors.push(validationErrors.UserPasswordRequired);
   }
 
   if (password.length < USER_PASSWORD_MIN_LENGTH) {
-    errors.push(validationErrors.userPasswordMinLength);
+    errors.push(validationErrors.UserPasswordMinLength);
   }
 
   return new ValidationResult(errors.length === 0, errors);
@@ -53,7 +53,7 @@ export const validateConfirmationPassword = (password, confirmationPassword) => 
   const errors = [];
 
   if (validator.equals(password, confirmationPassword) === false) {
-    errors.push(validationErrors.userConfirmationPasswordMustMatch);
+    errors.push(validationErrors.UserConfirmationPasswordMustMatch);
   }
 
   return new ValidationResult(errors.length === 0, errors);
