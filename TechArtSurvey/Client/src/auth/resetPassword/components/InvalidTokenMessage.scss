@@ -1,0 +1,14 @@
+.invalid-token-message {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
+.invalid-token-message__title {
+  text-align: center;
+}
+
+.invalid-token-message__content {
+  margin-top: 20px;
+}
