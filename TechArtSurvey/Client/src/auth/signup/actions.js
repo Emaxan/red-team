@@ -36,7 +36,7 @@ export const signUpRequest = (userData) => (dispatch) => {
   return signUp(userData)
     .then(() => {
       dispatch(signUpSuccess());
-      dispatch(enableGreeting());
+      dispatch(enableGreeting('You have been signed up successfully! Now you can log in!'));
       dispatch(push(Routes.Login.path));
     })
     .catch((error) => {
