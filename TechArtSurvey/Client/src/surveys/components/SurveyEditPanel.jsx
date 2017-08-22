@@ -55,7 +55,13 @@ export class SurveyEditPanel extends Component {
     alert(event.target);
   }
 
-  render() { console.log(this.state.survey.questions);
+  handleOnQuestionChange = (question) => {
+    var questions = this.state.survey.questions;
+    questions[question.number] = question;
+    this.setState({ survey : { ...this.state.survey, questions : questions}});
+  }
+
+  render() {
     return (
       <div className="survey-edit-panel">
         <Panel className="col-md-6">
@@ -73,7 +79,11 @@ export class SurveyEditPanel extends Component {
                 />
               </Col>
             </FormGroup>
-            <QuestionList questions={this.state.survey.questions} handleOnAddQuestionBtnClick = {this.handleOnAddQuestionBtnClick}/>
+            <QuestionList
+              questions={this.state.survey.questions}
+              handleOnAddQuestionBtnClick = {this.handleOnAddQuestionBtnClick}
+              handleOnQuestionChange = {this.handleOnQuestionChange}
+            />
           </Form>
         </Panel>
         <QuestionTypesPanel handleOnQuestionTypeClick={this.handleOnQuestionTypeClick} questionTypesArray={questionTypesArray}/>

@@ -41,12 +41,53 @@ export const questionTypesArray = [
   },
 ];
 
-const createSingleQuestion = () => <SingleQuestion/>;
-const createMultipleQuestion = () => <MultipleQuestion/>;
-const createFileQuestion = () => <FileQuestion/>;
-const createTextQuestion = () => <TextQuestion/>;
-const createScaleRatingQuestion = () => <ScaleRatingQuestion/>;
-const createStarRatingQuestion = () => <StarRatingQuestion/>;
+const createSingleQuestion = (question, index, handleOnQuestionChange) =>
+  <SingleQuestion
+    key={question.id}
+    question={question}
+    number={index}
+    handleOnQuestionChange = {handleOnQuestionChange}
+  />;
+
+const createMultipleQuestion = (question, index, handleOnQuestionChange) =>
+  <MultipleQuestion
+    key={question.id}
+    question={question}
+    number={index}
+    handleOnQuestionChange = {handleOnQuestionChange}
+  />;
+
+const createFileQuestion = (question, index, handleOnQuestionChange) =>
+  <FileQuestion
+    key={question.id}
+    question={question}
+    number={index}
+    handleOnQuestionChange = {handleOnQuestionChange}
+  />;
+
+const createTextQuestion = (question, index, handleOnQuestionChange) =>
+  <TextQuestion
+    key={question.id}
+    question={question}
+    number={index}
+    handleOnQuestionChange = {handleOnQuestionChange}
+  />;
+
+const createScaleRatingQuestion = (question, index, handleOnQuestionChange) =>
+  <ScaleRatingQuestion
+    key={question.id}
+    question={question}
+    number={index}
+    handleOnQuestionChange = {handleOnQuestionChange}
+  />;
+
+const createStarRatingQuestion = (question, index, handleOnQuestionChange) =>
+  <StarRatingQuestion
+    key={question.id}
+    question={question}
+    number={index}
+    handleOnQuestionChange = {handleOnQuestionChange}
+  />;
 
 export const questionComponents = {
   SINGLE_ANSWER: createSingleQuestion,

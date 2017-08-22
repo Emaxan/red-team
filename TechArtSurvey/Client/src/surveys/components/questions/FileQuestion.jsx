@@ -7,25 +7,26 @@ export class FileQuestion extends Component {
     super(props);
     this.state = {question: {
       text: '',
+      variants: [],
       isRequired: false,
       number: this.props.number,
     }};
   }
 
-  handleOnTitleChange = () => {
+  handleOnTextChange = () => {
 
   }
 
   render() {
     return <Panel>
       <Form horizontal>
-        <FormGroup controlId="title" >
+        <FormGroup controlId="text" >
           <Col sm={10}>
             <FormControl
               type="text"
-              value={this.state.survey.title}
+              value={this.state.question.text}
               placeholder="Enter text"
-              onChange={this.handleOnTitleChange}
+              onChange={this.handleOnTextChange}
             />
           </Col>
         </FormGroup>

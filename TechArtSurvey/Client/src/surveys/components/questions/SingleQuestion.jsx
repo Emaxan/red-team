@@ -1,40 +1,39 @@
 import React, { Component } from 'react';
-import { Panel, Form, Col, FormGroup, FormControl } from 'react-bootstrap';
+import { Panel, Col, FormGroup, FormControl } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 
 export class SingleQuestion extends Component {
   constructor(props){
     super(props);
-    this.state = {question: {
-      text: '',
-      variants: [],
-      isRequired: false,
-      number: this.props.number,
-    }};
+    this.props.question.variants = [];
+    this.props.question.number = this.props.number;
   }
 
-  handleOnTitleChange = () => {
+  handleOnTextChange = (event) => {
+    var newQuestionState = this.props.question;
+    newQuestionState.text = event.target.value;
 
+    this.props.handleOnQuestionChange(newQuestionState);
   }
 
   render() {
     return <Panel>
-      <Form horizontal>
-        <FormGroup controlId="title" >
-          <Col sm={10}>
-            <FormControl
-              type="text"
-              value={this.state.survey.title}
-              placeholder="Enter text"
-              onChange={this.handleOnTitleChange}
-            />
-          </Col>
-        </FormGroup>
-      </Form>
+      <FormGroup controlId={this.props.question.id.toString()} >
+        <Col sm={10}>
+          <FormControl
+            type="text"
+            value={this.props.question.text}
+            placeholder="Enter text"
+            onChange={this.handleOnTextChange}
+          />
+        </Col>
+      </FormGroup>
     </Panel>;
   }
 }
 
 SingleQuestion.propTypes = {
   number : PropTypes.number.isRequired,
+  handleOnQuestionChange: PropTypes.func.isRequired,
+  question: PropTypes.object.isRequired,
 };
