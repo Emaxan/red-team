@@ -2,7 +2,10 @@ import { API_URL } from '../../app/config';
 import { httpUtility } from '../../utils/httpUtility';
 
 export const resetPassword = (userId, token, newPassword) => {
-  const headers = { 'Content-type' : 'application/json' };  // remove when sign up pull request will be approved
+  const headers = {
+    'Content-type' : 'application/json',
+  };
+
   const body = {
     UserId : userId,
     ResetPasswordToken : token,
@@ -13,7 +16,10 @@ export const resetPassword = (userId, token, newPassword) => {
 };
 
 export const checkPasswordResetToken = (userId, token) => {
-  const headers = { 'Content-type' : 'application/json' };  // remove when sign up pull request will be approved
+  const headers = {
+    'Content-type' : 'application/json',
+  };
+
   const body = {
     UserId : userId,
     Token : token,

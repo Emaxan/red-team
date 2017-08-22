@@ -32,6 +32,11 @@ export class ForgotPasswordForm extends Component {
     }
   }
 
+  setInvalidValidationState = (message) => {
+    this.emailError = message;
+    this.emailValidationState = 'error';
+  }
+
   handleOnEmailChange = (event) => {
     this.setValidationState(validateEmail(event.target.value));
     this.setState({ emailInput : event.target.value });
@@ -43,7 +48,7 @@ export class ForgotPasswordForm extends Component {
       await this.props.checkEmailExistenceRequest(email);
 
       if (!this.props.isEmailRegistered) {
-        this.setValidationState({ isValid : false, errors : [ { message : 'User with this email doesn\'t exists' } ] });
+        this.setInvalidValidationState('User with this email doesn\'t exists');
         this.setState({ emailInput : email });
       }
     }
