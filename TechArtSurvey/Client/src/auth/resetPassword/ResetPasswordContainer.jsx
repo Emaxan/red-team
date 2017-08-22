@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 import { AuthPanel } from '../components/AuthPanel';
-import { InvalidTokenMessage } from './components/InvalidTokenMessage';
+import { InvalidTokenPanel } from './components/InvalidTokenPanel';
 import { ResetPasswordForm } from './components/ResetPasswordForm';
 import {
   checkPasswordResetTokenRequest,
@@ -41,7 +41,7 @@ export class ResetPasswordContainer extends Component {
     }
 
     if (!this.props.tokenValid) {
-      return <InvalidTokenMessage />;
+      return <InvalidTokenPanel />;
     }
 
     return (

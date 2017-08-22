@@ -1,9 +1,9 @@
 import React from 'react';
 import { Panel } from 'react-bootstrap';
 
-import './InvalidTokenMessage.scss';
+import './InvalidTokenPanel.scss';
 
-export const InvalidTokenMessage = () => (
+export const InvalidTokenPanel = () => (
   <div className="invalid-token-message">
     <Panel>
       <h1 className="invalid-token-message__title">Oops! Some problems has occurred...</h1>
