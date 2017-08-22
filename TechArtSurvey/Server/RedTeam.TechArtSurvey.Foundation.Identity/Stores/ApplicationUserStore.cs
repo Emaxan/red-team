@@ -68,7 +68,13 @@ namespace RedTeam.TechArtSurvey.Foundation.Identity.Stores
 
         public Task SetEmailAsync(User user, string email)
         {
-            throw new NotImplementedException();
+            if (user == null)
+            {
+                throw new ArgumentNullException(nameof(user));
+            }
+            user.Email = email;
+
+            return Task.CompletedTask;
         }
 
         public Task<string> GetEmailAsync(User user)
@@ -93,6 +99,10 @@ namespace RedTeam.TechArtSurvey.Foundation.Identity.Stores
 
         public Task SetPasswordHashAsync(User user, string passwordHash)
         {
+            if (user == null)
+            {
+                throw new ArgumentNullException(nameof(user));
+            }
             user.Password = passwordHash;
 
             return Task.CompletedTask;
@@ -100,12 +110,23 @@ namespace RedTeam.TechArtSurvey.Foundation.Identity.Stores
 
         public Task<string> GetPasswordHashAsync(User user)
         {
-            throw new NotImplementedException();
+            if (user == null)
+            {
+                throw new ArgumentNullException(nameof(user));
+            }
+
+            return Task.FromResult(user.Password);
         }
 
         public Task<bool> HasPasswordAsync(User user)
         {
-            throw new NotImplementedException();
+            if (user == null)
+            {
+                throw new ArgumentNullException(nameof(user));
+            }
+            var hasPassword = !string.IsNullOrEmpty(user.Password);
+
+            return Task.FromResult(hasPassword);
         }
 
         public async Task AddToRoleAsync(User user, string roleName)

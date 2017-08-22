@@ -6,7 +6,7 @@
         UserNotFoundById,
         UserNotFoundByEmail,
         UserAlreadyExists,
-        InvalidPassword,
+        InvalidCredentials,
         TokenExpired,
         TokenNotFound
     }

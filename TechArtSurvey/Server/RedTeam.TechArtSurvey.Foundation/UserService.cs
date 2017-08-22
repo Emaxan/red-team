@@ -48,9 +48,10 @@ namespace RedTeam.TechArtSurvey.Foundation
         public async Task<IServiceResponse> GetClaimsByCredentialsAsync(string email, string password)
         {
             var user = await _userManager.FindByEmailAsync(email);
-            if (user == null)
+            var isPasswordValid = await _userManager.CheckPasswordAsync(user, password);
+            if (user == null || !isPasswordValid)
             {
-                return ServiceResponse.CreateUnsuccessful(ServiceResponseCode.UserNotFoundByEmail);
+                return ServiceResponse.CreateUnsuccessful(ServiceResponseCode.InvalidCredentials);
             }
             var claims = await _userManager.GetClaimsAsync(user.Id);
             var claimsIdentity = new ClaimsIdentity(OAuthDefaults.AuthenticationType);
