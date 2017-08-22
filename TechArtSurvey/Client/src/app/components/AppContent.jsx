@@ -7,6 +7,8 @@ import Routes from '../routes';
 import UserListContainer from '../../users/UserListContainer';
 import SignUpContainer from '../../auth/signUp/SignUpContainer';
 import LoginContainer from '../../auth/login/LoginContainer';
+import ResetPasswordContainer from '../../auth/resetPassword/ResetPasswordContainer';
+import ForgotPasswordContainer from '../../auth/forgotPassword/ForgotPasswordContainer';
 import { AboutContainer } from '../../about/AboutContainer';
 import {
   userIsAuthenticatedRedirect,
@@ -23,6 +25,8 @@ import './customScroll.scss';
 const UserList = userIsAuthenticatedRedirect(userIsAdminRedirect(UserListContainer));
 const Login = userIsNotAuthenticatedRedirect(LoginContainer);
 const SignUp = userIsNotAuthenticatedRedirect(SignUpContainer);
+const ForgotPassword = userIsNotAuthenticatedRedirect(ForgotPasswordContainer);
+const ResetPassword = userIsNotAuthenticatedRedirect(ResetPasswordContainer);
 
 const AppContent = ({ className }) => (
   <div className={'main ' + className}>
@@ -34,7 +38,9 @@ const AppContent = ({ className }) => (
         <Route path={Routes.SignUp.path} component={SignUp}/>
         <Route path={Routes.Login.path} component={Login} />
         <Route path={Routes.About.path} component={AboutContainer} />
-        <Route component={NotFound}/>
+        <Route path={Routes.ForgotPassword.path} component={ForgotPassword} />
+        <Route path={Routes.ResetPassword.path} component={ResetPassword} />
+        <Route component={NotFound} />
       </Switch>
     </CustomScroll>
   </div>

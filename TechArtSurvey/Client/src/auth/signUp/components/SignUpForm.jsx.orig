@@ -70,12 +70,16 @@ export class SignUpForm extends Component {
   handleOnEmailBlur = async (event) => {
     const email = event.target.value;
     if (!isEmpty(email)) {
+<<<<<<< HEAD:TechArtSurvey/Client/src/auth/signUp/components/SignUpForm.jsx
+      this.props.checkEmailExistenceRequest(email);
+=======
       await this.props.checkEmailExistenceRequest(email);
 
       if (this.props.isEmailRegistered) {
         this.setValidationState('email', { isValid : false, errors : [ { message : 'User with this email is already exists' } ] });
         this.setState({ user : { ...this.state.user, email : email }});
       }
+>>>>>>> client/feature/forgot-password:TechArtSurvey/Client/src/auth/signup/components/SignupForm.jsx
     }
   }
 

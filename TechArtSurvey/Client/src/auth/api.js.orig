@@ -1,8 +1,13 @@
-import urljoin from 'url-join';
+<<<<<<< HEAD
+import { AUTH_URL } from '../app/config';
 import { httpUtility, buildQueryStringByObject } from '../utils/httpUtility';
 import { FORM_URL_ENCODED_DATA } from '../utils/MimeType';
+=======
+import urljoin from 'url-join';
 
 import { AUTH_URL, API_URL } from '../app/config';
+import { httpUtility } from '../utils/httpUtility';
+>>>>>>> client/feature/forgot-password
 
 export const updateTokens = (refreshToken) => {
   const headers = {
@@ -15,9 +20,14 @@ export const updateTokens = (refreshToken) => {
     'refresh_token' : refreshToken,
   };
 
+<<<<<<< HEAD
   return httpUtility.post(`${AUTH_URL}/token`, headers, buildQueryStringByObject(body));
+};
+=======
+  return httpUtility.post(`${AUTH_URL}/token`, headers, body);
 };
 
 export const checkEmailExistence = (email) => {
   return httpUtility.get(urljoin(API_URL, `/users/?email=${email}`));
 };
+>>>>>>> client/feature/forgot-password

@@ -1,33 +1,38 @@
-const Config = require('webpack-config');
+import webpack from 'webpack';
+import Config from 'webpack-config';
+import cssnano from 'cssnano';
+import path from 'path';
 
-const webpack = require('webpack');
-const path = require('path');
-const cssnano = require('cssnano');
+import HtmlWebpackPlugin from 'html-webpack-plugin';
+import ExtractTextPlugin from 'extract-text-webpack-plugin';
 
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
-
-const {
+import {
   sourcePath,
   devServerPath,
-} = require('./paths');
+} from './paths';
 
-module.exports = new Config.Config()
+export default new Config()
   .merge({
-    context : path.join(__dirname, '../'),
+    entry : path.join(sourcePath, '/Root.jsx'),
+
     output : {
-      filename : 'bundle.js',
-      library : '[name]',
       publicPath : devServerPath + '/',
+      filename : 'bundle.js',
     },
-    entry : {
-      bundle : path.join(sourcePath, '/Root.jsx'),
-    },
+
+    context : path.resolve(__dirname, '../'),
+
     resolve : {
       extensions : [ '.js', '.jsx', '.scss' ],
     },
+
     module : {
       loaders : [
+        {
+          test : /\.jsx?$/,
+          exclude : /node_modules/,
+          loader : 'babel-loader',
+        },
         {
           enforce : 'pre',
           test : /\.jsx?$|\.json$/,
@@ -39,18 +44,8 @@ module.exports = new Config.Config()
           },
         },
         {
-          test : /\.jsx?$/,
-          exclude : /node_modules/,
-          loader : 'babel-loader',
-        },
-        {
-          test : /\.woff2?$|\.ttf$|\.eot$|\.svg$|\.png$|\.jpe?g$|\.gif$/,
-          loader : 'file-loader',
-        },
-        {
           test : /\.css$/,
           use : ExtractTextPlugin.extract({
-            // fallback : 'style-loader',
             loader : 'css-loader',
             options : {
               minimize : true,
@@ -64,8 +59,13 @@ module.exports = new Config.Config()
             use : [ 'css-loader', 'sass-loader', 'postcss-loader' ],
           }),
         },
+        {
+          test : /\.woff2?$|\.ttf$|\.eot$|\.svg$|\.png$|\.jpg$|\.gif$/,
+          loader : 'file-loader',
+        },
       ],
     },
+
     plugins : [
       new webpack.ProvidePlugin({
         $ : 'jquery',

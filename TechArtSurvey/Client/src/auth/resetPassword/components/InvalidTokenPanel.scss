@@ -1,0 +1,5 @@
+@import "../../components/variables.scss";
+
+.invalid-token-panel {
+  @include panel();
+}

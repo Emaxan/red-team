@@ -10,6 +10,7 @@ import {
 
 const loginInitialState = Record({
   isGreetingEnabled : false,
+  greetingMessage : '',
   errors : List(),
 });
 
@@ -23,8 +24,9 @@ export const loginReducer = handleActions({
     state.set('errors', state.get('errors')
       .merge(List(action.payload.errors))),
 
-  [ENABLE_GREETING] : (state) =>
-    state.set('isGreetingEnabled', true),
+  [ENABLE_GREETING] : (state, action) =>
+    state.set('isGreetingEnabled', true)
+      .set('greetingMessage', action.payload.greetingMessage),
 
   [DISABLE_GREETING] : (state) =>
     state.set('isGreetingEnabled', false),

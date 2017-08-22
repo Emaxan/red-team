@@ -1,13 +1,15 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { signUpRequest, checkEmailExistenceRequest } from './actions';
+import { signUpRequest } from './actions';
+import { checkEmailExistenceRequest } from '../actions';
 import { SignUpForm } from './components/SignUpForm';
-import { AuthPanel } from '../AuthPanel';
+import { AuthPanel } from '../components/AuthPanel';
 
 const mapStateToProps = (state) => ({
-  errors : state.signUp.errors,
+  errors : state.auth.errors.concat(state.signUp.errors),
   actionString : 'Sign Up',
+  isEmailRegistered : state.auth.isEmailRegistered,
 });
 
 const mapDispatchToProps = {
@@ -15,14 +17,14 @@ const mapDispatchToProps = {
   checkEmailExistenceRequest,
 };
 
-const SignUpContainer = ({ errors, actionString, signUpRequest, checkEmailExistenceRequest }) => (
+const SignUpContainer = ({ errors, actionString, isEmailRegistered, signUpRequest, checkEmailExistenceRequest }) => (
   <AuthPanel
     actionString={actionString}
     errors={errors}
   >
     <SignUpForm
-      errors={errors}
       actionString={actionString}
+      isEmailRegistered={isEmailRegistered}
       signUpRequest={signUpRequest}
       checkEmailExistenceRequest={checkEmailExistenceRequest}
     />

@@ -39,7 +39,9 @@ export const {
 
   [LOGOUT] : () => {},
 
-  [ENABLE_GREETING] : () => {},
+  [ENABLE_GREETING] : (greetingMessage) => ({
+    greetingMessage,
+  }),
 
   [DISABLE_GREETING] : () => {},
 });
