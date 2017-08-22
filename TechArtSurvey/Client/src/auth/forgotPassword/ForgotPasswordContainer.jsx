@@ -3,15 +3,19 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 import { AuthPanel } from '../components/AuthPanel';
+import { CheckEmailPanel } from './components/CheckEmailPanel';
 import { ForgotPasswordForm } from './components/ForgotPasswordForm';
 import { checkEmailExistenceRequest } from '../actions';
 import { forgotPasswordRequest } from './actions';
+import { Spinner } from '../../components/Spinner';
 
 const mapStateToProps = (state) => ({
   errors : state.auth.errors,
   actionString : 'Forgot password? Do not worry! Enter your e-mail below:',
   isEmailRegistered : state.auth.isEmailRegistered,
+  isFetching : state.forgotPassword.isFetching,
   messageWasSent : state.forgotPassword.messageWasSent,
+  email : state.forgotPassword.email,
 });
 
 const mapDispatchToProps = {
@@ -25,8 +29,12 @@ export class ForgotPasswordContainer extends Component {
   }
 
   render() {
+    if (this.props.isFetching) {
+      return <Spinner />;
+    }
+
     if (this.props.messageWasSent) {
-      return <h1>Check your e-mail</h1>;
+      return <CheckEmailPanel email={this.props.email} />;
     }
 
     return (
@@ -46,7 +54,9 @@ export class ForgotPasswordContainer extends Component {
 
 ForgotPasswordContainer.propTypes = {
   ...AuthPanel.propTypes,
+  ...CheckEmailPanel.propTypes,
   ...ForgotPasswordForm.propTypes,
+  isFetching : PropTypes.bool.isRequired,
   messageWasSent : PropTypes.bool.isRequired,
 };
 
