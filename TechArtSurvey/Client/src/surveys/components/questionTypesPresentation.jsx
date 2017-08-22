@@ -6,6 +6,8 @@ import  {TextQuestion} from './questions/TextQuestion';
 import  {ScaleRatingQuestion} from './questions/ScaleRatingQuestion';
 import  {StarRatingQuestion} from './questions/StarRatingQuestion';
 
+import React from 'react';
+
 export const questionTypesArray = [
   {
     id: 1,
@@ -39,11 +41,18 @@ export const questionTypesArray = [
   },
 ];
 
+const createSingleQuestion = () => <SingleQuestion/>;
+const createMultipleQuestion = () => <MultipleQuestion/>;
+const createFileQuestion = () => <FileQuestion/>;
+const createTextQuestion = () => <TextQuestion/>;
+const createScaleRatingQuestion = () => <ScaleRatingQuestion/>;
+const createStarRatingQuestion = () => <StarRatingQuestion/>;
+
 export const questionComponents = {
-  SINGLE_ANSWER: () => SingleQuestion(),
-  MULTIPLE_ANSWER: () => MultipleQuestion(),
-  FILE_ANSWER: () => FileQuestion(),
-  TEXT_ANSWER: () => TextQuestion(),
-  SCALE_RATING_ANSWER: () => ScaleRatingQuestion(),
-  STAR_RATING_ANSWER: () => StarRatingQuestion(),
+  SINGLE_ANSWER: createSingleQuestion,
+  MULTIPLE_ANSWER: () => createMultipleQuestion,
+  FILE_ANSWER: () => createFileQuestion,
+  TEXT_ANSWER: () => createTextQuestion,
+  SCALE_RATING_ANSWER: () => createScaleRatingQuestion,
+  STAR_RATING_ANSWER: () => createStarRatingQuestion,
 };

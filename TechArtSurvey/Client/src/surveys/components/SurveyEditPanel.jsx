@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
-import { Form, Col, Button, Panel, FormGroup, FormControl, ControlLabel } from 'react-bootstrap';
+import { Form, Col, Panel, FormGroup, FormControl, ControlLabel } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 
-import {questionTypesArray, questionComponents} from './questionTypesPresentation';
-import {QuestionTypesPanel} from './QuestionTypesPanel';
-import {QuestionList} from './QuestionList';
+import { questionTypesArray } from './questionTypesPresentation';
+import { QuestionTypesPanel } from './QuestionTypesPanel';
+import { QuestionList } from './QuestionList';
 
 export class SurveyEditPanel extends Component {
   constructor(props) {
@@ -55,7 +55,7 @@ export class SurveyEditPanel extends Component {
     alert(event.target);
   }
 
-  render() {
+  render() { console.log(this.state.survey.questions);
     return (
       <div className="survey-edit-panel">
         <Panel className="col-md-6">
@@ -73,8 +73,7 @@ export class SurveyEditPanel extends Component {
                 />
               </Col>
             </FormGroup>
-            <QuestionList components={questionComponents} questions={this.state.survey.questions}/>
-            <Button onClick={this.handleOnAddQuestionBtnClick}>Add question</Button>
+            <QuestionList questions={this.state.survey.questions} handleOnAddQuestionBtnClick = {this.handleOnAddQuestionBtnClick}/>
           </Form>
         </Panel>
         <QuestionTypesPanel handleOnQuestionTypeClick={this.handleOnQuestionTypeClick} questionTypesArray={questionTypesArray}/>
