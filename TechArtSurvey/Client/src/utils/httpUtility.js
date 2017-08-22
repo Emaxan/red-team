@@ -61,5 +61,5 @@ export const httpUtility = {
 };
 
 export const buildQueryStringByObject = (obj) => {
-  Object.keys(obj).map(key => `${encodeURIComponent(key)}=${encodeURIComponent(obj[key])}`).join('&');
+  return Object.keys(obj).map(key => `${encodeURIComponent(key)}=${encodeURIComponent(obj[key])}`).join('&');
 };
