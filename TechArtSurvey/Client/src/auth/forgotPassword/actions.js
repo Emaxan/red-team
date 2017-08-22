@@ -13,7 +13,7 @@ export const {
   forgotPasswordRequestError,
 } = createActions({
   [FORGOT_PASSWORD_REQUEST_START] : () => {},
-  [FORGOT_PASSWORD_REQUEST_SUCCESS] : () => {},
+  [FORGOT_PASSWORD_REQUEST_SUCCESS] : (email) => ({email}),
   [FORGOT_PASSWORD_REQUEST_ERROR] : () => {},
 });
 
@@ -21,7 +21,7 @@ export const forgotPasswordRequest = (email) => (dispatch) => {
   dispatch(forgotPasswordRequestStart());
   return forgotPassword(email)
     .then(() => {
-      dispatch(forgotPasswordRequestSuccess());
+      dispatch(forgotPasswordRequestSuccess(email));
     })
     .catch(() => {
       dispatch(forgotPasswordRequestError());
