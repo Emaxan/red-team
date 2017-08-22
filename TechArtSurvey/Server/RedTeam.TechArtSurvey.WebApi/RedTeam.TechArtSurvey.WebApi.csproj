@@ -154,11 +154,11 @@
     <Compile Include="DI\AutofacServiceProvider.cs" />
     <Compile Include="Owin\CreateInstancePerOwinContextMiddlewareExtensions.cs" />
     <Compile Include="Owin\CreateInstancePerRequestMiddleware.cs" />
-    <Compile Include="Conf\Startup.cs" />
-    <Compile Include="Conf\WebApiConfig.cs" />
+    <Compile Include="App_Start\Startup.cs" />
+    <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Users\AccountController.cs" />
     <Compile Include="Users\UsersController.cs" />
-    <Compile Include="Conf\ResponseFilterAttribute.cs" />
+    <Compile Include="App_Start\ResponseFilterAttribute.cs" />
     <Compile Include="Authorization\CustomJwtFormat.cs" />
     <Compile Include="Authorization\JwtOptions.cs" />
     <Compile Include="Owin\OwinContextExtensions.cs" />
@@ -168,11 +168,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>ResponseMessages.resx</DependentUpon>
     </Compile>
-    <Compile Include="Conf\GlobalRoutePrefixProvider.cs" />
+    <Compile Include="App_Start\GlobalRoutePrefixProvider.cs" />
     <Compile Include="Authorization\RefreshTokenProvider.cs" />
     <Compile Include="Authorization\SimpleAuthorizationServerProvider.cs" />
-    <Compile Include="Conf\TechArtSurveyExceptionHandler.cs" />
-    <Compile Include="Conf\TechArtSurveyExceptionHttpResponse.cs" />
+    <Compile Include="App_Start\TechArtSurveyExceptionHandler.cs" />
+    <Compile Include="App_Start\TechArtSurveyExceptionHttpResponse.cs" />
     <Compile Include="Logger\TechArtSurveyExceptionLogger.cs" />
     <Compile Include="Logger\TechArtSurveyLoggerHandler.cs" />
   </ItemGroup>
