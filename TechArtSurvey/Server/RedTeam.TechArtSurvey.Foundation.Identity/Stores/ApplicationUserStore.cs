@@ -95,7 +95,7 @@ namespace RedTeam.TechArtSurvey.Foundation.Identity.Stores
         {
             user.Password = passwordHash;
 
-            return Task.FromResult(0);
+            return Task.CompletedTask;
         }
 
         public Task<string> GetPasswordHashAsync(User user)

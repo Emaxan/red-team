@@ -15,7 +15,7 @@ namespace RedTeam.TechArtSurvey.WebApi.Authorization
         {
             context.Validated();
 
-            return Task.FromResult(0);
+            return Task.CompletedTask;
         }
 
         public override async Task GrantResourceOwnerCredentials(OAuthGrantResourceOwnerCredentialsContext context)

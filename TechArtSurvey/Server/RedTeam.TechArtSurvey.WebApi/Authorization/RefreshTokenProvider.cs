@@ -23,7 +23,7 @@ namespace RedTeam.TechArtSurvey.WebApi.Authorization
             RefreshTokens.TryAdd(guid, refreshTokenTicket);
             context.SetToken(guid);
 
-            return Task.FromResult(0);
+            return Task.CompletedTask;
         }
 
         public void Create(AuthenticationTokenCreateContext context)
@@ -45,7 +45,7 @@ namespace RedTeam.TechArtSurvey.WebApi.Authorization
                 context.SetTicket(ticket);
             }
 
-            return Task.FromResult(0);
+            return Task.CompletedTask;
         }
     }
 }
