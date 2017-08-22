@@ -15,6 +15,9 @@
 }
 
 .navbar {
+  &.navbar-wrapper {
+    margin-bottom: $navbar-margin-bottom;
+  }
   &-brand {
     &__link {
       &.react-bootstrap-link {
