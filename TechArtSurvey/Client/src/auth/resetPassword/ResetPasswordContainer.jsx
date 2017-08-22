@@ -9,6 +9,7 @@ import {
   checkPasswordResetTokenRequest,
   resetPasswordRequest,
 } from './actions';
+import { Spinner } from '../../components/Spinner';
 
 const mapStateToProps = (state) => ({
   errors : state.auth.errors,
@@ -36,7 +37,7 @@ export class ResetPasswordContainer extends Component {
 
   render() {
     if (this.props.isFetching) {
-      return <h1>Loading...</h1>;
+      return <Spinner />;
     }
 
     if (!this.props.tokenValid) {
