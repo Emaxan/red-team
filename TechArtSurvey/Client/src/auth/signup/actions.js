@@ -19,7 +19,6 @@ export const {
   signUpSuccess,
   signUpFailed,
   signUpInvalidData,
-
 } = createActions({
   [SIGN_UP_START] : () => {},
 

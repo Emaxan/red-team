@@ -1,14 +1,11 @@
 import React, { Component } from 'react';
-// import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { Form, FormGroup, FormControl, ControlLabel, Button } from 'react-bootstrap';
-// import Routes from '../../../app/routes';
-// import {
-//   validateEmail,
-//   validatePassword,
-// } from '../../../utils/validation/userValidation.js';
 
-import { resetPassword } from '../api';
+import {
+  validatePassword,
+  validateConfirmationPassword,
+} from '../../../utils/validation/userValidation.js';
 
 export class NewPasswordForm extends Component {
   constructor(props) {
@@ -35,16 +32,11 @@ export class NewPasswordForm extends Component {
   handleOnSubmit = (event) => {
     event.preventDefault();
 
-    resetPassword(
+    this.props.resetPasswordRequest(
       this.props.userId,
       this.props.token,
       this.state.userData.newPassword,
-    )
-      .then(data => {
-        if (data.statusCode === 200) {
-          alert('Password was changes successfully!');
-        }
-      });
+    );
   }
 
   setValidationState = (fieldName, validationInfo) => {
@@ -57,24 +49,34 @@ export class NewPasswordForm extends Component {
     }
   }
 
+  makeConfirmationPasswordValidation = (password, confirmationPassword)  =>{
+    this.setValidationState('confirmationNewPassword', validateConfirmationPassword(password, confirmationPassword));
+  }
+
   handleOnNewPasswordChange = (event) => {
-    // this.setValidationState('email', validateEmail(event.target.value));
+    const validationInfo = validatePassword(event.target.value);
+    this.setValidationState('newPassword', validationInfo);
+
+    if (validationInfo.isValid) {
+      this.makeConfirmationPasswordValidation(event.target.value,
+        this.state.userData.confirmationNewPassword);
+    }
+
     this.setState({ userData : { ...this.state.userData, newPassword : event.target.value }});
   }
 
   handleOnConfirmationNewPasswordChange = (event) => {
-    // this.setValidationState('password', validatePassword(event.target.value));
+    this.makeConfirmationPasswordValidation(this.state.userData.newPassword, event.target.value);
     this.setState({ userData : { ...this.state.userData, confirmationNewPassword : event.target.value}});
   }
 
   isInputValid() {
-    return true;
-    // return Object.values(this.errors)
-    //   .every((err) => err === null);
+    return Object.values(this.errors)
+      .every((err) => err === null);
   }
 
   render() {
-    // const formValid = this.isInputValid();
+    const formValid = this.isInputValid();
 
     return (
       <div>
@@ -110,8 +112,13 @@ export class NewPasswordForm extends Component {
           <FormGroup className="text-center">
             <Button
               type="submit"
-              disabled={false}
-              title=''
+              disabled={!formValid}
+              title=
+                {
+                  formValid ?
+                    '' :
+                    'All fields must be filled'
+                }
             >
             Reset password
             </Button>
@@ -125,4 +132,5 @@ export class NewPasswordForm extends Component {
 NewPasswordForm.propTypes = {
   userId : PropTypes.string.isRequired,
   token : PropTypes.string.isRequired,
+  resetPasswordRequest : PropTypes.func.isRequired,
 };

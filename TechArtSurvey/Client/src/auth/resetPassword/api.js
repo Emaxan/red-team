@@ -1,11 +1,11 @@
 import { API_URL } from '../../app/config';
 import { httpUtility } from '../../utils/httpUtility';
 
-export const resetPassword = (id, code, newPassword) => {
+export const resetPassword = (userId, token, newPassword) => {
   const headers = { 'Content-type' : 'application/json' };  // remove when sign up pull request will be approved
   const body = {
-    UserId : id,
-    ResetPasswordToken : code,
+    UserId : userId,
+    ResetPasswordToken : token,
     NewPassword : newPassword,
   };
 
