@@ -7,7 +7,7 @@ import {
   validateConfirmationPassword,
 } from '../../../utils/validation/userValidation.js';
 
-export class NewPasswordForm extends Component {
+export class ResetPasswordForm extends Component {
   constructor(props) {
     super(props);
 
@@ -129,7 +129,7 @@ export class NewPasswordForm extends Component {
   }
 }
 
-NewPasswordForm.propTypes = {
+ResetPasswordForm.propTypes = {
   userId : PropTypes.string.isRequired,
   token : PropTypes.string.isRequired,
   resetPasswordRequest : PropTypes.func.isRequired,

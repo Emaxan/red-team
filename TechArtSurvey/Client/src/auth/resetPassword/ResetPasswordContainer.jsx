@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 
 import { AuthPanel } from '../components/AuthPanel';
 import { InvalidTokenMessage } from './components/InvalidTokenMessage';
-import { NewPasswordForm } from './components/NewPasswordForm';
+import { ResetPasswordForm } from './components/ResetPasswordForm';
 import {
   checkPasswordResetTokenRequest,
   resetPasswordRequest,
@@ -48,7 +48,7 @@ export class ResetPasswordContainer extends Component {
         actionString={this.props.actionString}
         errors={this.props.errors}
       >
-        <NewPasswordForm
+        <ResetPasswordForm
           userId={this.props.match.params.userId}
           token={this.props.match.params.token}
           resetPasswordRequest={this.props.resetPasswordRequest}
