@@ -5,7 +5,7 @@ using System.Web.Http.ExceptionHandling;
 using Newtonsoft.Json.Serialization;
 using RedTeam.TechArtSurvey.WebApi.Logger;
 
-namespace RedTeam.TechArtSurvey.WebApi.Conf
+namespace RedTeam.TechArtSurvey.WebApi.App_Start
 {
     public static class WebApiConfig
     {

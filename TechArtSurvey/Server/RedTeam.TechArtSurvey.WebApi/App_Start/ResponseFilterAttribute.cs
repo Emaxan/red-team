@@ -8,7 +8,7 @@ using Newtonsoft.Json;
 using RedTeam.Logger;
 using RedTeam.TechArtSurvey.Foundation.Interfaces.ServiceResponses;
 
-namespace RedTeam.TechArtSurvey.WebApi.Conf
+namespace RedTeam.TechArtSurvey.WebApi.App_Start
 {
     public class ResponseFilterAttribute : ActionFilterAttribute
     {
