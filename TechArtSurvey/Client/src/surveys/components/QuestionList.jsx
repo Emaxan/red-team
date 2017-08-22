@@ -2,20 +2,22 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Button } from 'react-bootstrap';
 
-import {questionComponents} from './questionTypesPresentation';
+import {questionsFactory} from './questionsFactory';
 
 export class QuestionList extends Component {
   render() {
     return (
       <div>
         {
-          this.props.questions.map((question, index) => (
-            questionComponents[question.type](
-              question,
-              index,
-              this.props.handleOnQuestionChange,
-            )
-          ))
+          this.props.questions.map((question, index) => {
+            question.number = index;
+            return (
+              questionsFactory[question.type](
+                question,
+                this.props.handleOnQuestionChange,
+                this.props.handleOnEditingQuestionChange,
+              )
+            );})
         }
         <Button onClick={this.props.handleOnAddQuestionBtnClick}>Add question</Button>
       </div>
@@ -24,8 +26,9 @@ export class QuestionList extends Component {
 }
 
 QuestionList.propTypes = {
-  questionComponents : PropTypes.object,
+  questionsFactory : PropTypes.object,
   questions : PropTypes.array.isRequired,
   handleOnAddQuestionBtnClick: PropTypes.func.isRequired,
+  handleOnEditingQuestionChange: PropTypes.func.isRequired,
   handleOnQuestionChange: PropTypes.func.isRequired,
 };

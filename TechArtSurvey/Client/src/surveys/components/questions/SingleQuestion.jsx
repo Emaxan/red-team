@@ -6,7 +6,6 @@ export class SingleQuestion extends Component {
   constructor(props){
     super(props);
     this.props.question.variants = [];
-    this.props.question.number = this.props.number;
   }
 
   handleOnTextChange = (event) => {
@@ -14,6 +13,10 @@ export class SingleQuestion extends Component {
     newQuestionState.text = event.target.value;
 
     this.props.handleOnQuestionChange(newQuestionState);
+  }
+
+  handleOnEdit = () => {
+    this.props.onEditingQuestionChange(this.props.question.id);
   }
 
   render() {
@@ -33,7 +36,7 @@ export class SingleQuestion extends Component {
 }
 
 SingleQuestion.propTypes = {
-  number : PropTypes.number.isRequired,
   handleOnQuestionChange: PropTypes.func.isRequired,
   question: PropTypes.object.isRequired,
+  onEditingQuestionChange: PropTypes.func.isRequired,
 };

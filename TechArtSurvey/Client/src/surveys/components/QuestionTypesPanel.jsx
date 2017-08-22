@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 
 export class QuestionTypesPanel extends Component {
   handleOnSelect = (event) => {
-    console.log(event);
+    this.props.handleOnTypeChange(event);
   }
   render() {
     return (
@@ -25,4 +25,5 @@ export class QuestionTypesPanel extends Component {
 
 QuestionTypesPanel.propTypes = {
   questionTypesArray : PropTypes.array.isRequired,
+  handleOnTypeChange: PropTypes.func.isRequired,
 };
