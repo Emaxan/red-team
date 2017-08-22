@@ -1,0 +1,22 @@
+.error-wrapper {
+  margin: auto;
+  max-width: 80%;
+}
+
+.error-wrapper__title {
+  text-align: center;
+}
+
+.error-image-wrapper {
+  display: flex;
+
+  margin: 0;
+  padding: 50px;
+
+  justify-content: center;
+  align-items: center;
+}
+
+.error-image-wrapper__image {
+  max-width: 100%;
+}

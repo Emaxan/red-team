@@ -1,0 +1,23 @@
+.about-content {
+  padding-right: 20px;
+}
+
+.about-tab__link > a {
+  color: #555;
+  background-color: #f3f3f3;
+  border-radius: 4px 4px 0 0;
+
+  &:hover,
+  &:focus,
+  &:active {
+    background-color: #fff;
+  }
+}
+
+.tab-wrapper {
+  background-color: white;
+  border: 1px solid #ddd;
+  border-top-width: 0;
+  padding: 20px;
+  min-height: 400px;
+}

@@ -33,8 +33,8 @@ const SimpleGoogleMap = withScriptjs(
           ))
         }
       </GoogleMap>
-    )
-  )
+    ),
+  ),
 );
 
 const AboutUs = () => (

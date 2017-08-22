@@ -8,38 +8,26 @@ import {
   GET_USERS_FILTER,
 } from './actionTypes';
 
-const rec = Record({
-  message : '',
+const usersInitialState = Record({
   fetching : false,
   userList : List(),
   filterInput : '',
 });
 
-const initialState = new rec();
+const initialState = new usersInitialState();
 
 export const usersReducer = handleActions({
-  [GET_USERS_START] : (state, action) => {
-    let newState = state.set('message', action.payload.message);
-    newState = newState.set('fetching', true);
-    return newState;
-  },
+  [GET_USERS_START] : (state) =>
+    state.set('fetching', true),
 
-  [GET_USERS_SUCCESS] : (state, action) => {
-    let newState = state.set('message', action.payload.message);
-    newState = newState.set('fetching', false);
-    newState = newState.set('userList', state.get('userList')
-      .merge(List(action.payload.userList)));
-    return newState;
-  },
+  [GET_USERS_SUCCESS] : (state, action) =>
+    state.set('fetching', false)
+      .set('userList', state.get('userList')
+        .merge(List(action.payload.userList))),
 
-  [GET_USERS_ERROR] : (state, action) => {
-    let newState = state.set('message', action.payload.message);
-    newState = newState.set('fetching', false);
-    return newState;
-  },
+  [GET_USERS_ERROR] : (state) =>
+    state.set('fetching', false),
 
-  [GET_USERS_FILTER] : (state, action) => {
-    const newState = state.set('filterInput', action.payload.filterInput);
-    return newState;
-  },
+  [GET_USERS_FILTER] : (state, action) =>
+    state.set('filterInput', action.payload.filterInput),
 }, initialState);

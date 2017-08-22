@@ -1,40 +1,57 @@
 @import "./variables";
 
 .menu {
-  padding: ($menu-line-hight/4) $menu-width/30;
+  padding: 0 $content-padding-horizontal;
   width: $menu-width;
+  background-color: $navbar-default-bg;
+  margin-top: -$navbar-margin-bottom;
+  margin-bottom: -$footer-height;
+  box-sizing: content-box;
+  overflow-x: hidden;
+  transition: width 0.5s ease-in-out;
+
+  &:hover {
+    width: $expand-menu-width;
+  }
+
+  & .glyphicon {
+    position: absolute;
+    top: 18px;
+    left: 14px;
+  }
 
   &__item {
     display: block;
-    width: ($menu-width*0.8);
-    margin: ($menu-line-hight/4) auto;
-    line-height: $menu-line-hight/4;
-    padding: $menu-line-hight/8 $menu-width/10;
-    border: solid $menu-item-border-color $menu-item-border-width;
-    background-color: $menu-item-background-color;
-    box-shadow: 3px 3px 0 0 $menu-item-shadow-color;
-    text-align: center;
+    width: $expand-menu-width;
+    line-height: $menu-line-height/2;
+    padding: $menu-line-height/4 $expand-menu-width/6;
+    background-color: transparent;
+    text-align: left;
     text-decoration: none;
+    color: $gray-light;
 
-    &:hover {
-      text-decoration: none;
-      border-color: $menu-item-hover-border-color;
-      box-shadow: $menu-item-shadow-offset $menu-item-shadow-offset 0 0 $menu-item-hover-shadow-color;
-      transition: all $menu-item-transition;
+    &.react-bootstrap-link {
+      &:hover,
+      &:active,
+      &:focus {
+        text-decoration: none;
+        color: $gray-dark;
+      }
     }
 
-    &:active {
-      text-decoration: none;
-      position: relative;
-      top: $menu-item-shadow-offset;
-      left: $menu-item-shadow-offset;
-      box-shadow: none;
-      transition: all $menu-item-transition;
-    }
+    &-wrapper {
+      &.btn {
+        position: relative;
+        background-color: $navbar-default-bg;
+        border: none;
+        line-height: $navbar-height;
+        padding: 0;
+        text-align: center;
 
-    &:focus {
-      text-decoration: none;
-      background-color: darken($menu-item-background-color, 10%);
+        &:hover {
+          background-color: darken($navbar-default-bg, 10%);
+        }
+      }
     }
   }
 }

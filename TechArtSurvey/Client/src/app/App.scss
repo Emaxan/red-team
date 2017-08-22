@@ -1,9 +1,9 @@
-@import "./variables";
+@import "./components/variables";
 
-html {
-  height: 100%;
-}
+$main-margin-left: 30px;
+$main-width-decrease: ($content-padding-horizontal + $menu-width + $content-padding-horizontal + $main-margin-left);
 
+html,
 body {
   height: 100%;
 }
@@ -12,6 +12,8 @@ body {
   display: flex;
   flex-flow: column nowrap;
   flex-grow: 1;
+  background: url("./background.jpg") repeat;
+  background-size: 30%;
 }
 
 .content {
@@ -19,26 +21,19 @@ body {
   flex-flow: row nowrap;
   justify-content: space-between;
   align-items: stretch;
-  min-height: 100%;
   flex-grow: 1;
 }
 
-.menu {
-  margin: -$navbar-margin-bottom auto;
-}
-
-.main {
+.app-content {
   flex-grow: 1;
+  margin-left: $main-margin-left;
+  height: calc(100vh - #{$main-height-decrease});
+  min-width: 0;
+  max-width: calc(100vw - #{$main-width-decrease});
 }
 
 #container {
   min-height: 100%;
   display: flex;
   flex-flow: column nowrap;
-}
-
-@media all and (max-width: $screen-sm-max) {
-  .content {
-    display: block;
-  }
 }

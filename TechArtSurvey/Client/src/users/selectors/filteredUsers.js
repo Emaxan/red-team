@@ -11,9 +11,9 @@ const filterString = (state) => state.users
 const getFilteredUsers = (userList, input) => {
   const filteredUsers = _.filter(
     userList,
-    (user) => user.Name
+    (user) => user.userName
       .toLowerCase()
-      .includes(input.toLowerCase())
+      .includes(input.toLowerCase()),
   );
 
   return filteredUsers;
@@ -22,5 +22,5 @@ const getFilteredUsers = (userList, input) => {
 export default createSelector(
   userListSelector,
   filterString,
-  getFilteredUsers
+  getFilteredUsers,
 );

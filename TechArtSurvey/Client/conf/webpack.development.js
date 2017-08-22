@@ -22,9 +22,17 @@ module.exports = new Config.Config()
         '/api' : {
           target : apiPath,
         },
+        '/token' : {
+          target : apiPath,
+        },
       },
     },
     plugins : [
+      new webpack.DefinePlugin({
+        'process.env': {
+          NODE_ENV: JSON.stringify('development'),
+        },
+      }),
       new StyleLintPlugin(),
       new OpenBrowserPlugin({ url : devServerPath }),
       new webpack.LoaderOptionsPlugin({

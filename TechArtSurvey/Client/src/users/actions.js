@@ -1,4 +1,7 @@
 import { createActions } from 'redux-actions';
+import {
+  UNAUTHORIZED,
+} from 'http-status';
 
 import {
   GET_USERS_START,
@@ -7,6 +10,7 @@ import {
   GET_USERS_FILTER,
 } from './actionTypes';
 import { getUsers as getUsersFromServer } from './api';
+import { tokenUtility } from '../utils/tokenUtility';
 
 export const {
   getUsersStart,
@@ -14,18 +18,13 @@ export const {
   getUsersError,
   getUsersFilter,
 } = createActions({
-  [GET_USERS_START] : () => ({
-    message : 'request started',
-  }),
+  [GET_USERS_START] : () => {},
 
   [GET_USERS_SUCCESS] : (userList) => ({
     userList,
-    message : 'request succeeded',
   }),
 
-  [GET_USERS_ERROR] : (message) => ({
-    message,
-  }),
+  [GET_USERS_ERROR] : () => {},
 
   [GET_USERS_FILTER] : (filterInput) => ({
     filterInput,
@@ -35,9 +34,17 @@ export const {
 export const getUsers = () => (dispatch) => {
   dispatch(getUsersStart());
   return getUsersFromServer()
-    .then((response) => response.json())
-    .then((json) => dispatch(getUsersSuccess(json)))
-    .catch((error) => dispatch(getUsersError(error)));
+    .then((response) => {
+      dispatch(getUsersSuccess(response.data));
+    })
+    .catch((error) => {
+      dispatch(getUsersError());
+
+      if (error.statusCode === UNAUTHORIZED) {
+        tokenUtility.updateTokens();
+        dispatch(getUsers());
+      }
+    });
 };
 
 export const setFilter = (filterInput) => getUsersFilter(filterInput);

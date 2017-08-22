@@ -1,3 +1,8 @@
-import { API_URL } from '../app/config';
+import urljoin from 'url-join';
 
-export const getUsers = () => fetch(`${API_URL}/users`);
+import { API_URL } from '../app/config';
+import { httpUtility } from '../utils/httpUtility';
+
+export const getUsers = () => {
+  return httpUtility.get(urljoin(API_URL, '/users'));
+};

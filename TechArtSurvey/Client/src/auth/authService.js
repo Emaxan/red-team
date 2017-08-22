@@ -1,4 +1,8 @@
+import jwt_decode from 'jwt-decode';
+
 const token = 'auth.token';
+const refreshToken = 'auth.refreshToken';
+const tokenType = 'auth.tokenType';
 
 export default class AuthService {
   static setToken(accessToken) {
@@ -9,7 +13,44 @@ export default class AuthService {
     return window.localStorage.getItem(token);
   }
 
+  static setRefreshToken(token) {
+    window.localStorage.setItem(refreshToken, token);
+  }
+
+  static getRefreshToken() {
+    return window.localStorage.getItem(refreshToken);
+  }
+
+  static setTokenType(accessTokenType) {
+    window.localStorage.setItem(tokenType, accessTokenType);
+  }
+
+  static getTokenType() {
+    return window.localStorage.getItem(tokenType);
+  }
+
+  static getUserInfo() {
+    const token = this.getToken();
+
+    if (token) {
+      const jwt = jwt_decode(this.getToken());
+      return {
+        userName : jwt.unique_name,
+        email : jwt.email,
+        role : jwt.role,
+      };
+    }
+
+    return { };
+  }
+
   static isAuthenticated() {
     return this.getToken() !== null;
+  }
+
+  static clearUserInfo() {
+    window.localStorage.removeItem(token);
+    window.localStorage.removeItem(refreshToken);
+    window.localStorage.removeItem(tokenType);
   }
 }

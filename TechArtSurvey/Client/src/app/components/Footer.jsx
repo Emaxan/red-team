@@ -1,19 +1,13 @@
-import React, { Component } from 'react';
+import React from 'react';
 
 import './Footer.scss';
 
-export class Footer extends Component {
-  constructor() {
-    super();
-    this.year = (new Date())
-      .getFullYear();
-  }
+const year = (new Date()).getFullYear();
 
-  render() {
-    return (
-      <footer className="footer">
-        <p className="footer__paragraph">Copyright <sup>&copy;</sup> {this.year} iTechArt</p>
-      </footer>
-    );
-  }
-}
+const Footer = () => (
+  <footer className="footer">
+    Copyright <sup>&copy;</sup> {year} iTechArt
+  </footer>
+);
+
+export default Footer;

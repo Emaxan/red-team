@@ -1,43 +1,52 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Route, Switch } from 'react-router-dom';
-import PropTypes from 'prop-types';
 
-import Routes from './routesConstants';
-import { Header } from './components/Header';
-import { Footer } from './components/Footer';
-import { Sidebar } from './components/Sidebar';
-import UserListContainer from '../users/UserListContainer';
-import { AboutContainer } from '../about/AboutContainer';
+import MenuItemsSelector from './selectors/menuItemsSelector';
+import { Footer, Sidebar, AppContent } from './components';
+import Header from './components/header/Header';
+import {
+  userIsAuthenticated,
+} from '../auth/authWrappers';
 
 import './App.scss';
 
-function mapStateToProps(state) {
-  return {
-    isAuthenticated : state.auth.isAuthenticated,
-  };
+const mapStateToProps = (state) => ({
+  userName : state.auth.userInfo.userName,
+  email : state.auth.userInfo.email,
+  menuItems : MenuItemsSelector(state),
+});
+
+const SideBar = userIsAuthenticated(Sidebar);
+
+class App extends Component {
+  componentDidUpdate(){
+    $.material.init({validate : false});
+  }
+
+  render() {
+    return (
+      <div className="wrapper">
+        <Header userName={this.props.userName} email={this.props.email} />
+        <div className="content">
+          <SideBar menuItems={this.props.menuItems} />
+          <AppContent className="app-content" />
+        </div>
+        <Footer />
+      </div>
+    );
+  }
 }
 
-const App = ({ isAuthenticated }) => (
-  <div className="wrapper">
-    <Header authStatus={isAuthenticated ? true : true} />
-    <div className="container content">
-      {
-        (isAuthenticated ? true : true) ? <Sidebar /> : ''
-      }
-      <main className="main">
-        <Switch>
-          <Route path={Routes.Users.path} component={UserListContainer} />
-          <Route path={Routes.About.path} component={AboutContainer} />
-        </Switch>
-      </main>
-    </div>
-    <Footer />
-  </div>
-);
-
 App.propTypes = {
-  isAuthenticated : PropTypes.bool.isRequired,
+  ...Header.propTypes,
+  ...Sidebar.propTypes,
+  ...AppContent.propTypes,
+  ...Footer.propTypes,
+};
+
+App.defaultProps = {
+  userName : '',
+  email : '',
 };
 
 export default connect(mapStateToProps, null, null, { pure: false })(App);

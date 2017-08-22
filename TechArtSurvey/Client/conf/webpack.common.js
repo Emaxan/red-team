@@ -30,7 +30,7 @@ module.exports = new Config.Config()
       loaders : [
         {
           enforce : 'pre',
-          test : /\.jsx?$/,
+          test : /\.jsx?$|\.json$/,
           exclude : /node_modules/,
           loader : 'eslint-loader',
           options : {
@@ -42,29 +42,19 @@ module.exports = new Config.Config()
           test : /\.jsx?$/,
           exclude : /node_modules/,
           loader : 'babel-loader',
-          query : {
-            presets : [
-              [
-                'es2015',
-                {
-                  modules : false,
-                },
-              ],
-              'react',
-              'stage-0',
-              'stage-1',
-            ],
-          },
         },
         {
-          test : /\.woff2?$|\.ttf$|\.eot$|\.svg$|\.png|\.jpe?g|\.gif$/,
+          test : /\.woff2?$|\.ttf$|\.eot$|\.svg$|\.png$|\.jpe?g$|\.gif$/,
           loader : 'file-loader',
         },
         {
           test : /\.css$/,
           use : ExtractTextPlugin.extract({
-            fallback : 'style-loader',
-            use : 'css-loader',
+            // fallback : 'style-loader',
+            loader : 'css-loader',
+            options : {
+              minimize : true,
+            },
           }),
         },
         {

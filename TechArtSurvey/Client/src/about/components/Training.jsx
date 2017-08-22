@@ -1,8 +1,10 @@
 import React from 'react';
-import Routes from '../../app/routesConstants';
+import Routes from '../../app/routes';
 
 const Training = () => (
-  <p>{Routes.Training.text}</p>
+  <div>
+    <p>{Routes.Training.text}</p>
+  </div>
 );
 
 export default Training;
