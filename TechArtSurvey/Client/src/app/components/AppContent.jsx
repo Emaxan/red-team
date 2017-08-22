@@ -24,6 +24,7 @@ const UserList = userIsAuthenticatedRedirect(userIsAdminRedirect(UserListContain
 const Login = userIsNotAuthenticatedRedirect(LoginContainer);
 const SignUp = userIsNotAuthenticatedRedirect(SignUpContainer);
 const ForgotPassword = userIsNotAuthenticatedRedirect(ForgotPasswordContainer);
+const ResetPassword = userIsNotAuthenticatedRedirect(ResetPasswordContainer);
 
 const AppContent = ({ className }) => (
   <div className={'main ' + className}>
@@ -36,7 +37,7 @@ const AppContent = ({ className }) => (
         <Route path={Routes.Login.path} component={Login} />
         <Route path={Routes.About.path} component={AboutContainer} />
         <Route path={Routes.ForgotPassword.path} component={ForgotPassword} />
-        <Route path={Routes.ResetPassword.path} component={ResetPasswordContainer} />
+        <Route path={Routes.ResetPassword.path} component={ResetPassword} />
         <Route component={NotFound} />
       </Switch>
     </CustomScroll>
