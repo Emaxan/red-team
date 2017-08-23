@@ -1,5 +1,5 @@
-import Question from './Question';
-import {questionTypes} from '../questionTypes';
+import Question from '../models/Question';
+import { questionTypes } from '../questionTypes';
 
 export const changeType = (oldQuestion, type) => {
   if(oldQuestion.type == type) {

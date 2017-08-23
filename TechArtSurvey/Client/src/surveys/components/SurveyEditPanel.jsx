@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import { questionTypesArray } from './questionTypesPresentation';
 import { QuestionTypesPanel } from './QuestionTypesPanel';
 import { QuestionList } from './QuestionList';
-import Question from './Question';
+import Question from '../models/Question';
 import { changeType, getLastId } from './service';
 
 import './SurveyEditPanel.scss';
