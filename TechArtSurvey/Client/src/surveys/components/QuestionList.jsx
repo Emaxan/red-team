@@ -2,10 +2,10 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Button } from 'react-bootstrap';
 
-import {questionsFactory} from './questionsFactory';
+import { questionsFactory } from './questionsFactory';
 
 export class QuestionList extends Component {
-  render() {
+  render = () => {
     return (
       <div>
         {

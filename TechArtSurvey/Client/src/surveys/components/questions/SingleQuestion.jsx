@@ -19,19 +19,21 @@ export class SingleQuestion extends Component {
     this.props.onEditingQuestionChange(this.props.question.id);
   }
 
-  render() {
-    return <Panel>
-      <FormGroup controlId={this.props.question.id.toString()} >
-        <Col sm={10}>
-          <FormControl
-            type="text"
-            value={this.props.question.text}
-            placeholder="Enter text"
-            onChange={this.handleOnTextChange}
-          />
-        </Col>
-      </FormGroup>
-    </Panel>;
+  render = () => {
+    return (
+      <Panel>
+        <FormGroup controlId={this.props.question.id.toString()} >
+          <Col sm={10}>
+            <FormControl
+              type="text"
+              value={this.props.question.text}
+              placeholder="Enter text"
+              onChange={this.handleOnTextChange}
+            />
+          </Col>
+        </FormGroup>
+      </Panel>
+    );
   }
 }
 

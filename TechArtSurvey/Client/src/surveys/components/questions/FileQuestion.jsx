@@ -18,10 +18,12 @@ export class FileQuestion extends Component {
     this.props.onEditingQuestionChange(this.props.question.id);
   }
 
-  render() {
-    return <Panel>
+  render = () => {
+    return (
+      <Panel>
       fiiiile
-    </Panel>;
+      </Panel>
+    );
   }
 }
 

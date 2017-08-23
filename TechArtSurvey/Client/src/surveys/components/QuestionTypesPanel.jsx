@@ -6,7 +6,8 @@ export class QuestionTypesPanel extends Component {
   handleOnSelect = (event) => {
     this.props.handleOnTypeChange(event);
   }
-  render() {
+
+  render = () => {
     return (
       <Panel header="Question types" bsStyle="primary">
         <Nav bsStyle="pills" stacked activeKey={2} onSelect={this.handleOnSelect}>

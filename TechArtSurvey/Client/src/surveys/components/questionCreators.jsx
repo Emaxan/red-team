@@ -1,11 +1,11 @@
 import React from 'react';
 
-import {SingleQuestion} from './questions/SingleQuestion';
-import  {FileQuestion} from './questions/FileQuestion';
-import  {MultipleQuestion} from './questions/MultipleQuestion';
-import  {TextQuestion} from './questions/TextQuestion';
-import  {ScaleRatingQuestion} from './questions/ScaleRatingQuestion';
-import  {StarRatingQuestion} from './questions/StarRatingQuestion';
+import { SingleQuestion } from './questions/SingleQuestion';
+import { FileQuestion } from './questions/FileQuestion';
+import { MultipleQuestion } from './questions/MultipleQuestion';
+import { TextQuestion } from './questions/TextQuestion';
+import { ScaleRatingQuestion } from './questions/ScaleRatingQuestion';
+import { StarRatingQuestion } from './questions/StarRatingQuestion';
 
 export const createSingleQuestion = (question, handleOnQuestionChange, handleOnEditingQuestionChange) =>
   <SingleQuestion

@@ -81,7 +81,7 @@ export class SurveyEditPanel extends Component {
     }
   }
 
-  render() {
+  render = () => {
     return (
       <div className="survey-edit-panel">
         <Panel className="col-md-6">

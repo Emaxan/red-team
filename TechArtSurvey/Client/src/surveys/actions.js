@@ -3,6 +3,7 @@ import { createActions } from 'redux-actions';
 import {
   BAD_REQUEST,
 } from 'http-status';
+
 import { createSurvey } from './api';
 import {
   CREATE_SURVEY_START,
@@ -18,14 +19,9 @@ export const {
   createSurveyInvalidData,
 } = createActions({
   [CREATE_SURVEY_START] : () => {},
-
   [CREATE_SURVEY_SUCCESS] : () => {},
-
   [CREATE_SURVEY_FAILED] : () => {},
-
-  [CREATE_SURVEY_INVALID_DATA] : (errors) => ({
-    errors,
-  }),
+  [CREATE_SURVEY_INVALID_DATA] : (errors) => ({ errors }),
 });
 
 export const createSurveyRequest = (survey) => (dispatch) => {

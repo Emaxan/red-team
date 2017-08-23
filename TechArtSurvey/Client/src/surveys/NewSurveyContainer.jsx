@@ -1,9 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import {questionTypes, defaultType} from './questionTypes';
-import {createSurveyRequest} from './actions';
-import {SurveyEditPanel} from './components/SurveyEditPanel';
+import { questionTypes, defaultType } from './questionTypes';
+import { createSurveyRequest } from './actions';
+import { SurveyEditPanel } from './components/SurveyEditPanel';
 
 import './NewSurveyContainer.scss';
 
@@ -17,10 +17,10 @@ const mapDispatchToProps = {
 
 const NewSurveyContainer = ({ errors, createSurveyRequest }) => (
   <SurveyEditPanel
-    questionTypes = {questionTypes}
-    defaultType = {defaultType}
-    createSurvey = {createSurveyRequest}
-    errors = {errors}
+    questionTypes={questionTypes}
+    defaultType={defaultType}
+    createSurvey={createSurveyRequest}
+    errors={errors}
   />
 );
 
