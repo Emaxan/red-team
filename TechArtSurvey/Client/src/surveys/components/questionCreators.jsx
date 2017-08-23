@@ -9,7 +9,6 @@ import { StarRatingQuestion } from './questions/StarRatingQuestion';
 
 export const createSingleQuestion = (question, handleOnQuestionChange, handleOnEditingQuestionChange) =>
   <SingleQuestion
-    key={question.id}
     question={question}
     handleOnQuestionChange = {handleOnQuestionChange}
     handleOnEditingQuestionChange = {handleOnEditingQuestionChange}

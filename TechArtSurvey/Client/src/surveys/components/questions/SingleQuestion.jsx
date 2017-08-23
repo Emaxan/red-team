@@ -43,7 +43,7 @@ export class SingleQuestion extends Component {
 }
 
 SingleQuestion.propTypes = {
-  handleOnQuestionChange: PropTypes.func.isRequired,
   question: PropTypes.object.isRequired,
+  handleOnQuestionChange: PropTypes.func.isRequired,
   onEditingQuestionChange: PropTypes.func.isRequired,
 };
