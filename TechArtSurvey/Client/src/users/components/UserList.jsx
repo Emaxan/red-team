@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 import { SearchBox } from './SearchBox';
+import { Spinner } from '../../components/Spinner';
 
 export class UserList extends Component {
   handleOnBtnClick = () => {
@@ -9,6 +10,10 @@ export class UserList extends Component {
   }
 
   render = () => {
+    if (this.props.isFetching) {
+      return <Spinner />;
+    }
+
     return (
       <div>
         <h2>Users</h2>
@@ -49,4 +54,5 @@ UserList.propTypes = {
   filteredUserList : PropTypes.array.isRequired,
   getUsers : PropTypes.func.isRequired,
   setFilter : PropTypes.func.isRequired,
+  isFetching : PropTypes.bool.isRequired,
 };
