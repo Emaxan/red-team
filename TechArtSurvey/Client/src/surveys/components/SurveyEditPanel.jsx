@@ -6,6 +6,8 @@ import { questionTypesArray } from './questionTypesPresentation';
 import { QuestionTypesPanel } from './QuestionTypesPanel';
 import { QuestionList } from './QuestionList';
 
+import './SurveyEditPanel.scss';
+
 export class SurveyEditPanel extends Component {
   constructor(props) {
     super(props);
