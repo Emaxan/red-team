@@ -1,7 +1,7 @@
 import { defaultType } from '../questionTypes';
 
 export default class Question {
-  constructor(id, type = defaultType, text='', isRequired=true, metaInfo='') {
+  constructor(id, type = defaultType, title = '', isRequired = true, metaInfo = '', number = '') {
     this._id = id;
     this._type = type;
     this._title = title;
