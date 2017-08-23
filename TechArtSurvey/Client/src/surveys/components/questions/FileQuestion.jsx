@@ -14,10 +14,6 @@ export class FileQuestion extends Component {
     this.props.handleOnQuestionChange(newQuestionState);
   }
 
-  handleOnEdit = () => {
-    this.props.onEditingQuestionChange(this.props.question.id);
-  }
-
   render = () => {
     return (
       <Panel>
@@ -30,5 +26,4 @@ export class FileQuestion extends Component {
 FileQuestion.propTypes = {
   handleOnQuestionChange: PropTypes.func.isRequired,
   question: PropTypes.object.isRequired,
-  onEditingQuestionChange: PropTypes.func.isRequired,
 };

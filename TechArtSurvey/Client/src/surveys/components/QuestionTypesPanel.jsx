@@ -3,8 +3,8 @@ import { Panel, Nav, NavItem } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 
 export class QuestionTypesPanel extends Component {
-  handleOnSelect = (event) => {
-    this.props.handleOnTypeChange(event);
+  handleOnSelect = (type) => {
+    this.props.handleOnTypeChange(type);
   }
 
   render = () => {

@@ -7,49 +7,44 @@ import { TextQuestion } from './questions/TextQuestion';
 import { ScaleRatingQuestion } from './questions/ScaleRatingQuestion';
 import { StarRatingQuestion } from './questions/StarRatingQuestion';
 
-export const createSingleQuestion = (question, handleOnQuestionChange, handleOnEditingQuestionChange) =>
+
+export const createSingleQuestion = (question, handleOnQuestionChange) =>
   <SingleQuestion
     question={question}
     handleOnQuestionChange = {handleOnQuestionChange}
-    handleOnEditingQuestionChange = {handleOnEditingQuestionChange}
   />;
 
-export const createMultipleQuestion = (question, handleOnQuestionChange, handleOnEditingQuestionChange) =>
+export const createMultipleQuestion = (question, handleOnQuestionChange) =>
   <MultipleQuestion
     key={question.id}
     question={question}
     handleOnQuestionChange = {handleOnQuestionChange}
-    handleOnEditingQuestionChange = {handleOnEditingQuestionChange}
   />;
 
-export const createFileQuestion = (question, handleOnQuestionChange, handleOnEditingQuestionChange) =>
+export const createFileQuestion = (question, handleOnQuestionChange) =>
   <FileQuestion
     key={question.id}
     question={question}
     handleOnQuestionChange = {handleOnQuestionChange}
-    handleOnEditingQuestionChange = {handleOnEditingQuestionChange}
   />;
 
-export const createTextQuestion = (question, handleOnQuestionChange, handleOnEditingQuestionChange) =>
+export const createTextQuestion = (question, handleOnQuestionChange) =>
   <TextQuestion
     key={question.id}
     question={question}
     handleOnQuestionChange = {handleOnQuestionChange}
-    handleOnEditingQuestionChange = {handleOnEditingQuestionChange}
   />;
 
-export const createScaleRatingQuestion = (question, handleOnQuestionChange, handleOnEditingQuestionChange) =>
+export const createScaleRatingQuestion = (question, handleOnQuestionChange) =>
   <ScaleRatingQuestion
     key={question.id}
     question={question}
     handleOnQuestionChange = {handleOnQuestionChange}
-    handleOnEditingQuestionChange = {handleOnEditingQuestionChange}
   />;
 
-export const createStarRatingQuestion = (question, handleOnQuestionChange, handleOnEditingQuestionChange) =>
+export const createStarRatingQuestion = (question, handleOnQuestionChange) =>
   <StarRatingQuestion
     key={question.id}
     question={question}
     handleOnQuestionChange = {handleOnQuestionChange}
-    handleOnEditingQuestionChange = {handleOnEditingQuestionChange}
   />;

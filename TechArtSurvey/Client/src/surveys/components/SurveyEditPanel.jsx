@@ -14,8 +14,10 @@ export class SurveyEditPanel extends Component {
   constructor(props) {
     super(props);
 
+    this.lastId = -1;
+
     this.state = {
-      editingQuestion: -1,
+      editingQuestionId: this.lastId,
       survey : {
         title : '',
         questions : [],
@@ -34,9 +36,8 @@ export class SurveyEditPanel extends Component {
 
   handleOnAddQuestionBtnClick = () => {
     var newQuestionsArray = this.state.survey.questions;
-    newQuestionsArray.push(new Question(newQuestionsArray.length));
-    this.setState({editingQuestion: newQuestionsArray.length - 1});
-    this.setState({ survey : { ...this.state.survey, questions : newQuestionsArray }});
+    newQuestionsArray.push(new Question(++this.lastId, newQuestionsArray.length + 1));
+    this.setState({editingQuestionId: this.lastId,  survey : { ...this.state.survey, questions : newQuestionsArray }});
     console.log(this.state.survey.questions);
   }
 
@@ -51,12 +52,12 @@ export class SurveyEditPanel extends Component {
   }
 
   handleOnEditingQuestionChange = (id) => {
-    this.props.editingQuestion = id;
+    this.setState({editingQuestionId: id});
   }
 
   handleOnTypeChange = (type) => {
     var questions = this.state.survey.questions;
-    var questionId = this.state.editingQuestion;
+    var questionId = this.state.editingQuestionId;
     if(questionId != -1) {
       var oldQuestion = questions[questionId];
       var newQuestion = changeType(oldQuestion, type);
@@ -90,6 +91,7 @@ export class SurveyEditPanel extends Component {
               handleOnAddQuestionBtnClick = {this.handleOnAddQuestionBtnClick}
               handleOnQuestionChange = {this.handleOnQuestionChange}
               handleOnEditingQuestionChange = {this.handleOnEditingQuestionChange}
+              editingQuestionId = {this.state.editingQuestionId}
             />
           </Form>
         </Panel>
@@ -104,5 +106,5 @@ SurveyEditPanel.propTypes = {
   addPage : PropTypes.func.isRequired,
   defaultType : PropTypes.string,
   questionTypes : PropTypes.object,
-  editingQuestion: PropTypes.number.isRequired,
+  editingQuestionId: PropTypes.number.isRequired,
 };
