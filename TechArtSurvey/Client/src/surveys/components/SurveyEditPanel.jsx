@@ -6,6 +6,7 @@ import { questionTypesArray } from './questionTypesPresentation';
 import { QuestionTypesPanel } from './QuestionTypesPanel';
 import { QuestionList } from './QuestionList';
 import Question from './Question';
+import { changeType } from './service';
 
 import './SurveyEditPanel.scss';
 
@@ -33,7 +34,7 @@ export class SurveyEditPanel extends Component {
 
   handleOnAddQuestionBtnClick = () => {
     var newQuestionsArray = this.state.survey.questions;
-    newQuestionsArray.push(new Question(newQuestionsArray.length, this.props.defaultType));
+    newQuestionsArray.push(new Question(newQuestionsArray.length));
     this.setState({editingQuestion: newQuestionsArray.length - 1});
     this.setState({ survey : { ...this.state.survey, questions : newQuestionsArray }});
     console.log(this.state.survey.questions);
@@ -54,19 +55,12 @@ export class SurveyEditPanel extends Component {
   }
 
   handleOnTypeChange = (type) => {
-    var questionId = this.state.editingQuestion;
     var questions = this.state.survey.questions;
-    if(questionId > -1 && questionId < questions.length){
+    var questionId = this.state.editingQuestion;
+    if(questionId != -1) {
       var oldQuestion = questions[questionId];
-      if(oldQuestion.type != type){
-        var newQuestion = new Question(questionId, type, oldQuestion.text, oldQuestion.isRequired);
-        if((oldQuestion.type == this.props.questionTypes.SINGLE_ANSWER
-          || oldQuestion.type == this.props.questionTypes.MULTIPLE_ANSWER)
-          && (type == this.props.questionTypes.SINGLE_ANSWER
-          || type == this.props.questionTypes.MULTIPLE_ANSWER))
-        {
-          newQuestion.metaInfo = oldQuestion.metaInfo;
-        }
+      var newQuestion = changeType(oldQuestion, type);
+      if(newQuestion != null) {
         questions[questionId] = newQuestion;
         this.setState({ survey : { ...this.state.survey, questions : questions}});
       }
