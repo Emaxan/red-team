@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 import { questionTypesArray } from './questionTypesPresentation';
 import { QuestionTypesPanel } from './QuestionTypesPanel';
 import { QuestionList } from './QuestionList';
+import Question from './Question';
 
 import './SurveyEditPanel.scss';
 
@@ -16,15 +17,15 @@ export class SurveyEditPanel extends Component {
       editingQuestion: -1,
       survey : {
         title : '',
-        questions: [],
-        pages: 1,
-        params: {
-          isAnonymous: false,
-          hasQuestionNumbers: true,
-          hasPageNumbers: true,
-          isRandomOrdered: false,
-          hasRequiredFieldsStars: false,
-          hasProgressIndicator: false,
+        questions : [],
+        pages : [],
+        params : {
+          isAnonymous : false,
+          hasQuestionNumbers : true,
+          hasPageNumbers : true,
+          isRandomOrdered : false,
+          hasRequiredFieldsStars : false,
+          hasProgressIndicator : false,
         },
       },
     };
@@ -32,12 +33,7 @@ export class SurveyEditPanel extends Component {
 
   handleOnAddQuestionBtnClick = () => {
     var newQuestionsArray = this.state.survey.questions;
-    newQuestionsArray.push({
-      id: this.state.survey.questions.length,
-      type: this.props.defaultType,
-      text: '',
-      isRequired: false,
-    });
+    newQuestionsArray.push(new Question(newQuestionsArray.length, this.props.defaultType));
     this.setState({editingQuestion: newQuestionsArray.length - 1});
     this.setState({ survey : { ...this.state.survey, questions : newQuestionsArray }});
     console.log(this.state.survey.questions);
@@ -63,19 +59,13 @@ export class SurveyEditPanel extends Component {
     if(questionId > -1 && questionId < questions.length){
       var oldQuestion = questions[questionId];
       if(oldQuestion.type != type){
-        var newQuestion = {
-          id: questionId,
-          type: type,
-          text: oldQuestion.text,
-          isRequired: oldQuestion.isRequired,
-        };
-
+        var newQuestion = new Question(questionId, type, oldQuestion.text, oldQuestion.isRequired);
         if((oldQuestion.type == this.props.questionTypes.SINGLE_ANSWER
           || oldQuestion.type == this.props.questionTypes.MULTIPLE_ANSWER)
           && (type == this.props.questionTypes.SINGLE_ANSWER
           || type == this.props.questionTypes.MULTIPLE_ANSWER))
         {
-          newQuestion.variants = oldQuestion.variants;
+          newQuestion.metaInfo = oldQuestion.metaInfo;
         }
         questions[questionId] = newQuestion;
         this.setState({ survey : { ...this.state.survey, questions : questions}});

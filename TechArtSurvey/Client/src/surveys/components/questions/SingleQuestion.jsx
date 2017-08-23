@@ -3,7 +3,7 @@ import { Panel, Col, FormGroup, FormControl } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 
 export class SingleQuestion extends Component {
-  constructor(props){
+  constructor(props) {
     super(props);
     this.props.question.variants = [];
   }
@@ -19,6 +19,10 @@ export class SingleQuestion extends Component {
     this.props.onEditingQuestionChange(this.props.question.id);
   }
 
+  handleOnAddVariant = () => {
+
+  }
+
   render = () => {
     return (
       <Panel>
@@ -30,6 +34,7 @@ export class SingleQuestion extends Component {
               placeholder="Enter text"
               onChange={this.handleOnTextChange}
             />
+
           </Col>
         </FormGroup>
       </Panel>
