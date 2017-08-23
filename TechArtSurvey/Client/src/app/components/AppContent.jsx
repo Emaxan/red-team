@@ -19,6 +19,7 @@ import { Home } from '../../home/Home';
 import NewSurveyContainer from '../../surveys/NewSurveyContainer';
 
 import './AppContent.scss';
+import './customScroll.scss';
 
 const UserList = userIsAuthenticatedRedirect(userIsAdminRedirect(UserListContainer));
 const Login = userIsNotAuthenticatedRedirect(LoginContainer);

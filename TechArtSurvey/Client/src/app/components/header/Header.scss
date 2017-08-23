@@ -16,7 +16,7 @@
 
 .navbar {
   &.navbar-wrapper {
-    margin-bottom: 0;
+    margin-bottom: $navbar-margin-bottom;
   }
 
   &-brand {

@@ -1,17 +1,8 @@
-@import "./customScroll";
 @import "./variables";
 
 .main {
   display: flex;
   padding: 0 $content-padding-horizontal;
-}
-
-.custom-scroll .custom-scrollbar {
-  width: 6px;
-}
-
-.custom-scroll .inner-handle {
-  background-color: red;
 }
 
 .table-row td {

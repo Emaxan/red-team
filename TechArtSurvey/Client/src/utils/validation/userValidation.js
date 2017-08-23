@@ -1,70 +1,60 @@
 import validator from 'validator';
+
 import {
   USER_NAME_MIN_LENGTH,
   USER_PASSWORD_MIN_LENGTH,
 } from './constants';
-import { errorsInformation } from './errorsInformation';
+import { validationErrors } from './validationErrors';
+import ValidationResult from './validationResult';
 
 export const validateName = (name) => {
-  let validationInfo = {
-    isValid : false,
-    errors : [],
-  };
+  let errors = [];
 
   if (validator.isEmpty(name)) {
-    validationInfo.errors.push(errorsInformation.userNameRequired);
+    errors.push(validationErrors.UserNameRequired);
   }
 
   if (name.length < USER_NAME_MIN_LENGTH) {
-    validationInfo.errors.push(errorsInformation.userNameMinLength);
+    errors.push(validationErrors.UserNameMinLength);
   }
 
-  return {...validationInfo, isValid : !validationInfo.errors.length };
+  return new ValidationResult(errors.length === 0, errors);
 };
 
 export const validateEmail = (email) => {
-  let validationInfo = {
-    isValid : false,
-    errors : [],
-  };
+  const errors = [];
 
   if (validator.isEmpty(email)) {
-    validationInfo.errors.push(errorsInformation.userEmailRequired);
+    errors.push(validationErrors.UserEmailRequired);
   }
 
   if (validator.isEmail(email) === false) {
-    validationInfo.errors.push(errorsInformation.userEmailIncorrect);
+    errors.push(validationErrors.UserEmailIncorrect);
   }
 
-  return {...validationInfo, isValid : !validationInfo.errors.length };
+  return new ValidationResult(errors.length === 0, errors);
 };
 
 export const validatePassword = (password) => {
-  let validationInfo = {
-    isValid : false,
-    errors : [],
-  };
+  const errors = [];
 
   if (validator.isEmpty(password)) {
-    validationInfo.errors.push(errorsInformation.userPasswordRequired);
+    errors.push(validationErrors.UserPasswordRequired);
   }
 
   if (password.length < USER_PASSWORD_MIN_LENGTH) {
-    validationInfo.errors.push(errorsInformation.userPasswordMinLength);
+    errors.push(validationErrors.UserPasswordMinLength);
   }
 
-  return {...validationInfo, isValid : !validationInfo.errors.length };
+  return new ValidationResult(errors.length === 0, errors);
 };
 
 export const validateConfirmationPassword = (password, confirmationPassword) => {
-  let validationInfo = {
-    isValid : false,
-    errors : [],
-  };
+  const errors = [];
 
   if (validator.equals(password, confirmationPassword) === false) {
-    validationInfo.errors.push(errorsInformation.userConfirmationPasswordMustMatch);
+    errors.push(validationErrors.UserConfirmationPasswordMustMatch);
   }
 
-  return {...validationInfo, isValid : !validationInfo.errors.length };
+  return new ValidationResult(errors.length === 0, errors);
 };
