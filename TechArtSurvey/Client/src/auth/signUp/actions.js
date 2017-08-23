@@ -21,14 +21,9 @@ export const {
   signUpInvalidData,
 } = createActions({
   [SIGN_UP_START] : () => {},
-
   [SIGN_UP_SUCCESS] : () => {},
-
   [SIGN_UP_FAILED] : () => {},
-
-  [SIGN_UP_INVALID_DATA] : (errors) => ({
-    errors,
-  }),
+  [SIGN_UP_INVALID_DATA] : (errors) => ({ errors }),
 });
 
 export const signUpRequest = (userData) => (dispatch) => {

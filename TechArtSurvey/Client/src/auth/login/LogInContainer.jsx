@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import { loginRequest, disableGreeting } from './actions';
 import { LoginForm } from './components/LoginForm';
 import { AuthPanel } from '../components/AuthPanel';
-import GreetingPanel from './components/GreetingPanel';
+import { GreetingPanel } from './components/GreetingPanel';
 
 import './LoginContainer.scss';
 
@@ -26,11 +26,11 @@ export class LoginContainer extends Component {
     super(props);
   }
 
-  componentWillUnmount() {
+  componentWillUnmount = () => {
     this.props.disableGreeting();
   }
 
-  render() {
+  render = () => {
     return (
       <div className="login-container">
         { this.props.isGreetingEnabled ? <GreetingPanel greetingMessage={this.props.greetingMessage} /> : '' }

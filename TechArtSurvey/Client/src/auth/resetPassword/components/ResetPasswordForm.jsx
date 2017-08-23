@@ -49,7 +49,7 @@ export class ResetPasswordForm extends Component {
     }
   }
 
-  makeConfirmationPasswordValidation = (password, confirmationPassword)  =>{
+  makeConfirmationPasswordValidation = (password, confirmationPassword) => {
     this.setValidationState('confirmationNewPassword', validateConfirmationPassword(password, confirmationPassword));
   }
 
@@ -70,12 +70,12 @@ export class ResetPasswordForm extends Component {
     this.setState({ userData : { ...this.state.userData, confirmationNewPassword : event.target.value}});
   }
 
-  isInputValid() {
+  isInputValid = () => {
     return Object.values(this.errors)
       .every((err) => err === null);
   }
 
-  render() {
+  render = () => {
     const formValid = this.isInputValid();
 
     return (

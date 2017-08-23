@@ -23,7 +23,7 @@ export default new Config()
     context : path.resolve(__dirname, '../'),
 
     resolve : {
-      extensions : [ '.js', '.jsx', '.scss' ],
+      extensions : [ '.js', '.jsx' ],
     },
 
     module : {

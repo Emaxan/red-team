@@ -2,7 +2,6 @@ import { createActions } from 'redux-actions';
 
 import AuthService from './authService';
 import { checkEmailExistence } from './api';
-
 import {
   SET_USER_INFO,
   RESET_USER_INFO,

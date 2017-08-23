@@ -33,15 +33,11 @@ export const {
 
   [LOGIN_FAILED] : () => {},
 
-  [LOGIN_INVALID_DATA] : (errors) => ({
-    errors,
-  }),
+  [LOGIN_INVALID_DATA] : (errors) => ({ errors }),
 
   [LOGOUT] : () => {},
 
-  [ENABLE_GREETING] : (greetingMessage) => ({
-    greetingMessage,
-  }),
+  [ENABLE_GREETING] : (greetingMessage) => ({ greetingMessage }),
 
   [DISABLE_GREETING] : () => {},
 });

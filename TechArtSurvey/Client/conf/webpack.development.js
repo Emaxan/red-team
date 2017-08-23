@@ -13,7 +13,7 @@ export default new Config()
   .extend('conf/webpack.common.js')
   .merge({
     devtool : 'source-map',
-    
+
     devServer : {
       hot: true,
       port : 3000,
@@ -30,8 +30,8 @@ export default new Config()
 
     plugins : [
       new StyleLintPlugin(),
-      new OpenBrowserPlugin({ 
-        url : devServerPath 
+      new OpenBrowserPlugin({
+        url : devServerPath,
       }),
       new webpack.LoaderOptionsPlugin({
         options : {

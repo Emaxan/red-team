@@ -10,14 +10,14 @@ import LoginContainer from '../../auth/login/LoginContainer';
 import ResetPasswordContainer from '../../auth/resetPassword/ResetPasswordContainer';
 import ForgotPasswordContainer from '../../auth/forgotPassword/ForgotPasswordContainer';
 import { AboutContainer } from '../../about/AboutContainer';
+import { NotFound } from '../../error/NotFound';
+import { Forbidden } from '../../error/Forbidden';
+import { Home } from '../../home/Home';
 import {
   userIsAuthenticatedRedirect,
   userIsNotAuthenticatedRedirect,
   userIsAdminRedirect,
 } from '../../auth/authWrappers';
-import { NotFound } from '../../error/NotFound';
-import { Forbidden } from '../../error/Forbidden';
-import { Home } from '../../home/Home';
 
 import './AppContent.scss';
 import './customScroll.scss';

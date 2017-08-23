@@ -101,12 +101,12 @@ export class SignUpForm extends Component {
     this.setState({ user : { ...this.state.user, confirmationPassword : event.target.value}});
   }
 
-  isInputValid() {
+  isInputValid = () => {
     return Object.values(this.errors)
       .every((err) => err === null);
   }
 
-  render() {
+  render = () => {
     const formValid = this.isInputValid();
 
     return (

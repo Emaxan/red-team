@@ -11,7 +11,7 @@ import { Spinner } from '../../components/Spinner';
 
 const mapStateToProps = (state) => ({
   errors : state.auth.errors,
-  actionString : 'Forgot password? Do not worry! Enter your e-mail below:',
+  actionString : 'Forgot password? Do not worry! Enter your e-mail below',
   isEmailRegistered : state.auth.isEmailRegistered,
   isFetching : state.forgotPassword.isFetching,
   messageWasSent : state.forgotPassword.messageWasSent,
@@ -28,7 +28,7 @@ export class ForgotPasswordContainer extends Component {
     super(props);
   }
 
-  render() {
+  render = () => {
     if (this.props.isFetching) {
       return <Spinner />;
     }

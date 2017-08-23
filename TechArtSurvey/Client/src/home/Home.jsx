@@ -11,7 +11,7 @@ const SignUp = userIsNotAuthenticated(SignUpLink);
 export const Home = () => (
   <div className="home-wrapper">
     <div className="home-content">
-      <h1 className="home-content__title">Welcome to ITechart Group!</h1>
+      <h1 className="home-content__title">Welcome to ITechArt Group!</h1>
       <p className="image-wrapper">
         <img className="image-wrapper__image" src={Image} alt="Main image" />
       </p>

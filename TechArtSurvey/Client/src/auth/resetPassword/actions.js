@@ -46,7 +46,7 @@ export const resetPasswordRequest = (userId, token, newPassword) => (dispatch) =
   return resetPassword(userId, token, newPassword)
     .then(() => {
       dispatch(resetPasswordSuccess());
-      dispatch(enableGreeting('Your password was reset successfully ! Now you can log in!'));
+      dispatch(enableGreeting('Your password was reset successfully! Now you can log in!'));
       dispatch(push(Routes.Login.path));
     })
     .catch(() => {

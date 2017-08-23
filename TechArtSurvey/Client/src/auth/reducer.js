@@ -2,6 +2,7 @@ import { handleActions } from 'redux-actions';
 import { Record, List } from 'immutable';
 
 import AuthService from './authService';
+import { UserInfoRecord } from './UserInfoRecord';
 import {
   SET_USER_INFO,
   RESET_USER_INFO,
@@ -9,7 +10,6 @@ import {
   CHECK_EMAIL_EXISTENCE_SUCCESS,
   CHECK_EMAIL_EXISTENCE_ERROR,
 } from './actionTypes';
-import { UserInfoRecord } from './UserInfoRecord';
 
 const authInitialState = Record({
   isAuthenticated : AuthService.isAuthenticated(),

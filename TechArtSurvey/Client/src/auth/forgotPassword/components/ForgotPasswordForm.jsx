@@ -54,7 +54,13 @@ export class ForgotPasswordForm extends Component {
     }
   }
 
-  render() {
+  isInputValid = () => {
+    return this.emailError === null;
+  }
+
+  render = () => {
+    const formValid = this.isInputValid();
+
     return (
       <Form onSubmit={this.handleOnSubmit} horizontal>
         <FormGroup validationState={this.emailValidationState} className="label-floating">
@@ -75,6 +81,12 @@ export class ForgotPasswordForm extends Component {
         <FormGroup className="text-center">
           <Button
             type="submit"
+            disabled={!formValid}
+            title={
+              formValid ?
+                '' :
+                'You should enter your email'
+            }
           >
             Send
           </Button>

@@ -28,7 +28,7 @@ export class ResetPasswordContainer extends Component {
     super(props);
   }
 
-  componentWillMount() {
+  componentWillMount = () => {
     this.props.checkPasswordResetTokenRequest(
       this.props.match.params.userId,
       this.props.match.params.token,

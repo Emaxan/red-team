@@ -4,11 +4,11 @@ import PropTypes from 'prop-types';
 import { SearchBox } from './SearchBox';
 
 export class UserList extends Component {
-  handleOnBtnClick() {
+  handleOnBtnClick = () => {
     this.props.getUsers();
   }
 
-  render() {
+  render = () => {
     return (
       <div>
         <h2>Users</h2>

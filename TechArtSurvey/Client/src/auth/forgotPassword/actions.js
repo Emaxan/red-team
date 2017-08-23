@@ -13,7 +13,7 @@ export const {
   forgotPasswordRequestError,
 } = createActions({
   [FORGOT_PASSWORD_REQUEST_START] : () => {},
-  [FORGOT_PASSWORD_REQUEST_SUCCESS] : (email) => ({email}),
+  [FORGOT_PASSWORD_REQUEST_SUCCESS] : (email) => ({ email }),
   [FORGOT_PASSWORD_REQUEST_ERROR] : () => {},
 });
 

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import './GreetingPanel.scss';
 
-const GreetingPanel = ({ greetingMessage }) => (
+export const GreetingPanel = ({ greetingMessage }) => (
   <div className="greeting-panel">
     <h1>{greetingMessage}</h1>
   </div>
@@ -12,5 +12,3 @@ const GreetingPanel = ({ greetingMessage }) => (
 GreetingPanel.propTypes = {
   greetingMessage : PropTypes.string.isRequired,
 };
-
-export default GreetingPanel;
