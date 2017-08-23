@@ -1,7 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { questionTypes, defaultType } from './questionTypes';
 import { createSurveyRequest } from './actions';
 import { SurveyEditPanel } from './components/SurveyEditPanel';
 
@@ -15,8 +14,6 @@ const mapDispatchToProps = {
 
 const NewSurveyContainer = ({ errors, createSurveyRequest }) => (
   <SurveyEditPanel
-    questionTypes={questionTypes}
-    defaultType={defaultType}
     createSurvey={createSurveyRequest}
     errors={errors}
   />
