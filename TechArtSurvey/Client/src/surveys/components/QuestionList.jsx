@@ -10,7 +10,7 @@ export class QuestionList extends Component {
     return (
       <div>
         {
-          this.props.questions.map((question, index) => { console.log('editing: '+this.props.editingQuestionId + ' question: '+question.id);
+          this.props.questions.map((question, index) => {
             if(this.props.editingQuestionId != question.id) {
               return <NonEditingQuestionWrapper
                 key = {index}

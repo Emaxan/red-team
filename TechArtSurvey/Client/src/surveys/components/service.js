@@ -15,3 +15,23 @@ export const changeType = (oldQuestion, type) => {
   }
   return newQuestion;
 };
+
+export const getLastId = (pages) => {
+  var idList = [];
+  pages.map((page) =>
+    page.surveyPage.questions.map((question) => {
+      idList.push(question.id);
+    }));
+  if(idList.length == 0) {
+    return -1;
+  }
+  if(idList.length > 1) {
+    idList.sort((a,b) => {
+      if(a > b) {
+        return 1;
+      }
+      return -1;
+    });
+  }
+  return idList[idList.length - 1];
+};

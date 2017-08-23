@@ -6,7 +6,7 @@ import { questionTypesArray } from './questionTypesPresentation';
 import { QuestionTypesPanel } from './QuestionTypesPanel';
 import { QuestionList } from './QuestionList';
 import Question from './Question';
-import { changeType } from './service';
+import { changeType, getLastId } from './service';
 
 import './SurveyEditPanel.scss';
 
@@ -14,7 +14,7 @@ export class SurveyEditPanel extends Component {
   constructor(props) {
     super(props);
 
-    this.lastId = -1;
+    this.lastId = getLastId(this.props.survey.pages);
 
     this.state = {
       editingQuestionId: this.lastId,
@@ -107,4 +107,5 @@ SurveyEditPanel.propTypes = {
   defaultType : PropTypes.string,
   questionTypes : PropTypes.object,
   editingQuestionId: PropTypes.number.isRequired,
+  survey: PropTypes.object.isRequired,
 };
