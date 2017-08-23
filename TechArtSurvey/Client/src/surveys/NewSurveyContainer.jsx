@@ -5,7 +5,7 @@ import {questionTypes, defaultType} from './questionTypes';
 import {createSurveyRequest} from './actions';
 import {SurveyEditPanel} from './components/SurveyEditPanel';
 
-import './NewSurvey.scss';
+import './NewSurveyContainer.scss';
 
 const mapStateToProps = (state) => ({
   errors : state.surveys.errors,

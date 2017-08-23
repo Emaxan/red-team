@@ -16,7 +16,7 @@ import {
 import { NotFound } from '../../error/NotFound';
 import { Forbidden } from '../../error/Forbidden';
 import { Home } from '../../home/Home';
-import NewSurveyContainer from '../../surveys/NewSurvey';
+import NewSurveyContainer from '../../surveys/NewSurveyContainer';
 
 import './AppContent.scss';
 
