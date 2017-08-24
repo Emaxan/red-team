@@ -5,7 +5,8 @@ import PropTypes from 'prop-types';
 import { loginRequest, disableGreeting } from './actions';
 import { LoginForm } from './components/LoginForm';
 import { AuthPanel } from '../components/AuthPanel';
-import { GreetingPanel } from './components/GreetingPanel';
+// import { GreetingPanel } from './components/GreetingPanel';
+import { NotificationPanel } from '../../components/NotificationPanel';
 
 import './LoginContainer.scss';
 
@@ -33,7 +34,8 @@ export class LoginContainer extends Component {
   render = () => {
     return (
       <div className="login-container">
-        { this.props.isGreetingEnabled ? <GreetingPanel greetingMessage={this.props.greetingMessage} /> : '' }
+        {/* { this.props.isGreetingEnabled ? <GreetingPanel greetingMessage={this.props.greetingMessage} /> : '' } */}
+        { this.props.isGreetingEnabled ? <NotificationPanel title={this.props.greetingMessage} /> : '' }
         <AuthPanel
           actionString={this.props.actionString}
           errors={this.props.errors}
@@ -51,7 +53,7 @@ export class LoginContainer extends Component {
 LoginContainer.propTypes = {
   ...AuthPanel.propTypes,
   ...LoginForm.propTypes,
-  ...GreetingPanel.propTypes,
+  // ...GreetingPanel.propTypes,
   isGreetingEnabled : PropTypes.bool.isRequired,
   disableGreeting : PropTypes.func.isRequired,
 };

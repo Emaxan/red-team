@@ -2,9 +2,9 @@ import React from 'react';
 import { Panel } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 
-import './PanelWrapper.scss';
+import './NotificationPanel.scss';
 
-export const PanelWrapper = ({ title, children }) => (
+export const NotificationPanel = ({ title, children }) => (
   <div className="panel-wrapper">
     <Panel>
       <h1 className="panel-wrapper__title">{title}</h1>
@@ -15,7 +15,7 @@ export const PanelWrapper = ({ title, children }) => (
   </div>
 );
 
-PanelWrapper.propTypes = {
+NotificationPanel.propTypes = {
   children : PropTypes.any.isRequired,
   title : PropTypes.string.isRequired,
 };
