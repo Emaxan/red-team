@@ -15,14 +15,14 @@ export class QuestionList extends Component {
               return <NonEditingQuestionWrapper
                 key = {index}
                 question = {question}
-                handleOnQuestionChange = {this.props.handleOnQuestionChange}
+                handleOnQuestionSave = {this.props.handleOnQuestionSave}
                 handleOnEditingQuestionChange = {this.props.handleOnEditingQuestionChange}
               />;
             }
             return <EditingQuestionWrapper
               key = {index}
               question = {question}
-              handleOnQuestionChange = {this.props.handleOnQuestionChange}
+              handleOnQuestionSave = {this.props.handleOnQuestionSave}
               handleOnEditingQuestionChange = {this.props.handleOnEditingQuestionChange}
               handleOnDeleteClick = {this.props.handleOnDeleteClick}
             />;
@@ -38,7 +38,7 @@ QuestionList.propTypes = {
   questions : PropTypes.array.isRequired,
   handleOnAddQuestionBtnClick: PropTypes.func.isRequired,
   handleOnEditingQuestionChange: PropTypes.func.isRequired,
-  handleOnQuestionChange: PropTypes.func.isRequired,
+  handleOnQuestionSave: PropTypes.func.isRequired,
   handleOnDeleteClick: PropTypes.func.isRequired,
   editingQuestionId: PropTypes.number.isRequired,
 };

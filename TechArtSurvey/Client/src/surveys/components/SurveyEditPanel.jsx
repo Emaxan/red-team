@@ -39,16 +39,16 @@ export class SurveyEditPanel extends Component {
     const newQuestionNumber = pages[this.state.editingPageNumber - 1].questions.length + 1;
     pages[this.state.editingPageNumber - 1].questions.push(new Question(++this.lastId, newQuestionNumber));
     this.setState({ editingQuestionId : this.lastId, survey : { ...this.state.survey, pages }});
-    console.log(this.state.survey.pages[this.state.editingPageNumber - 1].questions);
   }
 
   handleOnTitleChange = (event) => {
     this.setState({ survey : { ...this.state.survey, title : event.target.value }});
   }
 
-  handleOnQuestionChange = (question) => {
+  handleOnQuestionSave = (question) => {
     let { pages } = this.state.survey;
-    pages[this.state.editingPageNumber - 1].questions[question.id] = question;
+    var index = pages[this.state.editingPageNumber - 1].questions.findIndex(q => q.id == this.state.editingQuestionId);
+    pages[this.state.editingPageNumber - 1].questions[index] = question;
     this.setState({editingQuestionId : -1, survey : { ...this.state.survey, pages }});
   }
 
@@ -100,7 +100,7 @@ export class SurveyEditPanel extends Component {
             <QuestionList
               questions={this.state.survey.pages[this.state.editingPageNumber - 1].questions}
               handleOnAddQuestionBtnClick={this.handleOnAddQuestionBtnClick}
-              handleOnQuestionChange={this.handleOnQuestionChange}
+              handleOnQuestionSave={this.handleOnQuestionSave}
               handleOnEditingQuestionChange={this.handleOnEditingQuestionChange}
               handleOnDeleteClick = {this.handleOnDeleteClick}
               editingQuestionId={this.state.editingQuestionId}
