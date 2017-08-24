@@ -46,5 +46,10 @@ namespace RedTeam.TechArtSurvey.Foundation.Responses
 
             return new ServiceResponse<T>(code);
         }
+
+        public static ServiceResponse CreateUnsuccessful(ServiceResponseCode code)
+        {
+            return new ServiceResponse(code);
+        }
     }
 }
