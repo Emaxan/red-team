@@ -22,7 +22,7 @@ export class EditingQuestionWrapper extends Component {
   }
 
   handleOnCancelClick = () => {
-    this.props.handleOnEditingQuestionChange(-1);
+    this.props.handleOnEditingQuestionIdChange(-1);
   }
 
   handleOnRequiredClick = () => {
@@ -62,6 +62,6 @@ export class EditingQuestionWrapper extends Component {
 EditingQuestionWrapper.propTypes = {
   handleOnQuestionSave: PropTypes.func.isRequired,
   question: PropTypes.object.isRequired,
-  handleOnEditingQuestionChange: PropTypes.func.isRequired,
+  handleOnEditingQuestionIdChange: PropTypes.func.isRequired,
   handleOnDeleteClick: PropTypes.func.isRequired,
 };

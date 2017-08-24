@@ -1,13 +1,12 @@
 import { defaultType } from '../questionTypes';
 
 export default class Question {
-  constructor(id, number, type = defaultType, title = '', isRequired = true, metaInfo = []) {
+  constructor(id, type = defaultType, title = '', isRequired = true, metaInfo = []) {
     this._id = id;
     this._type = type;
     this._title = title;
     this._isRequired = isRequired;
     this._metaInfo = metaInfo;
-    this._number = number;
   }
 
   get id() {
@@ -30,10 +29,6 @@ export default class Question {
     return this._metaInfo;
   }
 
-  get number() {
-    return this._number;
-  }
-
   set type(val) {
     this._type = val;
   }
@@ -48,9 +43,5 @@ export default class Question {
 
   set metaInfo(val) {
     this._metaInfo = val;
-  }
-
-  set number(val) {
-    this._number = val;
   }
 }

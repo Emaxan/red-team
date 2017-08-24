@@ -13,7 +13,7 @@ export class NonEditingQuestionWrapper extends Component {
   }
 
   handleOnEditClick = () => {
-    this.props.handleOnEditingQuestionChange(this.state.question.id);
+    this.props.handleOnEditingQuestionIdChange(this.state.question.id);
   }
 
   render = () =>
@@ -32,5 +32,5 @@ export class NonEditingQuestionWrapper extends Component {
 
 NonEditingQuestionWrapper.propTypes = {
   question: PropTypes.object.isRequired,
-  handleOnEditingQuestionChange: PropTypes.func.isRequired,
+  handleOnEditingQuestionIdChange: PropTypes.func.isRequired,
 };

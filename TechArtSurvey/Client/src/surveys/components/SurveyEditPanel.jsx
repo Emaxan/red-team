@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 import { questionTypesArray } from './questionTypesPresentation';
 import { QuestionTypesPanel } from './QuestionTypesPanel';
 import { QuestionList } from './QuestionList';
+import { changeType } from './service';
 
 import './SurveyEditPanel.scss';
 
@@ -14,6 +15,7 @@ export class SurveyEditPanel extends Component {
 
     this.state = {
       editingPageNumber : 1,
+      editingQuestionId: -1,
       survey : {
         title : this.props.survey.title,
         pages : this.props.survey.pages,
@@ -39,6 +41,27 @@ export class SurveyEditPanel extends Component {
     this.setState({survey : { ...this.state.survey, pages }});
   }
 
+  handleOnTypeChange = (type) => {
+    if (this.state.editingQuestionId !== -1) {
+      var pages = this.state.survey.pages;
+      var questions = pages[this.state.editingPageNumber - 1].questions;
+      var index = questions.findIndex(q => q.id == this.state.editingQuestionId);
+
+      var oldQuestion = questions[index];
+      var newQuestion = changeType(oldQuestion, type);
+
+      if(newQuestion !== null) {
+        questions[index] = newQuestion;
+        pages[this.state.editingPageNumber - 1].questions = questions;
+        this.setState({ survey : {...this.state.survey.pages, pages}});
+      }
+    }
+  }
+
+  handleOnEditingQuestionIdChange = (id) => {
+    this.setState({editingQuestionId : id});
+  }
+
   render = () => {
     return (
       <div className="survey-edit-panel">
@@ -60,6 +83,8 @@ export class SurveyEditPanel extends Component {
 
             <QuestionList
               questions={this.state.survey.pages[this.state.editingPageNumber - 1].questions}
+              handleOnEditingQuestionIdChange = {this.handleOnEditingQuestionIdChange}
+              handleOnQuestionsArraySave = {this.handleOnQuestionsArraySave}
             />
 
             <FormGroup className="text-center">
