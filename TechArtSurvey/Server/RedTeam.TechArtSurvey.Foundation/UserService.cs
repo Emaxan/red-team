@@ -60,7 +60,7 @@ namespace RedTeam.TechArtSurvey.Foundation
             return ServiceResponse.CreateSuccessful(claimsIdentity);
         }
 
-        public async Task<IServiceResponse<object>> UpdateAsync(EditUserDto user)
+        public async Task<IServiceResponse> UpdateAsync(EditUserDto user)
         {
             LoggerContext.Logger.Info($"Update user with email = {user.Email}");
 
@@ -71,10 +71,10 @@ namespace RedTeam.TechArtSurvey.Foundation
             }
             await _userManager.UpdateAsync(_mapper.Map(user, us));
 
-            return ServiceResponse.CreateSuccessful(null);
+            return ServiceResponse.CreateSuccessful();
         }
 
-        public async Task<IServiceResponse<object>> DeleteByIdAsync(int id)
+        public async Task<IServiceResponse> DeleteByIdAsync(int id)
         {
             LoggerContext.Logger.Info($"Delete user with id = {id}");
 
@@ -85,7 +85,7 @@ namespace RedTeam.TechArtSurvey.Foundation
             }
             _uow.Users.Delete(us);
 
-            return ServiceResponse.CreateSuccessful(null);
+            return ServiceResponse.CreateSuccessful();
         }
 
         public async Task<IServiceResponse<EditUserDto>> GetByIdAsync(int id)
@@ -101,13 +101,13 @@ namespace RedTeam.TechArtSurvey.Foundation
             return ServiceResponse.CreateSuccessful(_mapper.Map<User, EditUserDto>(user));
         }
         
-        public async Task<IServiceResponse<object>> CheckByEmailAsync(string email)
+        public async Task<IServiceResponse> CheckByEmailAsync(string email)
         {
             LoggerContext.Logger.Info($"Get user with email = {email}");
 
             var user = await _uow.Users.GetUserByEmailAsync(email);
             return user == null ? 
-                ServiceResponse.CreateSuccessful(null) : 
+                ServiceResponse.CreateSuccessful() : 
                 ServiceResponse.CreateUnsuccessful<object>(ServiceResponseCode.UserAlreadyExists);
         }
 

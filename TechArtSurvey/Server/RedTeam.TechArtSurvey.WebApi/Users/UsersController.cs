@@ -24,7 +24,7 @@ namespace RedTeam.TechArtSurvey.WebApi.Users
         // PUT api/Users/5
         [Route("")]
         [HttpPut]
-        public async Task<IServiceResponse<object>> EditUser(EditUserDto user)
+        public async Task<IServiceResponse> EditUser(EditUserDto user)
         {
             LoggerContext.Logger.Info($"Update User with email = {user.Email}");
 
@@ -34,7 +34,7 @@ namespace RedTeam.TechArtSurvey.WebApi.Users
         // DELETE api/Users
         [Route("{id}")]
         [HttpDelete]
-        public async Task<IServiceResponse<object>> RemoveUser(int id)
+        public async Task<IServiceResponse> RemoveUser(int id)
         {
             LoggerContext.Logger.Info($"Delete User with id = {id}");
 
@@ -55,7 +55,7 @@ namespace RedTeam.TechArtSurvey.WebApi.Users
         [Route("")]
         [AllowAnonymous]
         [HttpGet]
-        public async Task<IServiceResponse<object>> CheckIfEmailAlreadyExists([FromUri] string email)
+        public async Task<IServiceResponse> CheckIfEmailAlreadyExists([FromUri] string email)
         {
             LoggerContext.Logger.Info($"Get User with email = {email}");
 

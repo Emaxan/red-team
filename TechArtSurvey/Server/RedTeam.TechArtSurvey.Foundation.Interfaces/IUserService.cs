@@ -10,10 +10,10 @@ namespace RedTeam.TechArtSurvey.Foundation.Interfaces
     {
         Task<IServiceResponse<UserDto>> CreateAsync(UserDto userDto);
         Task<IServiceResponse<ClaimsIdentity>> GetClaimsByCredentialsAsync(string email, string password);
-        Task<IServiceResponse<object>> UpdateAsync(EditUserDto user);
-        Task<IServiceResponse<object>> DeleteByIdAsync(int id);
+        Task<IServiceResponse> UpdateAsync(EditUserDto user);
+        Task<IServiceResponse> DeleteByIdAsync(int id);
         Task<IServiceResponse<EditUserDto>> GetByIdAsync(int id);
-        Task<IServiceResponse<object>> CheckByEmailAsync(string email);
+        Task<IServiceResponse> CheckByEmailAsync(string email);
         Task<IServiceResponse<IReadOnlyCollection<EditUserDto>>> GetAllAsync();
     }
 }

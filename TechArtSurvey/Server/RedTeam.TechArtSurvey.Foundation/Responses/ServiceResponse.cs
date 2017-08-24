@@ -13,7 +13,7 @@ namespace RedTeam.TechArtSurvey.Foundation.Responses
         }
     }
 
-    public class ServiceResponse : IServiceResponse<object>
+    public class ServiceResponse : IServiceResponse
     {
         public ServiceResponseCode Code { get; }
 
@@ -32,9 +32,9 @@ namespace RedTeam.TechArtSurvey.Foundation.Responses
             return new ServiceResponse<T>(ServiceResponseCode.Ok, content);
         }
 
-        public static ServiceResponse CreateSuccessful(object content)
+        public static ServiceResponse CreateSuccessful()
         {
-            return new ServiceResponse(ServiceResponseCode.Ok, content);
+            return new ServiceResponse(ServiceResponseCode.Ok);
         }
 
         public static ServiceResponse<T> CreateUnsuccessful<T>(ServiceResponseCode code)
