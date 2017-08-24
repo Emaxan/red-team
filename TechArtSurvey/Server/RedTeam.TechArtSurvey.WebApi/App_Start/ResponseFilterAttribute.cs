@@ -33,7 +33,7 @@ namespace RedTeam.TechArtSurvey.WebApi.App_Start
         public override void OnActionExecuted(HttpActionExecutedContext actionExecutedContext)
         {
             var objectContent = actionExecutedContext.Response?.Content as ObjectContent;
-            var serviceResponse = objectContent?.Value as IServiceResponse<object>;
+            var serviceResponse = objectContent?.Value as IServiceResponse;
             if(serviceResponse == null)
             {
                 return;

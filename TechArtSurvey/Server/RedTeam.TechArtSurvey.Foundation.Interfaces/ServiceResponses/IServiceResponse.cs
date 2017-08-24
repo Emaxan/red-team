@@ -2,7 +2,7 @@
 {
     public interface IServiceResponse<TContent> : IServiceResponse
     {
-
+        new TContent Content { get; }
     }
 
     public interface IServiceResponse
