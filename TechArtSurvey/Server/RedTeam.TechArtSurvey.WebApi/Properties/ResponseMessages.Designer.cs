@@ -19,7 +19,7 @@ namespace RedTeam.TechArtSurvey.WebApi.Properties {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     internal class ResponseMessages {
@@ -61,6 +61,15 @@ namespace RedTeam.TechArtSurvey.WebApi.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Password is wrong.
+        /// </summary>
+        internal static string InvalidCredentials {
+            get {
+                return ResourceManager.GetString("InvalidCredentials", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to User was not found by email.
         /// </summary>
         internal static string NotFoundUserByEmail {
@@ -84,6 +93,15 @@ namespace RedTeam.TechArtSurvey.WebApi.Properties {
         internal static string Ok {
             get {
                 return ResourceManager.GetString("Ok", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Survey was not found by id.
+        /// </summary>
+        internal static string SurveyNotFoundById {
+            get {
+                return ResourceManager.GetString("SurveyNotFoundById", resourceCulture);
             }
         }
         
