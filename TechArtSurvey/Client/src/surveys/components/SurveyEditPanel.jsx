@@ -109,10 +109,5 @@ export class SurveyEditPanel extends Component {
 }
 
 SurveyEditPanel.propTypes = {
-  createSurvey : PropTypes.func.isRequired,
-  addPage : PropTypes.func.isRequired,
-  defaultType : PropTypes.string,
-  questionTypes : PropTypes.object,
-  editingQuestionId: PropTypes.number.isRequired,
   survey: PropTypes.object.isRequired,
 };

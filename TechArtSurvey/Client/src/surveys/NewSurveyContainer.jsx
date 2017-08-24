@@ -1,28 +1,18 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { questionTypes, defaultType } from './questionTypes';
-import { createSurveyRequest } from './actions';
 import { SurveyEditPanel } from './components/SurveyEditPanel';
 import Survey from './models/Survey';
 
 const mapStateToProps = (state) => ({
   errors : state.surveys.errors,
+  survey : new Survey(),
 });
 
-const mapDispatchToProps = {
-  createSurveyRequest,
-};
-
-const newSurvey = new Survey();
-
-const NewSurveyContainer = ({ errors, createSurveyRequest }) => (
+const NewSurveyContainer = ({ errors, survey }) => (
   <SurveyEditPanel
-    questionTypes={questionTypes}
-    defaultType={defaultType}
-    createSurvey={createSurveyRequest}
     errors={errors}
-    survey={newSurvey}
+    survey={survey}
   />
 );
 
@@ -30,4 +20,4 @@ NewSurveyContainer.propTypes = {
   ...SurveyEditPanel.propTypes,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(NewSurveyContainer);
+export default connect(mapStateToProps)(NewSurveyContainer);

@@ -26,10 +26,6 @@ export class SingleQuestion extends Component {
     this.setState({ options });
   }
 
-  handleOnEdit = () => {
-    this.props.onEditingQuestionChange(this.props.question.id);
-  }
-
   handleOnAddOption = () => {
     let { options } = this.state;
     options.push('');
@@ -79,5 +75,4 @@ export class SingleQuestion extends Component {
 SingleQuestion.propTypes = {
   question: PropTypes.object.isRequired,
   handleOnQuestionChange: PropTypes.func.isRequired,
-  onEditingQuestionChange: PropTypes.func.isRequired,
 };
