@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Specialized;
 using JetBrains.Annotations;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
@@ -6,6 +7,7 @@ using Microsoft.Owin.Security.DataProtection;
 using RedTeam.TechArtSurvey.DomainModel.Entities;
 using RedTeam.TechArtSurvey.Foundation.Identity.Services;
 using RedTeam.TechArtSurvey.Foundation.Identity.Stores;
+using System.Configuration;
 
 namespace RedTeam.TechArtSurvey.Foundation.Identity.Managers
 {
@@ -26,7 +28,12 @@ namespace RedTeam.TechArtSurvey.Foundation.Identity.Managers
                 RequireUniqueEmail = true
             };
 
-            EmailService = new EmailService("itechart.red.team@gmail.com", "redteam1234");  // TODO: find way to hide this information
+            var emailConfiguration = (NameValueCollection)ConfigurationManager.GetSection("EmailServiceConfig");
+
+            EmailService = new EmailService(
+                emailConfiguration["UserName"], 
+                emailConfiguration["Password"]
+                );
 
             var provider = new DpapiDataProtectionProvider("RedTeam.TechArtSurvey.WebApi");
             UserTokenProvider = new DataProtectorTokenProvider<User, int>(provider.Create("Forgot password"))
