@@ -18,6 +18,7 @@ namespace RedTeam.TechArtSurvey.WebApi.Users
         }
 
 
+        // POST api/account/signup
         [Route("signup")]
         [HttpPost]
         [AllowAnonymous]
