@@ -37,7 +37,7 @@ export class EditingQuestionWrapper extends Component {
 
   render = () =>
     <Panel>
-      <Radio onClick={this.handleOnRequiredClick}>
+      <Radio onClick={this.handleOnRequiredClick} checked={this.state.question.isRequired}>
             Required
       </Radio>
       <Button onClick={this.handleOnDeleteClick}>
