@@ -1,5 +1,6 @@
 using System.Data.Entity.Migrations;
 using RedTeam.TechArtSurvey.DomainModel.Entities;
+using RedTeam.TechArtSurvey.DomainModel.Entities.Users;
 using RedTeam.TechArtSurvey.Repositories.EF;
 using JetBrains.Annotations;
 

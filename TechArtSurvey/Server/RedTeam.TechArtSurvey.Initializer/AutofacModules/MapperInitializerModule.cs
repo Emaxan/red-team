@@ -1,6 +1,6 @@
 ﻿using Autofac;
 using AutoMapper;
-using RedTeam.TechArtSurvey.DomainModel.Entities;
+using RedTeam.TechArtSurvey.DomainModel.Entities.Users;
 using RedTeam.TechArtSurvey.Foundation.Dto.UsersDto;
 
 namespace RedTeam.TechArtSurvey.Initializer.AutofacModules

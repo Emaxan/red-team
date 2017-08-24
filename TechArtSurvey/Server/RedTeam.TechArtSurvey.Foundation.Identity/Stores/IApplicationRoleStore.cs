@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNet.Identity;
-using RedTeam.TechArtSurvey.DomainModel.Entities;
+using RedTeam.TechArtSurvey.DomainModel.Entities.Users;
 
 namespace RedTeam.TechArtSurvey.Foundation.Identity.Stores
 {

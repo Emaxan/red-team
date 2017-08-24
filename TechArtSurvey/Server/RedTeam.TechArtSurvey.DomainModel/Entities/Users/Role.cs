@@ -1,7 +1,7 @@
-﻿using Microsoft.AspNet.Identity;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using Microsoft.AspNet.Identity;
 
-namespace RedTeam.TechArtSurvey.DomainModel.Entities
+namespace RedTeam.TechArtSurvey.DomainModel.Entities.Users
 {
     public class Role : IRole<int>
     {

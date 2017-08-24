@@ -1,10 +1,10 @@
 ﻿using System;
 using RedTeam.Repositories.EntityFramework.Repositories;
 using RedTeam.Repositories.Interfaces;
-using RedTeam.TechArtSurvey.DomainModel.Entities;
 using RedTeam.TechArtSurvey.Repositories.Interfaces.Repositories;
 using System.Data.Entity;
 using System.Threading.Tasks;
+using RedTeam.TechArtSurvey.DomainModel.Entities.Users;
 
 namespace RedTeam.TechArtSurvey.Repositories.Repositories
 {

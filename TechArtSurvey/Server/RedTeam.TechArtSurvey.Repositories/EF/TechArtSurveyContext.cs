@@ -1,5 +1,6 @@
 ﻿using JetBrains.Annotations;
 using RedTeam.Repositories.Interfaces;
+using RedTeam.TechArtSurvey.DomainModel.Entities.Users;
 using RedTeam.TechArtSurvey.DomainModel.Entities;
 using System.Data.Entity;
 

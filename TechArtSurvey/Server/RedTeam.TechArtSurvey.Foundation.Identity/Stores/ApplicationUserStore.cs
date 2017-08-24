@@ -4,7 +4,7 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using JetBrains.Annotations;
 using Microsoft.AspNet.Identity;
-using RedTeam.TechArtSurvey.DomainModel.Entities;
+using RedTeam.TechArtSurvey.DomainModel.Entities.Users;
 using RedTeam.TechArtSurvey.Repositories.Interfaces;
 using RedTeam.TechArtSurvey.Foundation.Identity.Security;
 
@@ -41,7 +41,7 @@ namespace RedTeam.TechArtSurvey.Foundation.Identity.Stores
 
         public async Task<User> FindByIdAsync(int userId)
         {
-            var user = await _uow.Users.GetByIdAsync(Convert.ToInt32(userId));
+            var user = await _uow.Users.GetByPrimaryKeyAsync(Convert.ToInt32(userId));
 
             return user;
         }
