@@ -35,6 +35,7 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ISurveyService.cs" />
     <Compile Include="IUserService.cs" />
     <Compile Include="ServiceResponses\IServiceResponse.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

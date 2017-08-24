@@ -4,16 +4,16 @@ using System.Threading.Tasks;
 using AutoMapper;
 using JetBrains.Annotations;
 using Microsoft.Owin.Security.OAuth;
+using RedTeam.Logger;
+using RedTeam.TechArtSurvey.DomainModel.Entities.Users;
+using RedTeam.TechArtSurvey.Foundation.Dto.UsersDto;
+using RedTeam.TechArtSurvey.Foundation.Identity.Managers;
 using RedTeam.TechArtSurvey.Foundation.Interfaces;
 using RedTeam.TechArtSurvey.Foundation.Interfaces.ServiceResponses;
-using RedTeam.TechArtSurvey.Repositories.Interfaces;
-using RedTeam.TechArtSurvey.Foundation.Dto.UsersDto;
-using RedTeam.TechArtSurvey.DomainModel.Entities;
-using RedTeam.Logger;
-using RedTeam.TechArtSurvey.Foundation.Identity.Managers;
 using RedTeam.TechArtSurvey.Foundation.Responses;
+using RedTeam.TechArtSurvey.Repositories.Interfaces;
 
-namespace RedTeam.TechArtSurvey.Foundation
+namespace RedTeam.TechArtSurvey.Foundation.Services
 {
     [UsedImplicitly]
     public class UserService : IUserService
@@ -37,12 +37,9 @@ namespace RedTeam.TechArtSurvey.Foundation
             var us = _mapper.Map<UserDto, User>(userDto);
             us.Role = await _roleManager.FindByNameAsync(default(RoleTypes).ToString());
             var result = await _userManager.CreateAsync(us, us.Password);
-            if (!result.Succeeded)
-            {
-                return ServiceResponse.CreateUnsuccessful<UserDto>(ServiceResponseCode.UserAlreadyExists);
-            }
-
-            return ServiceResponse.CreateSuccessful(_mapper.Map<User, UserDto>(us));
+            return !result.Succeeded ? 
+                ServiceResponse.CreateUnsuccessful<UserDto>(ServiceResponseCode.UserAlreadyExists) : 
+                ServiceResponse.CreateSuccessful(_mapper.Map<User, UserDto>(us));
         }
 
         public async Task<IServiceResponse<ClaimsIdentity>> GetClaimsByCredentialsAsync(string email, string password)
@@ -78,7 +75,7 @@ namespace RedTeam.TechArtSurvey.Foundation
         {
             LoggerContext.Logger.Info($"Delete user with id = {id}");
 
-            var us = await _uow.Users.GetByIdAsync(id);
+            var us = await _uow.Users.GetByPrimaryKeyAsync(id);
             if (us == null)
             {
                 return ServiceResponse.CreateUnsuccessful<object>(ServiceResponseCode.UserNotFoundById);
@@ -92,13 +89,10 @@ namespace RedTeam.TechArtSurvey.Foundation
         {
             LoggerContext.Logger.Info($"Get user with id = {id}");
 
-            var user = await _uow.Users.GetByIdAsync(id);
-            if (user == null)
-            {
-                return ServiceResponse.CreateUnsuccessful<EditUserDto>(ServiceResponseCode.UserNotFoundById);
-            }
-
-            return ServiceResponse.CreateSuccessful(_mapper.Map<User, EditUserDto>(user));
+            var user = await _uow.Users.GetByPrimaryKeyAsync(id);
+            return user == null ? 
+                ServiceResponse.CreateUnsuccessful<EditUserDto>(ServiceResponseCode.UserNotFoundById) : 
+                ServiceResponse.CreateSuccessful(_mapper.Map<User, EditUserDto>(user));
         }
         
         public async Task<IServiceResponse> CheckByEmailAsync(string email)

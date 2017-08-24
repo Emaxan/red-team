@@ -1,8 +1,8 @@
 ﻿using Autofac;
-using RedTeam.TechArtSurvey.Foundation;
 using RedTeam.TechArtSurvey.Foundation.Identity.Managers;
 using RedTeam.TechArtSurvey.Foundation.Identity.Stores;
 using RedTeam.TechArtSurvey.Foundation.Interfaces;
+using RedTeam.TechArtSurvey.Foundation.Services;
 
 namespace RedTeam.TechArtSurvey.Initializer.AutofacModules
 {
@@ -15,6 +15,7 @@ namespace RedTeam.TechArtSurvey.Initializer.AutofacModules
             builder.RegisterType<ApplicationRoleManager>().AsSelf().InstancePerRequest();
             builder.RegisterType<RoleStore>().As<IApplicationRoleStore>().InstancePerRequest();
             builder.RegisterType<ApplicationUserStore>().As<IApplicationUserStore>().InstancePerRequest();
+            builder.RegisterType<SurveyService>().As<ISurveyService>().InstancePerRequest();
         }
     }
 }

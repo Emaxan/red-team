@@ -3,11 +3,15 @@
     public enum ServiceResponseCode
     {
         Ok,
+
         UserNotFoundById,
         UserNotFoundByEmail,
         UserAlreadyExists,
+
         InvalidCredentials,
         TokenExpired,
-        TokenNotFound
+        TokenNotFound,
+
+        SurveyNotFoundById,
     }
 }
