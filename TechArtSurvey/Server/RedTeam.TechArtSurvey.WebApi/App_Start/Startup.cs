@@ -5,7 +5,7 @@ using JetBrains.Annotations;
 using Microsoft.Owin;
 using Microsoft.Owin.Security.OAuth;
 using Owin;
-using RedTeam.TechArtSurvey.WebApi.App_Start;
+using RedTeam.TechArtSurvey.WebApi;
 using RedTeam.TechArtSurvey.WebApi.Authorization;
 using RedTeam.TechArtSurvey.WebApi.DI;
 using RedTeam.TechArtSurvey.WebApi.Owin;
@@ -13,7 +13,7 @@ using RedTeam.TechArtSurvey.WebApi.Owin;
 [assembly: OwinStartup(typeof(Startup))]
 [assembly: log4net.Config.XmlConfigurator(Watch = true)]
 
-namespace RedTeam.TechArtSurvey.WebApi.App_Start
+namespace RedTeam.TechArtSurvey.WebApi
 {
     public class Startup
     {

@@ -9,7 +9,7 @@ using RedTeam.Logger;
 using RedTeam.TechArtSurvey.Foundation.Interfaces.ServiceResponses;
 using RedTeam.TechArtSurvey.WebApi.Properties;
 
-namespace RedTeam.TechArtSurvey.WebApi.App_Start
+namespace RedTeam.TechArtSurvey.WebApi
 {
     public class ResponseFilterAttribute : ActionFilterAttribute
     {

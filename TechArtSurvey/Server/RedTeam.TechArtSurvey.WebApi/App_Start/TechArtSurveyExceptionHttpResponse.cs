@@ -4,7 +4,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Web.Http;
 
-namespace RedTeam.TechArtSurvey.WebApi.App_Start
+namespace RedTeam.TechArtSurvey.WebApi
 {
     public class ExceptionHttpResponse : IHttpActionResult
     {
