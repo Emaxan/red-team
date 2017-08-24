@@ -43,19 +43,22 @@ export class SignUpForm extends Component {
     this.props.signUpRequest(this.state.user);
   }
 
-  setValidationState = (fieldName, validationInfo) => {
-    if (validationInfo.isValid) {
-      this.errors[fieldName] = null;
-      this.validationStates[fieldName] = 'success';
-    } else {
-      this.errors[fieldName] = validationInfo.errors[0].message;
-      this.validationStates[fieldName] = 'error';
-    }
+  setSuccessValidationState = (fieldName) => {
+    this.errors[fieldName] = null;
+    this.validationStates[fieldName] = 'success';
   }
 
-  setInvalidValidationState(fieldName, message) {
+  setErrorValidationState = (fieldName, message) => {
     this.errors[fieldName] = message;
     this.validationStates[fieldName] = 'error';
+  }
+
+  setValidationState = (fieldName, validationInfo) => {
+    if (validationInfo.isValid) {
+      this.setSuccessValidationState(fieldName);
+    } else {
+      this.setErrorValidationState(fieldName, validationInfo.errors[0].message);
+    }
   }
 
   makeConfirmationPasswordValidation = (password, confirmationPassword)  =>{
@@ -78,7 +81,7 @@ export class SignUpForm extends Component {
       await this.props.checkEmailExistenceRequest(email);
 
       if (this.props.isEmailRegistered) {
-        this.setInvalidValidationState('email', 'User with this email is already exists');
+        this.setErrorValidationState('email', 'User with this email is already exists');
         this.setState({ user : { ...this.state.user, email : email }});
       }
     }
