@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 import { AuthPanel } from '../components/AuthPanel';
-import { CheckEmailPanel } from './components/CheckEmailPanel';
+import { EmailSentPanel } from './components/EmailSentPanel';
 import { ForgotPasswordForm } from './components/ForgotPasswordForm';
 import { checkEmailExistenceRequest } from '../actions';
 import { forgotPasswordRequest } from './actions';
@@ -34,7 +34,7 @@ export class ForgotPasswordContainer extends Component {
     }
 
     if (this.props.resetPasswordInstructionsWereSent) {
-      return <CheckEmailPanel />;
+      return <EmailSentPanel />;
     }
 
     return (
