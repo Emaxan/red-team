@@ -9,7 +9,7 @@ import {
 
 const forgotPasswordInitialState = Record({
   isFetching : false,
-  messageWasSent : false,
+  resetPasswordInstructionsWereSent : false,
   email : '',
 });
 
@@ -21,10 +21,10 @@ export const forgotPasswordReducer = handleActions({
 
   [FORGOT_PASSWORD_REQUEST_SUCCESS] : (state, action) =>
     state.set('isFetching', false)
-      .set('messageWasSent', true)
+      .set('resetPasswordInstructionsWereSent', true)
       .set('email', action.payload.email),
 
   [FORGOT_PASSWORD_REQUEST_ERROR] : (state) =>
     state.set('isFetching', false)
-      .set('messageWasSent', false),
+      .set('resetPasswordInstructionsWereSent', false),
 }, initialState);

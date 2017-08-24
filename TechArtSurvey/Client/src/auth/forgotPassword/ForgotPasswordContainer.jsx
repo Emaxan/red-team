@@ -14,7 +14,7 @@ const mapStateToProps = (state) => ({
   actionString : 'Forgot password? Do not worry! Enter your e-mail below',
   isEmailRegistered : state.auth.isEmailRegistered,
   isFetching : state.forgotPassword.isFetching,
-  messageWasSent : state.forgotPassword.messageWasSent,
+  resetPasswordInstructionsWereSent : state.forgotPassword.resetPasswordInstructionsWereSent,
   email : state.forgotPassword.email,
 });
 
@@ -33,7 +33,7 @@ export class ForgotPasswordContainer extends Component {
       return <Spinner />;
     }
 
-    if (this.props.messageWasSent) {
+    if (this.props.resetPasswordInstructionsWereSent) {
       return <CheckEmailPanel />;
     }
 
@@ -56,7 +56,7 @@ ForgotPasswordContainer.propTypes = {
   ...AuthPanel.propTypes,
   ...ForgotPasswordForm.propTypes,
   isFetching : PropTypes.bool.isRequired,
-  messageWasSent : PropTypes.bool.isRequired,
+  resetPasswordInstructionsWereSent : PropTypes.bool.isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(ForgotPasswordContainer);
