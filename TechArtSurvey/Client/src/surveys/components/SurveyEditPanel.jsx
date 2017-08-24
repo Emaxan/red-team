@@ -35,10 +35,10 @@ export class SurveyEditPanel extends Component {
   }
 
   handleOnAddQuestionBtnClick = () => {
-    let pages = this.state.survey.pages;
+    let { pages } = this.state.survey;
     const newQuestionNumber = pages[this.state.editingPageNumber - 1].questions.length + 1;
     pages[this.state.editingPageNumber - 1].questions.push(new Question(++this.lastId, newQuestionNumber));
-    this.setState({ editingQuestionId : this.lastId, survey : { ...this.state.survey, pages : pages }});
+    this.setState({ editingQuestionId : this.lastId, survey : { ...this.state.survey, pages }});
   }
 
   handleOnTitleChange = (event) => {
@@ -46,31 +46,31 @@ export class SurveyEditPanel extends Component {
   }
 
   handleOnQuestionChange = (question) => {
-    var questions = this.state.survey.questions;
-    questions[question.id] = question;
-    this.setState({ survey : { ...this.state.survey, questions : questions}});
+    let { pages } = this.state.survey;
+    pages[this.state.editingPageNumber - 1].questions[question.id] = question;
+    this.setState({ survey : { ...this.state.survey, pages }});
   }
 
   handleOnEditingQuestionChange = (id) => {
-    this.setState({editingQuestionId: id});
+    this.setState({ editingQuestionId : id });
   }
 
   handleOnTypeChange = (type) => {
-    var questions = this.state.survey.questions;
+    let { pages } = this.state.survey;
     var questionId = this.state.editingQuestionId;
-    if(questionId != -1) {
-      var oldQuestion = questions[questionId];
+
+    if (questionId !== -1) {
+      var oldQuestion = pages[this.state.editingPageNumber - 1].questions[questionId];
       var newQuestion = changeType(oldQuestion, type);
-      if(newQuestion != null) {
-        questions[questionId] = newQuestion;
-        this.setState({ survey : { ...this.state.survey, questions : questions}});
+
+      if(newQuestion !== null) {
+        pages[this.state.editingPageNumber - 1].questions[questionId] = newQuestion;
+        this.setState({ survey : { ...this.state.survey, pages }});
       }
     }
   }
 
   render = () => {
-    console.log(this.state);
-
     return (
       <div className="survey-edit-panel">
         <Panel className="col-md-6">
@@ -88,16 +88,21 @@ export class SurveyEditPanel extends Component {
                 />
               </Col>
             </FormGroup>
+
             <QuestionList
               questions={this.state.survey.pages[this.state.editingPageNumber - 1].questions}
-              handleOnAddQuestionBtnClick = {this.handleOnAddQuestionBtnClick}
-              handleOnQuestionChange = {this.handleOnQuestionChange}
-              handleOnEditingQuestionChange = {this.handleOnEditingQuestionChange}
-              editingQuestionId = {this.state.editingQuestionId}
+              handleOnAddQuestionBtnClick={this.handleOnAddQuestionBtnClick}
+              handleOnQuestionChange={this.handleOnQuestionChange}
+              handleOnEditingQuestionChange={this.handleOnEditingQuestionChange}
+              editingQuestionId={this.state.editingQuestionId}
             />
           </Form>
         </Panel>
-        <QuestionTypesPanel handleOnTypeChange = {this.handleOnTypeChange} questionTypesArray={questionTypesArray}/>
+
+        <QuestionTypesPanel
+          handleOnTypeChange={this.handleOnTypeChange}
+          questionTypesArray={questionTypesArray}
+        />
       </div>
     );
   }

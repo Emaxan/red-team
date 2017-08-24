@@ -37,8 +37,6 @@ export class SingleQuestion extends Component {
   }
 
   render = () => {
-    console.log(this.state);
-
     return (
       <Panel>
         <FormGroup>
