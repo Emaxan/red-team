@@ -16,12 +16,11 @@ export const changeType = (oldQuestion, type) => {
   return newQuestion;
 };
 
-export const getLastId = (pages) => {
+export const getLastId = (questions) => {
   var idList = [];
-  pages.map((page) =>
-    page.questions.map((question) => {
-      idList.push(question.id);
-    }));
+  questions.map((question) => {
+    idList.push(question.id);
+  });
   if(idList.length == 0) {
     return -1;
   }
