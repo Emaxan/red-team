@@ -11,7 +11,7 @@ export class SingleQuestion extends Component {
       type : this.props.question.type,
       title : this.props.question.title,
       isRequired : this.props.question.isRequired,
-      options : [],
+      options : this.props.question.metaInfo,
       number : this.props.question.number,
     };
   }
@@ -37,6 +37,8 @@ export class SingleQuestion extends Component {
   }
 
   render = () => {
+    console.log(this.state);
+
     return (
       <Panel>
         <FormGroup>

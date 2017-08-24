@@ -14,31 +14,31 @@ export class SurveyEditPanel extends Component {
   constructor(props) {
     super(props);
 
-    this.lastId = getLastId(this.props.survey.pages);
-
     this.state = {
-      editingQuestionId: this.lastId,
+      editingQuestionId : 0,
+      editingPageNumber : 1,
       survey : {
-        title : '',
-        questions : [],
-        pages : [],
-        params : {
-          isAnonymous : false,
-          hasQuestionNumbers : true,
-          hasPageNumbers : true,
-          isRandomOrdered : false,
-          hasRequiredFieldsStars : false,
-          hasProgressIndicator : false,
+        title : this.props.survey.title,
+        pages : this.props.survey.pages,
+        settings : {
+          isAnonymous : this.props.survey.settings.isAnonymous,
+          hasQuestionNumbers : this.props.survey.settings.hasQuestionNumbers,
+          hasPageNumbers : this.props.survey.settings.hasPageNumbers,
+          isRandomOrdered : this.props.survey.settings.isRandomOrdered,
+          hasRequiredFieldsStars : this.props.survey.settings.hasRequiredFieldsStars,
+          hasProgressIndicator : this.props.survey.settings.hasProgressIndicator,
         },
       },
     };
+
+    this.lastId = getLastId(this.props.survey.pages);
   }
 
   handleOnAddQuestionBtnClick = () => {
-    var newQuestionsArray = this.state.survey.questions;
-    newQuestionsArray.push(new Question(++this.lastId, newQuestionsArray.length + 1));
-    this.setState({editingQuestionId: this.lastId,  survey : { ...this.state.survey, questions : newQuestionsArray }});
-    console.log(this.state.survey.questions);
+    let pages = this.state.survey.pages;
+    const newQuestionNumber = pages[this.state.editingPageNumber - 1].questions.length + 1;
+    pages[this.state.editingPageNumber - 1].questions.push(new Question(++this.lastId, newQuestionNumber));
+    this.setState({ editingQuestionId : this.lastId, survey : { ...this.state.survey, pages : pages }});
   }
 
   handleOnTitleChange = (event) => {
@@ -69,6 +69,8 @@ export class SurveyEditPanel extends Component {
   }
 
   render = () => {
+    console.log(this.state);
+
     return (
       <div className="survey-edit-panel">
         <Panel className="col-md-6">
@@ -87,7 +89,7 @@ export class SurveyEditPanel extends Component {
               </Col>
             </FormGroup>
             <QuestionList
-              questions={this.state.survey.questions}
+              questions={this.state.survey.pages[this.state.editingPageNumber - 1].questions}
               handleOnAddQuestionBtnClick = {this.handleOnAddQuestionBtnClick}
               handleOnQuestionChange = {this.handleOnQuestionChange}
               handleOnEditingQuestionChange = {this.handleOnEditingQuestionChange}

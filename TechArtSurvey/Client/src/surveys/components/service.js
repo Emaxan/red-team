@@ -19,7 +19,7 @@ export const changeType = (oldQuestion, type) => {
 export const getLastId = (pages) => {
   var idList = [];
   pages.map((page) =>
-    page.surveyPage.questions.map((question) => {
+    page.questions.map((question) => {
       idList.push(question.id);
     }));
   if(idList.length == 0) {
