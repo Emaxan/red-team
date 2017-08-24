@@ -26,16 +26,25 @@ namespace RedTeam.TechArtSurvey.Repositories.Repositories
             return await DbSet.Include(r => r.Role).SingleOrDefaultAsync(u => u.Email == email);
         }
 
-        public override async Task<User> GetByIdAsync(int id)
+        public override async Task<User> GetByPrimaryKeyAsync(params object[] key)
         {
-            LoggerContext.Logger.Info($"Get User with id = {id}");
+            var user = await base.GetByPrimaryKeyAsync(key);
 
-            return await DbSet.Where(u => u.Id == id).Include(r => r.Role).SingleOrDefaultAsync();
+            await Context.Entry(user).Reference(u => u.Role).LoadAsync();
+
+            return user;
         }
 
         public override async Task<IReadOnlyCollection<User>> GetAllAsync()
         {
-            return await DbSet.Include(r => r.Role).ToListAsync();
+            var users = await base.GetAllAsync();
+
+            foreach (var user in users)
+            {
+                await Context.Entry(user).Reference(u => u.Role).LoadAsync();
+            }
+
+            return users;
         }
     }
 }

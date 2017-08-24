@@ -8,7 +8,7 @@ namespace RedTeam.Repositories.Interfaces
         /// <summary>
         ///     Creates the existing entity.
         /// </summary>
-        TEntity Create(TEntity user);
+        TEntity Create(TEntity entity);
 
         /// <summary>
         ///     Get all entities
@@ -18,7 +18,7 @@ namespace RedTeam.Repositories.Interfaces
         /// <summary>
         ///     Finds one entity based on its Identifier.
         /// </summary>
-        Task<TEntity> GetByIdAsync(int id);
+        Task<TEntity> GetByPrimaryKeyAsync(params object[] key);
 
         /// <summary>
         ///     Updates the existing entity.
@@ -29,5 +29,10 @@ namespace RedTeam.Repositories.Interfaces
         ///     Delete the given entity.
         /// </summary>
         void Delete(TEntity entity);
+
+        /// <summary>
+        ///     Delete range of entities.
+        /// </summary>
+        void DeleteRange(IEnumerable<TEntity> entities);
     }
 }

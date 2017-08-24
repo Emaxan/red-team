@@ -37,20 +37,20 @@ namespace RedTeam.Repositories.EntityFramework.Repositories
         }
 
         [CanBeNull]
-        public virtual async Task<TEntity> GetByIdAsync(int id)
+        public virtual async Task<TEntity> GetByPrimaryKeyAsync(params object[] key)
         {
-            LoggerContext.Logger.Info($"Get entity from database with id {id}");
-            var user = await _dbSet.FindAsync(id);
+            LoggerContext.Logger.Info($"Get entity from database with id {key}");
+            var entity = await _dbSet.FindAsync(key);
 
-            return user;
+            return entity;
         }
 
         public virtual async Task<IReadOnlyCollection<TEntity>> GetAllAsync()
         {
             LoggerContext.Logger.Info($"Get all entities from database with type {typeof(TEntity).Name}");
-            var users = await _dbSet.ToListAsync();
+            var entities = await _dbSet.ToListAsync();
 
-            return users;
+            return entities;
         }
 
         public virtual void Update(TEntity entity)
@@ -70,6 +70,20 @@ namespace RedTeam.Repositories.EntityFramework.Repositories
                 _dbSet.Attach(entity);
             }
             _dbSet.Remove(entity);
+        }
+
+        public void DeleteRange(IEnumerable<TEntity> entities)
+        {
+            var ent = entities as IList<TEntity> ?? entities.ToList();
+            LoggerContext.Logger.Info($"Delete {ent.Count} entity from database with type {typeof(TEntity).Name}");
+            foreach (var entity in ent)
+            {
+                if (!_dbSet.Local.Contains(entity))
+                {
+                    _dbSet.Attach(entity);
+                }
+            }
+            _dbSet.RemoveRange(ent);
         }
     }
 }

@@ -32,7 +32,7 @@ namespace RedTeam.TechArtSurvey.Foundation.Identity.Stores
 
         public async Task<Role> FindByIdAsync(int roleId)
         {
-            var role = await _uow.Roles.GetByIdAsync(roleId);
+            var role = await _uow.Roles.GetByPrimaryKeyAsync(roleId);
 
             return role;
         }
