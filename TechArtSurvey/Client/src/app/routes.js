@@ -75,7 +75,8 @@ export default {
 
   ResetPassword : {
     text : 'Reset password',
-    path : '/reset_password/:userId/:token+',
+    path : '/reset_password',
+    params : '/:userId/:token+',
   },
 
   Forbidden : {

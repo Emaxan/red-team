@@ -39,7 +39,7 @@ const AppContent = ({ className }) => (
         <Route path={Routes.Login.path} component={Login} />
         <Route path={Routes.About.path} component={AboutContainer} />
         <Route path={Routes.ForgotPassword.path} component={ForgotPassword} />
-        <Route path={Routes.ResetPassword.path} component={ResetPassword} />
+        <Route path={Routes.ResetPassword.path.concat(Routes.ResetPassword.params)} component={ResetPassword} />
         <Route component={NotFound} />
       </Switch>
     </CustomScroll>

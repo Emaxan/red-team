@@ -1,5 +1,6 @@
 import { API_URL } from '../../app/config';
 import { httpUtility } from '../../utils/httpUtility';
+import { RESET_PASSWORD_CALLBACK_URL } from '../../app/config';
 
 export const forgotPassword = (email) => {
   const headers = {
@@ -8,7 +9,7 @@ export const forgotPassword = (email) => {
 
   const body = {
     Email : email,
-    CallbackUrl : 'http://localhost:3000/reset_password',
+    CallbackUrl : RESET_PASSWORD_CALLBACK_URL,
   };
 
   return httpUtility.post(`${API_URL}/account/forgot_password/`, headers, body);
