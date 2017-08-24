@@ -6,7 +6,7 @@ namespace RedTeam.Logger
 {
     public static class LoggerFactory
     {
-        public static ILog GetLogger(Type type)
+        public static ILog GetLogger()
         {
             var log = log4net.LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
             return new Log(log);

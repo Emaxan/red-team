@@ -25,7 +25,7 @@ you should enable migrations with the help of `enable-migrations -projectname:Re
 
 ##### Creating new migration #####
 
-If the domain-model was changed, to avoid conflicts between code and database, you should use `add-migration -projectname:RedTeam.TechArtSurvay.Repositories -startupprojectname:RedTeam.TechArtSurvey.WebApi` command, which is used for creating new migration (you can use parameter for naming migrations and I think it's good idea). In a nutshell, `add-migration` will create the template of future migration based on changes in code.
+If the domain-model was changed, to avoid conflicts between code and database, you should use `add-migration -projectname:RedTeam.TechArtSurvey.Repositories -startupprojectname:RedTeam.TechArtSurvey.WebApi` command, which is used for creating new migration (you can use parameter for naming migrations and I think it's good idea). In a nutshell, `add-migration` will create the template of future migration based on changes in code.
 
 ##### Updating database according to migration #####
 

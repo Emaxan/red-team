@@ -15,13 +15,13 @@ namespace RedTeam.TechArtSurvey.Repositories.EF
 
         public TechArtSurveyContext()
         {
-            this.Configuration.LazyLoadingEnabled = false;
+            Configuration.LazyLoadingEnabled = false;
         }
 
         public TechArtSurveyContext(string connectionString)
             : base(connectionString)
         {
-            this.Configuration.LazyLoadingEnabled = false;
+            Configuration.LazyLoadingEnabled = false;
         }
 
 
