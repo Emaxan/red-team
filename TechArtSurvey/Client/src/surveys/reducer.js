@@ -2,7 +2,7 @@ import { handleActions } from 'redux-actions';
 import { Record, List } from 'immutable';
 
 import {
-  CREATE_SURVEY_INVALID_DATA,
+  CREATE_SURVEY_ERROR,
 } from './actionTypes';
 
 const createSurveyInitialState = Record({
@@ -12,7 +12,7 @@ const createSurveyInitialState = Record({
 const initialState = createSurveyInitialState();
 
 export const createSurveyReducer = handleActions({
-  [CREATE_SURVEY_INVALID_DATA] : (state, action) =>
+  [CREATE_SURVEY_ERROR] : (state, action) =>
     state.set('errors', state.get('errors')
       .merge(List(action.payload.errors))),
 }, initialState);

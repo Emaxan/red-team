@@ -8,5 +8,5 @@ export const createSurvey = (survey) => {
     'Content-type' : 'application/json',
   };
 
-  return httpUtility.post(urljoin(API_URL, '/surveys/create'), headers, survey);
+  return httpUtility.post(urljoin(API_URL, '/surveys'), headers, survey);
 };

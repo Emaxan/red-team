@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Form, Col, Panel, FormGroup, FormControl, ControlLabel } from 'react-bootstrap';
+import { Form, Col, Panel, FormGroup, FormControl, ControlLabel, Button } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 
 import { questionTypesArray } from './questionTypesPresentation';
@@ -70,6 +70,11 @@ export class SurveyEditPanel extends Component {
     }
   }
 
+  handleOnSave = (event) => {
+    event.preventDefault();
+    this.props.saveSurvey(this.state.survey);
+  }
+
   render = () => {
     return (
       <div className="survey-edit-panel">
@@ -96,6 +101,12 @@ export class SurveyEditPanel extends Component {
               handleOnEditingQuestionChange={this.handleOnEditingQuestionChange}
               editingQuestionId={this.state.editingQuestionId}
             />
+
+            <FormGroup className="text-center">
+              <Button onClick={this.handleOnSave} type="submit">
+                Save
+              </Button>
+            </FormGroup>
           </Form>
         </Panel>
 
@@ -110,4 +121,5 @@ export class SurveyEditPanel extends Component {
 
 SurveyEditPanel.propTypes = {
   survey: PropTypes.object.isRequired,
+  saveSurvey : PropTypes.func.isRequired,
 };

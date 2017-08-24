@@ -1,27 +1,21 @@
 import { push } from 'react-router-redux';
 import { createActions } from 'redux-actions';
-import {
-  BAD_REQUEST,
-} from 'http-status';
 
 import { createSurvey } from './api';
 import {
   CREATE_SURVEY_START,
   CREATE_SURVEY_SUCCESS,
-  CREATE_SURVEY_FAILED,
-  CREATE_SURVEY_INVALID_DATA,
+  CREATE_SURVEY_ERROR,
 } from './actionTypes';
 
 export const {
   createSurveyStart,
   createSurveySuccess,
-  createSurveyFailed,
-  createSurveyInvalidData,
+  createSurveyError,
 } = createActions({
   [CREATE_SURVEY_START] : () => {},
   [CREATE_SURVEY_SUCCESS] : () => {},
-  [CREATE_SURVEY_FAILED] : () => {},
-  [CREATE_SURVEY_INVALID_DATA] : (errors) => ({ errors }),
+  [CREATE_SURVEY_ERROR] : (error) => ({ error }),
 });
 
 export const createSurveyRequest = (survey) => (dispatch) => {
@@ -32,10 +26,6 @@ export const createSurveyRequest = (survey) => (dispatch) => {
       dispatch(push('/'));
     })
     .catch((error) => {
-      if (error.statusCode === BAD_REQUEST) {
-        dispatch(createSurveyInvalidData(error.data));
-      } else {
-        dispatch(createSurveyFailed());
-      }
+      dispatch(createSurveyError(error));
     });
 };
