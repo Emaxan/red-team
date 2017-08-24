@@ -1,5 +1,6 @@
 ﻿using RedTeam.TechArtSurvey.DomainModel.Entities;
 using System;
+using RedTeam.TechArtSurvey.DomainModel.Entities.Users;
 
 namespace RedTeam.TechArtSurvey.Foundation.Dto.UsersDto
 {
