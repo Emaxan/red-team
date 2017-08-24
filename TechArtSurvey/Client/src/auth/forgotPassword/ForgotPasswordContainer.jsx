@@ -34,7 +34,7 @@ export class ForgotPasswordContainer extends Component {
     }
 
     if (this.props.messageWasSent) {
-      return <CheckEmailPanel email={this.props.email} />;
+      return <CheckEmailPanel />;
     }
 
     return (
@@ -54,7 +54,6 @@ export class ForgotPasswordContainer extends Component {
 
 ForgotPasswordContainer.propTypes = {
   ...AuthPanel.propTypes,
-  ...CheckEmailPanel.propTypes,
   ...ForgotPasswordForm.propTypes,
   isFetching : PropTypes.bool.isRequired,
   messageWasSent : PropTypes.bool.isRequired,

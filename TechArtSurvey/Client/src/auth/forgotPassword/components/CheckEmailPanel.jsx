@@ -1,14 +1,9 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 
 import { PanelWrapper } from '../../../components/PanelWrapper';
 
-export const CheckEmailPanel = ({ email }) => (
+export const CheckEmailPanel = () => (
   <PanelWrapper title="Check your email!">
-    <p>We were sent message at {email}. Please, check out!</p>
+    <p>An email with password reset instructions has been sent to your email address.</p>
   </PanelWrapper>
 );
-
-CheckEmailPanel.propTypes = {
-  email : PropTypes.string.isRequired,
-};
