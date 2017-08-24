@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Panel, Button } from 'react-bootstrap';
+import {  Button } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 
 import { questionsFactory } from '../questionsFactory';
@@ -12,33 +12,25 @@ export class NonEditingQuestionWrapper extends Component {
     };
   }
 
-  handleOnTextChange = (event) => {
-    var newQuestionState = this.props.question;
-    newQuestionState.text = event.target.value;
-
-    this.props.handleOnQuestionChange(newQuestionState);
-  }
-
   handleOnEditClick = () => {
     this.props.handleOnEditingQuestionChange(this.state.question.id);
   }
 
   render = () =>
-    <Panel>
+    <div className = "question-wrapper">
       {
         questionsFactory[this.state.question.type](
           this.state.question,
-          this.props.handleOnQuestionChange,
+          null,
         )
       }
       <Button onClick={this.handleOnEditClick}>
             Edit
       </Button>
-    </Panel>
+    </div>
 }
 
 NonEditingQuestionWrapper.propTypes = {
-  handleOnQuestionChange: PropTypes.func.isRequired,
   question: PropTypes.object.isRequired,
   handleOnEditingQuestionChange: PropTypes.func.isRequired,
 };

@@ -24,6 +24,7 @@ export class QuestionList extends Component {
               question = {question}
               handleOnQuestionChange = {this.props.handleOnQuestionChange}
               handleOnEditingQuestionChange = {this.props.handleOnEditingQuestionChange}
+              handleOnDeleteClick = {this.props.handleOnDeleteClick}
             />;
           })
         }
@@ -38,5 +39,6 @@ QuestionList.propTypes = {
   handleOnAddQuestionBtnClick: PropTypes.func.isRequired,
   handleOnEditingQuestionChange: PropTypes.func.isRequired,
   handleOnQuestionChange: PropTypes.func.isRequired,
+  handleOnDeleteClick: PropTypes.func.isRequired,
   editingQuestionId: PropTypes.number.isRequired,
 };
