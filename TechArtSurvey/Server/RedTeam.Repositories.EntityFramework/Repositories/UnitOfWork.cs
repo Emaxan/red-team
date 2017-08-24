@@ -25,14 +25,14 @@ namespace RedTeam.Repositories.EntityFramework.Repositories
 
         public IRepository<TEntity> GetRepository<TEntity>() where TEntity : class
         {
-            var type = typeof( TEntity );
+            var type = typeof(TEntity);
 
-            if ( !_repositoriesDictionary.ContainsKey(type) )
+            if(!_repositoriesDictionary.ContainsKey(type))
             {
                 _repositoriesDictionary.Add(type, new Repository<TEntity>(Context));
             }
 
-            return (IRepository<TEntity>) _repositoriesDictionary[typeof( TEntity )];
+            return (IRepository<TEntity>)_repositoriesDictionary[typeof(TEntity)];
         }
 
         public async Task SaveAsync()
@@ -49,7 +49,7 @@ namespace RedTeam.Repositories.EntityFramework.Repositories
 
         private void Dispose(bool disposing)
         {
-            if ( !_disposed )
+            if(!_disposed)
             {
                 return;
             }

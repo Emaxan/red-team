@@ -1,9 +1,9 @@
 ﻿namespace RedTeam.TechArtSurvey.Foundation.Interfaces.ServiceResponses
 {
-    public interface IServiceResponse
+    public interface IServiceResponse<TContent>
     {
         ServiceResponseCode Code { get; }
 
-        object Content { get; }
+        TContent Content { get; }
     }
 }

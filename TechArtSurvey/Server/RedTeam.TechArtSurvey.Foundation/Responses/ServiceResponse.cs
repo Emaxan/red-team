@@ -3,7 +3,7 @@ using RedTeam.TechArtSurvey.Foundation.Interfaces.ServiceResponses;
 
 namespace RedTeam.TechArtSurvey.Foundation.Responses
 {
-    public class ServiceResponse<TContent> : ServiceResponse
+    public class ServiceResponse<TContent> : ServiceResponse, IServiceResponse<TContent>
     {
         public new TContent Content => (TContent)base.Content;
 
@@ -11,18 +11,13 @@ namespace RedTeam.TechArtSurvey.Foundation.Responses
         internal ServiceResponse(ServiceResponseCode code, TContent content = default(TContent)) : base(code, content)
         {
         }
-
-        public static ServiceResponse<TContent> CreateSuccessful(TContent content)
-        {
-            return new ServiceResponse<TContent>(ServiceResponseCode.Ok, content);
-        }
     }
 
-    public class ServiceResponse : IServiceResponse
+    public class ServiceResponse : IServiceResponse<object>
     {
-        public ServiceResponseCode Code { get; private set; }
+        public ServiceResponseCode Code { get; }
 
-        public object Content { get; private set; }
+        public object Content { get; }
 
 
         protected ServiceResponse(ServiceResponseCode code, object content = null)
@@ -32,19 +27,24 @@ namespace RedTeam.TechArtSurvey.Foundation.Responses
         }
 
 
+        public static ServiceResponse<T> CreateSuccessful<T>(T content)
+        {
+            return new ServiceResponse<T>(ServiceResponseCode.Ok, content);
+        }
+
         public static ServiceResponse CreateSuccessful(object content)
         {
             return new ServiceResponse(ServiceResponseCode.Ok, content);
         }
 
-        public static ServiceResponse CreateUnsuccessful(ServiceResponseCode code)
+        public static ServiceResponse<T> CreateUnsuccessful<T>(ServiceResponseCode code)
         {
             if (code == ServiceResponseCode.Ok)
             {
                 throw new ArgumentException("Invalid code.");
             }
 
-            return new ServiceResponse(code);
+            return new ServiceResponse<T>(code);
         }
     }
 }

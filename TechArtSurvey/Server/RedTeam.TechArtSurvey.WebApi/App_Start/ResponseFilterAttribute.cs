@@ -7,6 +7,7 @@ using System.Web.Http.Filters;
 using Newtonsoft.Json;
 using RedTeam.Logger;
 using RedTeam.TechArtSurvey.Foundation.Interfaces.ServiceResponses;
+using RedTeam.TechArtSurvey.WebApi.Properties;
 
 namespace RedTeam.TechArtSurvey.WebApi.App_Start
 {
@@ -14,13 +15,13 @@ namespace RedTeam.TechArtSurvey.WebApi.App_Start
     {
         public override void OnActionExecuting(HttpActionContext actionContext)
         {
-            if ( actionContext.ModelState.IsValid )
+            if(actionContext.ModelState.IsValid)
             {
                 return;
             }
 
-            List<string> errors = new List<string>();
-            foreach ( var state in actionContext.ModelState )
+            var errors = new List<string>();
+            foreach(var state in actionContext.ModelState)
             {
                 errors.AddRange(state.Value.Errors.Select(em => em.ErrorMessage));
             }
@@ -32,15 +33,15 @@ namespace RedTeam.TechArtSurvey.WebApi.App_Start
         public override void OnActionExecuted(HttpActionExecutedContext actionExecutedContext)
         {
             var objectContent = actionExecutedContext.Response?.Content as ObjectContent;
-            var serviceResponse = objectContent?.Value as IServiceResponse;
-            if ( serviceResponse == null )
+            var serviceResponse = objectContent?.Value as IServiceResponse<object>;
+            if(serviceResponse == null)
             {
                 return;
             }
 
             HttpResponseMessage response;
 
-            if (serviceResponse.Code == ServiceResponseCode.Ok)
+            if(serviceResponse.Code == ServiceResponseCode.Ok)
             {
                 response = actionExecutedContext.Request.CreateResponse(
                                                                         HttpStatusCode.OK,
@@ -48,10 +49,10 @@ namespace RedTeam.TechArtSurvey.WebApi.App_Start
             }
             else
             {
-                List<string> errorMessages = new List<string>
-                                             {
-                                                 Properties.ResponseMessages.ResourceManager.GetString(serviceResponse.Code.ToString())
-                                             };
+                var errorMessages = new List<string>
+                                    {
+                                        ResponseMessages.ResourceManager.GetString(serviceResponse.Code.ToString())
+                                    };
                 var json = JsonConvert.SerializeObject(errorMessages);
                 response = actionExecutedContext.Request.CreateResponse(HttpStatusCode.BadRequest, json);
                 LoggerContext.Logger.Error(errorMessages[0]);

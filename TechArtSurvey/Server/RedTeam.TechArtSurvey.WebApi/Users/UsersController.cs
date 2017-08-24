@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using System.Web.Http;
 using RedTeam.Logger;
 using RedTeam.TechArtSurvey.Foundation.Dto.UsersDto;
@@ -23,7 +24,7 @@ namespace RedTeam.TechArtSurvey.WebApi.Users
         // PUT api/Users/5
         [Route("")]
         [HttpPut]
-        public async Task<IServiceResponse> EditUser(EditUserDto user)
+        public async Task<IServiceResponse<object>> EditUser(EditUserDto user)
         {
             LoggerContext.Logger.Info($"Update User with email = {user.Email}");
 
@@ -33,7 +34,7 @@ namespace RedTeam.TechArtSurvey.WebApi.Users
         // DELETE api/Users
         [Route("{id}")]
         [HttpDelete]
-        public async Task<IServiceResponse> RemoveUser(int id)
+        public async Task<IServiceResponse<object>> RemoveUser(int id)
         {
             LoggerContext.Logger.Info($"Delete User with id = {id}");
 
@@ -43,7 +44,7 @@ namespace RedTeam.TechArtSurvey.WebApi.Users
         // GET api/Users/5
         [Route("")]
         [HttpGet]
-        public async Task<IServiceResponse> GetUser(int id)
+        public async Task<IServiceResponse<EditUserDto>> GetUser(int id)
         {
             LoggerContext.Logger.Info($"Get User with id = {id}");
 
@@ -54,7 +55,7 @@ namespace RedTeam.TechArtSurvey.WebApi.Users
         [Route("")]
         [AllowAnonymous]
         [HttpGet]
-        public async Task<IServiceResponse> CheckIfEmailAlreadyExists([FromUri] string email)
+        public async Task<IServiceResponse<object>> CheckIfEmailAlreadyExists([FromUri] string email)
         {
             LoggerContext.Logger.Info($"Get User with email = {email}");
 
@@ -63,7 +64,7 @@ namespace RedTeam.TechArtSurvey.WebApi.Users
 
         [Route("")]
         [HttpGet]
-        public async Task<IServiceResponse> GetUsers()
+        public async Task<IServiceResponse<IReadOnlyCollection<EditUserDto>>> GetUsers()
         {
             LoggerContext.Logger.Info("Get all users");
 
