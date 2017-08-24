@@ -32,7 +32,7 @@ export class EditingQuestionWrapper extends Component {
   }
 
   handleOnDeleteClick = () => {
-    this.props.handleOnDeleteClick(this.state.question.id);
+    this.props.handleOnDeleteClick();
   }
 
   render = () =>
