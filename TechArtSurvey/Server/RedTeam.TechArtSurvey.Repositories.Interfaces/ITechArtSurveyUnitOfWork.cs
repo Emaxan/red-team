@@ -1,4 +1,5 @@
 ﻿using RedTeam.Repositories.Interfaces;
+using RedTeam.TechArtSurvey.DomainModel.Entities.Surveys;
 using RedTeam.TechArtSurvey.Repositories.Interfaces.Repositories;
 
 namespace RedTeam.TechArtSurvey.Repositories.Interfaces
@@ -8,5 +9,15 @@ namespace RedTeam.TechArtSurvey.Repositories.Interfaces
         IUserRepository Users { get; }
 
         IRoleRepository Roles { get; }
+
+        ISurveyRepository Surveys { get; }
+
+        IRepository<SurveyPage> Pages { get; }
+
+        IRepository<SurveySettings> Settings { get; }
+
+        IRepository<Question> Questions { get; }
+
+        IQuestionTypeRepository QuestionTypes { get; }
     }
 }
