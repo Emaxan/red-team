@@ -1,0 +1,11 @@
+.form-group .checkbox .option {
+  color: black;
+}
+
+.form-horizontal {
+  & .checkbox,
+  & .form-group {
+    margin: 0;
+    padding: 0;
+  }
+}

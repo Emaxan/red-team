@@ -25,6 +25,7 @@ class QuestionList extends Component {
     this.lastId = getLastId(this.state.questions);
   }
 
+<<<<<<< HEAD
   moveQuestion = (dragIndex, hoverIndex) => {
     const { questions } = this.state;
     const dragQuestion = questions[dragIndex];
@@ -37,6 +38,11 @@ class QuestionList extends Component {
         ],
       },
     }));
+=======
+  componentWillReceiveProps = (props) => {
+    let questions = props.questions.map(q => {return {...q};});
+    this.setState({ questions : questions, editingQuestionId : props.editingQuestionId });
+>>>>>>> client/feature/newSurvey
   }
 
   handleOnEditingQuestionChange = (id) => {
@@ -97,7 +103,6 @@ class QuestionList extends Component {
               );
             }
 
-<<<<<<< HEAD
             return (
               <DraggableQuestion
                 key={index}
@@ -111,19 +116,10 @@ class QuestionList extends Component {
                   handleOnQuestionSave={this.handleOnQuestionSave}
                   handleOnEditingQuestionIdChange={this.handleOnEditingQuestionIdChange}
                   handleOnDeleteClick={this.handleOnDeleteClick}
+                  editing
                 />
               </DraggableQuestion>
             );
-=======
-            return <EditingQuestionWrapper
-              key={index}
-              question={question}
-              handleOnQuestionSave={this.handleOnQuestionSave}
-              handleOnEditingQuestionIdChange={this.handleOnEditingQuestionIdChange}
-              handleOnDeleteClick={this.handleOnDeleteClick}
-              editing
-            />;
->>>>>>> client/feature/newSurvey
           })
         }
         <Button onClick={this.handleOnAddQuestionBtnClick}>Add question</Button>
@@ -136,6 +132,7 @@ QuestionList.propTypes = {
   questions : PropTypes.array.isRequired,
   handleOnQuestionsArraySave : PropTypes.func.isRequired,
   handleOnEditingQuestionIdChange : PropTypes.func.isRequired,
+  editingQuestionId : PropTypes.number.isRequired,
 };
 
 export default DragDropContext(HTML5Backend)(QuestionList);

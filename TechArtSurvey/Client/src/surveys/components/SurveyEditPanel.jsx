@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
-import { Form, Col, Panel, FormGroup, FormControl, ControlLabel, Button } from 'react-bootstrap';
+import { Form, Col, Panel, FormGroup, FormControl, ControlLabel, Button, NavItem, Nav, ButtonGroup } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 
 import { questionTypesArray } from './questionTypesPresentation';
 import { QuestionTypesPanel } from './QuestionTypesPanel';
 import QuestionList from './QuestionList';
 import { changeType } from './service';
+import Page from '../models/Page';
 
 import './SurveyEditPanel.scss';
 
@@ -36,9 +37,9 @@ export class SurveyEditPanel extends Component {
   }
 
   handleOnQuestionsArraySave = (questions) => {
-    let { pages } = this.state.survey;
+    let pages = this.state.survey.pages;
     pages[this.state.editingPageNumber - 1].questions = questions;
-    this.setState({ survey : { ...this.state.survey, pages } });
+    this.setState({ survey : { ...this.state.survey.pages, pages } });
   }
 
   handleOnTypeChange = (type) => {
@@ -59,7 +60,23 @@ export class SurveyEditPanel extends Component {
   }
 
   handleOnEditingQuestionIdChange = (id) => {
-    this.setState({editingQuestionId : id});
+    this.setState({ editingQuestionId : id });
+  }
+
+  handleOnPageSwitch = (pageNumber) => {
+    this.setState({ editingPageNumber : pageNumber + 1, editingQuestionId : -1 });
+  }
+
+  handleOnAddPageClick = () => {
+    let pages = this.state.survey.pages;
+    pages.push(new Page());
+    this.setState({ editingPageNumber : pages.length, editingQuestionId : -1, survey : { ...this.state.survey.pages, pages } });
+  }
+
+  handleOnPageDeleteClick = () => {
+    let pages = this.state.survey.pages;
+    pages.splice(this.state.editingPageNumber - 1, 1);
+    this.setState({ editingPageNumber: 1, editingQuestionId: -1, survey: { ...this.state.survey.pages, pages } });
   }
 
   render = () => {
@@ -80,18 +97,34 @@ export class SurveyEditPanel extends Component {
                 />
               </Col>
             </FormGroup>
-
+            <ButtonGroup>
+              <Button onClick={this.handleOnSave} type="submit">
+                Save
+              </Button>
+              <Button >
+                Save as template
+              </Button>
+              <Button>
+                Cancel
+              </Button>
+              <Button onClick={this.handleOnAddPageClick}>
+                New page
+              </Button>
+            </ButtonGroup>
+            <Nav bsStyle="tabs" justified>
+              {
+                this.state.survey.pages.map((page, index) => (
+                  <NavItem key={index} eventKey={index} onSelect={this.handleOnPageSwitch}>Page {index + 1}</NavItem>
+                ))
+              }
+            </Nav>
+            <Button onClick={this.handleOnPageDeleteClick}>Delete</Button>
             <QuestionList
               questions={this.state.survey.pages[this.state.editingPageNumber - 1].questions}
               handleOnEditingQuestionIdChange={this.handleOnEditingQuestionIdChange}
               handleOnQuestionsArraySave={this.handleOnQuestionsArraySave}
+              editingQuestionId = {this.state.editingQuestionId}
             />
-
-            <FormGroup className="text-center">
-              <Button onClick={this.handleOnSave} type="submit">
-                Save
-              </Button>
-            </FormGroup>
           </Form>
         </Panel>
 
