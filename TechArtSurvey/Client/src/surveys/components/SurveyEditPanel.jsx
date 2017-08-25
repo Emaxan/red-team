@@ -15,7 +15,7 @@ export class SurveyEditPanel extends Component {
 
     this.state = {
       editingPageNumber : 1,
-      editingQuestionId: -1,
+      editingQuestionId : -1,
       survey : {
         title : this.props.survey.title,
         pages : this.props.survey.pages,
@@ -105,6 +105,6 @@ export class SurveyEditPanel extends Component {
 }
 
 SurveyEditPanel.propTypes = {
-  survey: PropTypes.object.isRequired,
+  survey : PropTypes.object.isRequired,
   saveSurvey : PropTypes.func.isRequired,
 };

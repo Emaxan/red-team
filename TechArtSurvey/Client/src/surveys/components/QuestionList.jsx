@@ -14,8 +14,8 @@ export class QuestionList extends Component {
     let questions = this.props.questions.map(q => {return {...q};});
 
     this.state = {
-      questions: questions,
-      editingQuestionId: -1,
+      questions : questions,
+      editingQuestionId : -1,
     };
 
     this.lastId = getLastId(this.state.questions);
@@ -79,7 +79,6 @@ export class QuestionList extends Component {
             />;
           })
         }
-
         <Button onClick={this.handleOnAddQuestionBtnClick}>Add question</Button>
       </div>
     );
@@ -88,6 +87,6 @@ export class QuestionList extends Component {
 
 QuestionList.propTypes = {
   questions : PropTypes.array.isRequired,
-  handleOnQuestionsArraySave: PropTypes.func.isRequired,
-  handleOnEditingQuestionIdChange: PropTypes.func.isRequired,
+  handleOnQuestionsArraySave : PropTypes.func.isRequired,
+  handleOnEditingQuestionIdChange : PropTypes.func.isRequired,
 };

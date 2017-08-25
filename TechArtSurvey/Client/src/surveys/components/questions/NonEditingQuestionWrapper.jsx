@@ -9,7 +9,7 @@ export class NonEditingQuestionWrapper extends Component {
     super(props);
 
     this.state = {
-      question: { ...this.props.question },
+      question : { ...this.props.question },
     };
   }
 
@@ -26,12 +26,12 @@ export class NonEditingQuestionWrapper extends Component {
         )
       }
       <Button onClick={this.handleOnEditClick}>
-            Edit
+        Edit
       </Button>
     </div>
 }
 
 NonEditingQuestionWrapper.propTypes = {
-  question: PropTypes.object.isRequired,
-  handleOnEditingQuestionIdChange: PropTypes.func.isRequired,
+  question : PropTypes.object.isRequired,
+  handleOnEditingQuestionIdChange : PropTypes.func.isRequired,
 };

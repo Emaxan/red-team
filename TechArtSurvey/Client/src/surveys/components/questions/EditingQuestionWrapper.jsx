@@ -9,7 +9,7 @@ export class EditingQuestionWrapper extends Component {
     super(props);
 
     this.state = {
-      question: {...this.props.question},
+      question : {...this.props.question},
     };
   }
 
@@ -26,7 +26,7 @@ export class EditingQuestionWrapper extends Component {
   }
 
   handleOnRequiredClick = () => {
-    var question = this.state.question;
+    let question = this.state.question;
     question.isRequired = !question.isRequired;
     this.setState({ question: {...question} });
   }
