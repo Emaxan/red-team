@@ -22,7 +22,7 @@ export const checkPasswordResetToken = (userId, token) => {
 
   const body = {
     UserId : userId,
-    Token : token,
+    ResetPasswordToken : token,
   };
 
   return httpUtility.post(`${API_URL}/account/check_token/`, headers, body);
