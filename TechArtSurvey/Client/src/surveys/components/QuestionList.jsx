@@ -11,8 +11,10 @@ export class QuestionList extends Component {
   constructor(props) {
     super(props);
 
+    let questions = this.props.questions.map(q => {return {...q};});
+
     this.state = {
-      questions: this.props.questions,
+      questions: questions,
       editingQuestionId: -1,
     };
 
@@ -24,27 +26,29 @@ export class QuestionList extends Component {
   }
 
   handleOnAddQuestionBtnClick = () => {
-    let { questions } = this.state;
+    let questions = this.state.questions.map(q => {return {...q};});
     questions.push(new Question(++this.lastId));
-    this.setState({ editingQuestionId : this.lastId, questions });
+    this.setState({ editingQuestionId : this.lastId, questions : questions });
     this.props.handleOnQuestionsArraySave(questions);
     this.props.handleOnEditingQuestionIdChange(this.lastId);
   }
 
   handleOnDeleteClick = () => {
-    let { questions } = this.state;
-    var index = questions.findIndex(q => q.id === this.state.editingQuestionId);
+    let questions = this.state.questions.map(q => {return {...q};});
+    let index = questions.findIndex(q => q.id == this.state.editingQuestionId);
     questions.splice(index, 1);
-    this.setState({ questions });
+    this.setState({ editingQuestionId : -1, questions : questions });
     this.props.handleOnQuestionsArraySave(questions);
+    this.props.handleOnEditingQuestionIdChange(-1);
   }
 
   handleOnQuestionSave = (question) => {
-    let { questions } = this.state.questions;
-    var index = questions.findIndex(q => q.id === this.state.editingQuestionId);
+    let questions = this.state.questions.map(q => {return {...q};});
+    let index = questions.findIndex(q => q.id == this.state.editingQuestionId);
     questions[index] = question;
-    this.setState({ questions });
+    this.setState({ editingQuestionId : -1, questions : questions });
     this.props.handleOnQuestionsArraySave(questions);
+    this.props.handleOnEditingQuestionIdChange(-1);
   }
 
   handleOnEditingQuestionIdChange = (id) => {
@@ -57,7 +61,7 @@ export class QuestionList extends Component {
       <div>
         {
           this.state.questions.map((question, index) => {
-            if (this.state.editingQuestionId !== question.id) {
+            if(this.state.editingQuestionId != question.id) {
               return <NonEditingQuestionWrapper
                 key={index}
                 question={question}
@@ -84,6 +88,6 @@ export class QuestionList extends Component {
 
 QuestionList.propTypes = {
   questions : PropTypes.array.isRequired,
-  handleOnQuestionsArraySave : PropTypes.func.isRequired,
-  handleOnEditingQuestionIdChange : PropTypes.func.isRequired,
+  handleOnQuestionsArraySave: PropTypes.func.isRequired,
+  handleOnEditingQuestionIdChange: PropTypes.func.isRequired,
 };

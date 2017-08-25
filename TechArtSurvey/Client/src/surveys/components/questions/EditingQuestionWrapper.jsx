@@ -9,16 +9,16 @@ export class EditingQuestionWrapper extends Component {
     super(props);
 
     this.state = {
-      question : this.props.question,
+      question: {...this.props.question},
     };
   }
 
   handleOnQuestionUpdate = (question) => {
-    this.setState({ question });
+    this.setState({ question: {...question} });
   }
 
   handleOnSaveClick = () => {
-    this.props.handleOnQuestionSave(this.state.question);
+    this.props.handleOnQuestionSave({...this.state.question});
   }
 
   handleOnCancelClick = () => {
@@ -26,9 +26,9 @@ export class EditingQuestionWrapper extends Component {
   }
 
   handleOnRequiredClick = () => {
-    let { question } = this.state;
+    var question = this.state.question;
     question.isRequired = !question.isRequired;
-    this.setState({ question });
+    this.setState({ question: {...question} });
   }
 
   handleOnDeleteClick = () => {
