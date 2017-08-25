@@ -64,6 +64,9 @@ export class SurveyEditPanel extends Component {
   }
 
   handleOnPageSwitch = (pageNumber) => {
+    if(pageNumber == this.state.editingPageNumber) {
+      return;
+    }
     this.setState({ editingPageNumber : pageNumber + 1, editingQuestionId : -1 });
   }
 
@@ -75,6 +78,9 @@ export class SurveyEditPanel extends Component {
 
   handleOnPageDeleteClick = () => {
     let pages = this.state.survey.pages;
+    if(pages.length == 1) {
+      return;
+    }
     pages.splice(this.state.editingPageNumber - 1, 1);
     this.setState({ editingPageNumber: 1, editingQuestionId: -1, survey: { ...this.state.survey.pages, pages } });
   }
