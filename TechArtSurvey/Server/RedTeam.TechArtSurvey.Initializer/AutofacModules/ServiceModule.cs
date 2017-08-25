@@ -11,6 +11,7 @@ namespace RedTeam.TechArtSurvey.Initializer.AutofacModules
         protected override void Load(ContainerBuilder builder)
         {
             builder.RegisterType<UserService>().As<IUserService>().InstancePerRequest();
+            builder.RegisterType<ResetPasswordService>().As<IResetPasswordService>().InstancePerRequest();
             builder.RegisterType<ApplicationUserManager>().AsSelf().InstancePerRequest();
             builder.RegisterType<ApplicationRoleManager>().AsSelf().InstancePerRequest();
             builder.RegisterType<RoleStore>().As<IApplicationRoleStore>().InstancePerRequest();

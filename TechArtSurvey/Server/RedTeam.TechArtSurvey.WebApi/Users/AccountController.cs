@@ -10,11 +10,13 @@ namespace RedTeam.TechArtSurvey.WebApi.Users
     public class AccountController : ApiController
     {
         private readonly IUserService _userService;
+        private readonly IResetPasswordService _resetPasswordService;
 
   
-        public AccountController(IUserService userService)
+        public AccountController(IUserService userService, IResetPasswordService resetPasswordService)
         {
             _userService = userService;
+            _resetPasswordService = resetPasswordService;
         }
 
 
@@ -38,10 +40,10 @@ namespace RedTeam.TechArtSurvey.WebApi.Users
             }
 
             var user = result.Content as EditUserDto;
-            result = await _userService.GetPasswordResetTokenAsync(user.Id);
+            result = await _resetPasswordService.GetPasswordResetTokenAsync(user.Id);
 
             string passwordResetToken = result.Content as string;
-            result = await _userService.SendConfirmationEmailAsync(user.Id, passwordResetToken, forgotPasswordDto.CallbackUrl);
+            result = await _resetPasswordService.SendConfirmationEmailAsync(user.Id, passwordResetToken, forgotPasswordDto.CallbackUrl);
 
             return result;
         }
@@ -51,7 +53,7 @@ namespace RedTeam.TechArtSurvey.WebApi.Users
         [AllowAnonymous]
         public async Task<IServiceResponse> CheckPasswordResetToken(CheckPasswordResetTokenDto checkPasswordResetTokenDto)
         {
-            var result = await _userService.CheckPasswordResetTokenAsync(
+            var result = await _resetPasswordService.CheckPasswordResetTokenAsync(
                 checkPasswordResetTokenDto.UserId,
                 checkPasswordResetTokenDto.Token);
 
@@ -63,7 +65,7 @@ namespace RedTeam.TechArtSurvey.WebApi.Users
         [AllowAnonymous]
         public async Task<IServiceResponse> ResetPassword(ResetPasswordDto resetPasswordDto)
         {
-            var result = await _userService.ResetUserPasswordAsync(
+            var result = await _resetPasswordService.ResetUserPasswordAsync(
                 resetPasswordDto.UserId,
                 resetPasswordDto.ResetPasswordToken,
                 resetPasswordDto.NewPassword);
