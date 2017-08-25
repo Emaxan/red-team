@@ -13,6 +13,7 @@ namespace RedTeam.TechArtSurvey.Foundation
     {
         private readonly ApplicationUserManager _userManager;
 
+
         public ResetPasswordService(ApplicationUserManager userManager)
         {
             _userManager = userManager;
@@ -51,7 +52,7 @@ namespace RedTeam.TechArtSurvey.Foundation
                 return ServiceResponse.CreateSuccessful(ServiceResponseCode.Ok);
             }
 
-            return ServiceResponse.CreateUnsuccessful(ServiceResponseCode.TokenNotFound);
+            return ServiceResponse.CreateUnsuccessful(ServiceResponseCode.ResetPasswordTokenInvalid);
         }
 
         public async Task<IServiceResponse> ResetUserPasswordAsync(int userId, string resetPasswordToken, string newPassword)
@@ -64,7 +65,7 @@ namespace RedTeam.TechArtSurvey.Foundation
                 return ServiceResponse.CreateSuccessful(ServiceResponseCode.Ok);
             }
 
-            return ServiceResponse.CreateUnsuccessful(ServiceResponseCode.TokenExpired);
+            return ServiceResponse.CreateUnsuccessful(ServiceResponseCode.ResetPasswordTokenInvalid);
         }
     }
 }

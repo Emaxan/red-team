@@ -53,11 +53,9 @@ namespace RedTeam.TechArtSurvey.WebApi.Users
         [AllowAnonymous]
         public async Task<IServiceResponse> CheckPasswordResetToken(ResetPasswordDto resetPasswordDto)
         {
-            var result = await _resetPasswordService.CheckPasswordResetTokenAsync(
+            return await _resetPasswordService.CheckPasswordResetTokenAsync(
                 resetPasswordDto.UserId,
                 resetPasswordDto.ResetPasswordToken);
-
-            return result;
         }
 
         [Route("reset_password")]
@@ -65,12 +63,10 @@ namespace RedTeam.TechArtSurvey.WebApi.Users
         [AllowAnonymous]
         public async Task<IServiceResponse> ResetPassword(ResetPasswordDto resetPasswordDto)
         {
-            var result = await _resetPasswordService.ResetUserPasswordAsync(
+            return await _resetPasswordService.ResetUserPasswordAsync(
                 resetPasswordDto.UserId,
                 resetPasswordDto.ResetPasswordToken,
                 resetPasswordDto.NewPassword);
-
-            return result;
         }
     }
 }

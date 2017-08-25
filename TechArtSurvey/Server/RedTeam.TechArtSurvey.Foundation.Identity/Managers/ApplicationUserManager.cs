@@ -35,10 +35,10 @@ namespace RedTeam.TechArtSurvey.Foundation.Identity.Managers
                 emailConfiguration["Password"]
                 );
 
-            var provider = new DpapiDataProtectionProvider("RedTeam.TechArtSurvey.WebApi");
+            var provider = new DpapiDataProtectionProvider("RedTeam.TechArtSurvey.Foundation.Identity");
             UserTokenProvider = new DataProtectorTokenProvider<User, int>(provider.Create("Forgot password"))
             {
-                TokenLifespan = TimeSpan.FromSeconds(1000000)
+                TokenLifespan = TimeSpan.FromMinutes(10),
             };
         }
     }

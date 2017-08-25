@@ -8,6 +8,7 @@
         UserAlreadyExists,
         InvalidCredentials,
         TokenExpired,
-        TokenNotFound
+        TokenNotFound,
+        ResetPasswordTokenInvalid,
     }
 }

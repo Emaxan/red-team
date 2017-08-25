@@ -9,11 +9,13 @@ namespace RedTeam.TechArtSurvey.Foundation.Identity.Services
         private readonly string _from;
         private readonly string _password;
 
+
         public EmailService(string from, string password)
         {
             _from = from;
             _password = password;
         }
+
 
         public Task SendAsync(IdentityMessage message)
         {
@@ -30,13 +32,16 @@ namespace RedTeam.TechArtSurvey.Foundation.Identity.Services
             return client.SendMailAsync(mail);
         }
 
+
         private MailMessage BuildMessage(string sender, IdentityMessage message)
         {
-            var mail = new MailMessage(sender, message.Destination);
-            mail.Subject = message.Subject;
-            mail.Body = message.Body;
-            mail.BodyEncoding = System.Text.Encoding.UTF8;
-            mail.IsBodyHtml = true;
+            var mail = new MailMessage(sender, message.Destination)
+            {
+                Subject = message.Subject,
+                Body = message.Body,
+                BodyEncoding = System.Text.Encoding.UTF8,
+                IsBodyHtml = true
+            };
 
             return mail;
         }
