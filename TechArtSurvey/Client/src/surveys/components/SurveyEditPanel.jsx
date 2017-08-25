@@ -70,7 +70,13 @@ export class SurveyEditPanel extends Component {
   handleOnAddPageClick = () => {
     let pages = this.state.survey.pages;
     pages.push(new Page());
-    this.setState({ editingPageNumber : pages.length, editingQuestionId : -1, survey : {...this.state.survey.pages, pages} });
+    this.setState({ editingPageNumber : pages.length, editingQuestionId : -1, survey : { ...this.state.survey.pages, pages } });
+  }
+
+  handleOnPageDeleteClick = () => {
+    let pages = this.state.survey.pages;
+    pages.splice(this.state.editingPageNumber - 1, 1);
+    this.setState({ editingPageNumber: 1, editingQuestionId: -1, survey: { ...this.state.survey.pages, pages } });
   }
 
   render = () => { console.log(this.state.survey.pages[this.state.editingPageNumber - 1].questions);
@@ -112,6 +118,7 @@ export class SurveyEditPanel extends Component {
                 ))
               }
             </Nav>
+            <Button onClick={this.handleOnPageDeleteClick}>Delete</Button>
             <QuestionList
               questions={this.state.survey.pages[this.state.editingPageNumber - 1].questions}
               handleOnEditingQuestionIdChange={this.handleOnEditingQuestionIdChange}
