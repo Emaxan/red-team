@@ -51,11 +51,11 @@ namespace RedTeam.TechArtSurvey.WebApi.Users
         [Route("check_token")]
         [HttpPost]
         [AllowAnonymous]
-        public async Task<IServiceResponse> CheckPasswordResetToken(CheckPasswordResetTokenDto checkPasswordResetTokenDto)
+        public async Task<IServiceResponse> CheckPasswordResetToken(ResetPasswordDto resetPasswordDto)
         {
             var result = await _resetPasswordService.CheckPasswordResetTokenAsync(
-                checkPasswordResetTokenDto.UserId,
-                checkPasswordResetTokenDto.Token);
+                resetPasswordDto.UserId,
+                resetPasswordDto.ResetPasswordToken);
 
             return result;
         }
