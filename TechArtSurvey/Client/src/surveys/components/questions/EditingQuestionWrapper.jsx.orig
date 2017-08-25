@@ -46,19 +46,33 @@ export class EditingQuestionWrapper extends Component {
           </Checkbox>
           <Button onClick={this.handleOnDeleteClick}>
           Delete
+<<<<<<< HEAD
           </Button>
         </div>
         {
           questionsFactory[this.props.question.type](
             this.props.question,
             this.handleOnQuestionUpdate,
-            {
-              editing : this.props.editing,
-            },
+            true,
           )
         }
         <ButtonGroup className="bottom-actions">
           <Button onClick={this.handleOnSaveClick}>
+=======
+        </Button>
+      </div>
+      {
+        questionsFactory[this.props.question.type](
+          this.props.question,
+          this.handleOnQuestionUpdate,
+          {
+            editing : this.props.editing,
+          },
+        )
+      }
+      <ButtonGroup className="bottom-actions">
+        <Button onClick={this.handleOnSaveClick}>
+>>>>>>> client/feature/newSurvey
           Save
           </Button>
           <Button onClick={this.handleOnCancelClick}>

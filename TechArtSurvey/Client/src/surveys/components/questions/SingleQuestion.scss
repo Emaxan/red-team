@@ -1,0 +1,11 @@
+.form-group .radio .option {
+  color: black;
+}
+
+.form-horizontal {
+  & .radio,
+  & .form-group {
+    margin: 0;
+    padding: 0;
+  }
+}

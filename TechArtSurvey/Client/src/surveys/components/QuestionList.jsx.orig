@@ -97,6 +97,7 @@ class QuestionList extends Component {
               );
             }
 
+<<<<<<< HEAD
             return (
               <DraggableQuestion
                 key={index}
@@ -110,10 +111,19 @@ class QuestionList extends Component {
                   handleOnQuestionSave={this.handleOnQuestionSave}
                   handleOnEditingQuestionIdChange={this.handleOnEditingQuestionIdChange}
                   handleOnDeleteClick={this.handleOnDeleteClick}
-                  editing
                 />
               </DraggableQuestion>
             );
+=======
+            return <EditingQuestionWrapper
+              key={index}
+              question={question}
+              handleOnQuestionSave={this.handleOnQuestionSave}
+              handleOnEditingQuestionIdChange={this.handleOnEditingQuestionIdChange}
+              handleOnDeleteClick={this.handleOnDeleteClick}
+              editing
+            />;
+>>>>>>> client/feature/newSurvey
           })
         }
         <Button onClick={this.handleOnAddQuestionBtnClick}>Add question</Button>
