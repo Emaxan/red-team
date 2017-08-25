@@ -64,7 +64,7 @@ export class SurveyEditPanel extends Component {
   }
 
   handleOnPageSwitch = (pageNumber) => {
-    this.setState({ editingPageNumber : pageNumber + 1 });
+    this.setState({ editingPageNumber : pageNumber + 1, editingQuestionId : -1 });
   }
 
   handleOnAddPageClick = () => {
@@ -79,7 +79,7 @@ export class SurveyEditPanel extends Component {
     this.setState({ editingPageNumber: 1, editingQuestionId: -1, survey: { ...this.state.survey.pages, pages } });
   }
 
-  render = () => { console.log(this.state.survey.pages[this.state.editingPageNumber - 1].questions);
+  render = () => {
     return (
       <div className="survey-edit-panel">
         <Panel className="col-md-6">

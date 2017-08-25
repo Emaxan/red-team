@@ -21,6 +21,11 @@ export class QuestionList extends Component {
     this.lastId = getLastId(this.state.questions);
   }
 
+  componentWillReceiveProps = (props) => {
+    let questions = props.questions.map(q => {return {...q};});
+    this.setState({ questions : questions, editingQuestionId : props.editingQuestionId });
+  }
+
   handleOnEditingQuestionChange = (id) => {
     this.setState({ editingQuestionId : id });
   }
@@ -90,4 +95,5 @@ QuestionList.propTypes = {
   questions : PropTypes.array.isRequired,
   handleOnQuestionsArraySave : PropTypes.func.isRequired,
   handleOnEditingQuestionIdChange : PropTypes.func.isRequired,
+  editingQuestionId : PropTypes.number.isRequired,
 };
