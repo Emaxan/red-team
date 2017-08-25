@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Button } from 'react-bootstrap';
 import { DragDropContext } from 'react-dnd';
-import update from 'immutability-helper';
 import HTML5Backend from 'react-dnd-html5-backend';
+import update from 'immutability-helper';
 
 import { NonEditingQuestionWrapper } from './questions/NonEditingQuestionWrapper';
 import { EditingQuestionWrapper } from './questions/EditingQuestionWrapper';
@@ -11,8 +11,7 @@ import { getLastId } from './service';
 import Question from '../models/Question';
 import DraggableQuestion from './DraggableQuestion';
 
-@DragDropContext(HTML5Backend)
-export class QuestionList extends Component {
+class QuestionList extends Component {
   constructor(props) {
     super(props);
 
@@ -127,3 +126,5 @@ QuestionList.propTypes = {
   handleOnQuestionsArraySave : PropTypes.func.isRequired,
   handleOnEditingQuestionIdChange : PropTypes.func.isRequired,
 };
+
+export default DragDropContext(HTML5Backend)(QuestionList);

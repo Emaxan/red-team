@@ -40,32 +40,40 @@ const questionTarget = {
   },
 };
 
-@DropTarget(ItemTypes.QUESTION, questionTarget, connect => ({
-  connectDropTarget: connect.dropTarget(),
-}))
-@DragSource(ItemTypes.QUESTION, questionSource, (connect, monitor) => ({
-  connectDragSource: connect.dragSource(),
-  isDragging: monitor.isDragging(),
-}))
-export default class DraggableQuestion extends Component {
-  static propTypes = {
-    connectDragSource: PropTypes.func.isRequired,
-    connectDropTarget: PropTypes.func.isRequired,
-    index: PropTypes.number.isRequired,
-    isDragging: PropTypes.bool.isRequired,
-    id: PropTypes.any.isRequired,
-    moveQuestion: PropTypes.func.isRequired,
-    children : PropTypes.any.isRequired,
-  };
-
+class DraggableQuestion extends Component {
   render() {
-    const { children, isDragging, connectDragSource, connectDropTarget } = this.props;
-    const opacity = isDragging ? 0.5 : 1;
+    const opacity = this.props.isDragging ? 0.5 : 1;
 
-    return connectDragSource(connectDropTarget(
-      <div style={{ opacity }} ref={node => (this.node = node)}>
-        {children}
-      </div>,
-    ));
+    return (
+      this.props.connectDragSource(this.props.connectDropTarget(
+        <div style={{ opacity }} ref={node => (this.node = node)}>
+          {this.props.children}
+        </div>,
+      ))
+    );
   }
 }
+
+DraggableQuestion.propTypes = {
+  connectDragSource : PropTypes.func.isRequired,
+  connectDropTarget : PropTypes.func.isRequired,
+  isDragging : PropTypes.bool.isRequired,
+  id : PropTypes.any.isRequired,
+  index : PropTypes.number.isRequired,
+  moveQuestion : PropTypes.func.isRequired,
+  children : PropTypes.any.isRequired,
+};
+
+const dropTargetCollect = (connect) => ({
+  connectDropTarget : connect.dropTarget(),
+});
+
+const dragSourceCollect = (connect, monitor) => ({
+  connectDragSource : connect.dragSource(),
+  isDragging : monitor.isDragging(),
+});
+
+export default DropTarget(ItemTypes.QUESTION, questionTarget, dropTargetCollect)(
+  DragSource(ItemTypes.QUESTION, questionSource, dragSourceCollect)(
+    DraggableQuestion),
+);

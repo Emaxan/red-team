@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 
 import { questionTypesArray } from './questionTypesPresentation';
 import { QuestionTypesPanel } from './QuestionTypesPanel';
-import { QuestionList } from './QuestionList';
+import QuestionList from './QuestionList';
 import { changeType } from './service';
 
 import './SurveyEditPanel.scss';
