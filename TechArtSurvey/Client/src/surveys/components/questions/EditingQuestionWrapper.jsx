@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
-import { Panel, Button, Radio } from 'react-bootstrap';
+import { Panel, Button, Checkbox, ButtonGroup } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 
 import { questionsFactory } from '../questionsFactory';
+
+import './EditingQuestionWrapper.scss';
 
 export class EditingQuestionWrapper extends Component {
   constructor(props) {
@@ -36,13 +38,15 @@ export class EditingQuestionWrapper extends Component {
   }
 
   render = () =>
-    <Panel>
-      <Radio onClick={this.handleOnRequiredClick} checked={this.state.question.isRequired}>
-        Required
-      </Radio>
-      <Button onClick={this.handleOnDeleteClick}>
-        Delete
-      </Button>
+    <Panel className="edit-question">
+      <div className="top-actions">
+        <Checkbox onClick={this.handleOnRequiredClick} checked={this.state.question.isRequired} className="top-actions__required">
+          Required
+        </Checkbox>
+        <Button onClick={this.handleOnDeleteClick}>
+          Delete
+        </Button>
+      </div>
       {
         questionsFactory[this.props.question.type](
           this.props.question,
@@ -50,12 +54,14 @@ export class EditingQuestionWrapper extends Component {
           true,
         )
       }
-      <Button onClick={this.handleOnSaveClick}>
-        Save
-      </Button>
-      <Button onClick={this.handleOnCancelClick}>
-        Cancel
-      </Button>
+      <ButtonGroup className="bottom-actions">
+        <Button onClick={this.handleOnSaveClick}>
+          Save
+        </Button>
+        <Button onClick={this.handleOnCancelClick}>
+          Cancel
+        </Button>
+      </ButtonGroup>
     </Panel>
 }
 

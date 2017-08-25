@@ -36,7 +36,7 @@ export class SingleQuestion extends Component {
     return (
       <Panel>
         <FormGroup>
-          <Col sm={10}>
+          <Col sm={10} smOffset={1}>
             <FormControl
               name="title"
               type="text"
@@ -51,12 +51,14 @@ export class SingleQuestion extends Component {
           this.state.options.map((option, i) => {
             return (
               <FormGroup key={i}>
-                <FormControl
-                  type="text"
-                  value={option}
-                  placeholder="Option"
-                  onChange={(e) => this.handleOnOptionChange(i, e.target.value)}
-                />
+                <Col sm={8} smOffset={2}>
+                  <FormControl
+                    type="text"
+                    value={option}
+                    placeholder="Option"
+                    onChange={(e) => this.handleOnOptionChange(i, e.target.value)}
+                  />
+                </Col>
               </FormGroup>
             );
           })

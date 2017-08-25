@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
-import {  Button } from 'react-bootstrap';
+import { Button } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 
 import { questionsFactory } from '../questionsFactory';
+
+import './NonEditingQuestionWrapper.scss';
 
 export class NonEditingQuestionWrapper extends Component {
   constructor(props){
@@ -25,7 +27,7 @@ export class NonEditingQuestionWrapper extends Component {
           null,
         )
       }
-      <Button onClick={this.handleOnEditClick}>
+      <Button onClick={this.handleOnEditClick} className="question-wrapper__edit">
         Edit
       </Button>
     </div>
