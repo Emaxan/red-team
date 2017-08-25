@@ -15,7 +15,7 @@ export class SurveyEditPanel extends Component {
 
     this.state = {
       editingPageNumber : 1,
-      editingQuestionId: -1,
+      editingQuestionId : -1,
       survey : {
         title : this.props.survey.title,
         pages : this.props.survey.pages,
@@ -38,22 +38,22 @@ export class SurveyEditPanel extends Component {
   handleOnQuestionsArraySave = (questions) => {
     let { pages } = this.state.survey;
     pages[this.state.editingPageNumber - 1].questions = questions;
-    this.setState({survey : { ...this.state.survey, pages }});
+    this.setState({ survey : { ...this.state.survey, pages } });
   }
 
   handleOnTypeChange = (type) => {
     if (this.state.editingQuestionId !== -1) {
-      var pages = this.state.survey.pages;
-      var questions = pages[this.state.editingPageNumber - 1].questions;
-      var index = questions.findIndex(q => q.id == this.state.editingQuestionId);
+      let pages = this.state.survey.pages;
+      let questions = pages[this.state.editingPageNumber - 1].questions;
+      let index = questions.findIndex(q => q.id == this.state.editingQuestionId);
 
-      var oldQuestion = questions[index];
-      var newQuestion = changeType(oldQuestion, type);
+      let oldQuestion = questions[index];
+      let newQuestion = changeType(oldQuestion, type);
 
       if(newQuestion !== null) {
         questions[index] = newQuestion;
         pages[this.state.editingPageNumber - 1].questions = questions;
-        this.setState({ survey : {...this.state.survey.pages, pages}});
+        this.setState({ survey : {...this.state.survey.pages, pages} });
       }
     }
   }
@@ -83,8 +83,8 @@ export class SurveyEditPanel extends Component {
 
             <QuestionList
               questions={this.state.survey.pages[this.state.editingPageNumber - 1].questions}
-              handleOnEditingQuestionIdChange = {this.handleOnEditingQuestionIdChange}
-              handleOnQuestionsArraySave = {this.handleOnQuestionsArraySave}
+              handleOnEditingQuestionIdChange={this.handleOnEditingQuestionIdChange}
+              handleOnQuestionsArraySave={this.handleOnQuestionsArraySave}
             />
 
             <FormGroup className="text-center">
@@ -105,6 +105,6 @@ export class SurveyEditPanel extends Component {
 }
 
 SurveyEditPanel.propTypes = {
-  survey: PropTypes.object.isRequired,
+  survey : PropTypes.object.isRequired,
   saveSurvey : PropTypes.func.isRequired,
 };

@@ -7,44 +7,45 @@ import { TextQuestion } from './questions/TextQuestion';
 import { ScaleRatingQuestion } from './questions/ScaleRatingQuestion';
 import { StarRatingQuestion } from './questions/StarRatingQuestion';
 
-export const createSingleQuestion = (question, handleOnQuestionChange) =>
+
+export const createSingleQuestion = (question, handleOnQuestionUpdate) =>
   <SingleQuestion
     key={question.id}
     question={question}
-    handleOnQuestionChange={handleOnQuestionChange}
+    handleOnQuestionUpdate={handleOnQuestionUpdate}
   />;
 
-export const createMultipleQuestion = (question, handleOnQuestionChange) =>
+export const createMultipleQuestion = (question, handleOnQuestionUpdate) =>
   <MultipleQuestion
     key={question.id}
     question={question}
-    handleOnQuestionChange={handleOnQuestionChange}
+    handleOnQuestionUpdate={handleOnQuestionUpdate}
   />;
 
-export const createFileQuestion = (question, handleOnQuestionChange) =>
+export const createFileQuestion = (question, handleOnQuestionUpdate) =>
   <FileQuestion
     key={question.id}
     question={question}
-    handleOnQuestionChange={handleOnQuestionChange}
+    handleOnQuestionUpdate={handleOnQuestionUpdate}
   />;
 
-export const createTextQuestion = (question, handleOnQuestionChange) =>
+export const createTextQuestion = (question, handleOnQuestionUpdate) =>
   <TextQuestion
     key={question.id}
     question={question}
-    handleOnQuestionChange={handleOnQuestionChange}
+    handleOnQuestionUpdate={handleOnQuestionUpdate}
   />;
 
-export const createScaleRatingQuestion = (question, handleOnQuestionChange) =>
+export const createScaleRatingQuestion = (question, handleOnQuestionUpdate) =>
   <ScaleRatingQuestion
     key={question.id}
     question={question}
-    handleOnQuestionChange={handleOnQuestionChange}
+    handleOnQuestionUpdate={handleOnQuestionUpdate}
   />;
 
-export const createStarRatingQuestion = (question, handleOnQuestionChange) =>
+export const createStarRatingQuestion = (question, handleOnQuestionUpdate) =>
   <StarRatingQuestion
     key={question.id}
     question={question}
-    handleOnQuestionChange={handleOnQuestionChange}
+    handleOnQuestionUpdate={handleOnQuestionUpdate}
   />;

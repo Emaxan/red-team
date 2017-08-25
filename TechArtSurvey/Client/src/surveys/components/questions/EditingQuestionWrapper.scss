@@ -1,0 +1,24 @@
+.edit-question {
+  position: relative;
+  padding-top: 40px;
+  padding-bottom: 20px;
+}
+
+.panel .top-actions,
+.panel .bottom-actions {
+  position: absolute;
+  right: 15px;
+
+  &__required {
+    display: inline;
+    margin-right: 10px;
+  }
+}
+
+.top-actions {
+  top: 10px;
+}
+
+.bottom-actions {
+  bottom: 10px;
+}

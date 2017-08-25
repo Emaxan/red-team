@@ -1,0 +1,10 @@
+.question-wrapper {
+  display: flex;
+  align-items: end;
+
+  &__edit {
+    position: relative;
+    left: -60px;
+    top: 10px;
+  }
+}

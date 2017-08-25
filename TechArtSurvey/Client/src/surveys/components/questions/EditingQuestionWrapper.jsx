@@ -1,24 +1,26 @@
 import React, { Component } from 'react';
-import { Panel, Button, Radio } from 'react-bootstrap';
+import { Panel, Button, Checkbox, ButtonGroup } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 
 import { questionsFactory } from '../questionsFactory';
+
+import './EditingQuestionWrapper.scss';
 
 export class EditingQuestionWrapper extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      question : this.props.question,
+      question : {...this.props.question},
     };
   }
 
   handleOnQuestionUpdate = (question) => {
-    this.setState({ question });
+    this.setState({ question: {...question} });
   }
 
   handleOnSaveClick = () => {
-    this.props.handleOnQuestionSave(this.state.question);
+    this.props.handleOnQuestionSave({...this.state.question});
   }
 
   handleOnCancelClick = () => {
@@ -26,9 +28,9 @@ export class EditingQuestionWrapper extends Component {
   }
 
   handleOnRequiredClick = () => {
-    let { question } = this.state;
+    let question = this.state.question;
     question.isRequired = !question.isRequired;
-    this.setState({ question });
+    this.setState({ question: {...question} });
   }
 
   handleOnDeleteClick = () => {
@@ -36,15 +38,16 @@ export class EditingQuestionWrapper extends Component {
   }
 
   render = () => {
-    return (
-      <div>
-        <Panel>
-          <Radio onClick={this.handleOnRequiredClick} checked={this.state.question.isRequired}>
+    <div>
+     <Panel className="edit-question">
+        <div className="top-actions">
+        <Checkbox onClick={this.handleOnRequiredClick} checked={this.state.question.isRequired} className="top-actions__required">
           Required
-          </Radio>
-          <Button onClick={this.handleOnDeleteClick}>
+        </Checkbox>
+        <Button onClick={this.handleOnDeleteClick}>
           Delete
-          </Button>
+        </Button>
+      </div>
           {
             questionsFactory[this.props.question.type](
               this.props.question,
@@ -52,12 +55,15 @@ export class EditingQuestionWrapper extends Component {
               true,
             )
           }
-          <Button onClick={this.handleOnSaveClick}>
+      <ButtonGroup className="bottom-actions">
+        <Button onClick={this.handleOnSaveClick}>
           Save
-          </Button>
-          <Button onClick={this.handleOnCancelClick}>
+        </Button>
+        <Button onClick={this.handleOnCancelClick}>
           Cancel
-          </Button>
+        </Button>
+      </ButtonGroup>
+      </div>
         </Panel>
       </div>
     );
