@@ -5,10 +5,10 @@ import PropTypes from 'prop-types';
 import './NotificationPanel.scss';
 
 export const NotificationPanel = ({ title, children }) => (
-  <div className="panel-wrapper">
+  <div className="notification-panel">
     <Panel>
-      <h1 className="panel-wrapper__title">{title}</h1>
-      <div className="panel-wrapper__content">
+      <h1 className="notification-panel__title">{title}</h1>
+      <div className="notification-panel__content">
         {children}
       </div>
     </Panel>
