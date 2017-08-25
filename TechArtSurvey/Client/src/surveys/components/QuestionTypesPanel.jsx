@@ -26,5 +26,5 @@ export class QuestionTypesPanel extends Component {
 
 QuestionTypesPanel.propTypes = {
   questionTypesArray : PropTypes.array.isRequired,
-  handleOnTypeChange: PropTypes.func.isRequired,
+  handleOnTypeChange : PropTypes.func.isRequired,
 };

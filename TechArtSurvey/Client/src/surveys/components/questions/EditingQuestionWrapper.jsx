@@ -9,12 +9,12 @@ export class EditingQuestionWrapper extends Component {
     super(props);
 
     this.state = {
-      question: this.props.question,
+      question : this.props.question,
     };
   }
 
   handleOnQuestionUpdate = (question) => {
-    this.setState({question: question});
+    this.setState({ question });
   }
 
   handleOnSaveClick = () => {
@@ -26,9 +26,9 @@ export class EditingQuestionWrapper extends Component {
   }
 
   handleOnRequiredClick = () => {
-    var question = this.state.question;
+    let { question } = this.state;
     question.isRequired = !question.isRequired;
-    this.setState({question: question});
+    this.setState({ question });
   }
 
   handleOnDeleteClick = () => {
@@ -38,10 +38,10 @@ export class EditingQuestionWrapper extends Component {
   render = () =>
     <Panel>
       <Radio onClick={this.handleOnRequiredClick} checked={this.state.question.isRequired}>
-            Required
+        Required
       </Radio>
       <Button onClick={this.handleOnDeleteClick}>
-            Delete
+        Delete
       </Button>
       {
         questionsFactory[this.props.question.type](
@@ -60,8 +60,8 @@ export class EditingQuestionWrapper extends Component {
 }
 
 EditingQuestionWrapper.propTypes = {
-  handleOnQuestionSave: PropTypes.func.isRequired,
-  question: PropTypes.object.isRequired,
-  handleOnEditingQuestionIdChange: PropTypes.func.isRequired,
-  handleOnDeleteClick: PropTypes.func.isRequired,
+  handleOnQuestionSave : PropTypes.func.isRequired,
+  question : PropTypes.object.isRequired,
+  handleOnEditingQuestionIdChange : PropTypes.func.isRequired,
+  handleOnDeleteClick : PropTypes.func.isRequired,
 };

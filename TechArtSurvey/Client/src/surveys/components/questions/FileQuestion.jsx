@@ -3,7 +3,7 @@ import { Panel } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 
 export class FileQuestion extends Component {
-  constructor(props){
+  constructor(props) {
     super(props);
   }
 
@@ -17,13 +17,13 @@ export class FileQuestion extends Component {
   render = () => {
     return (
       <Panel>
-      fiiiile
+        fiiiile
       </Panel>
     );
   }
 }
 
 FileQuestion.propTypes = {
-  handleOnQuestionChange: PropTypes.func.isRequired,
-  question: PropTypes.object.isRequired,
+  handleOnQuestionChange : PropTypes.func.isRequired,
+  question : PropTypes.object.isRequired,
 };
