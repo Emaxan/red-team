@@ -35,28 +35,33 @@ export class EditingQuestionWrapper extends Component {
     this.props.handleOnDeleteClick();
   }
 
-  render = () =>
-    <Panel>
-      <Radio onClick={this.handleOnRequiredClick} checked={this.state.question.isRequired}>
-        Required
-      </Radio>
-      <Button onClick={this.handleOnDeleteClick}>
-        Delete
-      </Button>
-      {
-        questionsFactory[this.props.question.type](
-          this.props.question,
-          this.handleOnQuestionUpdate,
-          true,
-        )
-      }
-      <Button onClick={this.handleOnSaveClick}>
-        Save
-      </Button>
-      <Button onClick={this.handleOnCancelClick}>
-        Cancel
-      </Button>
-    </Panel>
+  render = () => {
+    return (
+      <div>
+        <Panel>
+          <Radio onClick={this.handleOnRequiredClick} checked={this.state.question.isRequired}>
+          Required
+          </Radio>
+          <Button onClick={this.handleOnDeleteClick}>
+          Delete
+          </Button>
+          {
+            questionsFactory[this.props.question.type](
+              this.props.question,
+              this.handleOnQuestionUpdate,
+              true,
+            )
+          }
+          <Button onClick={this.handleOnSaveClick}>
+          Save
+          </Button>
+          <Button onClick={this.handleOnCancelClick}>
+          Cancel
+          </Button>
+        </Panel>
+      </div>
+    );
+  };
 }
 
 EditingQuestionWrapper.propTypes = {
