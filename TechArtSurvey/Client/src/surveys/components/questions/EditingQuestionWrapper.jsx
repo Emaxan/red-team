@@ -28,7 +28,7 @@ export class EditingQuestionWrapper extends Component {
   }
 
   handleOnRequiredClick = () => {
-    let question = this.state.question;
+    let { question } = this.state;
     question.isRequired = !question.isRequired;
     this.setState({ question: {...question} });
   }
@@ -51,7 +51,9 @@ export class EditingQuestionWrapper extends Component {
         questionsFactory[this.props.question.type](
           this.props.question,
           this.handleOnQuestionUpdate,
-          true,
+          {
+            editing : this.props.editing,
+          },
         )
       }
       <ButtonGroup className="bottom-actions">
@@ -70,4 +72,5 @@ EditingQuestionWrapper.propTypes = {
   question : PropTypes.object.isRequired,
   handleOnEditingQuestionIdChange : PropTypes.func.isRequired,
   handleOnDeleteClick : PropTypes.func.isRequired,
+  editing : PropTypes.bool.isRequired,
 };

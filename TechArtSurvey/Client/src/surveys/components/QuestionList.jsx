@@ -76,6 +76,7 @@ export class QuestionList extends Component {
               handleOnQuestionSave={this.handleOnQuestionSave}
               handleOnEditingQuestionIdChange={this.handleOnEditingQuestionIdChange}
               handleOnDeleteClick={this.handleOnDeleteClick}
+              editing
             />;
           })
         }

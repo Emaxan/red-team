@@ -4,7 +4,13 @@
 
   &__edit {
     position: relative;
-    left: -60px;
+    left: -30px;
     top: 10px;
+  }
+
+  & .panel {
+    width: 100%;
+    margin-left: 20px;
+    margin-right: -30px;
   }
 }
