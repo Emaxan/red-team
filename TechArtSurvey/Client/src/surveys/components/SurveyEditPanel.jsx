@@ -67,7 +67,7 @@ export class SurveyEditPanel extends Component {
     if(pageNumber == this.state.editingPageNumber) {
       return;
     }
-    this.setState({ editingPageNumber : pageNumber + 1, editingQuestionId : -1 });
+    this.setState({ editingPageNumber : pageNumber, editingQuestionId : -1 });
   }
 
   handleOnAddPageClick = () => {
@@ -120,7 +120,7 @@ export class SurveyEditPanel extends Component {
             <Nav bsStyle="tabs" justified>
               {
                 this.state.survey.pages.map((page, index) => (
-                  <NavItem key={index} eventKey={index} onSelect={this.handleOnPageSwitch}>Page {index + 1}</NavItem>
+                  <NavItem key={index} eventKey={index + 1} onSelect={this.handleOnPageSwitch}>Page {index + 1}</NavItem>
                 ))
               }
             </Nav>
