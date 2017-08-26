@@ -16,7 +16,6 @@ export class SingleQuestion extends Component {
       title : this.props.question.title,
       isRequired : this.props.question.isRequired,
       metaInfo : metaInfo,
-      number : this.props.question.number,
     };
   }
 

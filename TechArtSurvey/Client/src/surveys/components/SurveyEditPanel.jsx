@@ -5,7 +5,6 @@ import PropTypes from 'prop-types';
 import { questionTypesArray } from './questionTypesPresentation';
 import { QuestionTypesPanel } from './QuestionTypesPanel';
 import { QuestionList } from './QuestionList';
-import { changeType } from './service';
 import Page from '../models/Page';
 
 import './SurveyEditPanel.scss';
@@ -17,6 +16,7 @@ export class SurveyEditPanel extends Component {
     this.state = {
       editingPageNumber : 1,
       editingQuestionId : -1,
+      newEditingQuestionType: null,
       survey : {
         title : this.props.survey.title,
         pages : this.props.survey.pages,
@@ -37,52 +37,62 @@ export class SurveyEditPanel extends Component {
   }
 
   handleOnQuestionsArraySave = (questions) => {
-    let pages = this.state.survey.pages;
+    let pages = this.state.survey.pages.map(q => ({...q}));
     pages[this.state.editingPageNumber - 1].questions = questions;
-    this.setState({ survey : { ...this.state.survey.pages, pages } });
+    this.setState({
+      survey : { ...this.state.survey, pages : pages },
+      newEditingQuestionType : null,
+    });
   }
 
   handleOnTypeChange = (type) => {
-    if (this.state.editingQuestionId !== -1) {
-      let pages = this.state.survey.pages;
-      let questions = pages[this.state.editingPageNumber - 1].questions;
-      let index = questions.findIndex(q => q.id == this.state.editingQuestionId);
-
-      let oldQuestion = questions[index];
-      let newQuestion = changeType(oldQuestion, type);
-
-      if(newQuestion !== null) {
-        questions[index] = newQuestion;
-        pages[this.state.editingPageNumber - 1].questions = questions;
-        this.setState({ survey : {...this.state.survey.pages, pages} });
-      }
+    if (this.state.editingQuestionId === -1) {
+      return;
     }
+    this.setState({ newEditingQuestionType : type });
   }
 
   handleOnEditingQuestionIdChange = (id) => {
-    this.setState({ editingQuestionId : id });
+    this.setState({
+      editingQuestionId : id,
+      newEditingQuestionType : null,
+    });
   }
 
   handleOnPageSwitch = (pageNumber) => {
     if(pageNumber == this.state.editingPageNumber) {
       return;
     }
-    this.setState({ editingPageNumber : pageNumber, editingQuestionId : -1 });
+    this.setState({
+      editingPageNumber : pageNumber,
+      editingQuestionId : -1,
+      newEditingQuestionType : null,
+    });
   }
 
   handleOnAddPageClick = () => {
-    let pages = this.state.survey.pages;
+    let pages = this.state.survey.pages.map(q => ({...q}));
     pages.push(new Page());
-    this.setState({ editingPageNumber : pages.length, editingQuestionId : -1, survey : { ...this.state.survey.pages, pages } });
+    this.setState({
+      editingPageNumber : pages.length,
+      editingQuestionId : -1,
+      newEditingQuestionType : null,
+      survey : { ...this.state.survey, pages : pages },
+    });
   }
 
   handleOnPageDeleteClick = () => {
-    let pages = this.state.survey.pages;
+    let pages = this.state.survey.pages.map(q => ({...q}));
     if(pages.length == 1) {
       return;
     }
     pages.splice(this.state.editingPageNumber - 1, 1);
-    this.setState({ editingPageNumber: 1, editingQuestionId: -1, survey: { ...this.state.survey.pages, pages } });
+    this.setState({
+      editingPageNumber: 1,
+      editingQuestionId: -1,
+      newEditingQuestionType : null,
+      survey: { ...this.state.survey, pages : pages },
+    });
   }
 
   render = () => {
@@ -129,7 +139,8 @@ export class SurveyEditPanel extends Component {
               questions={this.state.survey.pages[this.state.editingPageNumber - 1].questions}
               handleOnEditingQuestionIdChange={this.handleOnEditingQuestionIdChange}
               handleOnQuestionsArraySave={this.handleOnQuestionsArraySave}
-              editingQuestionId = {this.state.editingQuestionId}
+              editingQuestionId={this.state.editingQuestionId}
+              newEditingQuestionType={this.state.newEditingQuestionType}
             />
           </Form>
         </Panel>

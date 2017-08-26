@@ -6,13 +6,14 @@ export const changeType = (oldQuestion, type) => {
     return null;
   }
 
-  var newQuestion = new Question(oldQuestion.id, type, oldQuestion.text, oldQuestion.isRequired);
+  var newQuestion = new Question(oldQuestion.id, type, oldQuestion.title, oldQuestion.isRequired);
   if ((oldQuestion.type == questionTypes.SINGLE_ANSWER
       || oldQuestion.type == questionTypes.MULTIPLE_ANSWER)
       && (type == questionTypes.SINGLE_ANSWER
       || type == questionTypes.MULTIPLE_ANSWER))
   {
-    newQuestion.metaInfo = oldQuestion.metaInfo;
+    let metaInfo = oldQuestion.metaInfo.map(m => m);
+    newQuestion.metaInfo = metaInfo;
   }
 
   return newQuestion;

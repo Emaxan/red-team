@@ -8,35 +8,46 @@ export class MultipleQuestion extends Component {
   constructor(props) {
     super(props);
 
+    let metaInfo = this.props.question.metaInfo.map(m => m);
+
     this.state = {
       id : this.props.question.id,
       type : this.props.question.type,
       title : this.props.question.title,
       isRequired : this.props.question.isRequired,
-      options : this.props.question.metaInfo,
-      number : this.props.question.number,
+      metaInfo : metaInfo,
     };
   }
 
   handleOnTitleChange = (event) => {
-    this.setState({ title : event.target.value });
+    let title = event.target.value;
+    this.setState({ title : title });
+    let question = {...this.state};
+    question.title = title;
+    this.props.handleOnQuestionUpdate(question);
   }
 
   handleOnOptionChange = (optionId, value) => {
-    let { options } = this.state;
-    options[optionId] = value;
-    this.setState({ options });
+    let metaInfo = this.state.metaInfo.map(m => m);
+    metaInfo[optionId] = value;
+    this.setState({ metaInfo : metaInfo });
+    let question = {...this.state};
+    question.metaInfo = metaInfo;
+    this.props.handleOnQuestionUpdate(question);
   }
 
   handleOnAddOption = () => {
-    let { options } = this.state;
-    options.push('');
-    this.setState({ options });
+    let metaInfo = this.state.metaInfo.map(m => m);
+    metaInfo.push('');
+    this.setState({ metaInfo : metaInfo });
+    let question = {...this.state};
+    question.metaInfo = metaInfo;
+    this.props.handleOnQuestionUpdate(question);
   }
 
   render = () => {
     return (
-      <Panel>
+      <Panel>xxxxxxxxxxx
         <FormGroup>
           <Col sm={10} smOffset={1}>
             {
@@ -58,7 +69,7 @@ export class MultipleQuestion extends Component {
         </FormGroup>
 
         {
-          this.state.options.map((option, i) => {
+          this.state.metaInfo.map((option, i) => {
             return (
               <FormGroup key={i}>
                 <Col sm={8} smOffset={1}>
@@ -102,7 +113,7 @@ export class MultipleQuestion extends Component {
 
 MultipleQuestion.propTypes = {
   question: PropTypes.object.isRequired,
-  handleOnQuestionChange: PropTypes.func.isRequired,
+  handleOnQuestionUpdate: PropTypes.func.isRequired,
   editing : PropTypes.bool,
 };
 
