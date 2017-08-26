@@ -21,22 +21,29 @@ export class SingleQuestion extends Component {
   }
 
   handleOnTitleChange = (event) => {
-    this.setState({ title : event.target.value });
-    this.props.handleOnQuestionUpdate(this.state);
+    let title = event.target.value;
+    this.setState({ title : title });
+    let question = {...this.state};
+    question.title = title;
+    this.props.handleOnQuestionUpdate(question);
   }
 
   handleOnOptionChange = (optionId, value) => {
     let metaInfo = this.state.metaInfo.map(m => m);
     metaInfo[optionId] = value;
     this.setState({ metaInfo : metaInfo });
-    this.props.handleOnQuestionUpdate(this.state);
+    let question = {...this.state};
+    question.metaInfo = metaInfo;
+    this.props.handleOnQuestionUpdate(question);
   }
 
   handleOnAddOption = () => {
     let metaInfo = this.state.metaInfo.map(m => m);
     metaInfo.push('');
     this.setState({ metaInfo : metaInfo });
-    this.props.handleOnQuestionUpdate(this.state);
+    let question = {...this.state};
+    question.metaInfo = metaInfo;
+    this.props.handleOnQuestionUpdate(question);
   }
 
   render = () => {
