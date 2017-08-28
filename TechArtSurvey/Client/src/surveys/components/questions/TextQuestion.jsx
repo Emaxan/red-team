@@ -62,8 +62,9 @@ export class TextQuestion extends Component {
                   />
                 ) :
                 (
-                  <FormControl
-                    type='text'
+                  <textarea
+                    className="form-control"
+                    rows="5"
                     name={this.state.title}
                     placeholder={this.state.options}
                     onChange={(e) => this.handleOnOptionChange(0, e.target.value)}
