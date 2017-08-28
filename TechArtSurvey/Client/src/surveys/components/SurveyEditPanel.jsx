@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
-import { Form, Col, Panel, FormGroup, FormControl, ControlLabel, Button, NavItem, Nav, ButtonGroup } from 'react-bootstrap';
+import { Form, Col, Panel, FormGroup, FormControl, ControlLabel, Button, ButtonGroup } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 
 import { questionTypesArray } from './questionTypesPresentation';
 import { QuestionTypesPanel } from './QuestionTypesPanel';
 import { QuestionList } from './QuestionList';
 import Page from '../models/Page';
+import { PageNavigator } from './PageNavigator';
 
 import './SurveyEditPanel.scss';
 
@@ -60,9 +61,6 @@ export class SurveyEditPanel extends Component {
   }
 
   handleOnPageSwitch = (pageNumber) => {
-    if(pageNumber == this.state.editingPageNumber) {
-      return;
-    }
     this.setState({
       editingPageNumber : pageNumber,
       editingQuestionNumber : -1,
@@ -81,24 +79,9 @@ export class SurveyEditPanel extends Component {
     });
   }
 
-  handleOnPageDeleteClick = () => {
-    let pages = this.state.survey.pages.map(p => ({...p}));
-    if(pages.length == 1) {
-      return;
-    }
-    pages.splice(this.state.editingPageNumber - 1, 1);
-    this.setState({
-      editingPageNumber: 1,
-      editingQuestionNumber: -1,
-      newEditingQuestionType : null,
-      survey: { ...this.state.survey, pages : pages },
-    });
-  }
-
-  handleOnPageTitleChange = (event) => {
-    let pages = this.state.survey.pages.map(p => ({...p}));
-    pages[this.state.editingPageNumber - 1].title = event.target.value;
-    this.setState({ survey : { ...this.state.survey, pages : pages }});
+  handleOnPagesUpdate = (pages) => {
+    let newPages = pages.map(p => ({...p}));
+    this.setState({ survey : { ...this.state.survey, pages : newPages } });
   }
 
   render = () => {
@@ -133,29 +116,12 @@ export class SurveyEditPanel extends Component {
                 New page
               </Button>
             </ButtonGroup>
-            <Nav bsStyle="tabs" justified>
-              {
-                this.state.survey.pages.map((page, index) => (
-                  <NavItem key={index} eventKey={index + 1} onSelect={this.handleOnPageSwitch}>Page {index + 1}</NavItem>
-                ))
-              }
-            </Nav>
-            <div className="page-control">
-              <FormGroup className="page-form-group" controlNumber="page" >
-                <Col componentClass={ControlLabel} sm={2}>
-                New page
-                </Col>
-                <Col sm={10}>
-                  <FormControl
-                    type="text"
-                    value={this.state.survey.pages[this.state.editingPageNumber - 1].title}
-                    placeholder="Enter page title"
-                    onChange={this.handleOnPageTitleChange}
-                  />
-                </Col>
-              </FormGroup>
-              <Button onClick={this.handleOnPageDeleteClick}>Delete</Button>
-            </div>
+            <PageNavigator
+              handleOnPagesUpdate={this.handleOnPagesUpdate}
+              handleOnPageSwitch={this.handleOnPageSwitch}
+              pages={this.state.survey.pages}
+              editingPageNumber={this.state.editingPageNumber}
+            />
             <QuestionList
               questions={this.state.survey.pages[this.state.editingPageNumber - 1].questions}
               handleOnEditingQuestionNumberChange={this.handleOnEditingQuestionNumberChange}
