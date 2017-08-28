@@ -47,7 +47,7 @@ export class MultipleQuestion extends Component {
 
   render = () => {
     return (
-      <Panel>xxxxxxxxxxx
+      <Panel>
         <FormGroup>
           <Col sm={10} smOffset={1}>
             {

@@ -23,8 +23,8 @@ export class EditingQuestionWrapper extends Component {
   handleOnQuestionUpdate = (question) => {
     let metaInfo = [];
     question.metaInfo.map(m => {
-      if(m && m.length > 0) {
-        metaInfo.push(m);
+      if(m && m.trim().length > 0) {
+        metaInfo.push(m.trim());
       }
     });
     question.metaInfo = metaInfo;
@@ -34,9 +34,10 @@ export class EditingQuestionWrapper extends Component {
   handleOnSaveClick = () => {
     let question = {...this.state.question};
     let metaInfo = [];
+    question.title = question.title.trim();
     question.metaInfo.map(m => {
-      if(m && m.length > 0) {
-        metaInfo.push(m);
+      if(m && m.trim().length > 0) {
+        metaInfo.push(m.trim());
       }
     });
     question.metaInfo = metaInfo;
