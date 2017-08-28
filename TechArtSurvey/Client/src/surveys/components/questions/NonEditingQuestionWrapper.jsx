@@ -15,6 +15,11 @@ export class NonEditingQuestionWrapper extends Component {
     };
   }
 
+  componentWillReceiveProps = (props) => {
+    let question = {...props.question};
+    this.setState({ question : question });
+  }
+
   handleOnEditClick = () => {
     this.props.handleOnEditingQuestionIdChange(this.state.question.id);
   }

@@ -15,12 +15,33 @@ export class EditingQuestionWrapper extends Component {
     };
   }
 
+  componentWillReceiveProps = (props) => {
+    let type = props.question.type;
+    this.setState({ question : { ...this.state.question, type : type } });
+  }
+
   handleOnQuestionUpdate = (question) => {
+    let metaInfo = [];
+    question.metaInfo.map(m => {
+      if(m && m.length > 0) {
+        metaInfo.push(m);
+      }
+    });
+    question.metaInfo = metaInfo;
     this.setState({ question: {...question} });
   }
 
   handleOnSaveClick = () => {
-    this.props.handleOnQuestionSave({...this.state.question});
+    let question = {...this.state.question};
+    let metaInfo = [];
+    question.metaInfo.map(m => {
+      if(m && m.length > 0) {
+        metaInfo.push(m);
+      }
+    });
+    question.metaInfo = metaInfo;
+    this.setState({ question: {...question} });
+    this.props.handleOnQuestionSave({...question});
   }
 
   handleOnCancelClick = () => {
@@ -49,8 +70,8 @@ export class EditingQuestionWrapper extends Component {
           </Button>
         </div>
         {
-          questionsFactory[this.props.question.type](
-            this.props.question,
+          questionsFactory[this.state.question.type](
+            this.state.question,
             this.handleOnQuestionUpdate,
             {
               editing : this.props.editing,

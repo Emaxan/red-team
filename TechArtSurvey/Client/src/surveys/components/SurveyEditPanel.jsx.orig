@@ -4,7 +4,12 @@ import PropTypes from 'prop-types';
 
 import { questionTypesArray } from './questionTypesPresentation';
 import { QuestionTypesPanel } from './QuestionTypesPanel';
+<<<<<<< HEAD
 import QuestionList from './QuestionList';
+import { changeType } from './service';
+=======
+import { QuestionList } from './QuestionList';
+>>>>>>> client/feature/newSurvey
 import Page from '../models/Page';
 
 import './SurveyEditPanel.scss';
