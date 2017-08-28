@@ -14,14 +14,9 @@ namespace RedTeam.TechArtSurvey.Foundation.Identity.Managers
     [UsedImplicitly]
     public class ApplicationUserManager : UserManager<User, int>
     {
-        private readonly IApplicationUserStore _store;
-
-
         public ApplicationUserManager(IApplicationUserStore store)
                 : base(store)
         {
-            _store = store;
-
             UserValidator = new UserValidator<User, int>(this)
             {
                 AllowOnlyAlphanumericUserNames = false,
