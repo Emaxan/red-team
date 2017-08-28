@@ -85,7 +85,7 @@ export class SingleQuestion extends Component {
                         />
                       ) :
                       (
-                        <Radio number={`${this.state.number}.${i}`} name={this.state.title}>
+                        <Radio id={`${this.state.number}.${i}`} name={this.state.title}>
                           <label htmlFor={`${this.state.number}.${i}`} className="option">{option}</label>
                         </Radio>
                       )
