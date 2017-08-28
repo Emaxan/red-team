@@ -7,13 +7,10 @@ import update from 'immutability-helper';
 
 import { NonEditingQuestionWrapper } from './questions/NonEditingQuestionWrapper';
 import { EditingQuestionWrapper } from './questions/EditingQuestionWrapper';
-import { getLastId } from './service';
+import { getLastNumber } from './service';
 import Question from '../models/Question';
-<<<<<<< HEAD
 import DraggableQuestion from './DraggableQuestion';
-=======
 import { changeType } from './service';
->>>>>>> client/feature/newSurvey
 
 class QuestionList extends Component {
   constructor(props) {
@@ -23,11 +20,11 @@ class QuestionList extends Component {
 
     this.state = {
       questions : questions,
-      editingQuestionId : -1,
+      editingQuestionNumber : -1,
     };
 
     this.questionsBuffer = this.props.questions.map(q => ({...q}));
-    this.lastId = getLastId(this.state.questions);
+    this.lastNumber = getLastNumber(this.state.questions);
   }
 
   componentWillReceiveProps = (props) => {
@@ -37,13 +34,17 @@ class QuestionList extends Component {
     if(newQuestions) {
       this.questionsBuffer = newQuestions;
     }
-    this.setState({ questions : questions, editingQuestionId : props.editingQuestionId });
+    this.setState({ questions : questions, editingQuestionNumber : props.editingQuestionNumber });
   }
 
-<<<<<<< HEAD
   moveQuestion = (dragIndex, hoverIndex) => {
-    const { questions } = this.state;
+    const { questions } = this.questionsBuffer; //deep copy array
+    //const { questions } = this.state;
     const dragQuestion = questions[dragIndex];
+
+    console.log(`moveQuestion, dragIndex = ${dragIndex}, hoverIndex = ${hoverIndex}`);
+
+    //change buffer
 
     this.setState(update(this.state, {
       questions: {
@@ -53,17 +54,15 @@ class QuestionList extends Component {
         ],
       },
     }));
-  }
 
-  handleOnEditingQuestionChange = (id) => {
-    this.setState({ editingQuestionId : id });
-=======
+    this.questionsBuffer = this.state.questions;
+  }
   checkIfEditingQuestionTypeChanged = (oldQuestions, type) => {
     if(!type || type.length === 0) {
       return null;
     }
     let questions = oldQuestions.map(q => ({...q}));
-    let index = questions.findIndex(q => q.id == this.state.editingQuestionId);
+    let index = questions.findIndex(q => q.number == this.state.editingQuestionNumber);
     let oldQuestion = {...questions[index]};
     let newQuestion = changeType(oldQuestion, type);
 
@@ -73,40 +72,39 @@ class QuestionList extends Component {
     questions[index] = newQuestion;
 
     return questions;
->>>>>>> client/feature/newSurvey
   }
 
   handleOnAddQuestionBtnClick = () => {
     let questions = this.state.questions.map(q => ({...q}));
-    questions.push(new Question(++this.lastId));
-    this.setState({ editingQuestionId : this.lastId, questions : questions });
+    questions.push(new Question(++this.lastNumber));
+    this.setState({ editingQuestionNumber : this.lastNumber, questions : questions });
     this.props.handleOnQuestionsArraySave(questions);
-    this.props.handleOnEditingQuestionIdChange(this.lastId);
+    this.props.handleOnEditingQuestionNumberChange(this.lastNumber);
   }
 
   handleOnDeleteClick = () => {
     let questions = this.state.questions.map(q => ({...q}));
-    let index = questions.findIndex(q => q.id == this.state.editingQuestionId);
+    let index = questions.findIndex(q => q.number == this.state.editingQuestionNumber);
     questions.splice(index, 1);
-    this.setState({ editingQuestionId : -1, questions : questions });
+    this.setState({ editingQuestionNumber : -1, questions : questions });
     this.props.handleOnQuestionsArraySave(questions);
-    this.props.handleOnEditingQuestionIdChange(-1);
+    this.props.handleOnEditingQuestionNumberChange(-1);
   }
 
   handleOnQuestionSave = (question) => {
     let questions = this.questionsBuffer.map(q => ({...q}));
-    let index = questions.findIndex(q => q.id == this.state.editingQuestionId);
+    let index = questions.findIndex(q => q.number == this.state.editingQuestionNumber);
     questions[index] = question;
-    this.setState({ editingQuestionId : -1, questions : questions });
+    this.setState({ editingQuestionNumber : -1, questions : questions });
     this.props.handleOnQuestionsArraySave(questions);
-    this.props.handleOnEditingQuestionIdChange(-1);
+    this.props.handleOnEditingQuestionNumberChange(-1);
   }
 
-  handleOnEditingQuestionIdChange = (id) => {
-    this.setState({ editingQuestionId : id });
+  handleOnEditingQuestionNumberChange = (number) => {
+    this.setState({ editingQuestionNumber : number });
     let resetBuffer = this.state.questions.map(q => ({...q}));
     this.questionsBuffer = resetBuffer;
-    this.props.handleOnEditingQuestionIdChange(id);
+    this.props.handleOnEditingQuestionNumberChange(number);
   }
 
   render = () => {
@@ -114,6 +112,7 @@ class QuestionList extends Component {
       <div>
         {
           this.questionsBuffer.map((question, index) => {
+<<<<<<< HEAD
             if(this.state.editingQuestionId != question.id) {
               return (
                 <DraggableQuestion
@@ -149,6 +148,25 @@ class QuestionList extends Component {
                 />
               </DraggableQuestion>
             );
+=======
+            if(this.state.editingQuestionNumber != question.number) {
+              return <NonEditingQuestionWrapper
+                key={index}
+                question={question}
+                handleOnQuestionSave={this.handleOnQuestionSave}
+                handleOnEditingQuestionNumberChange={this.handleOnEditingQuestionNumberChange}
+              />;
+            }
+
+            return <EditingQuestionWrapper
+              key={index}
+              question={question}
+              handleOnQuestionSave={this.handleOnQuestionSave}
+              handleOnEditingQuestionNumberChange={this.handleOnEditingQuestionNumberChange}
+              handleOnDeleteClick={this.handleOnDeleteClick}
+              editing
+            />;
+>>>>>>> client/feature/newSurvey
           })
         }
         <Button onClick={this.handleOnAddQuestionBtnClick}>Add question</Button>
@@ -160,8 +178,8 @@ class QuestionList extends Component {
 QuestionList.propTypes = {
   questions : PropTypes.array.isRequired,
   handleOnQuestionsArraySave : PropTypes.func.isRequired,
-  handleOnEditingQuestionIdChange : PropTypes.func.isRequired,
-  editingQuestionId : PropTypes.number.isRequired,
+  handleOnEditingQuestionNumberChange : PropTypes.func.isRequired,
+  editingQuestionNumber : PropTypes.number.isRequired,
   newEditingQuestionType: PropTypes.string,
 };
 
