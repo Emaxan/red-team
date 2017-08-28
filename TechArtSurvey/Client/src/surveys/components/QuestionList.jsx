@@ -26,7 +26,12 @@ export class QuestionList extends Component {
 
   componentWillReceiveProps = (props) => {
     let questions = props.questions.map(q => ({...q}));
-    let questionsBuffer = props.questions.map(q => ({...q}));
+    let questionsBuffer = props.questions.map(question => {
+      let newQuestion = {...question};
+      newQuestion.metaInfo = question.metaInfo.map(m => m);
+      return newQuestion;
+    });
+
     let newQuestions = this.checkIfEditingQuestionTypeChanged(questions, props.newEditingQuestionType);
     if(newQuestions) {
       questionsBuffer = newQuestions;
