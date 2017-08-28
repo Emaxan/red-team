@@ -30,11 +30,9 @@ namespace RedTeam.TechArtSurvey.Foundation
             }
 
             var result = await GetPasswordResetTokenAsync(user.Id);
-            string passwordResetToken = result.Content as string;
+            string passwordResetToken = result.Content;
 
-            result = await SendConfirmationEmailAsync(user.Id, passwordResetToken, forgotPasswordDto.CallbackUrl);
-
-            return result;
+            return await SendConfirmationEmailAsync(user.Id, passwordResetToken, forgotPasswordDto.CallbackUrl);
         }
 
         public async Task<IServiceResponse> CheckPasswordResetTokenAsync(ResetPasswordDto resetPasswordDto)
@@ -48,7 +46,7 @@ namespace RedTeam.TechArtSurvey.Foundation
 
             if (result)
             {
-                return ServiceResponse.CreateSuccessful(ServiceResponseCode.Ok);
+                return ServiceResponse.CreateSuccessful();
             }
 
             return ServiceResponse.CreateUnsuccessful(ServiceResponseCode.ResetPasswordTokenInvalid);
@@ -65,14 +63,14 @@ namespace RedTeam.TechArtSurvey.Foundation
 
             if (result.Succeeded)
             {
-                return ServiceResponse.CreateSuccessful(ServiceResponseCode.Ok);
+                return ServiceResponse.CreateSuccessful();
             }
 
             return ServiceResponse.CreateUnsuccessful(ServiceResponseCode.ResetPasswordTokenInvalid);
         }
 
 
-        private async Task<IServiceResponse> GetPasswordResetTokenAsync(int userId)
+        private async Task<IServiceResponse<string>> GetPasswordResetTokenAsync(int userId)
         {
             LoggerContext.Logger.Info("Generate password reset token");
 
@@ -91,7 +89,7 @@ namespace RedTeam.TechArtSurvey.Foundation
                 $"Please reset your password by using this <a href='{callbackUrl}/{userId}/{resetPasswordToken}'>link</a>"
             );
 
-            return ServiceResponse.CreateSuccessful(ServiceResponseCode.Ok);
+            return ServiceResponse.CreateSuccessful();
         }
     }
 }
