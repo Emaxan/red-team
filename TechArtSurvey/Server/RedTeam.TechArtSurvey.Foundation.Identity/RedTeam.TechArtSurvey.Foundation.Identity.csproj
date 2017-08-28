@@ -59,9 +59,7 @@
       <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
     </Reference>
     <Reference Include="System" />
-    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Managers\ApplicationRoleManager.cs" />
@@ -86,10 +84,6 @@
     <ProjectReference Include="..\RedTeam.TechArtSurvey.DomainModel\RedTeam.TechArtSurvey.DomainModel.csproj">
       <Project>{CBA1E0F8-A057-4782-82DE-162668F2B074}</Project>
       <Name>RedTeam.TechArtSurvey.DomainModel</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\RedTeam.TechArtSurvey.Foundation.Interfaces\RedTeam.TechArtSurvey.Foundation.Interfaces.csproj">
-      <Project>{CDF233FB-754D-41FE-8F6C-B41F40AA680A}</Project>
-      <Name>RedTeam.TechArtSurvey.Foundation.Interfaces</Name>
     </ProjectReference>
     <ProjectReference Include="..\RedTeam.TechArtSurvey.Repositories.Interfaces\RedTeam.TechArtSurvey.Repositories.Interfaces.csproj">
       <Project>{A92EAE24-D485-4F0D-B77F-EB485A7FCBE3}</Project>
