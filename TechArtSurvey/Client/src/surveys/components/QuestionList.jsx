@@ -38,8 +38,13 @@ class QuestionList extends Component {
   }
 
   moveQuestion = (dragIndex, hoverIndex) => {
-    const { questions } = this.state;
+    const { questions } = this.questionsBuffer; //deep copy array
+    //const { questions } = this.state;
     const dragQuestion = questions[dragIndex];
+
+    console.log(`moveQuestion, dragIndex = ${dragIndex}, hoverIndex = ${hoverIndex}`);
+
+    //change buffer
 
     this.setState(update(this.state, {
       questions: {
@@ -49,6 +54,8 @@ class QuestionList extends Component {
         ],
       },
     }));
+
+    this.questionsBuffer = this.state.questions;
   }
   checkIfEditingQuestionTypeChanged = (oldQuestions, type) => {
     if(!type || type.length === 0) {
