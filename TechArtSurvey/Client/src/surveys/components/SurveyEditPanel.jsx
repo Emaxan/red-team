@@ -82,7 +82,7 @@ export class SurveyEditPanel extends Component {
   }
 
   handleOnPageDeleteClick = () => {
-    let pages = this.state.survey.pages.map(q => ({...q}));
+    let pages = this.state.survey.pages.map(p => ({...p}));
     if(pages.length == 1) {
       return;
     }
@@ -93,6 +93,12 @@ export class SurveyEditPanel extends Component {
       newEditingQuestionType : null,
       survey: { ...this.state.survey, pages : pages },
     });
+  }
+
+  handleOnPageTitleChange = (event) => {
+    let pages = this.state.survey.pages.map(p => ({...p}));
+    pages[this.state.editingPageNumber - 1].title = event.target.value;
+    this.setState({ survey : { ...this.state.survey, pages : pages }});
   }
 
   render = () => {
@@ -134,7 +140,22 @@ export class SurveyEditPanel extends Component {
                 ))
               }
             </Nav>
-            <Button onClick={this.handleOnPageDeleteClick}>Delete</Button>
+            <div className="page-control">
+              <FormGroup className="page-form-group" controlNumber="page" >
+                <Col componentClass={ControlLabel} sm={2}>
+                New page
+                </Col>
+                <Col sm={10}>
+                  <FormControl
+                    type="text"
+                    value={this.state.survey.pages[this.state.editingPageNumber - 1].title}
+                    placeholder="Enter page title"
+                    onChange={this.handleOnPageTitleChange}
+                  />
+                </Col>
+              </FormGroup>
+              <Button onClick={this.handleOnPageDeleteClick}>Delete</Button>
+            </div>
             <QuestionList
               questions={this.state.survey.pages[this.state.editingPageNumber - 1].questions}
               handleOnEditingQuestionNumberChange={this.handleOnEditingQuestionNumberChange}
