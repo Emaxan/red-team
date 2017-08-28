@@ -33,19 +33,7 @@ namespace RedTeam.TechArtSurvey.WebApi.Users
         [AllowAnonymous]
         public async Task<IServiceResponse> ForgotPassword(ForgotPasswordDto forgotPasswordDto)
         {
-            var result = await _userService.GetByEmailAsync(forgotPasswordDto.Email);
-            if (result.Code != ServiceResponseCode.Ok)
-            {
-                return result;
-            }
-
-            var user = result.Content as EditUserDto;
-            result = await _resetPasswordService.GetPasswordResetTokenAsync(user.Id);
-
-            string passwordResetToken = result.Content as string;
-            result = await _resetPasswordService.SendConfirmationEmailAsync(user.Id, passwordResetToken, forgotPasswordDto.CallbackUrl);
-
-            return result;
+            return await _resetPasswordService.SendResetPasswordMessageAsync(forgotPasswordDto);
         }
 
         [Route("check_token")]
@@ -53,9 +41,7 @@ namespace RedTeam.TechArtSurvey.WebApi.Users
         [AllowAnonymous]
         public async Task<IServiceResponse> CheckPasswordResetToken(ResetPasswordDto resetPasswordDto)
         {
-            return await _resetPasswordService.CheckPasswordResetTokenAsync(
-                resetPasswordDto.UserId,
-                resetPasswordDto.ResetPasswordToken);
+            return await _resetPasswordService.CheckPasswordResetTokenAsync(resetPasswordDto);
         }
 
         [Route("reset_password")]
@@ -63,10 +49,7 @@ namespace RedTeam.TechArtSurvey.WebApi.Users
         [AllowAnonymous]
         public async Task<IServiceResponse> ResetPassword(ResetPasswordDto resetPasswordDto)
         {
-            return await _resetPasswordService.ResetUserPasswordAsync(
-                resetPasswordDto.UserId,
-                resetPasswordDto.ResetPasswordToken,
-                resetPasswordDto.NewPassword);
+            return await _resetPasswordService.ResetUserPasswordAsync(resetPasswordDto);
         }
     }
 }
