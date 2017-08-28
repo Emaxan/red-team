@@ -90,6 +90,18 @@ export class SurveyEditPanel extends Component {
     this.setState({ survey : { ...this.state.survey, settings : newSettings } });
   }
 
+  getEditingQuestionType() {
+    if(this.state.editingQuestionNumber === -1) {
+      return null;
+    }
+    if(this.state.newEditingQuestionType) {
+      return this.state.newEditingQuestionType;
+    }
+    let questions = this.state.survey.pages[this.state.editingPageNumber - 1].questions;
+    let index = questions.findIndex(q => q.number == this.state.editingQuestionNumber);
+    return questions[index].type;
+  }
+
   render = () => {
     return (
       <div className="survey-edit-panel">
@@ -142,6 +154,7 @@ export class SurveyEditPanel extends Component {
             <QuestionTypesPanel
               handleOnTypeChange={this.handleOnTypeChange}
               questionTypesArray={questionTypesArray}
+              editingQuestionType={this.getEditingQuestionType()}
             />
             <ParamsPanel
               handleOnSettingsChange={this.handleOnSettingsChange}
