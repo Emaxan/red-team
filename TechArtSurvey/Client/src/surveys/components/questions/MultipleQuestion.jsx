@@ -11,7 +11,7 @@ export class MultipleQuestion extends Component {
     let metaInfo = this.props.question.metaInfo.map(m => m);
 
     this.state = {
-      id : this.props.question.id,
+      number : this.props.question.number,
       type : this.props.question.type,
       title : this.props.question.title,
       isRequired : this.props.question.isRequired,
@@ -85,7 +85,7 @@ export class MultipleQuestion extends Component {
                         />
                       ) :
                       (
-                        <Checkbox id={`${this.state.number}.${i}`} name={this.state.title}>
+                        <Checkbox number={`${this.state.number}.${i}`} name={this.state.title}>
                           <label htmlFor={`${this.state.number}.${i}`} className="option">{option}</label>
                         </Checkbox>
                       )

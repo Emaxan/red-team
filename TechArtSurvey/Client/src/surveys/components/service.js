@@ -6,7 +6,7 @@ export const changeType = (oldQuestion, type) => {
     return null;
   }
 
-  var newQuestion = new Question(oldQuestion.id, type, oldQuestion.title, oldQuestion.isRequired);
+  var newQuestion = new Question(oldQuestion.number, type, oldQuestion.title, oldQuestion.isRequired);
   if ((oldQuestion.type == questionTypes.SINGLE_ANSWER
       || oldQuestion.type == questionTypes.MULTIPLE_ANSWER)
       && (type == questionTypes.SINGLE_ANSWER
@@ -19,18 +19,18 @@ export const changeType = (oldQuestion, type) => {
   return newQuestion;
 };
 
-export const getLastId = (questions) => {
-  var idList = [];
+export const getLastNumber = (questions) => {
+  var numberList = [];
   questions.map((question) => {
-    idList.push(question.id);
+    numberList.push(question.number);
   });
 
-  if (idList.length === 0) {
+  if (numberList.length === 0) {
     return -1;
   }
 
-  if (idList.length > 1) {
-    idList.sort((a,b) => {
+  if (numberList.length > 1) {
+    numberList.sort((a,b) => {
       if (a > b) {
         return 1;
       }
@@ -38,5 +38,5 @@ export const getLastId = (questions) => {
     });
   }
 
-  return idList[idList.length - 1];
+  return numberList[numberList.length - 1];
 };

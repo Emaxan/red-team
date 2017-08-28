@@ -7,7 +7,6 @@ export class TextQuestion extends Component {
     super(props);
 
     this.state = {
-      id : this.props.question.id,
       type : this.props.question.type,
       title : this.props.question.title,
       isRequired : this.props.question.isRequired,

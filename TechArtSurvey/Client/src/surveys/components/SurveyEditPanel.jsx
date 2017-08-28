@@ -15,7 +15,7 @@ export class SurveyEditPanel extends Component {
 
     this.state = {
       editingPageNumber : 1,
-      editingQuestionId : -1,
+      editingQuestionNumber : -1,
       newEditingQuestionType: null,
       survey : {
         title : this.props.survey.title,
@@ -46,15 +46,15 @@ export class SurveyEditPanel extends Component {
   }
 
   handleOnTypeChange = (type) => {
-    if (this.state.editingQuestionId === -1) {
+    if (this.state.editingQuestionNumber === -1) {
       return;
     }
     this.setState({ newEditingQuestionType : type });
   }
 
-  handleOnEditingQuestionIdChange = (id) => {
+  handleOnEditingQuestionNumberChange = (number) => {
     this.setState({
-      editingQuestionId : id,
+      editingQuestionNumber : number,
       newEditingQuestionType : null,
     });
   }
@@ -65,7 +65,7 @@ export class SurveyEditPanel extends Component {
     }
     this.setState({
       editingPageNumber : pageNumber,
-      editingQuestionId : -1,
+      editingQuestionNumber : -1,
       newEditingQuestionType : null,
     });
   }
@@ -75,7 +75,7 @@ export class SurveyEditPanel extends Component {
     pages.push(new Page());
     this.setState({
       editingPageNumber : pages.length,
-      editingQuestionId : -1,
+      editingQuestionNumber : -1,
       newEditingQuestionType : null,
       survey : { ...this.state.survey, pages : pages },
     });
@@ -89,7 +89,7 @@ export class SurveyEditPanel extends Component {
     pages.splice(this.state.editingPageNumber - 1, 1);
     this.setState({
       editingPageNumber: 1,
-      editingQuestionId: -1,
+      editingQuestionNumber: -1,
       newEditingQuestionType : null,
       survey: { ...this.state.survey, pages : pages },
     });
@@ -100,7 +100,7 @@ export class SurveyEditPanel extends Component {
       <div className="survey-edit-panel">
         <Panel className="col-md-6">
           <Form horizontal>
-            <FormGroup controlId="title" >
+            <FormGroup controlNumber="title" >
               <Col componentClass={ControlLabel} sm={2}>
                 New survey
               </Col>
@@ -137,9 +137,9 @@ export class SurveyEditPanel extends Component {
             <Button onClick={this.handleOnPageDeleteClick}>Delete</Button>
             <QuestionList
               questions={this.state.survey.pages[this.state.editingPageNumber - 1].questions}
-              handleOnEditingQuestionIdChange={this.handleOnEditingQuestionIdChange}
+              handleOnEditingQuestionNumberChange={this.handleOnEditingQuestionNumberChange}
               handleOnQuestionsArraySave={this.handleOnQuestionsArraySave}
-              editingQuestionId={this.state.editingQuestionId}
+              editingQuestionNumber={this.state.editingQuestionNumber}
               newEditingQuestionType={this.state.newEditingQuestionType}
             />
           </Form>
