@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 
 import { questionTypesArray } from './questionTypesPresentation';
 import { QuestionTypesPanel } from './QuestionTypesPanel';
+import { ParamsPanel } from './ParamsPanel';
 import { QuestionList } from './QuestionList';
 import Page from '../models/Page';
 import { PageNavigator } from './PageNavigator';
@@ -84,6 +85,11 @@ export class SurveyEditPanel extends Component {
     this.setState({ survey : { ...this.state.survey, pages : newPages } });
   }
 
+  handleOnSettingsChange = (settings) => {
+    let newSettings = {...settings};
+    this.setState({ survey : { ...this.state.survey, settings : newSettings } });
+  }
+
   render = () => {
     return (
       <div className="survey-edit-panel">
@@ -131,11 +137,18 @@ export class SurveyEditPanel extends Component {
             />
           </Form>
         </Panel>
-
-        <QuestionTypesPanel
-          handleOnTypeChange={this.handleOnTypeChange}
-          questionTypesArray={questionTypesArray}
-        />
+        <div>
+          <div>
+            <QuestionTypesPanel
+              handleOnTypeChange={this.handleOnTypeChange}
+              questionTypesArray={questionTypesArray}
+            />
+            <ParamsPanel
+              handleOnSettingsChange={this.handleOnSettingsChange}
+              settings={this.state.survey.settings}
+            />
+          </div>
+        </div>
       </div>
     );
   }
