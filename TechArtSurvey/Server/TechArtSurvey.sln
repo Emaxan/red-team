@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26430.16
+VisualStudioVersion = 15.0.26228.4
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{815E3C6A-E426-41ED-A8FA-EAA7E30522B2}"
 EndProject
@@ -40,6 +40,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RedTeam.TechArtSurvey.Foundation.Dto", "RedTeam.TechArtSurvey.Foundation.Dto\RedTeam.TechArtSurvey.Foundation.Dto.csproj", "{E5E1A1E9-FF87-4AEE-9B49-8C19A2307D5D}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RedTeam.TechArtSurvey.Foundation.Identity", "RedTeam.TechArtSurvey.Foundation.Identity\RedTeam.TechArtSurvey.Foundation.Identity.csproj", "{A31F5D28-449F-49FE-A1E0-B7D87DD35215}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RedTeam.Common", "RedTeam.Common\RedTeam.Common.csproj", "{AB963A3F-AEF2-4740-A930-CCB58F86ED11}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -103,6 +105,10 @@ Global
 		{A31F5D28-449F-49FE-A1E0-B7D87DD35215}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A31F5D28-449F-49FE-A1E0-B7D87DD35215}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A31F5D28-449F-49FE-A1E0-B7D87DD35215}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AB963A3F-AEF2-4740-A930-CCB58F86ED11}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AB963A3F-AEF2-4740-A930-CCB58F86ED11}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AB963A3F-AEF2-4740-A930-CCB58F86ED11}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AB963A3F-AEF2-4740-A930-CCB58F86ED11}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -122,5 +128,6 @@ Global
 		{725EC8E0-9925-4C5C-B1EF-83CFB09704D6} = {54C81F26-20B2-4ACF-B067-477109316183}
 		{E5E1A1E9-FF87-4AEE-9B49-8C19A2307D5D} = {162A9F03-2AB4-4085-944F-5C07CA8CB7B0}
 		{A31F5D28-449F-49FE-A1E0-B7D87DD35215} = {162A9F03-2AB4-4085-944F-5C07CA8CB7B0}
+		{AB963A3F-AEF2-4740-A930-CCB58F86ED11} = {54C81F26-20B2-4ACF-B067-477109316183}
 	EndGlobalSection
 EndGlobal

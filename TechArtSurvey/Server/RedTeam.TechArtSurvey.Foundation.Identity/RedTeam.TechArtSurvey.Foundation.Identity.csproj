@@ -68,13 +68,17 @@
     <Compile Include="Managers\ApplicationUserManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Security\ClaimsManager.cs" />
-    <Compile Include="Services\EmailService.cs" />
+    <Compile Include="Services\EmailIdentityMessageService.cs" />
     <Compile Include="Stores\ApplicationUserStore.cs" />
     <Compile Include="Stores\IApplicationRoleStore.cs" />
     <Compile Include="Stores\IApplicationUserStore.cs" />
     <Compile Include="Stores\RoleStore.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\RedTeam.Common\RedTeam.Common.csproj">
+      <Project>{ab963a3f-aef2-4740-a930-ccb58f86ed11}</Project>
+      <Name>RedTeam.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\RedTeam.Repositories\RedTeam.Repositories.csproj">
       <Project>{433A7044-1A29-42CB-80B0-06E86AA12A2F}</Project>
       <Name>RedTeam.Repositories</Name>

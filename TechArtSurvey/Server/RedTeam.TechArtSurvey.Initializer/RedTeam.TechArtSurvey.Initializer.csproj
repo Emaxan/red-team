@@ -55,6 +55,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Net.Http.Formatting, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
@@ -72,6 +73,10 @@
     <Compile Include="AutofacModules\UnitOfWorkModule.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\RedTeam.Common\RedTeam.Common.csproj">
+      <Project>{ab963a3f-aef2-4740-a930-ccb58f86ed11}</Project>
+      <Name>RedTeam.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\RedTeam.Repositories.EntityFramework\RedTeam.Repositories.EntityFramework.csproj">
       <Project>{7250157B-E69A-4E89-8688-51DAE08C607C}</Project>
       <Name>RedTeam.Repositories.EntityFramework</Name>
