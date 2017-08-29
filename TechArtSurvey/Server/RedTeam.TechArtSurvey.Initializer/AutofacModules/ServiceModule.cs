@@ -21,7 +21,7 @@ namespace RedTeam.TechArtSurvey.Initializer.AutofacModules
             builder.RegisterType<ApplicationRoleManager>().AsSelf().InstancePerRequest();
             builder.RegisterType<RoleStore>().As<IApplicationRoleStore>().InstancePerRequest();
             builder.RegisterType<ApplicationUserStore>().As<IApplicationUserStore>().InstancePerRequest();
-            builder.RegisterType<EmailSender>().As<IEmailSender>().InstancePerRequest();
+            builder.RegisterType<SmtpEmailSender>().As<IEmailSender>().InstancePerRequest();
             builder.RegisterType<EmailIdentityMessageService>().As<IIdentityMessageService>().InstancePerRequest();
         }
     }
