@@ -1,6 +1,4 @@
 ﻿using JetBrains.Annotations;
-using System.Configuration;
-using System.Net.Configuration;
 using System.Net.Mail;
 using System.Threading.Tasks;
 
@@ -27,14 +25,13 @@ namespace RedTeam.Common.EmailSender
 
         private MailMessage BuildMailMessage(string destination, string subject, string body)
         {
-            var smtpSection = (SmtpSection)ConfigurationManager.GetSection("system.net/mailSettings/smtp");
-
-            var mail = new MailMessage(smtpSection.From, destination)
+            var mail = new MailMessage()
             {
                 Subject = subject,
                 Body = body,
                 BodyEncoding = System.Text.Encoding.UTF8,
-                IsBodyHtml = true
+                IsBodyHtml = true,
+                To = { new MailAddress(destination) }
             };
 
             return mail;
