@@ -298,3 +298,4 @@ __pycache__/
 # custom 
 
 *.log
+EmailServiceConfig.config

@@ -10,11 +10,13 @@ namespace RedTeam.TechArtSurvey.WebApi.Users
     public class AccountController : ApiController
     {
         private readonly IUserService _userService;
+        private readonly IResetPasswordService _resetPasswordService;
 
   
-        public AccountController(IUserService userService)
+        public AccountController(IUserService userService, IResetPasswordService resetPasswordService)
         {
             _userService = userService;
+            _resetPasswordService = resetPasswordService;
         }
 
 
@@ -24,6 +26,30 @@ namespace RedTeam.TechArtSurvey.WebApi.Users
         public async Task<IServiceResponse<UserDto>> Signup(UserDto user)
         {      
             return await _userService.CreateAsync(user);
+        }
+
+        [Route("forgot_password")]
+        [HttpPost]
+        [AllowAnonymous]
+        public async Task<IServiceResponse> ForgotPassword(ForgotPasswordDto forgotPasswordDto)
+        {
+            return await _resetPasswordService.SendResetPasswordMessageAsync(forgotPasswordDto);
+        }
+
+        [Route("check_token")]
+        [HttpPost]
+        [AllowAnonymous]
+        public async Task<IServiceResponse<bool>> CheckPasswordResetToken(ResetPasswordDto resetPasswordDto)
+        {
+            return await _resetPasswordService.CheckPasswordResetTokenAsync(resetPasswordDto);
+        }
+
+        [Route("reset_password")]
+        [HttpPost]
+        [AllowAnonymous]
+        public async Task<IServiceResponse> ResetPassword(ResetPasswordDto resetPasswordDto)
+        {
+            return await _resetPasswordService.ResetUserPasswordAsync(resetPasswordDto);
         }
     }
 }

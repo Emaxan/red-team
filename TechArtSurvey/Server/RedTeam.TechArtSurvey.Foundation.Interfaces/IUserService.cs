@@ -13,7 +13,8 @@ namespace RedTeam.TechArtSurvey.Foundation.Interfaces
         Task<IServiceResponse> UpdateAsync(EditUserDto user);
         Task<IServiceResponse> DeleteByIdAsync(int id);
         Task<IServiceResponse<EditUserDto>> GetByIdAsync(int id);
-        Task<IServiceResponse> CheckByEmailAsync(string email);
+        Task<IServiceResponse<EditUserDto>> GetByEmailAsync(string email);
+        Task<IServiceResponse<bool>> CheckByEmailAsync(string email);
         Task<IServiceResponse<IReadOnlyCollection<EditUserDto>>> GetAllAsync();
     }
 }
