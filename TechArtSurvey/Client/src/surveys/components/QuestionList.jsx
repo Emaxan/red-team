@@ -33,23 +33,18 @@ class QuestionList extends Component {
     let questionsBuffer = props.questions.map(q => ({...q}));
 
     let newQuestions = this.checkIfEditingQuestionTypeChanged(questions, props.newEditingQuestionType);
-    if(newQuestions) {
+    if (newQuestions) {
       questionsBuffer = newQuestions;
     }
+
     this.setState({ questions : questions, questionsBuffer : questionsBuffer, editingQuestionNumber : props.editingQuestionNumber });
   }
 
   moveQuestion = (dragIndex, hoverIndex) => {
-    const { questions } = this.questionsBuffer; //deep copy array
-    //const { questions } = this.state;
-    const dragQuestion = questions[dragIndex];
-
-    console.log(`moveQuestion, dragIndex = ${dragIndex}, hoverIndex = ${hoverIndex}`);
-
-    //change buffer
+    const dragQuestion = this.state.questionsBuffer[dragIndex];
 
     this.setState(update(this.state, {
-      questions: {
+      questionsBuffer: {
         $splice: [
           [dragIndex, 1],
           [hoverIndex, 0, dragQuestion],
@@ -57,20 +52,25 @@ class QuestionList extends Component {
       },
     }));
 
-    this.questionsBuffer = this.state.questions;
+    let questionsBuffer = this.state.questionsBuffer.map(q => ({...q}));
+    let questions = questionsBuffer.map(q => ({...q}));
+    this.props.handleOnQuestionsArraySave(questions);
   }
+
   checkIfEditingQuestionTypeChanged = (oldQuestions, type) => {
-    if(!type || type.length === 0) {
+    if (!type || type.length === 0) {
       return null;
     }
+
     let questions = oldQuestions.map(q => ({...q}));
     let index = questions.findIndex(q => q.number == this.state.editingQuestionNumber);
     let oldQuestion = {...questions[index]};
     let newQuestion = changeType(oldQuestion, type);
 
-    if(!newQuestion) {
+    if (!newQuestion) {
       return null;
     }
+
     questions[index] = newQuestion;
 
     return questions;
