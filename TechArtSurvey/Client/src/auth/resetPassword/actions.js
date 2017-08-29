@@ -33,8 +33,8 @@ export const {
 export const checkPasswordResetTokenRequest = (userId, token) => (dispatch) => {
   dispatch(checkPasswordResetTokenStart());
   return checkPasswordResetToken(userId, token)
-    .then((data) => {
-      dispatch(checkPasswordResetTokenSuccess(data));
+    .then((response) => {
+      dispatch(checkPasswordResetTokenSuccess(response.data));
     })
     .catch(() => {
       dispatch(checkPasswordResetTokenError());
