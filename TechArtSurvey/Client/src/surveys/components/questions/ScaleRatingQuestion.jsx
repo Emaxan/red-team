@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import { Panel, Col, FormGroup, FormControl } from 'react-bootstrap';
 import Nouislider from 'react-nouislider';
-import 'react-nouislider/example/nouislider.css';
-import 'nouislider/distribute/nouislider.css';
 import PropTypes from 'prop-types';
 
 import './ScaleRatingQuestion.scss';
