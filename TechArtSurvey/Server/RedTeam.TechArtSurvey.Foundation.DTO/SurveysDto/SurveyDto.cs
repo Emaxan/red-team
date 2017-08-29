@@ -13,9 +13,9 @@ namespace RedTeam.TechArtSurvey.Foundation.Dto.SurveysDto
         public SurveySettingsDto Settings { get; set; }
 
         [Required]
-        public SurveyAuthorDto User { get; set; }
+        public SurveyAuthorDto Author { get; set; }
         
         [Required]
-        public ICollection<SurveyLookupDto> SurveyLookups { get; set; }
+        public ICollection<SurveyLookupDto> Lookups { get; set; }
     }
 }

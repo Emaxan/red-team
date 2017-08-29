@@ -33,8 +33,8 @@ namespace RedTeam.TechArtSurvey.Foundation.Services
             LoggerContext.Logger.Info($"Create Survey '{surveyDto.Title}'");
 
             var survey = await PrepareSurvey(_mapper.Map<SurveyDto, Survey>(surveyDto));
-            survey.Created = DateTime.Now;
-            survey.Updated = DateTime.Now;
+            survey.CreatedDate = DateTime.Now;
+            survey.UpdatedDate = DateTime.Now;
             survey.Version = 1;
             _uow.Surveys.Create(survey);
             await _uow.SaveAsync();
@@ -53,7 +53,7 @@ namespace RedTeam.TechArtSurvey.Foundation.Services
             }
 
             survey.Version = surv.Max(s => s.Version) + 1;
-            survey.Updated = DateTime.Now;
+            survey.UpdatedDate = DateTime.Now;
             _uow.Surveys.Create(await PrepareSurvey(_mapper.Map<EditSurveyDto, Survey>(survey)));
             await _uow.SaveAsync();
 

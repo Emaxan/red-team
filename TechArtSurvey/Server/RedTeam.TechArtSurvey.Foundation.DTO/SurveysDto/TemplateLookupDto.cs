@@ -4,10 +4,10 @@
     {
         public int PageId { get; set; }
 
+        public SurveyPageDto Page { get; set; }
+
         public int TemplateId { get; set; }
 
         public TemplateDto Template { get; set; }
-
-        public SurveyPageDto SurveyPage { get; set; }
     }
 }

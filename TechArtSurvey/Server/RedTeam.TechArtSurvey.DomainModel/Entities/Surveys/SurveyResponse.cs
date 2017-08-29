@@ -8,7 +8,7 @@ namespace RedTeam.TechArtSurvey.DomainModel.Entities.Surveys
     {
         public int Id { get; set; }
 
-        public DateTime Passed { get; set; }
+        public DateTime PassedDate { get; set; }
 
         public int SurveyId { get; set; }
 

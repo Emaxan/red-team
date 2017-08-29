@@ -63,8 +63,8 @@ namespace RedTeam.TechArtSurvey.Repositories.Migrations
                                             AuthorId = 1,
                                             Title = "My test survey",
                                             Version = 1,
-                                            Created = DateTime.Now,
-                                            Updated = DateTime.Now,
+                                            CreatedDate = DateTime.Now,
+                                            UpdatedDate = DateTime.Now,
                                             SettingsId = 1
                                         });
 
@@ -181,7 +181,7 @@ namespace RedTeam.TechArtSurvey.Repositories.Migrations
                                                     SurveyId = 1,
                                                     SurveyVersion = 1,
                                                     UserId = 2,
-                                                    Passed = DateTime.Now
+                                                    PassedDate = DateTime.Now
                                                 });
 
             context.QuestionAnswers.AddOrUpdate(qa => new

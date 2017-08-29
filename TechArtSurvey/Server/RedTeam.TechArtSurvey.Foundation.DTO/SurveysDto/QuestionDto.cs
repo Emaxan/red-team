@@ -11,10 +11,10 @@ namespace RedTeam.TechArtSurvey.Foundation.Dto.SurveysDto
 
         [Required]
         [Range(1, int.MaxValue)]
-        public int QuestionNumber { get; set; }
+        public int Number { get; set; }
 
         [Required]
-        public QuestionTypeDto QuestionType { get; set; }
+        public QuestionTypeDto Type { get; set; }
 
         [Required]
         public bool IsRequired { get; set; }

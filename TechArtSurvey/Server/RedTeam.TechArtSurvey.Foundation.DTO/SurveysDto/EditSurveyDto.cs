@@ -12,9 +12,9 @@ namespace RedTeam.TechArtSurvey.Foundation.Dto.SurveysDto
         public int Version { get; set; }
 
         [Required()]
-        public DateTime Created { get; set; }
+        public DateTime CreatedDate { get; set; }
 
         [Required]
-        public DateTime Updated { get; set; }
+        public DateTime UpdatedDate { get; set; }
     }
 }

@@ -71,8 +71,8 @@ namespace RedTeam.TechArtSurvey.Repositories.Migrations
                         Version = c.Int(nullable: false),
                         Title = c.String(nullable: false),
                         SettingsId = c.Int(nullable: false),
-                        Created = c.DateTime(nullable: false),
-                        Updated = c.DateTime(nullable: false),
+                        CreatedDate = c.DateTime(nullable: false),
+                        UpdatedDate = c.DateTime(nullable: false),
                         AuthorId = c.Int(nullable: false),
                     })
                 .PrimaryKey(t => new { t.Id, t.Version })
@@ -86,7 +86,7 @@ namespace RedTeam.TechArtSurvey.Repositories.Migrations
                 c => new
                     {
                         Id = c.Int(nullable: false, identity: true),
-                        Passed = c.DateTime(nullable: false),
+                        PassedDate = c.DateTime(nullable: false),
                         SurveyId = c.Int(nullable: false),
                         SurveyVersion = c.Int(nullable: false),
                         UserId = c.Int(nullable: false),

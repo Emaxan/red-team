@@ -9,7 +9,7 @@ namespace RedTeam.TechArtSurvey.Repositories.EF.Surveys
         {
             ToTable("SurveyResponse");
 
-            Property(sr => sr.Passed).IsRequired();
+            Property(sr => sr.PassedDate).IsRequired();
             Property(sr => sr.SurveyVersion).IsRequired();
             Property(sr => sr.UserId).IsRequired();
 

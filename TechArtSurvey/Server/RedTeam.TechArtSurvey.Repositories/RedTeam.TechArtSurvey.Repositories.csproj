@@ -72,9 +72,9 @@
     <Compile Include="Migrations\201708211924101_requiredRole.Designer.cs">
       <DependentUpon>201708211924101_requiredRole.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201708290850040_AddSurveys.cs" />
-    <Compile Include="Migrations\201708290850040_AddSurveys.Designer.cs">
-      <DependentUpon>201708290850040_AddSurveys.cs</DependentUpon>
+    <Compile Include="Migrations\201708290920408_AddSurveys.cs" />
+    <Compile Include="Migrations\201708290920408_AddSurveys.Designer.cs">
+      <DependentUpon>201708290920408_AddSurveys.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -117,8 +117,8 @@
     <EmbeddedResource Include="Migrations\201708211924101_requiredRole.resx">
       <DependentUpon>201708211924101_requiredRole.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201708290850040_AddSurveys.resx">
-      <DependentUpon>201708290850040_AddSurveys.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201708290920408_AddSurveys.resx">
+      <DependentUpon>201708290920408_AddSurveys.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

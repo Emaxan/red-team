@@ -17,9 +17,9 @@ namespace RedTeam.TechArtSurvey.DomainModel.Entities.Surveys
 
         public SurveySettings Settings { get; set; }
 
-        public DateTime Created { get; set; }
+        public DateTime CreatedDate { get; set; }
 
-        public DateTime Updated { get; set; }
+        public DateTime UpdatedDate { get; set; }
 
         public int AuthorId { get; set; }
 

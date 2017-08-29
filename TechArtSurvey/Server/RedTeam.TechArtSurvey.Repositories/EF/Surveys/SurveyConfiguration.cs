@@ -13,8 +13,8 @@ namespace RedTeam.TechArtSurvey.Repositories.EF.Surveys
             Property(s => s.Id).IsRequired();
             Property(s => s.Version).IsRequired();
             Property(s => s.Title).IsRequired();
-            Property(s => s.Created).IsRequired();
-            Property(s => s.Updated).IsRequired();
+            Property(s => s.CreatedDate).IsRequired();
+            Property(s => s.UpdatedDate).IsRequired();
             Property(s => s.AuthorId).IsRequired();
 
             HasKey(s => new
