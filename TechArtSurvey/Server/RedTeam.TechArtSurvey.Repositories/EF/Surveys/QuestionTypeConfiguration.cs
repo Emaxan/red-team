@@ -14,8 +14,8 @@ namespace RedTeam.TechArtSurvey.Repositories.EF.Surveys
             Property(qt => qt.Type).IsRequired();
 
             HasMany(qt => qt.Questions)
-                .WithRequired(q => q.QuestionType)
-                .HasForeignKey(q => q.QuestionTypeId)
+                .WithRequired(q => q.Type)
+                .HasForeignKey(q => q.TypeId)
                 .WillCascadeOnDelete(false);
         }
     }

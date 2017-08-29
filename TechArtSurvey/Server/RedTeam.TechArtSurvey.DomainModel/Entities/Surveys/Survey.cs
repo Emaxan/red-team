@@ -15,18 +15,18 @@ namespace RedTeam.TechArtSurvey.DomainModel.Entities.Surveys
 
         public int SettingsId { get; set; }
 
+        public SurveySettings Settings { get; set; }
+
         public DateTime Created { get; set; }
 
         public DateTime Updated { get; set; }
 
         public int AuthorId { get; set; }
 
-        public User User { get; set; }
+        public User Author { get; set; }
 
-        public SurveySettings Settings { get; set; }
+        public ICollection<SurveyResponse> Response { get; set; }
 
-        public ICollection<SurveyResponse> SurveyResponse { get; set; }
-
-        public ICollection<SurveyLookup> SurveyLookups { get; set; }
+        public ICollection<SurveyLookup> Lookups { get; set; }
     }
 }

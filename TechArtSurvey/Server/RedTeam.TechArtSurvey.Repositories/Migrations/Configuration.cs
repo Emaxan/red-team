@@ -147,9 +147,9 @@ namespace RedTeam.TechArtSurvey.Repositories.Migrations
                                           {
                                               Id = 1,
                                               PageId = 1,
-                                              QuestionNumber = 1,
+                                              Number = 1,
                                               Title = "First question",
-                                              QuestionTypeId = (int)QuestionTypeEnum.Text + 1,
+                                              TypeId = (int)QuestionTypeEnum.Text + 1,
                                               IsRequired = true,
                                               MetaInfo = ""
                                           },
@@ -157,9 +157,9 @@ namespace RedTeam.TechArtSurvey.Repositories.Migrations
                                           {
                                               Id = 2,
                                               PageId = 2,
-                                              QuestionNumber = 2,
+                                              Number = 2,
                                               Title = "Second question",
-                                              QuestionTypeId = (int)QuestionTypeEnum.Text + 1,
+                                              TypeId = (int)QuestionTypeEnum.Text + 1,
                                               IsRequired = true,
                                               MetaInfo = ""
                                           },
@@ -167,9 +167,9 @@ namespace RedTeam.TechArtSurvey.Repositories.Migrations
                                           {
                                               Id = 3,
                                               PageId = 3,
-                                              QuestionNumber = 3,
+                                              Number = 3,
                                               Title = "Third question",
-                                              QuestionTypeId = (int)QuestionTypeEnum.Text + 1,
+                                              TypeId = (int)QuestionTypeEnum.Text + 1,
                                               IsRequired = true,
                                               MetaInfo = ""
                                           });
@@ -187,24 +187,24 @@ namespace RedTeam.TechArtSurvey.Repositories.Migrations
             context.QuestionAnswers.AddOrUpdate(qa => new
                                                       {
                                                           qa.QuestionId,
-                                                          qa.ReplyOnSurveyId
+                                                          qa.SurveyResponseId
                                                       },
                                                 new QuestionAnswer()
                                                 {
                                                     QuestionId = 1,
-                                                    ReplyOnSurveyId = 1,
+                                                    SurveyResponseId = 1,
                                                     Value = "{\"text\":\"Answer 1\"}"
                                                 },
                                                 new QuestionAnswer()
                                                 {
                                                     QuestionId = 2,
-                                                    ReplyOnSurveyId = 1,
+                                                    SurveyResponseId = 1,
                                                     Value = "{\"text\":\"Answer 2\"}"
                                                 },
                                                 new QuestionAnswer()
                                                 {
                                                     QuestionId = 3,
-                                                    ReplyOnSurveyId = 1,
+                                                    SurveyResponseId = 1,
                                                     Value = "{\"text\":\"Answer 3\"}"
                                                 });
 

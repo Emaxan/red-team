@@ -72,8 +72,8 @@ namespace RedTeam.TechArtSurvey.Foundation.Services
 
             foreach (var survey in surv)
             {
-                var pages = survey.SurveyLookups.Select(sl => sl.SurveyPage).ToArray();
-                var questions = survey.SurveyLookups.SelectMany(sl => sl.SurveyPage.Questions).ToArray();
+                var pages = survey.Lookups.Select(sl => sl.Page).ToArray();
+                var questions = survey.Lookups.SelectMany(sl => sl.Page.Questions).ToArray();
                 var settings = survey.Settings;
                 _uow.Surveys.Delete(survey);
                 _uow.Questions.DeleteRange(questions);
@@ -106,21 +106,21 @@ namespace RedTeam.TechArtSurvey.Foundation.Services
 
         private async Task<Survey> PrepareSurvey(Survey survey)
         {
-            var user = await _uow.Users.GetUserByEmailAsync(survey.User.Email);
-            survey.User = user ?? throw new NullReferenceException(nameof(survey.User));
+            var user = await _uow.Users.GetUserByEmailAsync(survey.Author.Email);
+            survey.Author = user ?? throw new NullReferenceException(nameof(survey.Author));
 
-            foreach (var lookup in survey.SurveyLookups)
+            foreach (var lookup in survey.Lookups)
             {
-                foreach (var question in lookup.SurveyPage.Questions)
+                foreach (var question in lookup.Page.Questions)
                 {
-                    if (!Enum.TryParse(question.QuestionType.Name, out QuestionTypeEnum qt))
+                    if (!Enum.TryParse(question.Type.Name, out QuestionTypeEnum qt))
                     {
-                        throw new NullReferenceException(nameof(question.QuestionType));
+                        throw new NullReferenceException(nameof(question.Type));
                     }
 
                     var questionType = await _uow.QuestionTypes.FindByTypeAsync(qt) ??
-                                       throw new NullReferenceException(nameof(question.QuestionType));
-                    question.QuestionType = questionType;
+                                       throw new NullReferenceException(nameof(question.Type));
+                    question.Type = questionType;
                 }
             }
 

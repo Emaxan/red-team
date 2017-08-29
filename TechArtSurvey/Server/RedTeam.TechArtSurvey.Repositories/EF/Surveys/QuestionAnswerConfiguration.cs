@@ -13,18 +13,18 @@ namespace RedTeam.TechArtSurvey.Repositories.EF.Surveys
 
             HasKey(qa => new
                           {
-                              qa.ReplyOnSurveyId,
+                              qa.SurveyResponseId,
                               qa.QuestionId
                           });
 
             HasRequired(qa => qa.Question)
-                .WithMany(q => q.QuestionAnswers)
+                .WithMany(q => q.Answers)
                 .HasForeignKey(qa => qa.QuestionId)
                 .WillCascadeOnDelete(false);
 
             HasRequired(qa => qa.SurveyResponse)
-                .WithMany(sr => sr.QuestionAnswers)
-                .HasForeignKey(qa => qa.ReplyOnSurveyId)
+                .WithMany(sr => sr.Answers)
+                .HasForeignKey(qa => qa.SurveyResponseId)
                 .WillCascadeOnDelete(false);
         }
     }

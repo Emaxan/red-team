@@ -34,8 +34,8 @@ namespace RedTeam.TechArtSurvey.Repositories.Repositories
 
             foreach ( var survey in surveys )
             {
-                await Context.Entry(survey).Reference(s => s.User).LoadAsync();
-                await Context.Entry(survey.User).Reference(u => u.Role).LoadAsync();
+                await Context.Entry(survey).Reference(s => s.Author).LoadAsync();
+                await Context.Entry(survey.Author).Reference(u => u.Role).LoadAsync();
                 await Context.Entry(survey).Reference(s => s.Settings).LoadAsync();
             }
 
@@ -51,16 +51,16 @@ namespace RedTeam.TechArtSurvey.Repositories.Repositories
                 return null;
             }
 
-            await Context.Entry(survey).Reference(s => s.User).LoadAsync();
+            await Context.Entry(survey).Reference(s => s.Author).LoadAsync();
             await Context.Entry(survey).Reference(s => s.Settings).LoadAsync();
-            await Context.Entry(survey).Collection(s => s.SurveyLookups).LoadAsync();
-            foreach ( var lookup in survey.SurveyLookups )
+            await Context.Entry(survey).Collection(s => s.Lookups).LoadAsync();
+            foreach ( var lookup in survey.Lookups )
             {
-                await Context.Entry(lookup).Reference(sl => sl.SurveyPage).LoadAsync();
-                await Context.Entry(lookup.SurveyPage).Collection(sp => sp.Questions).LoadAsync();
-                foreach ( var question in lookup.SurveyPage.Questions )
+                await Context.Entry(lookup).Reference(sl => sl.Page).LoadAsync();
+                await Context.Entry(lookup.Page).Collection(sp => sp.Questions).LoadAsync();
+                foreach ( var question in lookup.Page.Questions )
                 {
-                    await Context.Entry(question).Reference(q => q.QuestionType).LoadAsync();
+                    await Context.Entry(question).Reference(q => q.Type).LoadAsync();
                 }
             }
 
@@ -71,11 +71,11 @@ namespace RedTeam.TechArtSurvey.Repositories.Repositories
         {
             return await DbSet.Where(s => s.Id == id)
                 .Include(s => s.Settings)
-                .Include(s => s.SurveyLookups)
-                .Include(s => s.SurveyResponse)
-                .Include(s => s.SurveyResponse.Select(sr => sr.QuestionAnswers))
-                .Include(s => s.SurveyLookups.Select(sl => sl.SurveyPage))
-                .Include(s => s.SurveyLookups.Select(sl => sl.SurveyPage.Questions))
+                .Include(s => s.Lookups)
+                .Include(s => s.Response)
+                .Include(s => s.Response.Select(sr => sr.Answers))
+                .Include(s => s.Lookups.Select(sl => sl.Page))
+                .Include(s => s.Lookups.Select(sl => sl.Page.Questions))
                 .ToListAsync();
         }
     }

@@ -14,12 +14,12 @@ namespace RedTeam.TechArtSurvey.DomainModel.Entities.Surveys
 
         public int SurveyVersion { get; set; }
 
-        public int UserId { get; set; }
-
         public Survey Survey { get; set; }
+
+        public int UserId { get; set; }
 
         public User User { get; set; }
 
-        public ICollection<QuestionAnswer> QuestionAnswers { get; set; }
+        public ICollection<QuestionAnswer> Answers { get; set; }
     }
 }

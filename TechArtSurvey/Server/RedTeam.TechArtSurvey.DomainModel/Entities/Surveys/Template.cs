@@ -10,6 +10,6 @@ namespace RedTeam.TechArtSurvey.DomainModel.Entities.Surveys
 
         public string Description { get; set; }
 
-        public ICollection<TemplateLookup> TemplateLookups { get; set; }
+        public ICollection<TemplateLookup> Lookups { get; set; }
     }
 }

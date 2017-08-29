@@ -17,12 +17,12 @@ namespace RedTeam.TechArtSurvey.Repositories.EF.Surveys
                 .HasForeignKey(q => q.PageId);
 
             HasMany(sp => sp.SurveyLookups)
-                .WithRequired(sl => sl.SurveyPage)
+                .WithRequired(sl => sl.Page)
                 .HasForeignKey(sl => sl.PageId)
                 .WillCascadeOnDelete(false);
 
             HasMany(sp => sp.TemplateLookups)
-                .WithRequired(tl => tl.SurveyPage)
+                .WithRequired(tl => tl.Page)
                 .HasForeignKey(tl => tl.PageId)
                 .WillCascadeOnDelete(false);
         }

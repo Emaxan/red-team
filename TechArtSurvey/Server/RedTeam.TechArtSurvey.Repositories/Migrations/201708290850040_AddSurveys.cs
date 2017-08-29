@@ -11,14 +11,14 @@ namespace RedTeam.TechArtSurvey.Repositories.Migrations
                 "dbo.QuestionAnswer",
                 c => new
                     {
-                        ReplyOnSurveyId = c.Int(nullable: false),
+                        SurveyResponseId = c.Int(nullable: false),
                         QuestionId = c.Int(nullable: false),
                         Value = c.String(nullable: false),
                     })
-                .PrimaryKey(t => new { t.ReplyOnSurveyId, t.QuestionId })
+                .PrimaryKey(t => new { t.SurveyResponseId, t.QuestionId })
                 .ForeignKey("dbo.Question", t => t.QuestionId)
-                .ForeignKey("dbo.SurveyResponse", t => t.ReplyOnSurveyId)
-                .Index(t => t.ReplyOnSurveyId)
+                .ForeignKey("dbo.SurveyResponse", t => t.SurveyResponseId)
+                .Index(t => t.SurveyResponseId)
                 .Index(t => t.QuestionId);
             
             CreateTable(
@@ -28,16 +28,16 @@ namespace RedTeam.TechArtSurvey.Repositories.Migrations
                         Id = c.Int(nullable: false, identity: true),
                         PageId = c.Int(nullable: false),
                         Title = c.String(nullable: false),
-                        QuestionNumber = c.Int(nullable: false),
-                        QuestionTypeId = c.Int(nullable: false),
+                        Number = c.Int(nullable: false),
+                        TypeId = c.Int(nullable: false),
                         IsRequired = c.Boolean(nullable: false),
                         MetaInfo = c.String(nullable: false),
                     })
                 .PrimaryKey(t => t.Id)
                 .ForeignKey("dbo.SurveyPage", t => t.PageId)
-                .ForeignKey("dbo.QuestionType", t => t.QuestionTypeId)
+                .ForeignKey("dbo.QuestionType", t => t.TypeId)
                 .Index(t => t.PageId)
-                .Index(t => t.QuestionTypeId);
+                .Index(t => t.TypeId);
             
             CreateTable(
                 "dbo.SurveyPage",
@@ -58,8 +58,8 @@ namespace RedTeam.TechArtSurvey.Repositories.Migrations
                         SurveyVersion = c.Int(nullable: false),
                     })
                 .PrimaryKey(t => new { t.SurveyId, t.PageId, t.SurveyVersion })
-                .ForeignKey("dbo.Survey", t => new { t.SurveyId, t.SurveyVersion })
                 .ForeignKey("dbo.SurveyPage", t => t.PageId)
+                .ForeignKey("dbo.Survey", t => new { t.SurveyId, t.SurveyVersion })
                 .Index(t => new { t.SurveyId, t.SurveyVersion })
                 .Index(t => t.PageId);
             
@@ -76,24 +76,10 @@ namespace RedTeam.TechArtSurvey.Repositories.Migrations
                         AuthorId = c.Int(nullable: false),
                     })
                 .PrimaryKey(t => new { t.Id, t.Version })
-                .ForeignKey("dbo.SurveySettings", t => t.SettingsId)
                 .ForeignKey("dbo.Users", t => t.AuthorId)
+                .ForeignKey("dbo.SurveySettings", t => t.SettingsId)
                 .Index(t => t.SettingsId)
                 .Index(t => t.AuthorId);
-            
-            CreateTable(
-                "dbo.SurveySettings",
-                c => new
-                    {
-                        Id = c.Int(nullable: false, identity: true),
-                        IsAnonymous = c.Boolean(nullable: false),
-                        HasQuestionNumbers = c.Boolean(nullable: false),
-                        HasPageNumbers = c.Boolean(nullable: false),
-                        IsRandomOrdered = c.Boolean(nullable: false),
-                        HasRequiredFieldsStars = c.Boolean(nullable: false),
-                        HasProgressIndicator = c.Boolean(nullable: false),
-                    })
-                .PrimaryKey(t => t.Id);
             
             CreateTable(
                 "dbo.SurveyResponse",
@@ -110,6 +96,20 @@ namespace RedTeam.TechArtSurvey.Repositories.Migrations
                 .ForeignKey("dbo.Users", t => t.UserId)
                 .Index(t => new { t.SurveyId, t.SurveyVersion })
                 .Index(t => t.UserId);
+            
+            CreateTable(
+                "dbo.SurveySettings",
+                c => new
+                    {
+                        Id = c.Int(nullable: false, identity: true),
+                        IsAnonymous = c.Boolean(nullable: false),
+                        HasQuestionNumbers = c.Boolean(nullable: false),
+                        HasPageNumbers = c.Boolean(nullable: false),
+                        IsRandomOrdered = c.Boolean(nullable: false),
+                        HasRequiredFieldsStars = c.Boolean(nullable: false),
+                        HasProgressIndicator = c.Boolean(nullable: false),
+                    })
+                .PrimaryKey(t => t.Id);
             
             CreateTable(
                 "dbo.TemplateLookup",
@@ -148,18 +148,18 @@ namespace RedTeam.TechArtSurvey.Repositories.Migrations
         
         public override void Down()
         {
-            DropForeignKey("dbo.QuestionAnswer", "ReplyOnSurveyId", "dbo.SurveyResponse");
+            DropForeignKey("dbo.QuestionAnswer", "SurveyResponseId", "dbo.SurveyResponse");
             DropForeignKey("dbo.QuestionAnswer", "QuestionId", "dbo.Question");
-            DropForeignKey("dbo.Question", "QuestionTypeId", "dbo.QuestionType");
+            DropForeignKey("dbo.Question", "TypeId", "dbo.QuestionType");
             DropForeignKey("dbo.Question", "PageId", "dbo.SurveyPage");
             DropForeignKey("dbo.TemplateLookup", "PageId", "dbo.SurveyPage");
             DropForeignKey("dbo.TemplateLookup", "TemplateId", "dbo.Template");
-            DropForeignKey("dbo.SurveyLookup", "PageId", "dbo.SurveyPage");
             DropForeignKey("dbo.SurveyLookup", new[] { "SurveyId", "SurveyVersion" }, "dbo.Survey");
+            DropForeignKey("dbo.Survey", "SettingsId", "dbo.SurveySettings");
             DropForeignKey("dbo.Survey", "AuthorId", "dbo.Users");
             DropForeignKey("dbo.SurveyResponse", "UserId", "dbo.Users");
             DropForeignKey("dbo.SurveyResponse", new[] { "SurveyId", "SurveyVersion" }, "dbo.Survey");
-            DropForeignKey("dbo.Survey", "SettingsId", "dbo.SurveySettings");
+            DropForeignKey("dbo.SurveyLookup", "PageId", "dbo.SurveyPage");
             DropIndex("dbo.TemplateLookup", new[] { "PageId" });
             DropIndex("dbo.TemplateLookup", new[] { "TemplateId" });
             DropIndex("dbo.SurveyResponse", new[] { "UserId" });
@@ -168,15 +168,15 @@ namespace RedTeam.TechArtSurvey.Repositories.Migrations
             DropIndex("dbo.Survey", new[] { "SettingsId" });
             DropIndex("dbo.SurveyLookup", new[] { "PageId" });
             DropIndex("dbo.SurveyLookup", new[] { "SurveyId", "SurveyVersion" });
-            DropIndex("dbo.Question", new[] { "QuestionTypeId" });
+            DropIndex("dbo.Question", new[] { "TypeId" });
             DropIndex("dbo.Question", new[] { "PageId" });
             DropIndex("dbo.QuestionAnswer", new[] { "QuestionId" });
-            DropIndex("dbo.QuestionAnswer", new[] { "ReplyOnSurveyId" });
+            DropIndex("dbo.QuestionAnswer", new[] { "SurveyResponseId" });
             DropTable("dbo.QuestionType");
             DropTable("dbo.Template");
             DropTable("dbo.TemplateLookup");
-            DropTable("dbo.SurveyResponse");
             DropTable("dbo.SurveySettings");
+            DropTable("dbo.SurveyResponse");
             DropTable("dbo.Survey");
             DropTable("dbo.SurveyLookup");
             DropTable("dbo.SurveyPage");

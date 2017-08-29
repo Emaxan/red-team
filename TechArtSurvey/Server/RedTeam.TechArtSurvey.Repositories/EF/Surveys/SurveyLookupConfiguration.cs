@@ -18,13 +18,13 @@ namespace RedTeam.TechArtSurvey.Repositories.EF.Surveys
                             sl.SurveyVersion
                          });
 
-            HasRequired(sl => sl.SurveyPage)
+            HasRequired(sl => sl.Page)
                 .WithMany(sp => sp.SurveyLookups)
                 .HasForeignKey(sl => sl.PageId)
                 .WillCascadeOnDelete(false);
 
             HasRequired(sl => sl.Survey)
-                .WithMany(s => s.SurveyLookups)
+                .WithMany(s => s.Lookups)
                 .HasForeignKey(sl => new
                                      {
                                          sl.SurveyId,

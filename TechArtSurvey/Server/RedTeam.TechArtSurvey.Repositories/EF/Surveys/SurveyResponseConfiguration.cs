@@ -14,7 +14,7 @@ namespace RedTeam.TechArtSurvey.Repositories.EF.Surveys
             Property(sr => sr.UserId).IsRequired();
 
             HasRequired(sr => sr.Survey)
-                .WithMany(s => s.SurveyResponse)
+                .WithMany(s => s.Response)
                 .HasForeignKey(sr => new
                                       {
                                           sr.SurveyId,
@@ -26,9 +26,9 @@ namespace RedTeam.TechArtSurvey.Repositories.EF.Surveys
                 .HasForeignKey(sr => sr.UserId)
                 .WillCascadeOnDelete(false);
 
-            HasMany(sr => sr.QuestionAnswers)
+            HasMany(sr => sr.Answers)
                 .WithRequired(qa => qa.SurveyResponse)
-                .HasForeignKey(qa => qa.ReplyOnSurveyId)
+                .HasForeignKey(qa => qa.SurveyResponseId)
                 .WillCascadeOnDelete(false);
         }
     }

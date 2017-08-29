@@ -23,7 +23,7 @@ namespace RedTeam.TechArtSurvey.Repositories.EF.Surveys
                             s.Version
                         });
 
-            HasRequired(s => s.User)
+            HasRequired(s => s.Author)
                 .WithMany(u => u.Surveys)
                 .HasForeignKey(u => u.AuthorId)
                 .WillCascadeOnDelete(false);
@@ -33,7 +33,7 @@ namespace RedTeam.TechArtSurvey.Repositories.EF.Surveys
                 .HasForeignKey(s => s.SettingsId)
                 .WillCascadeOnDelete(false);
 
-            HasMany(s => s.SurveyResponse)
+            HasMany(s => s.Response)
                 .WithRequired(sr => sr.Survey)
                 .HasForeignKey(sr => new
                                       {
@@ -42,7 +42,7 @@ namespace RedTeam.TechArtSurvey.Repositories.EF.Surveys
                                       })
                 .WillCascadeOnDelete(false);
 
-            HasMany(s => s.SurveyLookups)
+            HasMany(s => s.Lookups)
                 .WithRequired(sl => sl.Survey)
                 .HasForeignKey(sl => new
                                      {

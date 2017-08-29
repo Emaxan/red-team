@@ -10,12 +10,12 @@ namespace RedTeam.TechArtSurvey.Repositories.EF.Surveys
             ToTable("Question");
 
             Property(q => q.Title).IsRequired();
-            Property(q => q.QuestionTypeId).IsRequired();
-            Property(q => q.QuestionNumber).IsRequired();
+            Property(q => q.TypeId).IsRequired();
+            Property(q => q.Number).IsRequired();
             Property(q => q.IsRequired).IsRequired();
             Property(q => q.MetaInfo).IsRequired();
 
-            HasMany(q => q.QuestionAnswers)
+            HasMany(q => q.Answers)
                 .WithRequired(qa => qa.Question)
                 .HasForeignKey(qa => qa.QuestionId)
                 .WillCascadeOnDelete(false);
@@ -25,9 +25,9 @@ namespace RedTeam.TechArtSurvey.Repositories.EF.Surveys
                 .HasForeignKey(q => q.PageId)
                 .WillCascadeOnDelete(false);
 
-            HasRequired(q => q.QuestionType)
+            HasRequired(q => q.Type)
                 .WithMany(qt => qt.Questions)
-                .HasForeignKey(q => q.QuestionTypeId)
+                .HasForeignKey(q => q.TypeId)
                 .WillCascadeOnDelete(false);
         }
     }
