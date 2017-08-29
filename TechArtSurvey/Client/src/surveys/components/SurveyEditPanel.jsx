@@ -8,6 +8,10 @@ import QuestionList from './QuestionList';
 import { ParamsPanel } from './ParamsPanel';
 import Page from '../models/Page';
 import { PageNavigator } from './PageNavigator';
+import { isSurveyValid } from './service';
+import {
+  TITLE_IS_REQUIRED,
+} from './errors';
 
 import './SurveyEditPanel.scss';
 
@@ -32,19 +36,44 @@ export class SurveyEditPanel extends Component {
         },
       },
     };
+
+    this.errors = {
+      survey : {
+        title : '',
+        pages : [{
+          title : '',
+          content: '',
+          questions : [],
+        }],
+      },
+    };
   }
 
   handleOnTitleChange = (event) => {
     this.setState({ survey : { ...this.state.survey, title : event.target.value }});
+    if(event.target.value.trim().length === 0) {
+      this.errors.survey.title = TITLE_IS_REQUIRED;
+    } else {
+      this.errors.survey.title = null;
+    }
   }
 
-  handleOnQuestionsArraySave = (questions) => {
+  handleOnSaveClick = () => {
+    if(!isSurveyValid(this.errors)) {
+      alert('Invalid survey. Check up all required fields.');
+      return;
+    }
+    alert('Zaebis! Chotko! Survey is ready to be sent to the server');
+  }
+
+  handleOnQuestionsArraySave = (questions, errors) => {
     let pages = this.state.survey.pages.map(q => ({...q}));
     pages[this.state.editingPageNumber - 1].questions = questions;
     this.setState({
       survey : { ...this.state.survey, pages : pages },
       newEditingQuestionType : null,
     });
+    this.errors.survey.pages[this.state.editingPageNumber - 1].questions = errors;
   }
 
   handleOnTypeChange = (type) => {
@@ -80,9 +109,10 @@ export class SurveyEditPanel extends Component {
     });
   }
 
-  handleOnPagesUpdate = (pages) => {
+  handleOnPagesUpdate = (pages, errors) => {
     let newPages = pages.map(p => ({...p}));
     this.setState({ survey : { ...this.state.survey, pages : newPages } });
+    this.errors.survey.pages = errors;
   }
 
   handleOnSettingsChange = (settings) => {
@@ -121,7 +151,7 @@ export class SurveyEditPanel extends Component {
               </Col>
             </FormGroup>
             <ButtonGroup>
-              <Button onClick={this.handleOnSave} type="submit">
+              <Button onClick={this.handleOnSaveClick}>
                 Save
               </Button>
               <Button >
