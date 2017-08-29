@@ -38,7 +38,7 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="EmailSender\EmailSender.cs" />
+    <Compile Include="EmailSender\SmtpEmailSender.cs" />
     <Compile Include="EmailSender\IEmailSender.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

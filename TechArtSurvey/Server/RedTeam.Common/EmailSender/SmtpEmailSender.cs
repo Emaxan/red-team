@@ -1,47 +1,35 @@
 ﻿using JetBrains.Annotations;
-using System.Collections.Specialized;
 using System.Configuration;
+using System.Net.Configuration;
 using System.Net.Mail;
 using System.Threading.Tasks;
 
 namespace RedTeam.Common.EmailSender
 {
     [UsedImplicitly]
-    public class EmailSender : IEmailSender
+    public class SmtpEmailSender : IEmailSender
     {
-        private readonly string _from;
-        private readonly string _password;
+        private readonly SmtpClient _client;
 
 
-        public EmailSender()
+        public SmtpEmailSender()
         {
-            var emailConfiguration = (NameValueCollection)ConfigurationManager.GetSection("EmailServiceConfig");
-
-            _from = emailConfiguration["UserName"];
-            _password = emailConfiguration["Password"];
+            _client = new SmtpClient();
         }
 
 
         public async Task SendMailAsync(string destination, string subject, string body)
         {
-            var smtpConfiguration = (NameValueCollection)ConfigurationManager.GetSection("SmtpConfig");
-
-            var client = new SmtpClient(smtpConfiguration["Host"], int.Parse(smtpConfiguration["Port"]))
-            {
-                DeliveryMethod = SmtpDeliveryMethod.Network,
-                UseDefaultCredentials = false,
-                Credentials = new System.Net.NetworkCredential(_from, _password),
-                EnableSsl = true
-            };
-
             var message = BuildMailMessage(destination, subject, body);
-
-            await client.SendMailAsync(message);
+            await _client.SendMailAsync(message);
         }
+
 
         private MailMessage BuildMailMessage(string destination, string subject, string body)
         {
-            var mail = new MailMessage(_from, destination)
+            var smtpSection = (SmtpSection)ConfigurationManager.GetSection("system.net/mailSettings/smtp");
+
+            var mail = new MailMessage(smtpSection.From, destination)
             {
                 Subject = subject,
                 Body = body,

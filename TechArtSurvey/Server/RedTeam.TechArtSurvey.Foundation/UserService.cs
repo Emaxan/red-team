@@ -101,20 +101,20 @@ namespace RedTeam.TechArtSurvey.Foundation
             return ServiceResponse.CreateSuccessful(_mapper.Map<User, EditUserDto>(user));
         }
 
-        public async Task<IServiceResponse> GetByEmailAsync(string email)
+        public async Task<IServiceResponse<EditUserDto>> GetByEmailAsync(string email)
         {
             LoggerContext.Logger.Info($"Get user by email = {email}");
 
             var user = await _uow.Users.GetUserByEmailAsync(email);
             if (user == null)
             {
-                return ServiceResponse.CreateUnsuccessful(ServiceResponseCode.UserNotFoundByEmail);
+                return ServiceResponse.CreateUnsuccessful<EditUserDto>(ServiceResponseCode.UserNotFoundByEmail);
             }
 
             return ServiceResponse.CreateSuccessful(_mapper.Map<User, EditUserDto>(user));
         }
 
-        public async Task<IServiceResponse> CheckByEmailAsync(string email)
+        public async Task<IServiceResponse<bool>> CheckByEmailAsync(string email)
         {
             LoggerContext.Logger.Info($"Get user with email = {email}");
 
