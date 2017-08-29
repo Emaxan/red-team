@@ -20,11 +20,29 @@ export class ScaleRatingQuestion extends Component {
     };
   }
 
+  componentWillReceiveProps = (props) => {
+    let metaInfo = props.question.metaInfo.map(m => m);
+    this.setState({
+      number : props.question.number,
+      type : props.question.type,
+      title : props.question.title,
+      isRequired : props.question.isRequired,
+      metaInfo : metaInfo,
+    });
+  }
+
   handleOnTitleChange = (event) => {
     let title = event.target.value;
     this.setState({ title : title });
     let question = {...this.state};
     question.title = title;
+    this.props.handleOnQuestionUpdate(question);
+  }
+
+  handleOnValueChange = (value) => {
+    this.setState({ matainfo : [value] });
+    let question = {...this.state};
+    question.metaInfo = [value];
     this.props.handleOnQuestionUpdate(question);
   }
 
@@ -60,7 +78,7 @@ export class ScaleRatingQuestion extends Component {
                 min: 0,
                 max: 100,
               }}
-              start={[50]}
+              start={this.state.metaInfo[0] || 50}
               connect={[true, false]}
               step={1}
               tooltips
@@ -70,7 +88,7 @@ export class ScaleRatingQuestion extends Component {
                   return ((value % 5) ? 0 : 2);
                 },
               }}
-              ref={ref => this.slider = ref}
+              onChange={this.handleOnValueChange}
             />
           </Col>
         </FormGroup>
