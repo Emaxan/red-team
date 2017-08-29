@@ -45,9 +45,7 @@ namespace RedTeam.TechArtSurvey.Foundation
                 "ResetPassword", 
                 resetPasswordDto.ResetPasswordToken);
 
-            return result ? 
-                ServiceResponse.CreateSuccessful(true) :
-                ServiceResponse.CreateSuccessful(false);
+            return ServiceResponse.CreateSuccessful(result);
         }
 
         public async Task<IServiceResponse> ResetUserPasswordAsync(ResetPasswordDto resetPasswordDto)
@@ -72,9 +70,7 @@ namespace RedTeam.TechArtSurvey.Foundation
         {
             LoggerContext.Logger.Info("Generate password reset token");
 
-            string resetPasswordToken = await _userManager.GeneratePasswordResetTokenAsync(userId);
-
-            return resetPasswordToken;
+            return await _userManager.GeneratePasswordResetTokenAsync(userId);
         }
 
         private async Task SendConfirmationEmailAsync(int userId, string resetPasswordToken, string callbackUrl)
