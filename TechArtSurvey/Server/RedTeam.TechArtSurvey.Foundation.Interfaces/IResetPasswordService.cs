@@ -7,7 +7,7 @@ namespace RedTeam.TechArtSurvey.Foundation.Interfaces
     public interface IResetPasswordService
     {
         Task<IServiceResponse> SendResetPasswordMessageAsync(ForgotPasswordDto forgotPasswordDto);
-        Task<IServiceResponse> CheckPasswordResetTokenAsync(ResetPasswordDto resetPasswordDto);
+        Task<IServiceResponse<bool>> CheckPasswordResetTokenAsync(ResetPasswordDto resetPasswordDto);
         Task<IServiceResponse> ResetUserPasswordAsync(ResetPasswordDto resetPasswordDto);
     }
 }

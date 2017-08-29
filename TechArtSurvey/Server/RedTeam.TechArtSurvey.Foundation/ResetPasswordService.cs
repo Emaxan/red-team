@@ -29,13 +29,14 @@ namespace RedTeam.TechArtSurvey.Foundation
                 return ServiceResponse.CreateUnsuccessful(ServiceResponseCode.UserNotFoundByEmail);
             }
 
-            var result = await GetPasswordResetTokenAsync(user.Id);
-            string passwordResetToken = result.Content;
+            string passwordResetToken = await GetPasswordResetTokenAsync(user.Id);
 
-            return await SendConfirmationEmailAsync(user.Id, passwordResetToken, forgotPasswordDto.CallbackUrl);
+            await SendConfirmationEmailAsync(user.Id, passwordResetToken, forgotPasswordDto.CallbackUrl);
+
+            return ServiceResponse.CreateSuccessful();
         }
 
-        public async Task<IServiceResponse> CheckPasswordResetTokenAsync(ResetPasswordDto resetPasswordDto)
+        public async Task<IServiceResponse<bool>> CheckPasswordResetTokenAsync(ResetPasswordDto resetPasswordDto)
         {
             LoggerContext.Logger.Info("Check password reset token");
 
@@ -44,12 +45,9 @@ namespace RedTeam.TechArtSurvey.Foundation
                 "ResetPassword", 
                 resetPasswordDto.ResetPasswordToken);
 
-            if (result)
-            {
-                return ServiceResponse.CreateSuccessful();
-            }
-
-            return ServiceResponse.CreateUnsuccessful(ServiceResponseCode.ResetPasswordTokenInvalid);
+            return result ? 
+                ServiceResponse.CreateSuccessful(true) :
+                ServiceResponse.CreateSuccessful(false);
         }
 
         public async Task<IServiceResponse> ResetUserPasswordAsync(ResetPasswordDto resetPasswordDto)
@@ -70,16 +68,16 @@ namespace RedTeam.TechArtSurvey.Foundation
         }
 
 
-        private async Task<IServiceResponse<string>> GetPasswordResetTokenAsync(int userId)
+        private async Task<string> GetPasswordResetTokenAsync(int userId)
         {
             LoggerContext.Logger.Info("Generate password reset token");
 
             string resetPasswordToken = await _userManager.GeneratePasswordResetTokenAsync(userId);
 
-            return ServiceResponse.CreateSuccessful(resetPasswordToken);
+            return resetPasswordToken;
         }
 
-        private async Task<IServiceResponse> SendConfirmationEmailAsync(int userId, string resetPasswordToken, string callbackUrl)
+        private async Task SendConfirmationEmailAsync(int userId, string resetPasswordToken, string callbackUrl)
         {
             LoggerContext.Logger.Info("Send confirmation email");
 
@@ -88,8 +86,6 @@ namespace RedTeam.TechArtSurvey.Foundation
                 "ITechArt Surveys: reset password",
                 $"Please reset your password by using this <a href='{callbackUrl}/{userId}/{resetPasswordToken}'>link</a>"
             );
-
-            return ServiceResponse.CreateSuccessful();
         }
     }
 }
