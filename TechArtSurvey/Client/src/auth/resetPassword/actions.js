@@ -22,7 +22,7 @@ export const {
   resetPasswordError,
 } = createActions({
   [CHECK_PASSWORD_RESET_TOKEN_START] : () => {},
-  [CHECK_PASSWORD_RESET_TOKEN_SUCCESS] : () => {},
+  [CHECK_PASSWORD_RESET_TOKEN_SUCCESS] : (tokenValid) => ({ tokenValid }),
   [CHECK_PASSWORD_RESET_TOKEN_ERROR] : () => {},
 
   [RESET_PASSWORD_START] : () => {},
@@ -33,8 +33,8 @@ export const {
 export const checkPasswordResetTokenRequest = (userId, token) => (dispatch) => {
   dispatch(checkPasswordResetTokenStart());
   return checkPasswordResetToken(userId, token)
-    .then(() => {
-      dispatch(checkPasswordResetTokenSuccess());
+    .then((data) => {
+      dispatch(checkPasswordResetTokenSuccess(data));
     })
     .catch(() => {
       dispatch(checkPasswordResetTokenError());
