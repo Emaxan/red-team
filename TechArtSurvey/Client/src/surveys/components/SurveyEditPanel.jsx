@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 
 import { questionTypesArray } from './questionTypesPresentation';
 import { QuestionTypesPanel } from './QuestionTypesPanel';
-import QuestionList from './QuestionList';
 import { ParamsPanel } from './ParamsPanel';
 import Page from '../models/Page';
 import { PageNavigator } from './PageNavigator';
@@ -42,7 +41,6 @@ export class SurveyEditPanel extends Component {
         title : '',
         pages : [{
           title : '',
-          content: '',
           questions : [],
         }],
       },
@@ -73,7 +71,7 @@ export class SurveyEditPanel extends Component {
       survey : { ...this.state.survey, pages : pages },
       newEditingQuestionType : null,
     });
-    this.errors.survey.pages[this.state.editingPageNumber - 1].questions = errors;
+    this.errors.survey.pages = errors.pages;
   }
 
   handleOnTypeChange = (type) => {
@@ -107,12 +105,16 @@ export class SurveyEditPanel extends Component {
       newEditingQuestionType : null,
       survey : { ...this.state.survey, pages : pages },
     });
+    this.errors.survey.pages.push({
+      title : '',
+      questions : [],
+    });
   }
 
   handleOnPagesUpdate = (pages, errors) => {
     let newPages = pages.map(p => ({...p}));
     this.setState({ survey : { ...this.state.survey, pages : newPages } });
-    this.errors.survey.pages = errors;
+    this.errors.survey.pages = errors.pages;
   }
 
   handleOnSettingsChange = (settings) => {
@@ -169,13 +171,11 @@ export class SurveyEditPanel extends Component {
               handleOnPageSwitch={this.handleOnPageSwitch}
               pages={this.state.survey.pages}
               editingPageNumber={this.state.editingPageNumber}
-            />
-            <QuestionList
-              questions={this.state.survey.pages[this.state.editingPageNumber - 1].questions}
-              handleOnEditingQuestionNumberChange={this.handleOnEditingQuestionNumberChange}
               handleOnQuestionsArraySave={this.handleOnQuestionsArraySave}
               editingQuestionNumber={this.state.editingQuestionNumber}
               newEditingQuestionType={this.state.newEditingQuestionType}
+              handleOnEditingQuestionNumberChange={this.handleOnEditingQuestionNumberChange}
+              errors={this.errors.survey.pages}
             />
           </Form>
         </Panel>

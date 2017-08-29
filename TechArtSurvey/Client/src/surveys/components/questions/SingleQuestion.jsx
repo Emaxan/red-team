@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import { Panel, Col, FormGroup, FormControl, Button, Radio } from 'react-bootstrap';
 import PropTypes from 'prop-types';
+import {
+  TITLE_IS_REQUIRED,
+} from '../errors';
 
 import './SingleQuestion.scss';
 
@@ -8,52 +11,59 @@ export class SingleQuestion extends Component {
   constructor(props) {
     super(props);
 
-    let metaInfo = this.props.question.metaInfo.map(m => m);
+    let question = this.props.question;
+    question.metaInfo = this.props.question.metaInfo.map(m => m);
 
     this.state = {
-      number : this.props.question.number,
-      type : this.props.question.type,
-      title : this.props.question.title,
-      isRequired : this.props.question.isRequired,
-      metaInfo : metaInfo,
+      question : question,
+      errors : {
+        question : {...this.props.errors},
+      },
     };
   }
 
   componentWillReceiveProps = (props) => {
-    let metaInfo = props.question.metaInfo.map(m => m);
+    let question = props.question;
+    question.metaInfo = props.question.metaInfo.map(m => m);
     this.setState({
-      number : props.question.number,
-      type : props.question.type,
-      title : props.question.title,
-      isRequired : props.question.isRequired,
-      metaInfo : metaInfo,
+      question : question,
+      errors : {...this.state.errors, question : {...props.errors}},
     });
   }
 
   handleOnTitleChange = (event) => {
     let title = event.target.value;
-    this.setState({ title : title });
-    let question = {...this.state};
+    let question = {...this.state.question};
     question.title = title;
-    this.props.handleOnQuestionUpdate(question);
+    let errors = {...this.state.errors};
+    if(title.trim().length === 0) {
+      errors.question.title = TITLE_IS_REQUIRED;
+    } else {
+      errors.question.title = null;
+    }
+    this.props.handleOnQuestionUpdate(question, errors);
+    this.setState({
+      question : { ...this.state.question, title : title },
+      errors : {...this.state.errors, question : errors},
+    });
   }
 
   handleOnOptionChange = (optionId, value) => {
-    let metaInfo = this.state.metaInfo.map(m => m);
+    let metaInfo = this.state.question.metaInfo.map(m => m);
     metaInfo[optionId] = value;
-    this.setState({ metaInfo : metaInfo });
-    let question = {...this.state};
+    this.setState({ question : { ...this.state.question, metaInfo : metaInfo } });
+    let question = {...this.state.question};
     question.metaInfo = metaInfo;
-    this.props.handleOnQuestionUpdate(question);
+    this.props.handleOnQuestionUpdate(question, this.state.errors);
   }
 
   handleOnAddOption = () => {
-    let metaInfo = this.state.metaInfo.map(m => m);
+    let metaInfo = this.state.question.metaInfo.map(m => m);
     metaInfo.push('');
-    this.setState({ metaInfo : metaInfo });
-    let question = {...this.state};
+    this.setState({ question : { ...this.state.question, metaInfo : metaInfo } });
+    let question = {...this.state.question};
     question.metaInfo = metaInfo;
-    this.props.handleOnQuestionUpdate(question);
+    this.props.handleOnQuestionUpdate(question, this.state.errors);
   }
 
   render = () => {
@@ -67,7 +77,7 @@ export class SingleQuestion extends Component {
                   <FormControl
                     name="title"
                     type="text"
-                    value={this.state.title}
+                    value={this.state.question.title}
                     placeholder="Enter question's title"
                     onChange={this.handleOnTitleChange}
                   />
@@ -80,7 +90,7 @@ export class SingleQuestion extends Component {
         </FormGroup>
 
         {
-          this.state.metaInfo.map((option, i) => {
+          this.state.question.metaInfo.map((option, i) => {
             return (
               <FormGroup key={i}>
                 <Col sm={8} smOffset={1}>
@@ -89,15 +99,15 @@ export class SingleQuestion extends Component {
                       (
                         <FormControl
                           type='text'
-                          name={this.state.title}
+                          name={this.state.question.title}
                           value={option}
                           placeholder="Option"
                           onChange={(e) => this.handleOnOptionChange(i, e.target.value)}
                         />
                       ) :
                       (
-                        <Radio id={`${this.state.number}.${i}`} name={this.state.title}>
-                          <label htmlFor={`${this.state.number}.${i}`} className="option">{option}</label>
+                        <Radio id={`${this.state.question.number}.${i}`} name={this.state.question.title}>
+                          <label htmlFor={`${this.state.question.number}.${i}`} className="option">{option}</label>
                         </Radio>
                       )
                   }
@@ -123,6 +133,7 @@ export class SingleQuestion extends Component {
 }
 
 SingleQuestion.propTypes = {
+  errors: PropTypes.object.isRequired,
   question: PropTypes.object.isRequired,
   handleOnQuestionUpdate: PropTypes.func.isRequired,
   editing : PropTypes.bool,

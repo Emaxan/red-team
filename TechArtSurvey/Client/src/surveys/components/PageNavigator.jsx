@@ -1,6 +1,10 @@
 import React, { Component } from 'react';
 import { Col, FormGroup, FormControl, Button, NavItem, Nav, ControlLabel } from 'react-bootstrap';
 import PropTypes from 'prop-types';
+import QuestionList from './QuestionList';
+import {
+  TITLE_IS_REQUIRED,
+} from './errors';
 
 import './PageNavigator.scss';
 
@@ -12,6 +16,9 @@ export class PageNavigator extends Component {
       editingPageNumber : 1,
       pages : pages,
     };
+    this.errors = {
+      pages : this.props.errors,
+    };
   }
 
   componentWillReceiveProps = (props) => {
@@ -20,6 +27,7 @@ export class PageNavigator extends Component {
       pages : pages,
       editingPageNumber : props.editingPageNumber,
     });
+    this.errors.pages = props.errors;
   }
 
   handleOnPageSwitch = (pageNumber) => {
@@ -36,11 +44,13 @@ export class PageNavigator extends Component {
       return;
     }
     pages.splice(this.state.editingPageNumber - 1, 1);
+    this.survey.pages.splice(this.state.editingPageNumber - 1, 1);
+    this.errors.pages.splice(this.state.editingPageNumber - 1, 1);
     this.setState({
       editingPageNumber: 1,
       pages : pages,
     });
-    this.props.handleOnPagesUpdate(pages);
+    this.props.handleOnPagesUpdate(pages, this.errors);
     this.props.handleOnPageSwitch(1);
   }
 
@@ -48,7 +58,17 @@ export class PageNavigator extends Component {
     let pages = this.state.pages.map(p => ({...p}));
     pages[this.state.editingPageNumber - 1].title = event.target.value;
     this.setState({ pages : pages });
-    this.props.handleOnPagesUpdate(pages);
+    if(event.target.value.trim().length === 0) {
+      this.errors.pages[this.state.editingPageNumber - 1].title = TITLE_IS_REQUIRED;
+    } else {
+      this.errors.pages[this.state.editingPageNumber - 1].title = null;
+    }
+    this.props.handleOnPagesUpdate(pages, this.errors);
+  }
+
+  handleOnQuestionsArraySave = (questions, errors) => {
+    this.errors.pages[this.state.editingPageNumber - 1].questions = errors.questions;
+    this.props.handleOnQuestionsArraySave(questions, this.errors);
   }
 
   render = () => {
@@ -83,6 +103,14 @@ export class PageNavigator extends Component {
           </FormGroup>
           <Button onClick={this.handleOnDeleteClick}>Delete</Button>
         </div>
+        <QuestionList
+          questions={this.state.pages[this.state.editingPageNumber - 1].questions}
+          handleOnEditingQuestionNumberChange={this.props.handleOnEditingQuestionNumberChange}
+          handleOnQuestionsArraySave={this.handleOnQuestionsArraySave}
+          editingQuestionNumber={this.props.editingQuestionNumber}
+          newEditingQuestionType={this.props.newEditingQuestionType}
+          errors={this.errors.pages[this.state.editingPageNumber - 1].questions}
+        />
       </div>
     );
   }
@@ -91,6 +119,11 @@ export class PageNavigator extends Component {
 PageNavigator.propTypes = {
   editingPageNumber : PropTypes.number.isRequired,
   pages : PropTypes.array.isRequired,
+  errors : PropTypes.array.isRequired,
   handleOnPageSwitch : PropTypes.func.isRequired,
   handleOnPagesUpdate : PropTypes.func.isRequired,
+  newEditingQuestionType : PropTypes.string.isRequired,
+  editingQuestionNumber : PropTypes.number.isRequired,
+  handleOnQuestionsArraySave : PropTypes.func.isRequired,
+  handleOnEditingQuestionNumberChange : PropTypes.func.isRequired,
 };

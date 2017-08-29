@@ -3,6 +3,9 @@ import { Panel, Button, Checkbox, ButtonGroup } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 
 import { questionsFactory } from '../questionsFactory';
+import {
+  VARIANTS_ARE_REQUIRED,
+} from '../errors';
 
 import './EditingQuestionWrapper.scss';
 
@@ -12,18 +15,21 @@ export class EditingQuestionWrapper extends Component {
 
     this.state = {
       question : {...this.props.question},
+      errors : {
+        question : {...this.props.errors},
+      },
     };
   }
 
-  componentWillReceiveProps = (props) => {
+  componentWillReceiveProps = (props, errors) => {
     let type = props.question.type;
-    this.setState({ question : { ...this.state.question, type : type } });
+    this.setState({ question : { ...this.state.question, type : type }, errors : {...this.state.errors, question : {...errors}} });
   }
 
-  handleOnQuestionUpdate = (question) => {
+  handleOnQuestionUpdate = (question, errors) => {
     let metaInfo = question.metaInfo.map(m => m);
     question.metaInfo = metaInfo;
-    this.setState({ question: {...question} });
+    this.setState({ question: {...question}, errors : {...this.state.errors, question : {...errors.question}} });
   }
 
   handleOnSaveClick = () => {
@@ -36,8 +42,14 @@ export class EditingQuestionWrapper extends Component {
       }
     });
     question.metaInfo = metaInfo;
-    this.setState({ question: {...question} });
-    this.props.handleOnQuestionSave({...question});
+    let errors = {...this.state.errors};
+    if(metaInfo.length === 0) {
+      errors.question.metaInfo = VARIANTS_ARE_REQUIRED;
+    } else {
+      errors.question.metaInfo = null;
+    }
+    this.setState({ question: {...question}, errors : {...this.state.errors, question : errors} });
+    this.props.handleOnQuestionSave({...question}, errors);
   }
 
   handleOnCancelClick = () => {
@@ -71,6 +83,7 @@ export class EditingQuestionWrapper extends Component {
             this.handleOnQuestionUpdate,
             {
               editing : this.props.editing,
+              errors : this.state.errors.question,
             },
           )
         }
@@ -89,6 +102,7 @@ export class EditingQuestionWrapper extends Component {
 EditingQuestionWrapper.propTypes = {
   handleOnQuestionSave : PropTypes.func.isRequired,
   question : PropTypes.object.isRequired,
+  errors : PropTypes.object.isRequired,
   handleOnEditingQuestionNumberChange : PropTypes.func.isRequired,
   handleOnDeleteClick : PropTypes.func.isRequired,
   editing : PropTypes.bool.isRequired,
