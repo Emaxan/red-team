@@ -85,7 +85,7 @@ export class MultipleQuestion extends Component {
                         />
                       ) :
                       (
-                        <Checkbox number={`${this.state.number}.${i}`} name={this.state.title}>
+                        <Checkbox id={`${this.state.number}.${i}`} name={this.state.title}>
                           <label htmlFor={`${this.state.number}.${i}`} className="option">{option}</label>
                         </Checkbox>
                       )

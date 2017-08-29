@@ -19,6 +19,17 @@ export class SingleQuestion extends Component {
     };
   }
 
+  componentWillReceiveProps = (props) => {
+    let metaInfo = props.question.metaInfo.map(m => m);
+    this.setState({
+      number : props.question.number,
+      type : props.question.type,
+      title : props.question.title,
+      isRequired : props.question.isRequired,
+      metaInfo : metaInfo,
+    });
+  }
+
   handleOnTitleChange = (event) => {
     let title = event.target.value;
     this.setState({ title : title });
@@ -85,7 +96,7 @@ export class SingleQuestion extends Component {
                         />
                       ) :
                       (
-                        <Radio number={`${this.state.number}.${i}`} name={this.state.title}>
+                        <Radio id={`${this.state.number}.${i}`} name={this.state.title}>
                           <label htmlFor={`${this.state.number}.${i}`} className="option">{option}</label>
                         </Radio>
                       )

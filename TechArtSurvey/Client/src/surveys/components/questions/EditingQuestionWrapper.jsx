@@ -21,12 +21,7 @@ export class EditingQuestionWrapper extends Component {
   }
 
   handleOnQuestionUpdate = (question) => {
-    let metaInfo = [];
-    question.metaInfo.map(m => {
-      if(m && m.trim().length > 0) {
-        metaInfo.push(m.trim());
-      }
-    });
+    let metaInfo = question.metaInfo.map(m => m);
     question.metaInfo = metaInfo;
     this.setState({ question: {...question} });
   }

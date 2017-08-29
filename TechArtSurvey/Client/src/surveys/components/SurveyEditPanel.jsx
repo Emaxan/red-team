@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
-import { Form, Col, Panel, FormGroup, FormControl, ControlLabel, Button, NavItem, Nav, ButtonGroup } from 'react-bootstrap';
+import { Form, Col, Panel, FormGroup, FormControl, ControlLabel, Button, ButtonGroup } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 
 import { questionTypesArray } from './questionTypesPresentation';
 import { QuestionTypesPanel } from './QuestionTypesPanel';
 import QuestionList from './QuestionList';
+import { ParamsPanel } from './ParamsPanel';
 import Page from '../models/Page';
+import { PageNavigator } from './PageNavigator';
 
 import './SurveyEditPanel.scss';
 
@@ -60,9 +62,6 @@ export class SurveyEditPanel extends Component {
   }
 
   handleOnPageSwitch = (pageNumber) => {
-    if(pageNumber == this.state.editingPageNumber) {
-      return;
-    }
     this.setState({
       editingPageNumber : pageNumber,
       editingQuestionNumber : -1,
@@ -81,18 +80,26 @@ export class SurveyEditPanel extends Component {
     });
   }
 
-  handleOnPageDeleteClick = () => {
-    let pages = this.state.survey.pages.map(q => ({...q}));
-    if(pages.length == 1) {
-      return;
+  handleOnPagesUpdate = (pages) => {
+    let newPages = pages.map(p => ({...p}));
+    this.setState({ survey : { ...this.state.survey, pages : newPages } });
+  }
+
+  handleOnSettingsChange = (settings) => {
+    let newSettings = {...settings};
+    this.setState({ survey : { ...this.state.survey, settings : newSettings } });
+  }
+
+  getEditingQuestionType() {
+    if(this.state.editingQuestionNumber === -1) {
+      return null;
     }
-    pages.splice(this.state.editingPageNumber - 1, 1);
-    this.setState({
-      editingPageNumber: 1,
-      editingQuestionNumber: -1,
-      newEditingQuestionType : null,
-      survey: { ...this.state.survey, pages : pages },
-    });
+    if(this.state.newEditingQuestionType) {
+      return this.state.newEditingQuestionType;
+    }
+    let questions = this.state.survey.pages[this.state.editingPageNumber - 1].questions;
+    let index = questions.findIndex(q => q.number == this.state.editingQuestionNumber);
+    return questions[index].type;
   }
 
   render = () => {
@@ -127,14 +134,12 @@ export class SurveyEditPanel extends Component {
                 New page
               </Button>
             </ButtonGroup>
-            <Nav bsStyle="tabs" justified>
-              {
-                this.state.survey.pages.map((page, index) => (
-                  <NavItem key={index} eventKey={index + 1} onSelect={this.handleOnPageSwitch}>Page {index + 1}</NavItem>
-                ))
-              }
-            </Nav>
-            <Button onClick={this.handleOnPageDeleteClick}>Delete</Button>
+            <PageNavigator
+              handleOnPagesUpdate={this.handleOnPagesUpdate}
+              handleOnPageSwitch={this.handleOnPageSwitch}
+              pages={this.state.survey.pages}
+              editingPageNumber={this.state.editingPageNumber}
+            />
             <QuestionList
               questions={this.state.survey.pages[this.state.editingPageNumber - 1].questions}
               handleOnEditingQuestionNumberChange={this.handleOnEditingQuestionNumberChange}
@@ -144,11 +149,19 @@ export class SurveyEditPanel extends Component {
             />
           </Form>
         </Panel>
-
-        <QuestionTypesPanel
-          handleOnTypeChange={this.handleOnTypeChange}
-          questionTypesArray={questionTypesArray}
-        />
+        <div>
+          <div>
+            <QuestionTypesPanel
+              handleOnTypeChange={this.handleOnTypeChange}
+              questionTypesArray={questionTypesArray}
+              editingQuestionType={this.getEditingQuestionType()}
+            />
+            <ParamsPanel
+              handleOnSettingsChange={this.handleOnSettingsChange}
+              settings={this.state.survey.settings}
+            />
+          </div>
+        </div>
       </div>
     );
   }

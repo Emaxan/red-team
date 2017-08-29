@@ -17,24 +17,26 @@ class QuestionList extends Component {
     super(props);
 
     let questions = this.props.questions.map(q => ({...q}));
+    let questionsBuffer = this.props.questions.map(q => ({...q}));
 
     this.state = {
       questions : questions,
+      questionsBuffer : questionsBuffer,
       editingQuestionNumber : -1,
     };
 
-    this.questionsBuffer = this.props.questions.map(q => ({...q}));
     this.lastNumber = getLastNumber(this.state.questions);
   }
 
   componentWillReceiveProps = (props) => {
     let questions = props.questions.map(q => ({...q}));
-    this.questionsBuffer = props.questions.map(q => ({...q}));
+    let questionsBuffer = props.questions.map(q => ({...q}));
+
     let newQuestions = this.checkIfEditingQuestionTypeChanged(questions, props.newEditingQuestionType);
     if(newQuestions) {
-      this.questionsBuffer = newQuestions;
+      questionsBuffer = newQuestions;
     }
-    this.setState({ questions : questions, editingQuestionNumber : props.editingQuestionNumber });
+    this.setState({ questions : questions, questionsBuffer : questionsBuffer, editingQuestionNumber : props.editingQuestionNumber });
   }
 
   moveQuestion = (dragIndex, hoverIndex) => {
@@ -92,18 +94,18 @@ class QuestionList extends Component {
   }
 
   handleOnQuestionSave = (question) => {
-    let questions = this.questionsBuffer.map(q => ({...q}));
-    let index = questions.findIndex(q => q.number == this.state.editingQuestionNumber);
-    questions[index] = question;
-    this.setState({ editingQuestionNumber : -1, questions : questions });
+    let questionsBuffer = this.state.questionsBuffer.map(q => ({...q}));
+    let index = questionsBuffer.findIndex(q => q.number == this.state.editingQuestionNumber);
+    questionsBuffer[index] = question;
+    let questions = questionsBuffer.map(q => ({...q}));
+    this.setState({ editingQuestionNumber : -1, questions : questions, questionsBuffer : questionsBuffer });
     this.props.handleOnQuestionsArraySave(questions);
     this.props.handleOnEditingQuestionNumberChange(-1);
   }
 
   handleOnEditingQuestionNumberChange = (number) => {
-    this.setState({ editingQuestionNumber : number });
     let resetBuffer = this.state.questions.map(q => ({...q}));
-    this.questionsBuffer = resetBuffer;
+    this.setState({ editingQuestionNumber : number, questionsBuffer : resetBuffer });
     this.props.handleOnEditingQuestionNumberChange(number);
   }
 
@@ -111,7 +113,7 @@ class QuestionList extends Component {
     return (
       <div>
         {
-          this.questionsBuffer.map((question, index) => {
+          this.state.questionsBuffer.map((question, index) => {
             if(this.state.editingQuestionNumber != question.number) {
               return (
                 <DraggableQuestion
