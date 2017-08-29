@@ -49,6 +49,11 @@ namespace RedTeam.TechArtSurvey.Foundation.Responses
 
         public static ServiceResponse CreateUnsuccessful(ServiceResponseCode code)
         {
+            if (code == ServiceResponseCode.Ok)
+            {
+                throw new ArgumentException("Invalid code.");
+            }
+
             return new ServiceResponse(code);
         }
     }
