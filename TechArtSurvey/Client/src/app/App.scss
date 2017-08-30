@@ -26,7 +26,7 @@ body {
 
 .app-content {
   flex-grow: 1;
-  margin-left: $main-margin-left;
+  margin: auto;
   height: calc(100vh - #{$main-height-decrease});
   min-width: 0;
   max-width: calc(100vw - #{$main-width-decrease});
