@@ -57,7 +57,7 @@ export class SurveyEditPanel extends Component {
   }
 
   handleOnSaveClick = () => {
-    if(!isSurveyValid(this.errors)) {
+    if(!isSurveyValid(this.errors.survey)) {
       alert('Invalid survey. Check up all required fields.');
       return;
     }

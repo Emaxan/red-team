@@ -41,21 +41,28 @@ export const getLastNumber = (questions) => {
   return numberList[numberList.length - 1];
 };
 
-export const isSurveyValid = (errors) => {
-  if(errors.survey.title) {
+const hasError = fieldError => fieldError != null;
+
+export const isSurveyValid = (survey) => {
+  if(hasError(survey.title)) {
     return false;
   }
 
   let isValid = true;
-  errors.survey.pages.map(page => {
-    if (page.title) {
+
+  survey.pages.map(page => {
+    if (hasError(page.title)) {
       isValid = false;
+
       return;
     }
-    if(page.questions) {
-      isValid = false;
-      return;
-    }
+    page.questions.map(question => {
+      if(hasError(question.title) || hasError(question.metaInfo)) {
+        isValid = false;
+
+        return;
+      }
+    });
   });
 
   return isValid;
