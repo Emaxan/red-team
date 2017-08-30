@@ -1,10 +1,13 @@
 import React, { Component } from 'react';
-import { Panel, Col, FormGroup, FormControl, Button, Radio } from 'react-bootstrap';
+import { Panel, Col, FormGroup, FormControl, Button, Radio, ControlLabel } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 
 import {
-  TITLE_IS_REQUIRED,
+// TITLE_IS_REQUIRED,
 } from '../errors';
+import {
+  validateTitle,
+} from '../../../utils/validation/questionValidation';
 
 import './SingleQuestion.scss';
 
@@ -17,9 +20,12 @@ export class SingleQuestion extends Component {
 
     this.state = {
       question : question,
-      errors : {
-        question : {...this.props.errors},
-      },
+    };
+
+    this.errors = { ...this.props.errors },
+
+    this.validationStates = {
+      title : null,
     };
   }
 
@@ -32,20 +38,28 @@ export class SingleQuestion extends Component {
     });
   }
 
+  setValidationState = (fieldName, validationInfo) => {
+    if (validationInfo.isValid) {
+      this.errors[fieldName] = null;
+      this.validationStates[fieldName] = 'success';
+    } else {
+      this.errors[fieldName] = validationInfo.errors[0].message;
+      this.validationStates[fieldName] = 'error';
+    }
+  }
+
   handleOnTitleChange = (event) => {
     let title = event.target.value;
-    let question = {...this.state.question};
+
+    this.setValidationState('title', validateTitle(title));
+
+    let question = { ...this.state.question };
     question.title = title;
-    let errors = {...this.state.errors};
-    if(title.trim().length === 0) {
-      errors.question.title = TITLE_IS_REQUIRED;
-    } else {
-      errors.question.title = null;
-    }
-    this.props.handleOnQuestionUpdate(question, errors);
+
+    this.props.handleOnQuestionUpdate(question, this.errors);
+
     this.setState({
       question : { ...this.state.question, title : title },
-      errors : {...this.state.errors, question : errors},
     });
   }
 
@@ -70,18 +84,22 @@ export class SingleQuestion extends Component {
   render = () => {
     return (
       <Panel>
-        <FormGroup>
+        <FormGroup validationState={this.validationStates.title}>
           <Col sm={10} smOffset={1}>
             {
               this.props.editing ?
                 (
-                  <FormControl
-                    name="title"
-                    type="text"
-                    value={this.state.question.title}
-                    placeholder="Enter question's title"
-                    onChange={this.handleOnTitleChange}
-                  />
+                  <div>
+                    <ControlLabel>
+                      {this.errors.title || 'Title'}
+                    </ControlLabel>
+                    <FormControl
+                      name="title"
+                      type="text"
+                      value={this.state.question.title}
+                      onChange={this.handleOnTitleChange}
+                    />
+                  </div>
                 ) :
                 (
                   this.props.question.title
@@ -134,9 +152,9 @@ export class SingleQuestion extends Component {
 }
 
 SingleQuestion.propTypes = {
-  errors: PropTypes.object.isRequired,
-  question: PropTypes.object.isRequired,
-  handleOnQuestionUpdate: PropTypes.func.isRequired,
+  errors : PropTypes.object.isRequired,
+  question : PropTypes.object.isRequired,
+  handleOnQuestionUpdate : PropTypes.func.isRequired,
   editing : PropTypes.bool,
 };
 

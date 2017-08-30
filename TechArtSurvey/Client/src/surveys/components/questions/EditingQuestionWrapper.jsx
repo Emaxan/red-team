@@ -29,7 +29,7 @@ export class EditingQuestionWrapper extends Component {
   handleOnQuestionUpdate = (question, errors) => {
     let metaInfo = question.metaInfo.map(m => m);
     question.metaInfo = metaInfo;
-    this.setState({ question: {...question}, errors : {...this.state.errors, question : {...errors.question}} });
+    this.setState({ question: {...question}, errors : {...this.state.errors, question : {...errors}} });
   }
 
   handleOnSaveClick = () => {
@@ -66,15 +66,20 @@ export class EditingQuestionWrapper extends Component {
     this.props.handleOnDeleteClick();
   }
 
+  isQuestionValid = () => {
+    // WILL BE CHANGED
+    return this.state.errors.question.title === null;
+  }
+
   render = () =>
     <div>
       <Panel className="edit-question">
         <div className="top-actions">
           <Checkbox onClick={this.handleOnRequiredClick} checked={this.state.question.isRequired} className="top-actions__required">
-          Required
+            Required
           </Checkbox>
           <Button onClick={this.handleOnDeleteClick}>
-          Delete
+            Delete
           </Button>
         </div>
         {
@@ -88,11 +93,11 @@ export class EditingQuestionWrapper extends Component {
           )
         }
         <ButtonGroup className="bottom-actions">
-          <Button onClick={this.handleOnSaveClick}>
-          Save
+          <Button onClick={this.handleOnSaveClick} disabled={!this.isQuestionValid()}>
+            Save
           </Button>
           <Button onClick={this.handleOnCancelClick}>
-          Cancel
+            Cancel
           </Button>
         </ButtonGroup>
       </Panel>

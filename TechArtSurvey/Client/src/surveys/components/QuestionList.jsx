@@ -133,7 +133,7 @@ class QuestionList extends Component {
               return (
                 <DraggableQuestion
                   key={index}
-                  id={question.id}
+                  id={question.number}
                   index={index}
                   moveQuestion={this.moveQuestion}
                 >
@@ -151,7 +151,7 @@ class QuestionList extends Component {
             return (
               <DraggableQuestion
                 key={index}
-                id={question.id}
+                id={question.number}
                 index={index}
                 moveQuestion={this.moveQuestion}
               >

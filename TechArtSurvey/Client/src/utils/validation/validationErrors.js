@@ -35,4 +35,9 @@ export const validationErrors = {
     id : constants.USER_CONFIRMATION_PASSWORD_MUST_MATCH_ERROR_ID,
     message : 'Passwords must match',
   },
+
+  QuestionTitleRequired : {
+    id : constants.QUESTION_TITLE_REQUIRED_ERROR_ID,
+    message : 'Question\'s title is required',
+  },
 };
