@@ -3,32 +3,32 @@ import { questionTypes } from '../questionTypes';
 export const questionTypesArray = [
   {
     id : 1,
-    img : '../images/single.jpg',
     name : questionTypes.SINGLE_ANSWER,
+    text : 'Single answer',
   },
   {
     id : 2,
-    img : '../images/multiple.jpg',
     name : questionTypes.MULTIPLE_ANSWER,
+    text : 'Multiple answer',
   },
   {
     id : 3,
-    img : '../images/text.jpg',
     name : questionTypes.TEXT_ANSWER,
+    text : 'Text answer',
   },
   {
     id : 4,
-    img : '../images/file.jpg',
     name : questionTypes.FILE_ANSWER,
+    text : 'File answer',
   },
   {
     id : 5,
-    img : '../images/star.jpg',
     name : questionTypes.STAR_RATING_ANSWER,
+    text : 'Rating in stars',
   },
   {
     id : 6,
-    img : '../images/scale.jpg',
     name : questionTypes.SCALE_RATING_ANSWER,
+    text : 'Rating in scale',
   },
 ];

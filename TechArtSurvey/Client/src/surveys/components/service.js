@@ -92,18 +92,21 @@ export const validateTitle = (element) => {
 
 export const prepareSurvey = (survey) => {
   let newSurvey = {...survey};
-  let newPages = survey.pages.map(page => {
+  let newPages = survey.pages.map((page, index) => {
     let newQuestions = page.questions.map(q => {
       let variants = q.metaInfo.map(m => ({text : m}));
       let newQuestion = {
         title : q.title,
         variants : variants,
         number : q.number,
+        type : {name : q.type},
+        isRequired : q.isRequired,
       };
       return newQuestion;
     });
     let newPage = {...page};
     newPage.questions = newQuestions;
+    newPage.number = index;
     return newPage;
   });
   newSurvey.pages = newPages;

@@ -26,7 +26,7 @@ export class QuestionTypesPanel extends Component {
           {
             this.props.questionTypesArray.map((type) => (
               <NavItem key={type.id} eventKey={type.name} >
-                {type.name}
+                {type.text}
               </NavItem>
             ))
           }
