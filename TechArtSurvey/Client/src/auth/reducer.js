@@ -36,5 +36,5 @@ export const authReducer = handleActions({
     state.set('isEmailRegistered', action.payload.isEmailRegistered),
 
   [CHECK_EMAIL_EXISTENCE_ERROR] : (state) =>
-    state.set('isEmailRegistered', true),
+    state.set('isEmailRegistered', null),
 }, initialState);

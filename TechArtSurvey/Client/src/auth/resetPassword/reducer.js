@@ -22,8 +22,9 @@ export const resetPasswordReducer = handleActions({
     state.set('errors', List()),
 
   [RESET_PASSWORD_ERROR] : (state, action) =>
-    state.set('errors', state.get('errors')
-      .merge(List(action.payload.errors))),
+    state.set('tokenValid', false)
+      .set('errors', state.get('errors')
+        .merge(List(action.payload.errors))),
 
   [CHECK_PASSWORD_RESET_TOKEN_START] : (state) =>
     state.set('isFetching', true),

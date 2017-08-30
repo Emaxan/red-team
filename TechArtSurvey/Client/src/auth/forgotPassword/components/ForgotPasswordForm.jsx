@@ -32,6 +32,11 @@ export class ForgotPasswordForm extends Component {
     this.emailValidationState = 'error';
   }
 
+  setNullValidationState = () => {
+    this.emailError = null;
+    this.emailValidationState = null;
+  }
+
   setValidationState = (validationInfo) => {
     if (validationInfo.isValid) {
       this.setSuccessValidationState();
@@ -40,20 +45,28 @@ export class ForgotPasswordForm extends Component {
     }
   }
 
+
   handleOnEmailChange = (event) => {
     this.setValidationState(validateEmail(event.target.value));
     this.setState({ emailInput : event.target.value });
   }
 
   handleOnEmailBlur = async (event) => {
+    this.setErrorValidationState('Checking for email existing...');
+
     const email = event.target.value;
     if (!isEmpty(email)) {
       await this.props.checkEmailExistenceRequest(email);
 
-      if (!this.props.isEmailRegistered) {
+      if (this.props.isEmailRegistered === null) {
+        this.setNullValidationState();
+      } else if (this.props.isEmailRegistered) {
+        this.setSuccessValidationState();
+      } else {
         this.setErrorValidationState('User with this email doesn\'t exists');
-        this.setState({ emailInput : email });
       }
+
+      this.setState({ emailInput : email });
     }
   }
 
@@ -102,5 +115,5 @@ export class ForgotPasswordForm extends Component {
 ForgotPasswordForm.propTypes = {
   checkEmailExistenceRequest : PropTypes.func.isRequired,
   forgotPasswordRequest : PropTypes.func.isRequired,
-  isEmailRegistered : PropTypes.bool.isRequired,
+  isEmailRegistered : PropTypes.any.isRequired,
 };

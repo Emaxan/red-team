@@ -53,6 +53,11 @@ export class SignUpForm extends Component {
     this.validationStates[fieldName] = 'error';
   }
 
+  setNullValidationState = (fieldName) => {
+    this.errors[fieldName] = null;
+    this.validationStates[fieldName] = null;
+  }
+
   setValidationState = (fieldName, validationInfo) => {
     if (validationInfo.isValid) {
       this.setSuccessValidationState(fieldName);
@@ -76,14 +81,21 @@ export class SignUpForm extends Component {
   }
 
   handleOnEmailBlur = async (event) => {
+    this.setErrorValidationState('email', 'Checking for email existing...');
+
     const email = event.target.value;
     if (!isEmpty(email)) {
       await this.props.checkEmailExistenceRequest(email);
 
-      if (this.props.isEmailRegistered) {
+      if (this.props.isEmailRegistered === null) {
+        this.setNullValidationState('email');
+      } else if (this.props.isEmailRegistered) {
         this.setErrorValidationState('email', 'User with this email is already exists');
-        this.setState({ user : { ...this.state.user, email : email }});
+      } else {
+        this.setSuccessValidationState('email');
       }
+
+      this.setState({ user : { ...this.state.user, email : email }});
     }
   }
 
@@ -191,7 +203,7 @@ export class SignUpForm extends Component {
 
 SignUpForm.propTypes = {
   actionString : PropTypes.string.isRequired,
-  isEmailRegistered : PropTypes.bool.isRequired,
+  isEmailRegistered : PropTypes.any.isRequired,
   signUpRequest : PropTypes.func.isRequired,
   checkEmailExistenceRequest : PropTypes.func.isRequired,
 };
