@@ -1,5 +1,9 @@
 import Question from '../models/Question';
 import { questionTypes } from '../questionTypes';
+import {
+  VARIANTS_ARE_REQUIRED,
+  TITLE_IS_REQUIRED,
+} from './errors';
 
 export const changeType = (oldQuestion, type) => {
   if (oldQuestion.type === type) {
@@ -66,4 +70,43 @@ export const isSurveyValid = (survey) => {
   });
 
   return isValid;
+};
+
+export const validateMetaInfo = (question) => {
+  if(question.type == questionTypes.TEXT_ANSWER || question.type == questionTypes.FILE_ANSWER) {
+    return null;
+  }
+  if(question.metaInfo.length === 0) {
+    return VARIANTS_ARE_REQUIRED;
+  }
+  return null;
+};
+
+export const validateTitle = (element) => {
+  if(element.title.trim().length === 0) {
+    return TITLE_IS_REQUIRED;
+  }
+
+  return null;
+};
+
+export const prepareSurvey = (survey) => {
+  let newSurvey = {...survey};
+  let newPages = survey.pages.map(page => {
+    let newQuestions = page.questions.map(q => {
+      let variants = q.metaInfo.map(m => ({text : m}));
+      let newQuestion = {
+        title : q.title,
+        variants : variants,
+        number : q.number,
+      };
+      return newQuestion;
+    });
+    let newPage = {...page};
+    newPage.questions = newQuestions;
+    return newPage;
+  });
+  newSurvey.pages = newPages;
+
+  return newSurvey;
 };

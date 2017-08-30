@@ -7,7 +7,7 @@ import { QuestionTypesPanel } from './QuestionTypesPanel';
 import { ParamsPanel } from './ParamsPanel';
 import Page from '../models/Page';
 import { PageNavigator } from './PageNavigator';
-import { isSurveyValid } from './service';
+import { isSurveyValid, prepareSurvey } from './service';
 import {
   TITLE_IS_REQUIRED,
 } from './errors';
@@ -61,6 +61,8 @@ export class SurveyEditPanel extends Component {
       alert('Invalid survey. Check up all required fields.');
       return;
     }
+    let survey = prepareSurvey(this.state.survey);
+    console.log(survey);
     alert('Zaebis! Chotko! Survey is ready to be sent to the server');
   }
 
