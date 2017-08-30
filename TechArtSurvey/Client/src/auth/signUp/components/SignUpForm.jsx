@@ -92,7 +92,7 @@ export class SignUpForm extends Component {
       } else if (this.props.isEmailRegistered) {
         this.setErrorValidationState('email', 'User with this email is already exists');
       } else {
-        this.setSuccessValidationState('email');
+        this.setValidationState('email', validateEmail(email));
       }
 
       this.setState({ user : { ...this.state.user, email : email }});
