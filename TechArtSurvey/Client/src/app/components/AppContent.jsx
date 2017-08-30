@@ -17,7 +17,6 @@ import { NotFound } from '../../error/NotFound';
 import { Forbidden } from '../../error/Forbidden';
 import { Home } from '../../home/Home';
 import NewSurveyContainer from '../../surveys/NewSurveyContainer';
-import QuestionList from '../../sandbox/QuestionList';
 
 import './AppContent.scss';
 import './customScroll.scss';
@@ -38,7 +37,6 @@ const AppContent = ({ className }) => (
         <Route path={Routes.Login.path} component={Login} />
         <Route path={Routes.About.path} component={AboutContainer} />
         <Route path={Routes.NewSurvey.path} component={NewSurvey} />
-        <Route path={'/sandbox'} component={QuestionList} />
         <Route component={NotFound}/>
       </Switch>
     </CustomScroll>
