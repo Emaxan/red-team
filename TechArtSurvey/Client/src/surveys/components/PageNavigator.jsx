@@ -87,30 +87,32 @@ export class PageNavigator extends Component {
             ))
           }
         </Nav>
-        <div className="page-control">
-          <FormGroup className="page-form-group" controlNumber="page" >
-            <Col componentClass={ControlLabel} sm={2}>
-              New page
-            </Col>
-            <Col sm={10}>
-              <FormControl
-                type="text"
-                value={this.state.pages[this.state.editingPageNumber - 1].title}
-                placeholder="Enter page title"
-                onChange={this.handleOnTitleChange}
-              />
-            </Col>
-          </FormGroup>
-          <Button onClick={this.handleOnDeleteClick}>Delete</Button>
+        <div className="page">
+          <div className="page-control">
+            <FormGroup className="page-form-group" controlNumber="page" >
+              <Col componentClass={ControlLabel} sm={2}>
+                New page
+              </Col>
+              <Col sm={10}>
+                <FormControl
+                  type="text"
+                  value={this.state.pages[this.state.editingPageNumber - 1].title}
+                  placeholder="Enter page title"
+                  onChange={this.handleOnTitleChange}
+                />
+              </Col>
+            </FormGroup>
+            <Button className="page-delete" onClick={this.handleOnDeleteClick}>Delete</Button>
+          </div>
+          <QuestionList
+            questions={this.state.pages[this.state.editingPageNumber - 1].questions}
+            handleOnEditingQuestionNumberChange={this.props.handleOnEditingQuestionNumberChange}
+            handleOnQuestionsArraySave={this.handleOnQuestionsArraySave}
+            editingQuestionNumber={this.props.editingQuestionNumber}
+            newEditingQuestionType={this.props.newEditingQuestionType}
+            errors={this.errors.pages[this.state.editingPageNumber - 1].questions}
+          />
         </div>
-        <QuestionList
-          questions={this.state.pages[this.state.editingPageNumber - 1].questions}
-          handleOnEditingQuestionNumberChange={this.props.handleOnEditingQuestionNumberChange}
-          handleOnQuestionsArraySave={this.handleOnQuestionsArraySave}
-          editingQuestionNumber={this.props.editingQuestionNumber}
-          newEditingQuestionType={this.props.newEditingQuestionType}
-          errors={this.errors.pages[this.state.editingPageNumber - 1].questions}
-        />
       </div>
     );
   }
