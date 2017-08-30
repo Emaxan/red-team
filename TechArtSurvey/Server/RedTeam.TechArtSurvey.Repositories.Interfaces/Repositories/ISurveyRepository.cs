@@ -7,6 +7,10 @@ namespace RedTeam.TechArtSurvey.Repositories.Interfaces.Repositories
 {
     public interface ISurveyRepository : IRepository<Survey>
     {
-        Task<IReadOnlyCollection<Survey>> GetSurveysByIdAsync(int id);
+        Task<Survey> GetSurveyByIdAndVersionAsync(int id, int version);
+
+        Task UpdateVersionAsync(int id, SurveyVersion version);
+
+        Task<Survey> GetByIdForDeleteAsync(int id);
     }
 }

@@ -75,7 +75,7 @@ namespace RedTeam.TechArtSurvey.Foundation.Services
         {
             LoggerContext.Logger.Info($"Delete user with id = {id}");
 
-            var us = await _uow.Users.GetByPrimaryKeyAsync(id);
+            var us = await _uow.Users.GetByIdAsync(id);
             if (us == null)
             {
                 return ServiceResponse.CreateUnsuccessful<object>(ServiceResponseCode.UserNotFoundById);
@@ -89,7 +89,7 @@ namespace RedTeam.TechArtSurvey.Foundation.Services
         {
             LoggerContext.Logger.Info($"Get user with id = {id}");
 
-            var user = await _uow.Users.GetByPrimaryKeyAsync(id);
+            var user = await _uow.Users.GetByIdAsync(id);
             return user == null ? 
                 ServiceResponse.CreateUnsuccessful<EditUserDto>(ServiceResponseCode.UserNotFoundById) : 
                 ServiceResponse.CreateSuccessful(_mapper.Map<User, EditUserDto>(user));

@@ -19,42 +19,58 @@ namespace RedTeam.TechArtSurvey.Foundation.Services
     {
         private readonly ITechArtSurveyUnitOfWork _uow;
         private readonly IMapper _mapper;
+        private readonly IValidationService _validationService;
 
 
-        public SurveyService(ITechArtSurveyUnitOfWork uow, IMapper mapper)
+        public SurveyService(ITechArtSurveyUnitOfWork uow, IMapper mapper, IValidationService validationService)
         {
             _uow = uow;
             _mapper = mapper;
+            _validationService = validationService;
         }
 
 
         public async Task<IServiceResponse<SurveyDto>> CreateAsync(SurveyDto surveyDto)
         {
-            LoggerContext.Logger.Info($"Create Survey '{surveyDto.Title}'");
+            LoggerContext.Logger.Info($"Create Survey '{surveyDto.Versions.First().Title}'");
+
 
             var survey = await PrepareSurvey(_mapper.Map<SurveyDto, Survey>(surveyDto));
+
+            var version = survey.Versions.First();
+
+            if(version.Pages.Any(
+                page => page.Questions.Any(
+                    question => !_validationService.ValidateDefaultValue(question.Default,question.Type.Type)
+                )
+              )
+            )
+            {
+                return ServiceResponse.CreateUnsuccessful<SurveyDto>(ServiceResponseCode.DefaultValueIsWrong);
+            }
+
             survey.CreatedDate = DateTime.Now;
-            survey.UpdatedDate = DateTime.Now;
-            survey.Version = 1;
+            version.UpdatedDate = DateTime.Now;
+            version.Version = 1;
             _uow.Surveys.Create(survey);
             await _uow.SaveAsync();
 
-            return ServiceResponse.CreateSuccessful(surveyDto);
+            return ServiceResponse.CreateSuccessful(_mapper.Map<Survey, SurveyDto>(survey));
         }
 
         public async Task<IServiceResponse> UpdateAsync(EditSurveyDto survey)
         {
             LoggerContext.Logger.Info($"Update Survey with id = {survey.Id}");
 
-            var surv = await _uow.Surveys.GetSurveysByIdAsync(survey.Id);
-            if ( surv == null || surv.Count == 0)
+            var surv = await _uow.Surveys.GetByIdAsync(survey.Id);
+            if ( surv == null)
             {
                 return ServiceResponse.CreateUnsuccessful<object>(ServiceResponseCode.SurveyNotFoundById);
             }
-
-            survey.Version = surv.Max(s => s.Version) + 1;
-            survey.UpdatedDate = DateTime.Now;
-            _uow.Surveys.Create(await PrepareSurvey(_mapper.Map<EditSurveyDto, Survey>(survey)));
+            var version = survey.Versions.First();
+            version.Version = surv.Versions.Count + 1;
+            version.UpdatedDate = DateTime.Now;
+            await _uow.Surveys.UpdateVersionAsync(survey.Id, _mapper.Map<SurveyVersionDto, SurveyVersion>(version));
             await _uow.SaveAsync();
 
             return ServiceResponse.CreateSuccessful();
@@ -64,35 +80,50 @@ namespace RedTeam.TechArtSurvey.Foundation.Services
         {
             LoggerContext.Logger.Info($"Delete Survey with id = {id}");
             
-            var surv = await _uow.Surveys.GetSurveysByIdAsync(id);
+            var surv = await _uow.Surveys.GetByIdForDeleteAsync(id);
             if ( surv == null )
             {
                 return ServiceResponse.CreateUnsuccessful<object>(ServiceResponseCode.SurveyNotFoundById);
             }
 
-            foreach (var survey in surv)
-            {
-                var pages = survey.Lookups.Select(sl => sl.Page).ToArray();
-                var questions = survey.Lookups.SelectMany(sl => sl.Page.Questions).ToArray();
-                var settings = survey.Settings;
-                _uow.Surveys.Delete(survey);
-                _uow.Questions.DeleteRange(questions);
-                _uow.Pages.DeleteRange(pages);
-                _uow.Settings.Delete(settings);
-            }
+            var versions = surv.Versions.ToArray();
+            var pages = versions.SelectMany(sv => sv.Pages).ToArray();
+            var questions = pages.SelectMany(sp => sp.Questions).ToArray();
+            var variants = questions.SelectMany(q => q.Variants).ToArray();
+            var responses = versions.SelectMany(sv => sv.Responses).ToArray();
+            var answers = responses.SelectMany(sr => sr.Answers).ToArray();
+
+            _uow.QuestionVariants.DeleteRange(variants);
+            _uow.QuestionAnswers.DeleteRange(answers);
+            _uow.Questions.DeleteRange(questions);
+            _uow.Pages.DeleteRange(pages);
+            _uow.SurveyResponses.DeleteRange(responses);
+            _uow.SurveyVersions.DeleteRange(versions);
+            _uow.Surveys.Delete(surv);
+
             await _uow.SaveAsync();
 
             return ServiceResponse.CreateSuccessful();
         }
 
-        public async Task<IServiceResponse<EditSurveyDto>> GetByPrimaryKeyAsync(int id, int version)
+        public async Task<IServiceResponse<EditSurveyDto>> GetByIdAsync(int id)
         {
             LoggerContext.Logger.Info($"Get Survey with id = {id}");
 
-            var surv = await _uow.Surveys.GetByPrimaryKeyAsync(id, version);
-            return surv == null ? 
-                ServiceResponse.CreateUnsuccessful<EditSurveyDto>(ServiceResponseCode.SurveyNotFoundById) : 
-                ServiceResponse.CreateSuccessful(_mapper.Map<Survey, EditSurveyDto>(surv));
+            var surv = await _uow.Surveys.GetByIdAsync(id);
+            return surv == null ?
+                       ServiceResponse.CreateUnsuccessful<EditSurveyDto>(ServiceResponseCode.SurveyNotFoundById) :
+                       ServiceResponse.CreateSuccessful(_mapper.Map<Survey, EditSurveyDto>(surv));
+        }
+
+        public async Task<IServiceResponse<EditSurveyDto>> GetByIdAndVersionAsync(int id, int version)
+        {
+            LoggerContext.Logger.Info($"Get Survey with id = {id} and version = {version}");
+
+            var surv = await _uow.Surveys.GetSurveyByIdAndVersionAsync(id, version);
+            return surv == null ?
+                       ServiceResponse.CreateUnsuccessful<EditSurveyDto>(ServiceResponseCode.SurveyNotFoundById) :
+                       ServiceResponse.CreateSuccessful(_mapper.Map<Survey, EditSurveyDto>(surv));
         }
 
         public async Task<IServiceResponse<IReadOnlyCollection<EditSurveyDto>>> GetAllAsync()
@@ -109,18 +140,21 @@ namespace RedTeam.TechArtSurvey.Foundation.Services
             var user = await _uow.Users.GetUserByEmailAsync(survey.Author.Email);
             survey.Author = user ?? throw new NullReferenceException(nameof(survey.Author));
 
-            foreach (var lookup in survey.Lookups)
+            foreach (var version in survey.Versions)
             {
-                foreach (var question in lookup.Page.Questions)
+                foreach(var page in version.Pages)
                 {
-                    if (!Enum.TryParse(question.Type.Name, out QuestionTypeEnum qt))
+                    foreach(var question in page.Questions)
                     {
-                        throw new NullReferenceException(nameof(question.Type));
-                    }
+                        if (!Enum.TryParse(question.Type.Name, out QuestionTypeEnum qt))
+                        {
+                            throw new NullReferenceException(nameof(question.Type));
+                        }
 
-                    var questionType = await _uow.QuestionTypes.FindByTypeAsync(qt) ??
-                                       throw new NullReferenceException(nameof(question.Type));
-                    question.Type = questionType;
+                        var questionType = await _uow.QuestionTypes.FindByTypeAsync(qt) ??
+                                           throw new NullReferenceException(nameof(question.Type));
+                        question.Type = questionType;
+                    }
                 }
             }
 

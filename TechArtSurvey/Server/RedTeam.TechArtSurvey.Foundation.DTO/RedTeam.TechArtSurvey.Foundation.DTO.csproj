@@ -42,16 +42,16 @@
     <Compile Include="SurveysDto\QuestionAnswerDto.cs" />
     <Compile Include="SurveysDto\QuestionDto.cs" />
     <Compile Include="SurveysDto\QuestionTypeDto.cs" />
+    <Compile Include="SurveysDto\QuestionVariantDto.cs" />
     <Compile Include="SurveysDto\SurveyDto.cs" />
-    <Compile Include="SurveysDto\SurveyLookupDto.cs" />
     <Compile Include="SurveysDto\SurveyPageDto.cs" />
     <Compile Include="SurveysDto\SurveyResponseDto.cs" />
     <Compile Include="SurveysDto\SurveySettingsDto.cs" />
+    <Compile Include="SurveysDto\SurveyVersionDto.cs" />
     <Compile Include="SurveysDto\TemplateDto.cs" />
-    <Compile Include="SurveysDto\TemplateLookupDto.cs" />
     <Compile Include="UsersDto\EditUserDto.cs" />
     <Compile Include="UsersDto\RoleDto.cs" />
-    <Compile Include="UsersDto\SurveyAuthorDto.cs" />
+    <Compile Include="UsersDto\SurveyParticipantDto.cs" />
     <Compile Include="UsersDto\UserDto.cs" />
   </ItemGroup>
   <ItemGroup>

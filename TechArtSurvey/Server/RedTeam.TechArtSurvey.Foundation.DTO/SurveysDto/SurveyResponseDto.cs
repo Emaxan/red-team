@@ -10,15 +10,9 @@ namespace RedTeam.TechArtSurvey.Foundation.Dto.SurveysDto
 
         public DateTime PassedDate { get; set; }
 
-        public int SurveyId { get; set; }
+        public SurveyVersionDto SurveyVersion { get; set; }
 
-        public int SurveyVersion { get; set; }
-
-        public SurveyDto Survey { get; set; }
-
-        public int UserId { get; set; }
-
-        public UserDto User { get; set; }
+        public SurveyParticipantDto User { get; set; }
 
         public ICollection<QuestionAnswerDto> Answers { get; set; }
     }

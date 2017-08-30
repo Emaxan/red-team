@@ -25,15 +25,13 @@ namespace RedTeam.TechArtSurvey.Repositories.EF
 
         public DbSet<QuestionAnswer> QuestionAnswers { get; set; }
 
-        public DbSet<SurveyLookup> SurveyLookups { get; set; }
+        public DbSet<SurveyVersion> SurveyVersions { get; set; }
 
-        public DbSet<TemplateLookup> TemplateLookups { get; set; }
+        public DbSet<QuestionVariant> QuestionVariants { get; set; }
 
         public DbSet<Template> Templates { get; set; }
 
         public DbSet<QuestionType> QuestionTypes { get; set; }
-
-        public DbSet<SurveySettings> SurveySettings { get; set; }
 
 
         public TechArtSurveyContext()
@@ -62,11 +60,10 @@ namespace RedTeam.TechArtSurvey.Repositories.EF
             modelBuilder.Configurations.Add(new QuestionAnswerConfiguration());
             modelBuilder.Configurations.Add(new SurveyResponseConfiguration());
             modelBuilder.Configurations.Add(new SurveyConfiguration());
-            modelBuilder.Configurations.Add(new SurveyLookupConfiguration());
+            modelBuilder.Configurations.Add(new SurveyVersionConfiguration());
             modelBuilder.Configurations.Add(new SurveyPageConfiguration());
             modelBuilder.Configurations.Add(new TemplateConfiguration());
-            modelBuilder.Configurations.Add(new TemplateLookupConfiguration());
-            modelBuilder.Configurations.Add(new SurveySettingsConfiguration());
+            modelBuilder.Configurations.Add(new QuestionVariantConfiguration());
             modelBuilder.Configurations.Add(new QuestionTypeConfiguration());
             base.OnModelCreating(modelBuilder);
         }  

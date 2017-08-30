@@ -26,9 +26,14 @@ namespace RedTeam.TechArtSurvey.Repositories.Repositories
             return await DbSet.Include(r => r.Role).SingleOrDefaultAsync(u => u.Email == email);
         }
 
-        public override async Task<User> GetByPrimaryKeyAsync(params object[] key)
+        public override async Task<User> GetByIdAsync(int id)
         {
-            var user = await base.GetByPrimaryKeyAsync(key);
+            var user = await base.GetByIdAsync(id);
+
+            if(user == null)
+            {
+                return null;
+            }
 
             await Context.Entry(user).Reference(u => u.Role).LoadAsync();
 

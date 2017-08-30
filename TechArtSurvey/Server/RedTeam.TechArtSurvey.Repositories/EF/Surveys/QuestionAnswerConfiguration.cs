@@ -26,6 +26,9 @@ namespace RedTeam.TechArtSurvey.Repositories.EF.Surveys
                 .WithMany(sr => sr.Answers)
                 .HasForeignKey(qa => qa.SurveyResponseId)
                 .WillCascadeOnDelete(false);
+
+            HasMany(qa => qa.Variants)
+                .WithMany(qv => qv.Answers);
         }
     }
 }

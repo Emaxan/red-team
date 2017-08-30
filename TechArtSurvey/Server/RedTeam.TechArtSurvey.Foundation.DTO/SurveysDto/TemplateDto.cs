@@ -10,6 +10,6 @@ namespace RedTeam.TechArtSurvey.Foundation.Dto.SurveysDto
 
         public string Description { get; set; }
 
-        public ICollection<TemplateLookupDto> Lookups { get; set; }
+        public ICollection<SurveyPageDto> Pages { get; set; }
     }
 }

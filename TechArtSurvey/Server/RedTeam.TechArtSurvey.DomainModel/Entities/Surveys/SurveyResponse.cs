@@ -10,11 +10,9 @@ namespace RedTeam.TechArtSurvey.DomainModel.Entities.Surveys
 
         public DateTime PassedDate { get; set; }
 
-        public int SurveyId { get; set; }
+        public int SurveyVersionId { get; set; }
 
-        public int SurveyVersion { get; set; }
-
-        public Survey Survey { get; set; }
+        public SurveyVersion SurveyVersion { get; set; }
 
         public int UserId { get; set; }
 

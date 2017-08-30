@@ -51,13 +51,13 @@
     <Compile Include="Entities\Surveys\QuestionAnswer.cs" />
     <Compile Include="Entities\Surveys\QuestionType.cs" />
     <Compile Include="Entities\Surveys\QuestionTypeEnum.cs" />
+    <Compile Include="Entities\Surveys\QuestionVariant.cs" />
     <Compile Include="Entities\Surveys\Survey.cs" />
-    <Compile Include="Entities\Surveys\SurveyLookup.cs" />
     <Compile Include="Entities\Surveys\SurveyPage.cs" />
     <Compile Include="Entities\Surveys\SurveyResponse.cs" />
     <Compile Include="Entities\Surveys\SurveySettings.cs" />
+    <Compile Include="Entities\Surveys\SurveyVersion.cs" />
     <Compile Include="Entities\Surveys\Template.cs" />
-    <Compile Include="Entities\Surveys\TemplateLookup.cs" />
     <Compile Include="Entities\Users\Role.cs" />
     <Compile Include="Entities\Users\RoleTypes.cs" />
     <Compile Include="Entities\Users\User.cs" />

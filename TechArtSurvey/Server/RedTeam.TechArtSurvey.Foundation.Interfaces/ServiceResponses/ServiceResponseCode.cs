@@ -13,5 +13,7 @@
         TokenNotFound,
 
         SurveyNotFoundById,
+        
+        DefaultValueIsWrong,
     }
 }

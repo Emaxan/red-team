@@ -13,7 +13,9 @@ namespace RedTeam.TechArtSurvey.Foundation.Interfaces
 
         Task<IServiceResponse> DeleteByIdAsync(int id);
 
-        Task<IServiceResponse<EditSurveyDto>> GetByPrimaryKeyAsync(int id, int version);
+        Task<IServiceResponse<EditSurveyDto>> GetByIdAsync(int id);
+
+        Task<IServiceResponse<EditSurveyDto>> GetByIdAndVersionAsync(int id, int version);
 
         Task<IServiceResponse<IReadOnlyCollection<EditSurveyDto>>> GetAllAsync();
     }

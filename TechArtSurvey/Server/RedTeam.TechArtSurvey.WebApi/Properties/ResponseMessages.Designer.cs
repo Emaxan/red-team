@@ -61,6 +61,15 @@ namespace RedTeam.TechArtSurvey.WebApi.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Default value you entered is wrong.
+        /// </summary>
+        internal static string DefaultValueIsWrong {
+            get {
+                return ResourceManager.GetString("DefaultValueIsWrong", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Password is wrong.
         /// </summary>
         internal static string InvalidCredentials {

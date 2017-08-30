@@ -10,16 +10,12 @@ namespace RedTeam.TechArtSurvey.Repositories.EF.Surveys
             ToTable("SurveyResponse");
 
             Property(sr => sr.PassedDate).IsRequired();
-            Property(sr => sr.SurveyVersion).IsRequired();
+            Property(sr => sr.SurveyVersionId).IsRequired();
             Property(sr => sr.UserId).IsRequired();
 
-            HasRequired(sr => sr.Survey)
-                .WithMany(s => s.Response)
-                .HasForeignKey(sr => new
-                                      {
-                                          sr.SurveyId,
-                                          sr.SurveyVersion
-                                      });
+            HasRequired(sr => sr.SurveyVersion)
+                .WithMany(sv => sv.Responses)
+                .HasForeignKey(sr => sr.SurveyVersionId);
 
             HasRequired(sr => sr.User)
                 .WithMany(u => u.SurveyResponses)

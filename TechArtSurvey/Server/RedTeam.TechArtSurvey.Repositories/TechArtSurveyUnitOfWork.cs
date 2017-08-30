@@ -13,8 +13,11 @@ namespace RedTeam.TechArtSurvey.Repositories
         private IRoleRepository _roleRepository;
         private ISurveyRepository _surveyRepository;
         private IQuestionTypeRepository _questionTypeRepository;
+        private IRepository<QuestionVariant> _questionVariantRepository;
+        private IRepository<QuestionAnswer> _questionAnswers;
+        private IRepository<SurveyResponse> _surveyResponses;
+        private IRepository<SurveyVersion> _surveyVersions;
         private IRepository<SurveyPage> _surveyPageRepository;
-        private IRepository<SurveySettings> _surveySettingsRepository;
         private IRepository<Question> _questionRepository;
 
 
@@ -41,24 +44,51 @@ namespace RedTeam.TechArtSurvey.Repositories
             }
         }
 
-        public IRepository<SurveyPage> Pages {
-            get 
+        public IRepository<SurveyPage> Pages
+        {
+            get
             {
                 return _surveyPageRepository ?? (_surveyPageRepository = new Repository<SurveyPage>(Context));
             }
         }
 
-        public IRepository<SurveySettings> Settings {
-            get 
+        public IRepository<Question> Questions
+        {
+            get
             {
-                return _surveySettingsRepository ?? (_surveySettingsRepository = new Repository<SurveySettings>(Context));
+                return _questionRepository ?? (_questionRepository = new Repository<Question>(Context));
             }
         }
 
-        public IRepository<Question> Questions {
-            get 
+        public IRepository<QuestionVariant> QuestionVariants
+        {
+            get
             {
-                return _questionRepository ?? (_questionRepository = new Repository<Question>(Context));
+                return _questionVariantRepository ?? (_questionVariantRepository = new Repository<QuestionVariant>(Context));
+            }
+        }
+
+        public IRepository<QuestionAnswer> QuestionAnswers
+        {
+            get
+            {
+                return _questionAnswers ?? (_questionAnswers = new Repository<QuestionAnswer>(Context));
+            }
+        }
+
+        public IRepository<SurveyResponse> SurveyResponses
+        {
+            get
+            {
+                return _surveyResponses ?? (_surveyResponses = new Repository<SurveyResponse>(Context));
+            }
+        }
+
+        public IRepository<SurveyVersion> SurveyVersions
+        {
+            get
+            {
+                return _surveyVersions ?? (_surveyVersions = new Repository<SurveyVersion>(Context));
             }
         }
 

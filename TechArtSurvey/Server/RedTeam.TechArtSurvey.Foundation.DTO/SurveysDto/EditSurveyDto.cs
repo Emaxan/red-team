@@ -8,13 +8,8 @@ namespace RedTeam.TechArtSurvey.Foundation.Dto.SurveysDto
         [Required]
         [Range(1, int.MaxValue)]
         public int Id { get; set; }
-
-        public int Version { get; set; }
-
-        [Required()]
-        public DateTime CreatedDate { get; set; }
-
+        
         [Required]
-        public DateTime UpdatedDate { get; set; }
+        public DateTime CreatedDate { get; set; }
     }
 }

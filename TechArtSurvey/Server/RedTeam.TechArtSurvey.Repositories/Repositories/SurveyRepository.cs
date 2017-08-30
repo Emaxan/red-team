@@ -2,6 +2,7 @@
 using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
+using RedTeam.Logger;
 using RedTeam.Repositories.EntityFramework.Repositories;
 using RedTeam.Repositories.Interfaces;
 using RedTeam.TechArtSurvey.DomainModel.Entities.Surveys;
@@ -36,47 +37,92 @@ namespace RedTeam.TechArtSurvey.Repositories.Repositories
             {
                 await Context.Entry(survey).Reference(s => s.Author).LoadAsync();
                 await Context.Entry(survey.Author).Reference(u => u.Role).LoadAsync();
-                await Context.Entry(survey).Reference(s => s.Settings).LoadAsync();
+                await Context.Entry(survey).Collection(s => s.Versions).LoadAsync();
             }
 
             return surveys;
         }
 
-        public override async Task<Survey> GetByPrimaryKeyAsync(params object[] key)
+        public override async Task<Survey> GetByIdAsync(int id)
         {
-            var survey = await base.GetByPrimaryKeyAsync(key);
+            var survey = await base.GetByIdAsync(id);
 
-            if ( survey == null )
+            if (survey == null)
             {
                 return null;
             }
 
-            await Context.Entry(survey).Reference(s => s.Author).LoadAsync();
-            await Context.Entry(survey).Reference(s => s.Settings).LoadAsync();
-            await Context.Entry(survey).Collection(s => s.Lookups).LoadAsync();
-            foreach ( var lookup in survey.Lookups )
-            {
-                await Context.Entry(lookup).Reference(sl => sl.Page).LoadAsync();
-                await Context.Entry(lookup.Page).Collection(sp => sp.Questions).LoadAsync();
-                foreach ( var question in lookup.Page.Questions )
-                {
-                    await Context.Entry(question).Reference(q => q.Type).LoadAsync();
-                }
-            }
+            await Context.Entry(survey).Collection(s => s.Versions).LoadAsync();
+            await LoadDataAsync(survey);
 
             return survey;
         }
 
-        public async Task<IReadOnlyCollection<Survey>> GetSurveysByIdAsync(int id)
+        public async Task<Survey> GetByIdForDeleteAsync(int id)
         {
-            return await DbSet.Where(s => s.Id == id)
-                .Include(s => s.Settings)
-                .Include(s => s.Lookups)
-                .Include(s => s.Response)
-                .Include(s => s.Response.Select(sr => sr.Answers))
-                .Include(s => s.Lookups.Select(sl => sl.Page))
-                .Include(s => s.Lookups.Select(sl => sl.Page.Questions))
-                .ToListAsync();
+            var survey = await base.GetByIdAsync(id);
+
+            if (survey == null)
+            {
+                return null;
+            }
+
+            await Context.Entry(survey).Collection(s => s.Versions).LoadAsync();
+            foreach(var version in survey.Versions)
+            {
+                await Context.Entry(version).Collection(sv => sv.Responses).LoadAsync();
+                foreach(var response in version.Responses)
+                {
+                    await Context.Entry(response).Collection(sr => sr.Answers).LoadAsync();
+                }
+            }
+            await LoadDataAsync(survey);
+
+            return survey;
+        }
+
+        public async Task<Survey> GetSurveyByIdAndVersionAsync(int id, int version)
+        {
+            LoggerContext.Logger.Info($"Get Survey with id = {id} and version = {version}");
+
+            var survey = await DbSet.FirstOrDefaultAsync(s => s.Id == id);
+
+            if(survey == null)
+            {
+                return null;
+            }
+
+            await Context.Entry(survey).Collection(s => s.Versions).Query().Where(sv => sv.Version == version).LoadAsync();
+            
+            await LoadDataAsync(survey);
+
+            return survey;
+        }
+
+        public async Task UpdateVersionAsync(int id, SurveyVersion version)
+        {
+            LoggerContext.Logger.Info($"Get Survey with id = {id}");
+
+            var survey = await GetByIdAsync(id);
+            survey.Versions.Add(version);
+        }
+
+        private async Task LoadDataAsync(Survey survey)
+        {
+            await Context.Entry(survey).Reference(s => s.Author).LoadAsync();
+            foreach (var vers in survey.Versions)
+            {
+                await Context.Entry(vers).Collection(sv => sv.Pages).LoadAsync();
+                foreach (var page in vers.Pages)
+                {
+                    await Context.Entry(page).Collection(sp => sp.Questions).LoadAsync();
+                    foreach (var question in page.Questions)
+                    {
+                        await Context.Entry(question).Collection(q => q.Variants).LoadAsync();
+                        await Context.Entry(question).Reference(q => q.Type).LoadAsync();
+                    }
+                }
+            }
         }
     }
 }

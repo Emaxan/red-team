@@ -16,15 +16,11 @@ namespace RedTeam.TechArtSurvey.Repositories.EF.Surveys
                 .WithRequired(q => q.Page)
                 .HasForeignKey(q => q.PageId);
 
-            HasMany(sp => sp.SurveyLookups)
-                .WithRequired(sl => sl.Page)
-                .HasForeignKey(sl => sl.PageId)
-                .WillCascadeOnDelete(false);
+            HasMany(sp => sp.SurveyVersions)
+                .WithMany(sv => sv.Pages);
 
-            HasMany(sp => sp.TemplateLookups)
-                .WithRequired(tl => tl.Page)
-                .HasForeignKey(tl => tl.PageId)
-                .WillCascadeOnDelete(false);
+            HasMany(sp => sp.Templates)
+                .WithMany(t => t.Pages);
         }
     }
 }

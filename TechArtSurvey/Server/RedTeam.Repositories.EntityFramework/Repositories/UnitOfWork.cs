@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
+using System.Diagnostics;
 using System.Threading.Tasks;
 using JetBrains.Annotations;
 using RedTeam.Repositories.Interfaces;
@@ -37,6 +39,8 @@ namespace RedTeam.Repositories.EntityFramework.Repositories
 
         public async Task SaveAsync()
         {
+            ((DbContext)Context).Database.Log = s => Debug.WriteLine(s);
+
             await Context.SaveChangesAsync();
         }
 

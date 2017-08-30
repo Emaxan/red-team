@@ -2,7 +2,7 @@
 
 namespace RedTeam.TechArtSurvey.Foundation.Dto.UsersDto
 {
-    public class UserDto : SurveyAuthorDto
+    public class UserDto : SurveyParticipantDto
     {
         [Required]
         [MinLength(8, ErrorMessage = "Password should be at least 8 characters")]

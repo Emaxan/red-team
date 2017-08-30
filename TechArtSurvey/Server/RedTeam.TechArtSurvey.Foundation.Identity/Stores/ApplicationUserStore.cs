@@ -41,7 +41,7 @@ namespace RedTeam.TechArtSurvey.Foundation.Identity.Stores
 
         public async Task<User> FindByIdAsync(int userId)
         {
-            var user = await _uow.Users.GetByPrimaryKeyAsync(Convert.ToInt32(userId));
+            var user = await _uow.Users.GetByIdAsync(Convert.ToInt32(userId));
 
             return user;
         }

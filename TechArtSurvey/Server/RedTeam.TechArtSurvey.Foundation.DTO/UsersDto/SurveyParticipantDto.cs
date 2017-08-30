@@ -2,7 +2,7 @@
 
 namespace RedTeam.TechArtSurvey.Foundation.Dto.UsersDto
 {
-    public class SurveyAuthorDto
+    public class SurveyParticipantDto
     {
         [Required]
         [MinLength(3, ErrorMessage = "Name should be at least 3 characters")]

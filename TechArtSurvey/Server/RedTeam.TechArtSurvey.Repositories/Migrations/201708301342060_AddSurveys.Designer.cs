@@ -13,7 +13,7 @@ namespace RedTeam.TechArtSurvey.Repositories.Migrations
         
         string IMigrationMetadata.Id
         {
-            get { return "201708290920408_AddSurveys"; }
+            get { return "201708301342060_AddSurveys"; }
         }
         
         string IMigrationMetadata.Source

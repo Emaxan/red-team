@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Linq;
+using System.Threading.Tasks;
 using System.Web.Http;
 using RedTeam.Logger;
 using RedTeam.TechArtSurvey.Foundation.Dto.SurveysDto;
@@ -24,7 +25,7 @@ namespace RedTeam.TechArtSurvey.WebApi.Surveys
         [Authorize(Roles = "Admin")]
         public async Task<IServiceResponse> AddSurvey(SurveyDto survey)
         {
-            LoggerContext.Logger.Info($"Add Survey with title '{survey.Title}'");
+            LoggerContext.Logger.Info($"Add Survey with title '{survey.Versions.First().Title}'");
 
             return await _surveyService.CreateAsync(survey);
         }
@@ -35,9 +36,9 @@ namespace RedTeam.TechArtSurvey.WebApi.Surveys
         [AllowAnonymous]
         public async Task<IServiceResponse> GetSurvey(int id, int version)
         {
-            LoggerContext.Logger.Info($"Get Survey with id = {id}");
+            LoggerContext.Logger.Info($"Get Survey with id = {id} and version = {version}");
 
-            return await _surveyService.GetByPrimaryKeyAsync(id, version);
+            return await _surveyService.GetByIdAndVersionAsync(id, version);
         }
 
         // GET api/surveys

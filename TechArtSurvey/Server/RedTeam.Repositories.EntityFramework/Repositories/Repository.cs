@@ -35,12 +35,11 @@ namespace RedTeam.Repositories.EntityFramework.Repositories
 
             return _dbSet.Add(entity);
         }
-
-        [CanBeNull]
-        public virtual async Task<TEntity> GetByPrimaryKeyAsync(params object[] key)
+        
+        public virtual async Task<TEntity> GetByIdAsync(int id)
         {
-            LoggerContext.Logger.Info($"Get entity from database with id {key}");
-            var entity = await _dbSet.FindAsync(key);
+            LoggerContext.Logger.Info($"Get entity from database with id {id}");
+            var entity = await _dbSet.FindAsync(id);
 
             return entity;
         }

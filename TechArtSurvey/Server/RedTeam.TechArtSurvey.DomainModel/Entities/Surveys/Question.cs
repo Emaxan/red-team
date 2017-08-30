@@ -10,6 +10,8 @@ namespace RedTeam.TechArtSurvey.DomainModel.Entities.Surveys
 
         public SurveyPage Page { get; set; }
 
+        public string Default { get; set; }
+
         public string Title { get; set; }
 
         public int Number { get; set; }
@@ -20,7 +22,7 @@ namespace RedTeam.TechArtSurvey.DomainModel.Entities.Surveys
 
         public bool IsRequired { get; set; }
 
-        public string MetaInfo { get; set; }
+        public ICollection<QuestionVariant> Variants { get; set; }
 
         public ICollection<QuestionAnswer> Answers { get; set; }
     }

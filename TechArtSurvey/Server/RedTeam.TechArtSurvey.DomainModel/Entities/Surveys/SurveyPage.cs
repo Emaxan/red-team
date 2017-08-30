@@ -12,8 +12,8 @@ namespace RedTeam.TechArtSurvey.DomainModel.Entities.Surveys
 
         public ICollection<Question> Questions { get; set; }
 
-        public ICollection<SurveyLookup> SurveyLookups { get; set; }
+        public ICollection<SurveyVersion> SurveyVersions { get; set; }
 
-        public ICollection<TemplateLookup> TemplateLookups { get; set; }
+        public ICollection<Template> Templates { get; set; }
     }
 }
