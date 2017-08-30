@@ -40,7 +40,7 @@ export class ScaleRatingQuestion extends Component {
   }
 
   handleOnValueChange = (value) => {
-    this.setState({ matainfo : [value] });
+    this.setState({ metainfo : [value] });
     let question = {...this.state};
     question.metaInfo = [value];
     this.props.handleOnQuestionUpdate(question);
@@ -78,7 +78,7 @@ export class ScaleRatingQuestion extends Component {
                 min: 0,
                 max: 100,
               }}
-              start={this.state.metaInfo[0] || 50}
+              start={[this.state.metaInfo[0]] || [50]}
               connect={[true, false]}
               step={1}
               tooltips
