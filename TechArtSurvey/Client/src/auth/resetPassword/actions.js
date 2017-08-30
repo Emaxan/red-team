@@ -27,7 +27,7 @@ export const {
 
   [RESET_PASSWORD_START] : () => {},
   [RESET_PASSWORD_SUCCESS] : () => {},
-  [RESET_PASSWORD_ERROR] : () => {},
+  [RESET_PASSWORD_ERROR] : (errors) => ({ errors }),
 });
 
 export const checkPasswordResetTokenRequest = (userId, token) => (dispatch) => {
@@ -49,7 +49,7 @@ export const resetPasswordRequest = (userId, token, newPassword) => (dispatch) =
       dispatch(enableGreeting('Your password was reset successfully! Now you can log in!'));
       dispatch(push(Routes.Login.path));
     })
-    .catch(() => {
-      dispatch(resetPasswordError());
+    .catch((error) => {
+      dispatch(resetPasswordError(error.data));
     });
 };

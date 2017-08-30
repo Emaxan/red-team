@@ -2,6 +2,7 @@ import { isString } from 'lodash';
 import {
   OK,
   BAD_REQUEST,
+  GATEWAY_TIMEOUT,
 } from 'http-status';
 
 import AuthService from '../auth/authService';
@@ -16,7 +17,16 @@ const prepareHeaders = (headers) => {
 
 async function prepareResponse (responseInfo) {
   const statusCode = responseInfo.status;
-  const data = await responseInfo.json();
+  let data;
+
+  try {
+    data = await responseInfo.json();
+  } catch (error) {
+    throw {
+      statusCode : GATEWAY_TIMEOUT,
+      data : [ 'Sorry, we have some technical issues. Try your request later' ],
+    };
+  }
 
   switch (responseInfo.status) {
   case OK:

@@ -12,7 +12,7 @@ import {
 import { Spinner } from '../../components/Spinner';
 
 const mapStateToProps = (state) => ({
-  errors : state.auth.errors,
+  errors : state.resetPassword.errors,
   actionString : 'Reset password',
   isFetching : state.resetPassword.isFetching,
   tokenValid : state.resetPassword.tokenValid,

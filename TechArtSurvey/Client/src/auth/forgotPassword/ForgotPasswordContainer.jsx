@@ -10,7 +10,7 @@ import { forgotPasswordRequest } from './actions';
 import { Spinner } from '../../components/Spinner';
 
 const mapStateToProps = (state) => ({
-  errors : state.auth.errors,
+  errors : state.forgotPassword.errors,
   actionString : 'Forgot password? Do not worry! Enter your e-mail below',
   isEmailRegistered : state.auth.isEmailRegistered,
   isFetching : state.forgotPassword.isFetching,

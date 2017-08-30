@@ -7,7 +7,7 @@ import { SignUpForm } from './components/SignUpForm';
 import { AuthPanel } from '../components/AuthPanel';
 
 const mapStateToProps = (state) => ({
-  errors : state.auth.errors.concat(state.signUp.errors),
+  errors : state.signUp.errors,
   actionString : 'Sign Up',
   isEmailRegistered : state.auth.isEmailRegistered,
 });

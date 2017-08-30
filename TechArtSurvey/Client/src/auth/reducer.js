@@ -1,5 +1,5 @@
 import { handleActions } from 'redux-actions';
-import { Record, List } from 'immutable';
+import { Record } from 'immutable';
 
 import AuthService from './authService';
 import { UserInfoRecord } from './UserInfoRecord';
@@ -15,7 +15,6 @@ const authInitialState = Record({
   isAuthenticated : AuthService.isAuthenticated(),
   userInfo : new UserInfoRecord(AuthService.getUserInfo()),
   isEmailRegistered : false,
-  errors : List(),
 });
 
 const initialState = new authInitialState();
@@ -37,5 +36,5 @@ export const authReducer = handleActions({
     state.set('isEmailRegistered', action.payload.isEmailRegistered),
 
   [CHECK_EMAIL_EXISTENCE_ERROR] : (state) =>
-    state.set('isEmailRegistered', false),
+    state.set('isEmailRegistered', true),
 }, initialState);

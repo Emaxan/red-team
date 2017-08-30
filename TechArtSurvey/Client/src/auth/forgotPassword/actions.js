@@ -14,7 +14,7 @@ export const {
 } = createActions({
   [FORGOT_PASSWORD_REQUEST_START] : () => {},
   [FORGOT_PASSWORD_REQUEST_SUCCESS] : (email) => ({ email }),
-  [FORGOT_PASSWORD_REQUEST_ERROR] : () => {},
+  [FORGOT_PASSWORD_REQUEST_ERROR] : (errors) => ({ errors }),
 });
 
 export const forgotPasswordRequest = (email) => (dispatch) => {
@@ -23,7 +23,7 @@ export const forgotPasswordRequest = (email) => (dispatch) => {
     .then(() => {
       dispatch(forgotPasswordRequestSuccess(email));
     })
-    .catch(() => {
-      dispatch(forgotPasswordRequestError());
+    .catch((error) => {
+      dispatch(forgotPasswordRequestError(error.data));
     });
 };

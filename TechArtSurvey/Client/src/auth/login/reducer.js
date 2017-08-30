@@ -3,7 +3,7 @@ import { Record, List } from 'immutable';
 
 import {
   LOGIN_START,
-  LOGIN_INVALID_DATA,
+  LOGIN_ERROR,
   ENABLE_GREETING,
   DISABLE_GREETING,
 } from './actionTypes';
@@ -20,7 +20,7 @@ export const loginReducer = handleActions({
   [LOGIN_START] : (state) =>
     state.set('errors', List()),
 
-  [LOGIN_INVALID_DATA] : (state, action) =>
+  [LOGIN_ERROR] : (state, action) =>
     state.set('errors', state.get('errors')
       .merge(List(action.payload.errors))),
 
