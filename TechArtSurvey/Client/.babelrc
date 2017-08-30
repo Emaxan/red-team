@@ -12,7 +12,6 @@
     "transform-class-properties",
     "react-hot-loader/babel",
     "transform-object-rest-spread",
-    "transform-decorators-legacy",
     [
       "module-resolver",
       {
