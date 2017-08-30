@@ -5,7 +5,7 @@ import './GreetingPanel.scss';
 
 export const GreetingPanel = ({ greetingMessage }) => (
   <div className="greeting-panel">
-    <h1>{greetingMessage}</h1>
+    <h3>{greetingMessage}</h3>
   </div>
 );
 

@@ -7,8 +7,6 @@ import { LoginForm } from './components/LoginForm';
 import { AuthPanel } from '../components/AuthPanel';
 import { GreetingPanel } from './components/GreetingPanel';
 
-import './LoginContainer.scss';
-
 const mapStateToProps = (state) => ({
   errors : state.login.errors,
   actionString : 'Log In',
@@ -32,18 +30,16 @@ export class LoginContainer extends Component {
 
   render = () => {
     return (
-      <div className="login-container">
+      <AuthPanel
+        actionString={this.props.actionString}
+        errors={this.props.errors}
+      >
         { this.props.isGreetingEnabled ? <GreetingPanel greetingMessage={this.props.greetingMessage} /> : '' }
-        <AuthPanel
+        <LoginForm
           actionString={this.props.actionString}
-          errors={this.props.errors}
-        >
-          <LoginForm
-            actionString={this.props.actionString}
-            loginRequest={this.props.loginRequest}
-          />
-        </AuthPanel>
-      </div>
+          loginRequest={this.props.loginRequest}
+        />
+      </AuthPanel>
     );
   }
 }
