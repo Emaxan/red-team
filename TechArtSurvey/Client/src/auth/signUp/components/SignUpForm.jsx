@@ -9,6 +9,7 @@ import {
   validatePassword,
   validateConfirmationPassword,
 } from '../../../utils/validation/userValidation.js';
+import { IsEmailRegisteredRecord } from '../../IsEmailRegisteredRecord';
 
 export class SignUpForm extends Component {
   constructor(props) {
@@ -87,9 +88,9 @@ export class SignUpForm extends Component {
     if (!isEmpty(email)) {
       await this.props.checkEmailExistenceRequest(email);
 
-      if (this.props.isEmailRegistered === null) {
+      if (this.props.isEmailRegistered.isRegistered === null) {
         this.setNullValidationState('email');
-      } else if (this.props.isEmailRegistered) {
+      } else if (this.props.isEmailRegistered.isRegistered) {
         this.setErrorValidationState('email', 'User with this email is already exists');
       } else {
         this.setValidationState('email', validateEmail(email));
@@ -203,7 +204,7 @@ export class SignUpForm extends Component {
 
 SignUpForm.propTypes = {
   actionString : PropTypes.string.isRequired,
-  isEmailRegistered : PropTypes.any.isRequired,
+  isEmailRegistered : PropTypes.instanceOf(IsEmailRegisteredRecord),
   signUpRequest : PropTypes.func.isRequired,
   checkEmailExistenceRequest : PropTypes.func.isRequired,
 };
