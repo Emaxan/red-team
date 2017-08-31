@@ -27,7 +27,7 @@ module.exports = new Config.Config()
       extensions : [ '.js', '.jsx', '.scss' ],
     },
     module : {
-      loaders : [
+      rules : [
         {
           enforce : 'pre',
           test : /\.jsx?$|\.json$/,
@@ -41,28 +41,37 @@ module.exports = new Config.Config()
         {
           test : /\.jsx?$/,
           exclude : /node_modules/,
-          loader : 'babel-loader',
+          use : 'babel-loader',
         },
         {
-          test : /\.woff2?$|\.ttf$|\.eot$|\.svg$|\.png$|\.jpe?g$|\.gif$/,
-          loader : 'file-loader',
-        },
-        {
-          test : /\.css$/,
-          use : ExtractTextPlugin.extract({
-            // fallback : 'style-loader',
-            loader : 'css-loader',
-            options : {
-              minimize : true,
+          test : /\.(scss|css)$/,
+          use : [
+            {
+              loader : 'style-loader',
             },
-          }),
+            {
+              loader : 'css-loader',
+              options : { importLoaders: 1 },
+            },
+            {
+              loader : 'sass-loader',
+            }],
         },
         {
-          test : /\.scss$/,
-          use : ExtractTextPlugin.extract({
-            fallback : 'style-loader',
-            use : [ 'css-loader', 'sass-loader', 'postcss-loader' ],
-          }),
+          test : /\.(svg|png|jpe?g|gif)$/,
+          use : [{
+            loader : 'url-loader',
+            options : {
+              limit : 8192,
+            },
+          }],
+        },
+        {
+          test : /\.(eot|svg|ttf|woff|woff2)$/,
+          use : [
+            {
+              loader : 'file-loader',
+            }],
         },
       ],
     },
