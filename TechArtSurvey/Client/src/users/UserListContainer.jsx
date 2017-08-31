@@ -8,6 +8,7 @@ import FilteredUsers from './selectors/filteredUsers';
 const mapStateToProps = (state) => ({
   userList : state.users.userList,
   filteredUserList : FilteredUsers(state),
+  isFetching : state.users.isFetching,
 });
 
 const mapDispatchToProps = {
@@ -15,12 +16,13 @@ const mapDispatchToProps = {
   setFilter,
 };
 
-const UserListContainer = ({ filteredUserList, getUsers, setFilter }) => (
+const UserListContainer = ({ filteredUserList, getUsers, setFilter, isFetching }) => (
   <div className="user-list">
     <UserList
       filteredUserList={filteredUserList}
       getUsers={getUsers}
       setFilter={setFilter}
+      isFetching={isFetching}
     />
   </div>
 );

@@ -7,8 +7,7 @@ import { login } from './api';
 import {
   LOGIN_START,
   LOGIN_SUCCESS,
-  LOGIN_FAILED,
-  LOGIN_INVALID_DATA,
+  LOGIN_ERROR,
   LOGOUT,
   ENABLE_GREETING,
   DISABLE_GREETING,
@@ -17,8 +16,7 @@ import {
 export const {
   logInStart,
   logInSuccess,
-  logInFailed,
-  logInInvalidData,
+  loginError,
   logOut,
   enableGreeting,
   disableGreeting,
@@ -31,15 +29,11 @@ export const {
     tokenType,
   }),
 
-  [LOGIN_FAILED] : () => {},
-
-  [LOGIN_INVALID_DATA] : (errors) => ({
-    errors,
-  }),
+  [LOGIN_ERROR] : (errors) => ({ errors }),
 
   [LOGOUT] : () => {},
 
-  [ENABLE_GREETING] : () => {},
+  [ENABLE_GREETING] : (greetingMessage) => ({ greetingMessage }),
 
   [DISABLE_GREETING] : () => {},
 });
@@ -56,9 +50,9 @@ export const loginRequest = (userData) => (dispatch) => {
     })
     .catch((error) => {
       if (error.statusCode === BAD_REQUEST) {
-        dispatch(logInInvalidData(['Wrong email or password.']));
+        dispatch(loginError(['Wrong email or password.']));
       } else {
-        dispatch(logInFailed());
+        dispatch(loginError(error.data));
       }
     });
 };

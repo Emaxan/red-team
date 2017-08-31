@@ -4,6 +4,7 @@ import { Nav, NavItem } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
 
 import BasicInfo from './components/BasicInfo';
+import { NotFound } from '../error/NotFound';
 import Routes from '../app/routes';
 import {
   AboutUs,
@@ -14,7 +15,6 @@ import {
   Careers,
   Contacts,
 } from './components';
-import { NotFound } from '../error/NotFound';
 
 import './AboutContainer.scss';
 

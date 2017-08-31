@@ -19,16 +19,9 @@ export const {
   getUsersFilter,
 } = createActions({
   [GET_USERS_START] : () => {},
-
-  [GET_USERS_SUCCESS] : (userList) => ({
-    userList,
-  }),
-
+  [GET_USERS_SUCCESS] : (userList) => ({ userList }),
   [GET_USERS_ERROR] : () => {},
-
-  [GET_USERS_FILTER] : (filterInput) => ({
-    filterInput,
-  }),
+  [GET_USERS_FILTER] : (filterInput) => ({ filterInput }),
 });
 
 export const getUsers = () => (dispatch) => {

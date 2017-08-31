@@ -1,11 +1,14 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import './GreetingPanel.scss';
 
-const GreetingPanel = () => (
+export const GreetingPanel = ({ greetingMessage }) => (
   <div className="greeting-panel">
-    <h1>You have been signed up successfully! Now you can log in!</h1>
+    <h3>{greetingMessage}</h3>
   </div>
 );
 
-export default GreetingPanel;
+GreetingPanel.propTypes = {
+  greetingMessage : PropTypes.string.isRequired,
+};

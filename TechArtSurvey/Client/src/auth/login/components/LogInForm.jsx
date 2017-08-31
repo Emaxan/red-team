@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { Form, FormGroup, FormControl, ControlLabel, Button } from 'react-bootstrap';
+
 import Routes from '../../../app/routes';
 import {
   validateEmail,
@@ -57,12 +58,12 @@ export class LoginForm extends Component {
     this.setState({ user : { ...this.state.user, password : event.target.value}});
   }
 
-  isInputValid() {
+  isInputValid = () => {
     return Object.values(this.errors)
       .every((err) => err === null);
   }
 
-  render() {
+  render = () => {
     const formValid = this.isInputValid();
 
     return (
