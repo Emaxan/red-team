@@ -16,6 +16,6 @@ export const NotificationPanel = ({ title, children }) => (
 );
 
 NotificationPanel.propTypes = {
-  children : PropTypes.any.isRequired,
+  children : PropTypes.node.isRequired,
   title : PropTypes.string.isRequired,
 };

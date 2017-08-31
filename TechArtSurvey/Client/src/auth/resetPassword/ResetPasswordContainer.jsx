@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import ReactRouterPropTypes from 'react-router-prop-types';
 
 import { AuthPanel } from '../components/AuthPanel';
 import { InvalidTokenPanel } from './components/InvalidTokenPanel';
@@ -61,7 +62,7 @@ export class ResetPasswordContainer extends Component {
 
 ResetPasswordContainer.propTypes = {
   ...AuthPanel.propTypes,
-  match : PropTypes.object.isRequired,
+  match : ReactRouterPropTypes.match.isRequired,
   isFetching : PropTypes.bool.isRequired,
   tokenValid : PropTypes.bool.isRequired,
   checkPasswordResetTokenRequest : PropTypes.func.isRequired,

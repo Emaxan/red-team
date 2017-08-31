@@ -30,5 +30,5 @@ export class AuthPanel extends Component {
 AuthPanel.propTypes = {
   errors : ImmutablePropTypes.list.isRequired,
   actionString : PropTypes.string.isRequired,
-  children : PropTypes.any,
+  children : PropTypes.node,
 };
