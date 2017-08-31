@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Panel, Col, FormGroup, FormControl, Button, Radio } from 'react-bootstrap';
 import PropTypes from 'prop-types';
+
 import {
   TITLE_IS_REQUIRED,
 } from '../errors';
@@ -11,7 +12,7 @@ export class SingleQuestion extends Component {
   constructor(props) {
     super(props);
 
-    let question = this.props.question;
+    let { question } = this.props;
     question.metaInfo = this.props.question.metaInfo.map(m => m);
 
     this.state = {
@@ -23,7 +24,7 @@ export class SingleQuestion extends Component {
   }
 
   componentWillReceiveProps = (props) => {
-    let question = props.question;
+    let { question } = props;
     question.metaInfo = props.question.metaInfo.map(m => m);
     this.setState({
       question : question,

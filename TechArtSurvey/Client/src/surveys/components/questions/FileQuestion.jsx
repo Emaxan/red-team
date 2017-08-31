@@ -2,54 +2,47 @@ import React, { Component } from 'react';
 import { Panel, Col, FormGroup, FormControl } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 
-// import './FileQuestion.scss';
+import {
+  TITLE_IS_REQUIRED,
+} from '../errors';
 
 export class FileQuestion extends Component {
   constructor(props) {
     super(props);
 
-    let metaInfo = this.props.question.metaInfo.map(m => m);
+    let { question } = this.props;
+    question.metaInfo = this.props.question.metaInfo.map(m => m);
 
     this.state = {
-      number : this.props.question.number,
-      type : this.props.question.type,
-      title : this.props.question.title,
-      isRequired : this.props.question.isRequired,
-      metaInfo : metaInfo,
+      question : question,
+      errors : {
+        question : {...this.props.errors},
+      },
     };
   }
 
   handleOnTitleChange = (event) => {
     let title = event.target.value;
-    this.setState({ title : title });
-    let question = {...this.state};
+    let question = {...this.state.question};
     question.title = title;
-    this.props.handleOnQuestionUpdate(question);
+    let errors = {...this.state.errors};
+    if(title.trim().length === 0) {
+      errors.question.title = TITLE_IS_REQUIRED;
+    } else {
+      errors.question.title = null;
+    }
+    this.props.handleOnQuestionUpdate(question, errors);
+    this.setState({
+      question : { ...this.state.question, title : title },
+      errors : {...this.state.errors, question : errors},
+    });
   }
 
-  handleOnFileChange = (event) => {
-    let file = event.target.value;
-    this.setState({ metaInfo : this.fileUpload.files[0].name });
+  handleOnFileChange = () => {
+    if(this.props.editing) return;
+    this.setState({ metaInfo : [this.fileUpload.files[0].name] });
     let question = {...this.state};
-    question.metaInfo = file;
-    this.props.handleOnQuestionUpdate(question);
-  }
-
-  handleOnOptionChange = (optionId, value) => {
-    let metaInfo = this.state.metaInfo.map(m => m);
-    metaInfo[optionId] = value;
-    this.setState({ metaInfo : metaInfo });
-    let question = {...this.state};
-    question.metaInfo = metaInfo;
-    this.props.handleOnQuestionUpdate(question);
-  }
-
-  handleOnAddOption = () => {
-    let metaInfo = this.state.metaInfo.map(m => m);
-    metaInfo.push('');
-    this.setState({ metaInfo : metaInfo });
-    let question = {...this.state};
-    question.metaInfo = metaInfo;
+    question.metaInfo = [this.fileUpload.files[0].name];
     this.props.handleOnQuestionUpdate(question);
   }
 
@@ -64,7 +57,7 @@ export class FileQuestion extends Component {
                   <FormControl
                     name="title"
                     type="text"
-                    value={this.state.title}
+                    value={this.state.question.title}
                     placeholder="Enter question's title"
                     onChange={this.handleOnTitleChange}
                   />
@@ -88,7 +81,7 @@ export class FileQuestion extends Component {
               readOnly
               name="option"
               type="text"
-              value={this.state.metaInfo || ''}
+              value={this.state.question.metaInfo[0] || ''}
               placeholder="Select file"
             />
           </Col>
@@ -99,6 +92,7 @@ export class FileQuestion extends Component {
 }
 
 FileQuestion.propTypes = {
+  errors: PropTypes.object.isRequired,
   question: PropTypes.object.isRequired,
   handleOnQuestionUpdate: PropTypes.func.isRequired,
   editing : PropTypes.bool,

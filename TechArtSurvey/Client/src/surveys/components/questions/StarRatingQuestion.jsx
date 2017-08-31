@@ -2,61 +2,62 @@ import React, { Component } from 'react';
 import { Panel, Col, FormGroup, FormControl } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 
+import {
+  TITLE_IS_REQUIRED,
+} from '../errors';
+
 export class StarRatingQuestion extends Component {
   constructor(props) {
     super(props);
 
-    let metaInfo = this.props.question.metaInfo.map(m => m);
+    let { question } = this.props;
+    question.metaInfo = this.props.question.metaInfo.map(m => m);
 
-    if(metaInfo.length < 1) {
-      metaInfo.push(0);
+    if(question.metaInfo.length < 1) {
+      question.metaInfo.push(0);
     }
 
     this.state = {
-      number : this.props.question.number,
-      type : this.props.question.type,
-      title : this.props.question.title,
-      isRequired : this.props.question.isRequired,
-      metaInfo : metaInfo,
+      question : question,
+      errors : {
+        question : {...this.props.errors},
+      },
     };
-  }
-
-  componentWillReceiveProps = (props) => {
-    let metaInfo = props.question.metaInfo.map(m => m);
-    this.setState({
-      number : props.question.number,
-      type : props.question.type,
-      title : props.question.title,
-      isRequired : props.question.isRequired,
-      metaInfo : metaInfo,
-    });
   }
 
   handleOnTitleChange = (event) => {
     let title = event.target.value;
-    this.setState({ title : title });
-    let question = {...this.state};
+    let question = {...this.state.question};
     question.title = title;
-    this.props.handleOnQuestionUpdate(question);
+    let errors = {...this.state.errors};
+    if(title.trim().length === 0) {
+      errors.question.title = TITLE_IS_REQUIRED;
+    } else {
+      errors.question.title = null;
+    }
+    this.props.handleOnQuestionUpdate(question, errors);
+    this.setState({
+      question : { ...this.state.question, title : title },
+      errors : {...this.state.errors, question : errors},
+    });
   }
 
   handleOnClick = (number) => {
-    this.setState({ matainfo : [number] });
-    let question = {...this.state};
+    this.setState({question: {...this.state.question, metaInfo : [number]}});
+    let question = {...this.state.question};
     question.metaInfo = [number];
-    this.props.handleOnQuestionUpdate(question);
+    this.props.handleOnQuestionUpdate(question, this.state.errors);
   }
 
   render = () => {
-
     let i = 0;
     let stars = [];
-    while(i < this.state.metaInfo[0]) {
+    while(i < this.state.question.metaInfo[0]) {
       stars.push('glyphicon glyphicon-star');
       i++;
     }
 
-    while(i < (5 - this.state.metaInfo[0])) {
+    while(i < 5) {
       stars.push('glyphicon glyphicon-star-empty');
       i++;
     }
@@ -71,7 +72,7 @@ export class StarRatingQuestion extends Component {
                   <FormControl
                     name="title"
                     type="text"
-                    value={this.state.title}
+                    value={this.state.question.title}
                     placeholder="Enter question's title"
                     onChange={this.handleOnTitleChange}
                   />
@@ -85,7 +86,14 @@ export class StarRatingQuestion extends Component {
         <FormGroup>
           <Col sm={8} smOffset={1}>
             {
-              stars.map((star, i) => (<span key={i} className={star} onClick={this.handleOnClick.bind(this, i+1)}/>))
+              stars.map((star, i) => (
+                <span key={i}
+                  className={star}
+                  onClick={
+                    () => this.handleOnClick(i+1)
+                  }
+                />
+              ))
             }
           </Col>
         </FormGroup>
@@ -95,6 +103,7 @@ export class StarRatingQuestion extends Component {
 }
 
 StarRatingQuestion.propTypes = {
+  errors: PropTypes.object.isRequired,
   question: PropTypes.object.isRequired,
   handleOnQuestionUpdate: PropTypes.func.isRequired,
   editing : PropTypes.bool,

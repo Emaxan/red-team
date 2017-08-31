@@ -2,27 +2,49 @@ import React, { Component } from 'react';
 import { Panel, Col, FormGroup, FormControl } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 
+import {
+  TITLE_IS_REQUIRED,
+} from '../errors';
+
 export class TextQuestion extends Component {
   constructor(props) {
     super(props);
 
+    let { question } = this.props;
+    question.metaInfo = this.props.question.metaInfo.map(m => m);
+
     this.state = {
-      type : this.props.question.type,
-      title : this.props.question.title,
-      isRequired : this.props.question.isRequired,
-      options : this.props.question.metaInfo,
-      number : this.props.question.number,
+      question : question,
+      errors : {
+        question : {...this.props.errors},
+      },
     };
   }
 
   handleOnTitleChange = (event) => {
-    this.setState({ title : event.target.value });
+    let title = event.target.value;
+    let question = {...this.state.question};
+    question.title = title;
+    let errors = {...this.state.errors};
+    if(title.trim().length === 0) {
+      errors.question.title = TITLE_IS_REQUIRED;
+    } else {
+      errors.question.title = null;
+    }
+    this.props.handleOnQuestionUpdate(question, errors);
+    this.setState({
+      question : { ...this.state.question, title : title },
+      errors : {...this.state.errors, question : errors},
+    });
   }
 
   handleOnOptionChange = (optionId, value) => {
-    let { options } = this.state;
-    options[optionId] = value;
-    this.setState({ options });
+    let metaInfo = this.state.question.metaInfo.map(m => m);
+    metaInfo[optionId] = value;
+    this.setState({ question : { ...this.state.question, metaInfo : metaInfo } });
+    let question = {...this.state.question};
+    question.metaInfo = metaInfo;
+    this.props.handleOnQuestionUpdate(question, this.state.errors);
   }
 
   render = () => {
@@ -36,7 +58,7 @@ export class TextQuestion extends Component {
                   <FormControl
                     name="title"
                     type="text"
-                    value={this.state.title}
+                    value={this.state.question.title}
                     placeholder="Enter question's title"
                     onChange={this.handleOnTitleChange}
                   />
@@ -55,8 +77,8 @@ export class TextQuestion extends Component {
                 (
                   <FormControl
                     type='text'
-                    name={this.state.title}
-                    value={this.state.options}
+                    name={this.state.question.title}
+                    value={this.state.question.metaInfo[0]}
                     placeholder="Option"
                     onChange={(e) => this.handleOnOptionChange(0, e.target.value)}
                   />
@@ -65,8 +87,8 @@ export class TextQuestion extends Component {
                   <textarea
                     className="form-control"
                     rows="5"
-                    name={this.state.title}
-                    placeholder={this.state.options}
+                    name={this.state.question.title}
+                    placeholder={this.state.question.metaInfo[0]}
                     onChange={(e) => this.handleOnOptionChange(0, e.target.value)}
                   />
                 )
@@ -79,8 +101,9 @@ export class TextQuestion extends Component {
 }
 
 TextQuestion.propTypes = {
+  errors: PropTypes.object.isRequired,
   question: PropTypes.object.isRequired,
-  handleOnQuestionChange: PropTypes.func.isRequired,
+  handleOnQuestionUpdate: PropTypes.func.isRequired,
   editing : PropTypes.bool,
 };
 

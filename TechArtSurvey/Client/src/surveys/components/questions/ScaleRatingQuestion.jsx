@@ -3,47 +3,57 @@ import { Panel, Col, FormGroup, FormControl } from 'react-bootstrap';
 import Nouislider from 'react-nouislider';
 import PropTypes from 'prop-types';
 
+import {
+  TITLE_IS_REQUIRED,
+} from '../errors';
+
 import './ScaleRatingQuestion.scss';
 
 export class ScaleRatingQuestion extends Component {
   constructor(props) {
     super(props);
 
-    let metaInfo = this.props.question.metaInfo.map(m => m);
+    let { question } = this.props;
+    question.metaInfo = this.props.question.metaInfo.map(m => m);
+
+    if(question.metaInfo.length<1){
+      question.metaInfo.push(50);
+    }
 
     this.state = {
-      number : this.props.question.number,
-      type : this.props.question.type,
-      title : this.props.question.title,
-      isRequired : this.props.question.isRequired,
-      metaInfo : metaInfo,
+      question : question,
+      errors : {
+        question : {...this.props.errors},
+      },
     };
-  }
-
-  componentWillReceiveProps = (props) => {
-    let metaInfo = props.question.metaInfo.map(m => m);
-    this.setState({
-      number : props.question.number,
-      type : props.question.type,
-      title : props.question.title,
-      isRequired : props.question.isRequired,
-      metaInfo : metaInfo,
-    });
   }
 
   handleOnTitleChange = (event) => {
     let title = event.target.value;
-    this.setState({ title : title });
-    let question = {...this.state};
+    let question = {...this.state.question};
     question.title = title;
-    this.props.handleOnQuestionUpdate(question);
+    let errors = {...this.state.errors};
+    if(title.trim().length === 0) {
+      errors.question.title = TITLE_IS_REQUIRED;
+    } else {
+      errors.question.title = null;
+    }
+    this.props.handleOnQuestionUpdate(question, errors);
+    this.setState({
+      question : { ...this.state.question, title : title },
+      errors : {...this.state.errors, question : errors},
+    });
   }
 
   handleOnValueChange = (value) => {
-    this.setState({ metainfo : [value] });
-    let question = {...this.state};
-    question.metaInfo = [value];
-    this.props.handleOnQuestionUpdate(question);
+    if(!this.props.editing) {
+      this.props.handleOnQuestionUpdate(this.state.question, this.state.errors);
+      return;
+    }
+    this.setState({question : {...this.state.question, metaInfo : value}});
+    let question = {...this.state.question};
+    question.metaInfo = value;
+    this.props.handleOnQuestionUpdate(question, this.state.errors);
   }
 
   render = () => {
@@ -57,7 +67,7 @@ export class ScaleRatingQuestion extends Component {
                   <FormControl
                     name="title"
                     type="text"
-                    value={this.state.title}
+                    value={this.state.question.title}
                     placeholder="Enter question's title"
                     onChange={this.handleOnTitleChange}
                   />
@@ -78,7 +88,7 @@ export class ScaleRatingQuestion extends Component {
                 min: 0,
                 max: 100,
               }}
-              start={[this.state.metaInfo[0]] || [50]}
+              start={this.state.question.metaInfo}
               connect={[true, false]}
               step={1}
               tooltips
@@ -98,6 +108,7 @@ export class ScaleRatingQuestion extends Component {
 }
 
 ScaleRatingQuestion.propTypes = {
+  errors: PropTypes.object.isRequired,
   question: PropTypes.object.isRequired,
   handleOnQuestionUpdate: PropTypes.func.isRequired,
   editing : PropTypes.bool,
