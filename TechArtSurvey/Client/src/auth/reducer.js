@@ -3,7 +3,6 @@ import { Record } from 'immutable';
 
 import AuthService from './authService';
 import { UserInfoRecord } from './UserInfoRecord';
-import { IsEmailRegisteredRecord } from './IsEmailRegisteredRecord';
 import {
   SET_USER_INFO,
   RESET_USER_INFO,
@@ -15,7 +14,7 @@ import {
 const authInitialState = Record({
   isAuthenticated : AuthService.isAuthenticated(),
   userInfo : new UserInfoRecord(AuthService.getUserInfo()),
-  isEmailRegistered : new IsEmailRegisteredRecord({ isRegistered : false }),
+  isEmailRegistered : false,
 });
 
 const initialState = new authInitialState();
@@ -34,8 +33,8 @@ export const authReducer = handleActions({
       .set('isAuthenticated', action.payload.isAuthenticated),
 
   [CHECK_EMAIL_EXISTENCE_SUCCESS] : (state, action) =>
-    state.set('isEmailRegistered', new IsEmailRegisteredRecord({ isRegistered : action.payload.isEmailRegistered })),
+    state.set('isEmailRegistered', action.payload.isEmailRegistered),
 
   [CHECK_EMAIL_EXISTENCE_ERROR] : (state) =>
-    state.set('isEmailRegistered', new IsEmailRegisteredRecord({ isRegistered : null })),
+    state.set('isEmailRegistered', null),
 }, initialState);

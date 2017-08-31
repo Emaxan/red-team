@@ -4,7 +4,6 @@ import { Form, FormGroup, FormControl, ControlLabel, Button } from 'react-bootst
 import { isEmpty } from 'lodash';
 
 import { validateEmail } from '../../../utils/validation/userValidation';
-import { IsEmailRegisteredRecord } from '../../IsEmailRegisteredRecord';
 
 export class ForgotPasswordForm extends Component {
   constructor(props) {
@@ -59,9 +58,9 @@ export class ForgotPasswordForm extends Component {
     if (!isEmpty(email)) {
       await this.props.checkEmailExistenceRequest(email);
 
-      if (this.props.isEmailRegistered.isRegistered === null) {
+      if (this.props.isEmailRegistered === null) {
         this.setNullValidationState();
-      } else if (this.props.isEmailRegistered.isRegistered) {
+      } else if (this.props.isEmailRegistered) {
         this.setSuccessValidationState();
       } else {
         this.setErrorValidationState('User with this email doesn\'t exists');
@@ -116,5 +115,5 @@ export class ForgotPasswordForm extends Component {
 ForgotPasswordForm.propTypes = {
   checkEmailExistenceRequest : PropTypes.func.isRequired,
   forgotPasswordRequest : PropTypes.func.isRequired,
-  isEmailRegistered : PropTypes.instanceOf(IsEmailRegisteredRecord),
+  isEmailRegistered : PropTypes.bool,
 };
