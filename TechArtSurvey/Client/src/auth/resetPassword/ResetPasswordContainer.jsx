@@ -25,10 +25,6 @@ const mapDispatchToProps = {
 };
 
 export class ResetPasswordContainer extends Component {
-  constructor(props) {
-    super(props);
-  }
-
   componentWillMount = () => {
     this.props.checkPasswordResetTokenRequest(
       this.props.match.params.userId,

@@ -20,10 +20,6 @@ const mapDispatchToProps = ({
 });
 
 export class LoginContainer extends Component {
-  constructor(props) {
-    super(props);
-  }
-
   componentWillUnmount = () => {
     this.props.disableGreeting();
   }

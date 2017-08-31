@@ -24,10 +24,6 @@ const mapDispatchToProps = {
 };
 
 export class ForgotPasswordContainer extends Component {
-  constructor(props) {
-    super(props);
-  }
-
   render = () => {
     if (this.props.isFetching) {
       return <Spinner />;
