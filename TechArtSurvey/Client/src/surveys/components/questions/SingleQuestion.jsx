@@ -3,13 +3,11 @@ import { Panel, Col, FormGroup, FormControl, Button, Radio, ControlLabel } from 
 import PropTypes from 'prop-types';
 
 import {
-// TITLE_IS_REQUIRED,
-} from '../errors';
-import {
   validateTitle,
 } from '../../../utils/validation/questionValidation';
 
 import './SingleQuestion.scss';
+import './Question.scss';
 
 export class SingleQuestion extends Component {
   constructor(props) {
@@ -22,7 +20,7 @@ export class SingleQuestion extends Component {
       question : question,
     };
 
-    this.errors = { ...this.props.errors },
+    this.errors = this.props.errors,
 
     this.validationStates = {
       title : null,
@@ -32,10 +30,15 @@ export class SingleQuestion extends Component {
   componentWillReceiveProps = (props) => {
     let { question } = props;
     question.metaInfo = props.question.metaInfo.map(m => m);
+
     this.setState({
       question : question,
-      errors : {...this.state.errors, question : {...props.errors}},
     });
+  }
+
+  componentWillUpdate = (nextProps) => {
+    let question = nextProps.question;
+    this.setValidationState('title', validateTitle(question.title));
   }
 
   setValidationState = (fieldName, validationInfo) => {
@@ -83,7 +86,7 @@ export class SingleQuestion extends Component {
 
   render = () => {
     return (
-      <Panel>
+      <Panel className={this.props.isValid ? '' : 'panel-has-error'}>
         <FormGroup validationState={this.validationStates.title}>
           <Col sm={10} smOffset={1}>
             {
@@ -156,8 +159,10 @@ SingleQuestion.propTypes = {
   question : PropTypes.object.isRequired,
   handleOnQuestionUpdate : PropTypes.func.isRequired,
   editing : PropTypes.bool,
+  isValid : PropTypes.bool,
 };
 
 SingleQuestion.defaultProps = {
   editing : false,
+  isValid : true,
 };

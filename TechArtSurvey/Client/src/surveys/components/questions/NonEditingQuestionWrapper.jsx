@@ -24,12 +24,20 @@ export class NonEditingQuestionWrapper extends Component {
     this.props.handleOnEditingQuestionNumberChange(this.state.question.number);
   }
 
+  isQuestionValid = () => {
+    // WILL BE CHANGED
+    return this.props.errors.title === null;
+  }
+
   render = () =>
     <div className = "question-wrapper">
       {
         questionsFactory[this.state.question.type](
           this.state.question,
           null,
+          {
+            isValid : this.isQuestionValid(),
+          },
         )
       }
       <Button onClick={this.handleOnEditClick} className="question-wrapper__edit">
@@ -40,5 +48,6 @@ export class NonEditingQuestionWrapper extends Component {
 
 NonEditingQuestionWrapper.propTypes = {
   question : PropTypes.object.isRequired,
+  errors : PropTypes.object.isRequired,
   handleOnEditingQuestionNumberChange : PropTypes.func.isRequired,
 };
