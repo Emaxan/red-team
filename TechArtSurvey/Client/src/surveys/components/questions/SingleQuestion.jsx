@@ -20,11 +20,15 @@ export class SingleQuestion extends Component {
       question : question,
     };
 
-    this.errors = this.props.errors,
+    this.errors = { ...this.props.errors };
 
     this.validationStates = {
       title : null,
     };
+  }
+
+  componentWillMount = () => {
+    this.setValidationState('title', validateTitle(this.state.question.title));
   }
 
   componentWillReceiveProps = (props) => {
@@ -34,11 +38,6 @@ export class SingleQuestion extends Component {
     this.setState({
       question : question,
     });
-  }
-
-  componentWillUpdate = (nextProps) => {
-    let question = nextProps.question;
-    this.setValidationState('title', validateTitle(question.title));
   }
 
   setValidationState = (fieldName, validationInfo) => {
@@ -155,9 +154,9 @@ export class SingleQuestion extends Component {
 }
 
 SingleQuestion.propTypes = {
-  errors : PropTypes.object.isRequired,
+  errors : PropTypes.object,
   question : PropTypes.object.isRequired,
-  handleOnQuestionUpdate : PropTypes.func.isRequired,
+  handleOnQuestionUpdate : PropTypes.func,
   editing : PropTypes.bool,
   isValid : PropTypes.bool,
 };

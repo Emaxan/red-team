@@ -142,6 +142,7 @@ class QuestionList extends Component {
                     moveQuestion={this.moveQuestion}
                     handleOnQuestionSave={this.handleOnQuestionSave}
                     handleOnEditingQuestionNumberChange={this.handleOnEditingQuestionNumberChange}
+                    editing={false}
                     errors = {this.errors.questions[index]}
                   />
                 </DraggableQuestion>
