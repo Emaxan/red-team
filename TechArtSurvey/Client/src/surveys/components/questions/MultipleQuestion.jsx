@@ -2,47 +2,60 @@ import React, { Component } from 'react';
 import { Panel, Col, FormGroup, FormControl, Button, Checkbox } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 
+import {
+  TITLE_IS_REQUIRED,
+} from '../errors';
+
 import './MultipleQuestion.scss';
 
 export class MultipleQuestion extends Component {
   constructor(props) {
     super(props);
 
-    let metaInfo = this.props.question.metaInfo.map(m => m);
+    let { question } = this.props;
+    question.metaInfo = this.props.question.metaInfo.map(m => m);
 
     this.state = {
-      number : this.props.question.number,
-      type : this.props.question.type,
-      title : this.props.question.title,
-      isRequired : this.props.question.isRequired,
-      metaInfo : metaInfo,
+      question : question,
+      errors : {
+        question : {...this.props.errors},
+      },
     };
   }
 
   handleOnTitleChange = (event) => {
     let title = event.target.value;
-    this.setState({ title : title });
-    let question = {...this.state};
+    let question = {...this.state.question};
     question.title = title;
-    this.props.handleOnQuestionUpdate(question);
+    let errors = {...this.state.errors};
+    if(title.trim().length === 0) {
+      errors.question.title = TITLE_IS_REQUIRED;
+    } else {
+      errors.question.title = null;
+    }
+    this.props.handleOnQuestionUpdate(question, errors);
+    this.setState({
+      question : { ...this.state.question, title : title },
+      errors : {...this.state.errors, question : errors},
+    });
   }
 
   handleOnOptionChange = (optionId, value) => {
-    let metaInfo = this.state.metaInfo.map(m => m);
+    let metaInfo = this.state.question.metaInfo.map(m => m);
     metaInfo[optionId] = value;
-    this.setState({ metaInfo : metaInfo });
-    let question = {...this.state};
+    this.setState({ question : { ...this.state.question, metaInfo : metaInfo } });
+    let question = {...this.state.question};
     question.metaInfo = metaInfo;
-    this.props.handleOnQuestionUpdate(question);
+    this.props.handleOnQuestionUpdate(question, this.state.errors);
   }
 
   handleOnAddOption = () => {
-    let metaInfo = this.state.metaInfo.map(m => m);
+    let metaInfo = this.state.question.metaInfo.map(m => m);
     metaInfo.push('');
-    this.setState({ metaInfo : metaInfo });
-    let question = {...this.state};
+    this.setState({ question : { ...this.state.question, metaInfo : metaInfo } });
+    let question = {...this.state.question};
     question.metaInfo = metaInfo;
-    this.props.handleOnQuestionUpdate(question);
+    this.props.handleOnQuestionUpdate(question, this.state.errors);
   }
 
   render = () => {
@@ -56,7 +69,7 @@ export class MultipleQuestion extends Component {
                   <FormControl
                     name="title"
                     type="text"
-                    value={this.state.title}
+                    value={this.state.question.title}
                     placeholder="Enter question's title"
                     onChange={this.handleOnTitleChange}
                   />
@@ -69,7 +82,7 @@ export class MultipleQuestion extends Component {
         </FormGroup>
 
         {
-          this.state.metaInfo.map((option, i) => {
+          this.state.question.metaInfo.map((option, i) => {
             return (
               <FormGroup key={i}>
                 <Col sm={8} smOffset={1}>
@@ -78,15 +91,15 @@ export class MultipleQuestion extends Component {
                       (
                         <FormControl
                           type='text'
-                          name={this.state.title}
+                          name={this.state.question.title}
                           value={option}
                           placeholder="Option"
                           onChange={(e) => this.handleOnOptionChange(i, e.target.value)}
                         />
                       ) :
                       (
-                        <Checkbox id={`${this.state.number}.${i}`} name={this.state.title}>
-                          <label htmlFor={`${this.state.number}.${i}`} className="option">{option}</label>
+                        <Checkbox id={`${this.state.question.number}.${i}`} name={this.state.question.title}>
+                          <label htmlFor={`${this.state.question.number}.${i}`} className="option">{option}</label>
                         </Checkbox>
                       )
                   }
@@ -112,7 +125,14 @@ export class MultipleQuestion extends Component {
 }
 
 MultipleQuestion.propTypes = {
-  question: PropTypes.object.isRequired,
+  errors : PropTypes.object.isRequired,
+  question: PropTypes.shape({
+    isRequired : PropTypes.bool.isRequired,
+    metaInfo : PropTypes.arrayOf(String).isRequired,
+    number : PropTypes.number.isRequired,
+    title : PropTypes.string.isRequired,
+    type : PropTypes.string.isRequired,
+  }).isRequired,
   handleOnQuestionUpdate: PropTypes.func.isRequired,
   editing : PropTypes.bool,
 };

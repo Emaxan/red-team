@@ -109,7 +109,13 @@ export class ScaleRatingQuestion extends Component {
 
 ScaleRatingQuestion.propTypes = {
   errors: PropTypes.object.isRequired,
-  question: PropTypes.object.isRequired,
+  question: PropTypes.shape({
+    isRequired : PropTypes.bool.isRequired,
+    metaInfo : PropTypes.arrayOf(String).isRequired,
+    number : PropTypes.number.isRequired,
+    title : PropTypes.string.isRequired,
+    type : PropTypes.string.isRequired,
+  }).isRequired,
   handleOnQuestionUpdate: PropTypes.func.isRequired,
   editing : PropTypes.bool,
 };
