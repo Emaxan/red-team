@@ -6,6 +6,7 @@ import { questionTypesArray } from './questionTypesPresentation';
 import { QuestionTypesPanel } from './QuestionTypesPanel';
 import { ParamsPanel } from './ParamsPanel';
 import Page from '../models/Page';
+import Settings from '../models/Settings';
 import { PageNavigator } from './PageNavigator';
 import { isSurveyValid, prepareSurvey } from './service';
 import {
@@ -204,6 +205,10 @@ export class SurveyEditPanel extends Component {
 }
 
 SurveyEditPanel.propTypes = {
-  survey : PropTypes.object.isRequired,
+  survey : PropTypes.shape({
+    title : PropTypes.string.isRequired,
+    settings : PropTypes.instanceOf(Settings).isRequired,
+    pages : PropTypes.arrayOf(Page).isRequired,
+  }).isRequired,
   saveSurvey : PropTypes.func.isRequired,
 };
