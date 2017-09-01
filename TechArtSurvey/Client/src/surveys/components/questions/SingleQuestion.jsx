@@ -71,7 +71,7 @@ export class SingleQuestion extends Component {
     this.setState({ question : { ...this.state.question, metaInfo : metaInfo } });
     let question = {...this.state.question};
     question.metaInfo = metaInfo;
-    this.props.handleOnQuestionUpdate(question, this.state.errors);
+    this.props.handleOnQuestionUpdate(question, this.errors);
   }
 
   handleOnAddOption = () => {
@@ -80,7 +80,7 @@ export class SingleQuestion extends Component {
     this.setState({ question : { ...this.state.question, metaInfo : metaInfo } });
     let question = {...this.state.question};
     question.metaInfo = metaInfo;
-    this.props.handleOnQuestionUpdate(question, this.state.errors);
+    this.props.handleOnQuestionUpdate(question, this.errors);
   }
 
   render = () => {

@@ -48,7 +48,7 @@ export class EditingQuestionWrapper extends Component {
     } else {
       errors.question.metaInfo = null;
     }
-    this.setState({ question: {...question}, errors : {...this.state.errors, question : errors} });
+    this.setState({ question: {...question}, errors : {...this.state.errors, question : {...errors}} });
     this.props.handleOnQuestionSave({...question}, errors);
   }
 

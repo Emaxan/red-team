@@ -44,7 +44,6 @@ export class PageNavigator extends Component {
       return;
     }
     pages.splice(this.state.editingPageNumber - 1, 1);
-    this.survey.pages.splice(this.state.editingPageNumber - 1, 1);
     this.errors.pages.splice(this.state.editingPageNumber - 1, 1);
     this.setState({
       editingPageNumber: 1,
