@@ -20,7 +20,7 @@ export default new Config()
       filename : 'bundle.js',
     },
 
-    context : path.resolve(__dirname, '../'),
+    context : path.join(__dirname, '../'),
 
     resolve : {
       extensions : [ '.js', '.jsx' ],
@@ -57,8 +57,6 @@ export default new Config()
               loader : 'sass-loader',
             }],
         },
-
-
         {
           test : /\.(svg|png|jpe?g|gif)$/,
           use : [{
@@ -74,10 +72,6 @@ export default new Config()
             {
               loader : 'file-loader',
             }],
-        },
-        {
-          test : /\.woff2?$|\.ttf$|\.eot$|\.svg$|\.png$|\.jpg$|\.gif$/,
-          loader : 'file-loader',
         },
       ],
     },
