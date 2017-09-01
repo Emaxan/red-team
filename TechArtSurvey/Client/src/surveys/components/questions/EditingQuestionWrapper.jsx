@@ -106,7 +106,13 @@ export class EditingQuestionWrapper extends Component {
 
 EditingQuestionWrapper.propTypes = {
   handleOnQuestionSave : PropTypes.func.isRequired,
-  question : PropTypes.object.isRequired,
+  question : PropTypes.shape({
+    isRequired : PropTypes.bool.isRequired,
+    metaInfo : PropTypes.arrayOf(String).isRequired,
+    number : PropTypes.number.isRequired,
+    title : PropTypes.string.isRequired,
+    type : PropTypes.string.isRequired,
+  }).isRequired,
   errors : PropTypes.object.isRequired,
   handleOnEditingQuestionNumberChange : PropTypes.func.isRequired,
   handleOnDeleteClick : PropTypes.func.isRequired,
