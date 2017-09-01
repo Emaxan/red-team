@@ -217,7 +217,7 @@ SurveyEditPanel.propTypes = {
   survey : PropTypes.shape({
     title : PropTypes.string.isRequired,
     settings : PropTypes.instanceOf(Settings).isRequired,
-    pages : PropTypes.arrayOf(Page).isRequired,
+    pages : PropTypes.arrayOf(PropTypes.instanceOf(Page)).isRequired,
   }).isRequired,
   saveSurvey : PropTypes.func.isRequired,
 };
