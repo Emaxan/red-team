@@ -75,7 +75,7 @@ export class EditingQuestionWrapper extends Component {
     <div>
       <Panel className="edit-question">
         <div className="top-actions">
-          <Checkbox onClick={this.handleOnRequiredClick} checked={this.state.question.isRequired} className="top-actions__required">
+          <Checkbox onChange={this.handleOnRequiredClick} checked={this.state.question.isRequired} className="top-actions__required">
             Required
           </Checkbox>
           <Button onClick={this.handleOnDeleteClick}>
