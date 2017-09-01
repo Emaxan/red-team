@@ -141,7 +141,7 @@ export class SurveyEditPanel extends Component {
       <div className="survey-edit-panel">
         <Panel className="col-md-6">
           <Form horizontal>
-            <FormGroup controlNumber="title" >
+            <FormGroup>
               <Col componentClass={ControlLabel} sm={2}>
                 New survey
               </Col>

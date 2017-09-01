@@ -89,7 +89,7 @@ export class PageNavigator extends Component {
         </Nav>
         <div className="page">
           <div className="page-control">
-            <FormGroup className="page-form-group" controlNumber="page" >
+            <FormGroup className="page-form-group">
               <Col componentClass={ControlLabel} sm={2}>
                 New page
               </Col>
