@@ -9,7 +9,7 @@ export default class Question {
     this.metaInfo = metaInfo;
   }
 
-  GetCopy(){
+  getCopy(){
     let question = new Question();
     question.number = this.number;
     question.type = this.type;

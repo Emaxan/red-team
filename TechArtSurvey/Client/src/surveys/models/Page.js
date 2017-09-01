@@ -4,10 +4,10 @@ export default class Page {
     this.questions = questions;
   }
 
-  GetCopy(){
+  getCopy(){
     let page = new Page();
     page.title = this.title;
-    page.questions = this.questions.map(q => q.GetCopy());
+    page.questions = this.questions.map(q => q.getCopy());
 
     return page;
   }

@@ -8,11 +8,11 @@ export default class Survey {
     this.pages = pages;
   }
 
-  GetCopy(){
+  getCopy(){
     let survey = new Survey();
     survey.title = this.title;
-    survey.settings = this.settings.GetCopy();
-    survey.pages = this.pages.map(p => p.GetCopy());
+    survey.settings = this.settings.getCopy();
+    survey.pages = this.pages.map(p => p.getCopy());
 
     return survey;
   }

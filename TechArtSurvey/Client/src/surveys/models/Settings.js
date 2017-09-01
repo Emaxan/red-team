@@ -15,7 +15,7 @@ export default class Settings {
     this.hasProgressIndicator = hasProgressIndicator;
   }
 
-  GetCopy(){
+  getCopy(){
     let settings = new Settings();
     settings.isAnonymous = this.isAnonymous;
     settings.hasQuestionNumbers = this.hasQuestionNumbers;
