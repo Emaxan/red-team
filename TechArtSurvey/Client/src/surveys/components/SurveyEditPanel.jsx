@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Form, Col, Panel, FormGroup, FormControl, ControlLabel, Button, ButtonGroup } from 'react-bootstrap';
+import { Form, Col, Panel, FormGroup, FormControl, ControlLabel, Button, ButtonGroup, ButtonToolbar } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 
 import { questionTypesArray } from './questionTypesPresentation';
@@ -154,20 +154,24 @@ export class SurveyEditPanel extends Component {
                 />
               </Col>
             </FormGroup>
-            <ButtonGroup>
-              <Button onClick={this.handleOnSaveClick}>
-                Save
-              </Button>
-              <Button >
-                Save as template
-              </Button>
-              <Button>
-                Cancel
-              </Button>
-              <Button onClick={this.handleOnAddPageClick}>
-                New page
-              </Button>
-            </ButtonGroup>
+            <ButtonToolbar className="survey-actions">
+              <ButtonGroup>
+                <Button onClick={this.handleOnSaveClick}>
+                  Save
+                </Button>
+                <Button >
+                  Save as template
+                </Button>
+                <Button>
+                  Cancel
+                </Button>
+              </ButtonGroup>
+              <ButtonGroup className="new-page">
+                <Button onClick={this.handleOnAddPageClick}>
+                  New page
+                </Button>
+              </ButtonGroup>
+            </ButtonToolbar>
             <PageNavigator
               handleOnPagesUpdate={this.handleOnPagesUpdate}
               handleOnPageSwitch={this.handleOnPageSwitch}
