@@ -131,7 +131,7 @@ export class SurveyEditPanel extends Component {
     if(this.state.newEditingQuestionType) {
       return this.state.newEditingQuestionType;
     }
-    let questions = this.state.survey.pages[this.state.editingPageNumber - 1].questions;
+    let { questions } = this.state.survey.pages[this.state.editingPageNumber - 1];
     let index = questions.findIndex(q => q.number == this.state.editingQuestionNumber);
     return questions[index].type;
   }

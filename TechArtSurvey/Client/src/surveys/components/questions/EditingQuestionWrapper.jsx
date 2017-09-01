@@ -22,7 +22,7 @@ export class EditingQuestionWrapper extends Component {
   }
 
   componentWillReceiveProps = (props, errors) => {
-    let type = props.question.type;
+    let { type } = props.question;
     this.setState({ question : { ...this.state.question, type : type }, errors : {...this.state.errors, question : {...errors}} });
   }
 
