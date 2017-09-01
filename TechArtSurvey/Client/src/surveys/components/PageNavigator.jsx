@@ -2,9 +2,10 @@ import React, { Component } from 'react';
 import { Col, FormGroup, FormControl, Button, NavItem, Nav, ControlLabel } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 import QuestionList from './QuestionList';
+
 import {
-  TITLE_IS_REQUIRED,
-} from './errors';
+  validateTitle,
+} from '../../utils/validation/questionValidation';
 
 import './PageNavigator.scss';
 
@@ -16,8 +17,10 @@ export class PageNavigator extends Component {
       editingPageNumber : 1,
       pages : pages,
     };
-    this.errors = {
-      pages : this.props.errors,
+    this.errors = { ...this.props.errors };
+
+    this.validationStates = {
+      title : null,
     };
   }
 
@@ -27,7 +30,7 @@ export class PageNavigator extends Component {
       pages : pages,
       editingPageNumber : props.editingPageNumber,
     });
-    this.errors.pages = props.errors;
+    this.errors = props.errors;
   }
 
   handleOnPageSwitch = (pageNumber) => {
@@ -44,7 +47,7 @@ export class PageNavigator extends Component {
       return;
     }
     pages.splice(this.state.editingPageNumber - 1, 1);
-    this.errors.pages.splice(this.state.editingPageNumber - 1, 1);
+    this.errors.splice(this.state.editingPageNumber - 1, 1);
     this.setState({
       editingPageNumber: 1,
       pages : pages,
@@ -54,20 +57,30 @@ export class PageNavigator extends Component {
   }
 
   handleOnTitleChange = (event) => {
+    let title = event.target.value;
+
+    this.setValidationState('title', validateTitle(title));
+
     let pages = this.state.pages.map(p => ({...p}));
-    pages[this.state.editingPageNumber - 1].title = event.target.value;
+    pages[this.state.editingPageNumber - 1].title = title;
     this.setState({ pages : pages });
-    if(event.target.value.trim().length === 0) {
-      this.errors.pages[this.state.editingPageNumber - 1].title = TITLE_IS_REQUIRED;
-    } else {
-      this.errors.pages[this.state.editingPageNumber - 1].title = null;
-    }
+
     this.props.handleOnPagesUpdate(pages, this.errors);
   }
 
   handleOnQuestionsArraySave = (questions, errors) => {
-    this.errors.pages[this.state.editingPageNumber - 1].questions = errors.questions;
+    this.errors[this.state.editingPageNumber - 1].questions = errors;
     this.props.handleOnQuestionsArraySave(questions, this.errors);
+  }
+
+  setValidationState = (fieldName, validationInfo) => {
+    if (validationInfo.isValid) {
+      this.errors[this.state.editingPageNumber - 1][fieldName] = null;
+      this.validationStates[fieldName] = 'success';
+    } else {
+      this.errors[this.state.editingPageNumber - 1][fieldName] = validationInfo.errors[0].message;
+      this.validationStates[fieldName] = 'error';
+    }
   }
 
   render = () => {
@@ -109,7 +122,7 @@ export class PageNavigator extends Component {
             handleOnQuestionsArraySave={this.handleOnQuestionsArraySave}
             editingQuestionNumber={this.props.editingQuestionNumber}
             newEditingQuestionType={this.props.newEditingQuestionType}
-            errors={this.errors.pages[this.state.editingPageNumber - 1].questions}
+            errors={this.errors[this.state.editingPageNumber - 1].questions}
           />
         </div>
       </div>

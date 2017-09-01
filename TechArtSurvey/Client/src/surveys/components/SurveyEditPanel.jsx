@@ -38,27 +38,25 @@ export class SurveyEditPanel extends Component {
     };
 
     this.errors = {
-      survey : {
+      title : '',
+      pages : [{
         title : '',
-        pages : [{
-          title : '',
-          questions : [],
-        }],
-      },
+        questions : [],
+      }],
     };
   }
 
   handleOnTitleChange = (event) => {
     this.setState({ survey : { ...this.state.survey, title : event.target.value }});
     if(event.target.value.trim().length === 0) {
-      this.errors.survey.title = TITLE_IS_REQUIRED;
+      this.errors.title = TITLE_IS_REQUIRED;
     } else {
-      this.errors.survey.title = null;
+      this.errors.title = null;
     }
   }
 
   handleOnSaveClick = () => {
-    if(!isSurveyValid(this.errors.survey)) {
+    if(!isSurveyValid(this.errors)) {
       alert('Invalid survey. Check up all required fields.');
       return;
     }
@@ -74,7 +72,7 @@ export class SurveyEditPanel extends Component {
       survey : { ...this.state.survey, pages : pages },
       newEditingQuestionType : null,
     });
-    this.errors.survey.pages = errors.pages;
+    this.errors.pages = errors;
   }
 
   handleOnTypeChange = (type) => {
@@ -108,7 +106,7 @@ export class SurveyEditPanel extends Component {
       newEditingQuestionType : null,
       survey : { ...this.state.survey, pages : pages },
     });
-    this.errors.survey.pages.push({
+    this.errors.pages.push({
       title : '',
       questions : [],
     });
@@ -117,7 +115,7 @@ export class SurveyEditPanel extends Component {
   handleOnPagesUpdate = (pages, errors) => {
     let newPages = pages.map(p => ({...p}));
     this.setState({ survey : { ...this.state.survey, pages : newPages } });
-    this.errors.survey.pages = errors.pages;
+    this.errors.pages = errors;
   }
 
   handleOnSettingsChange = (settings) => {
@@ -182,7 +180,7 @@ export class SurveyEditPanel extends Component {
               editingQuestionNumber={this.state.editingQuestionNumber}
               newEditingQuestionType={this.state.newEditingQuestionType}
               handleOnEditingQuestionNumberChange={this.handleOnEditingQuestionNumberChange}
-              errors={this.errors.survey.pages}
+              errors={this.errors.pages}
             />
           </Form>
         </Panel>

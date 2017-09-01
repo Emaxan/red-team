@@ -26,9 +26,7 @@ class QuestionList extends Component {
     };
 
     this.lastNumber = getLastNumber(this.state.questions);
-    this.errors = {
-      questions : this.props.errors,
-    };
+    this.errors = this.props.errors;
   }
 
   componentWillReceiveProps = (props) => {
@@ -41,7 +39,7 @@ class QuestionList extends Component {
     }
 
     this.setState({ questions : questions, questionsBuffer : questionsBuffer, editingQuestionNumber : props.editingQuestionNumber });
-    this.errors.questions = props.errors;
+    this.errors = props.errors;
   }
 
   moveQuestion = (dragIndex, hoverIndex) => {
@@ -59,9 +57,9 @@ class QuestionList extends Component {
     let questionsBuffer = this.state.questionsBuffer.map(q => ({...q}));
     let questions = questionsBuffer.map(q => ({...q}));
 
-    let temp = this.errors.questions[dragIndex];
-    this.errors.questions[dragIndex] = this.errors.questions[hoverIndex];
-    this.errors.questions[hoverIndex] = temp;
+    let temp = this.errors[dragIndex];
+    this.errors[dragIndex] = this.errors[hoverIndex];
+    this.errors[hoverIndex] = temp;
 
     this.props.handleOnQuestionsArraySave(questions, this.errors);
   }
@@ -89,7 +87,7 @@ class QuestionList extends Component {
     let questions = this.state.questions.map(q => ({...q}));
     questions.push(new Question(++this.lastNumber));
     this.setState({ editingQuestionNumber : this.lastNumber, questions : questions });
-    this.errors.questions.push({
+    this.errors.push({
       title : '',
       metaInfo : '',
     });
@@ -101,7 +99,7 @@ class QuestionList extends Component {
     let questions = this.state.questions.map(q => ({...q}));
     let index = questions.findIndex(q => q.number == this.state.editingQuestionNumber);
     questions.splice(index, 1);
-    this.errors.questions.splice(index, 1);
+    this.errors.splice(index, 1);
     this.setState({ editingQuestionNumber : -1, questions : questions });
     this.props.handleOnQuestionsArraySave(questions, this.errors);
     this.props.handleOnEditingQuestionNumberChange(-1);
@@ -113,7 +111,7 @@ class QuestionList extends Component {
     questionsBuffer[index] = question;
     let questions = questionsBuffer.map(q => ({...q}));
     this.setState({ editingQuestionNumber : -1, questions : questions, questionsBuffer : questionsBuffer });
-    this.errors.questions[index] = errors.question;
+    this.errors[index] = errors;
     this.props.handleOnQuestionsArraySave(questions, this.errors);
     this.props.handleOnEditingQuestionNumberChange(-1);
   }
@@ -143,7 +141,7 @@ class QuestionList extends Component {
                     handleOnQuestionSave={this.handleOnQuestionSave}
                     handleOnEditingQuestionNumberChange={this.handleOnEditingQuestionNumberChange}
                     editing={false}
-                    errors = {this.errors.questions[index]}
+                    errors = {this.errors[index]}
                   />
                 </DraggableQuestion>
               );
@@ -163,7 +161,7 @@ class QuestionList extends Component {
                   handleOnEditingQuestionNumberChange={this.handleOnEditingQuestionNumberChange}
                   handleOnDeleteClick={this.handleOnDeleteClick}
                   editing
-                  errors = {this.errors.questions[index]}
+                  errors = {this.errors[index]}
                 />
               </DraggableQuestion>
             );

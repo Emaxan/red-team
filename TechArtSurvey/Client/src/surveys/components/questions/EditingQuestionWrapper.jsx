@@ -15,21 +15,19 @@ export class EditingQuestionWrapper extends Component {
 
     this.state = {
       question : {...this.props.question},
-      errors : {
-        question : {...this.props.errors},
-      },
+      errors : {...this.props.errors},
     };
   }
 
   componentWillReceiveProps = (props, errors) => {
     let { type } = props.question;
-    this.setState({ question : { ...this.state.question, type : type }, errors : {...this.state.errors, question : {...errors}} });
+    this.setState({ question : { ...this.state.question, type : type }, errors : {...errors} });
   }
 
   handleOnQuestionUpdate = (question, errors) => {
     let metaInfo = question.metaInfo.map(m => m);
     question.metaInfo = metaInfo;
-    this.setState({ question: {...question}, errors : {...this.state.errors, question : {...errors}} });
+    this.setState({ question: {...question}, errors : {...errors} });
   }
 
   handleOnSaveClick = () => {
@@ -44,11 +42,11 @@ export class EditingQuestionWrapper extends Component {
     question.metaInfo = metaInfo;
     let errors = {...this.state.errors};
     if(metaInfo.length === 0) {
-      errors.question.metaInfo = VARIANTS_ARE_REQUIRED;
+      errors.metaInfo = VARIANTS_ARE_REQUIRED;
     } else {
-      errors.question.metaInfo = null;
+      errors.metaInfo = null;
     }
-    this.setState({ question: {...question}, errors : {...this.state.errors, question : {...errors}} });
+    this.setState({ question: {...question}, errors : {...errors} });
     this.props.handleOnQuestionSave({...question}, errors);
   }
 
@@ -68,7 +66,7 @@ export class EditingQuestionWrapper extends Component {
 
   isQuestionValid = () => {
     // WILL BE CHANGED
-    return this.state.errors.question.title === null;
+    return this.state.errors.title === null;
   }
 
   render = () =>
@@ -88,7 +86,7 @@ export class EditingQuestionWrapper extends Component {
             this.handleOnQuestionUpdate,
             {
               editing : this.props.editing,
-              errors : this.state.errors.question,
+              errors : this.state.errors,
             },
           )
         }
