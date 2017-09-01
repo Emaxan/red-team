@@ -52,7 +52,7 @@ export class StarRatingQuestion extends Component {
   render = () => {
     let i = 0;
     let stars = [];
-    while(i < this.state.question.metaInfo[0]) {
+    while((i < this.state.question.metaInfo[0]) && (i < 5)) {
       stars.push('glyphicon glyphicon-star');
       i++;
     }
