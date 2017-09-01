@@ -113,7 +113,10 @@ EditingQuestionWrapper.propTypes = {
     title : PropTypes.string.isRequired,
     type : PropTypes.string.isRequired,
   }).isRequired,
-  errors : PropTypes.object.isRequired,
+  errors : PropTypes.shape({
+    title : PropTypes.string.isRequired,
+    metaInfo : PropTypes.string.isRequired,
+  }).isRequired,
   handleOnEditingQuestionNumberChange : PropTypes.func.isRequired,
   handleOnDeleteClick : PropTypes.func.isRequired,
   editing : PropTypes.bool.isRequired,

@@ -104,7 +104,7 @@ TextQuestion.propTypes = {
   errors : PropTypes.shape({
     question : PropTypes.shape({
       title : PropTypes.string.isRequired,
-      metaInfo : PropTypes.arrayOf(String).isRequired,
+      metaInfo : PropTypes.string.isRequired,
     }).isRequired,
   }).isRequired,
   question : PropTypes.shape({
