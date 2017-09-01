@@ -9,9 +9,7 @@ import Page from '../models/Page';
 import Settings from '../models/Settings';
 import { PageNavigator } from './PageNavigator';
 import { isSurveyValid, prepareSurvey } from './service';
-import {
-  TITLE_IS_REQUIRED,
-} from './errors';
+import { validateTitle } from '../../utils/validation/commonValidation';
 
 import './SurveyEditPanel.scss';
 
@@ -44,15 +42,26 @@ export class SurveyEditPanel extends Component {
         questions : [],
       }],
     };
+
+    this.validationStates = {
+      title : null,
+    };
+  }
+
+  setValidationState = (fieldName, validationInfo) => {
+    if (validationInfo.isValid) {
+      this.errors[fieldName] = null;
+      this.validationStates[fieldName] = 'success';
+    } else {
+      this.errors[fieldName] = validationInfo.errors[0].message;
+      this.validationStates[fieldName] = 'error';
+    }
   }
 
   handleOnTitleChange = (event) => {
-    this.setState({ survey : { ...this.state.survey, title : event.target.value }});
-    if(event.target.value.trim().length === 0) {
-      this.errors.title = TITLE_IS_REQUIRED;
-    } else {
-      this.errors.title = null;
-    }
+    const title = event.target.value;
+    this.setValidationState('title', validateTitle(title));
+    this.setState({ survey : { ...this.state.survey, title }});
   }
 
   handleOnSaveClick = () => {
@@ -140,15 +149,17 @@ export class SurveyEditPanel extends Component {
       <div className="survey-edit-panel">
         <Panel className="col-md-6">
           <Form horizontal>
-            <FormGroup>
-              <Col componentClass={ControlLabel} sm={2}>
+            <Col componentClass={ControlLabel} sm={2}>
                 New survey
-              </Col>
+            </Col>
+            <FormGroup validationState={this.validationStates.title}>
               <Col sm={10}>
+                <ControlLabel>
+                  {this.errors.title || 'Title'}
+                </ControlLabel>
                 <FormControl
                   type="text"
                   value={this.state.survey.title}
-                  placeholder="Enter title"
                   onChange={this.handleOnTitleChange}
                 />
               </Col>

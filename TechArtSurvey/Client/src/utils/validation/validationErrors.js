@@ -1,6 +1,11 @@
 import * as constants from './constants';
 
 export const validationErrors = {
+  TitleRequired : {
+    id : constants.COMMON_TITLE_REQUIRED_ERROR_ID,
+    message : 'Title is required',
+  },
+
   UserNameRequired : {
     id : constants.USER_NAME_REQUIRED_ERROR_ID,
     message : 'Name is required',

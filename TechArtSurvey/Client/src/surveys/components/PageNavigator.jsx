@@ -5,7 +5,7 @@ import QuestionList from './QuestionList';
 
 import {
   validateTitle,
-} from '../../utils/validation/questionValidation';
+} from '../../utils/validation/commonValidation';
 
 import './PageNavigator.scss';
 
@@ -17,6 +17,7 @@ export class PageNavigator extends Component {
       editingPageNumber : 1,
       pages : pages,
     };
+
     this.errors = { ...this.props.errors };
 
     this.validationStates = {
@@ -31,6 +32,16 @@ export class PageNavigator extends Component {
       editingPageNumber : props.editingPageNumber,
     });
     this.errors = props.errors;
+  }
+
+  setValidationState = (fieldName, validationInfo) => {
+    if (validationInfo.isValid) {
+      this.errors[this.state.editingPageNumber - 1][fieldName] = null;
+      this.validationStates[fieldName] = 'success';
+    } else {
+      this.errors[this.state.editingPageNumber - 1][fieldName] = validationInfo.errors[0].message;
+      this.validationStates[fieldName] = 'error';
+    }
   }
 
   handleOnPageSwitch = (pageNumber) => {
@@ -73,16 +84,6 @@ export class PageNavigator extends Component {
     this.props.handleOnQuestionsArraySave(questions, this.errors);
   }
 
-  setValidationState = (fieldName, validationInfo) => {
-    if (validationInfo.isValid) {
-      this.errors[this.state.editingPageNumber - 1][fieldName] = null;
-      this.validationStates[fieldName] = 'success';
-    } else {
-      this.errors[this.state.editingPageNumber - 1][fieldName] = validationInfo.errors[0].message;
-      this.validationStates[fieldName] = 'error';
-    }
-  }
-
   render = () => {
     return (
       <div>
@@ -101,15 +102,17 @@ export class PageNavigator extends Component {
         </Nav>
         <div className="page">
           <div className="page-control">
-            <FormGroup className="page-form-group">
+            <FormGroup className="page-form-group" validationState={this.validationStates.title}>
               <Col componentClass={ControlLabel} sm={2}>
                 New page
               </Col>
               <Col sm={10}>
+                <ControlLabel>
+                  {this.errors[this.state.editingPageNumber - 1].title || 'Page\'s title'}
+                </ControlLabel>
                 <FormControl
                   type="text"
                   value={this.state.pages[this.state.editingPageNumber - 1].title}
-                  placeholder="Enter page title"
                   onChange={this.handleOnTitleChange}
                 />
               </Col>

@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
-import { Panel, Col, FormGroup, FormControl } from 'react-bootstrap';
+import { Panel, Col, FormGroup, FormControl, ControlLabel } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 
 import {
-  TITLE_IS_REQUIRED,
-} from '../errors';
+  validateTitle,
+} from '../../../utils/validation/questionValidation';
 
 export class TextQuestion extends Component {
   constructor(props) {
@@ -15,26 +15,37 @@ export class TextQuestion extends Component {
 
     this.state = {
       question : question,
-      errors : {
-        question : {...this.props.errors},
-      },
     };
+
+    this.errors = { ...this.props.errors };
+
+    this.validationStates = {
+      title : null,
+    };
+  }
+
+  componentWillMount = () => {
+    this.setValidationState('title', validateTitle(this.state.question.title));
+  }
+
+  setValidationState = (fieldName, validationInfo) => {
+    if (validationInfo.isValid) {
+      this.errors[fieldName] = null;
+      this.validationStates[fieldName] = 'success';
+    } else {
+      this.errors[fieldName] = validationInfo.errors[0].message;
+      this.validationStates[fieldName] = 'error';
+    }
   }
 
   handleOnTitleChange = (event) => {
     let title = event.target.value;
-    let question = {...this.state.question};
-    question.title = title;
-    let errors = {...this.state.errors};
-    if(title.trim().length === 0) {
-      errors.question.title = TITLE_IS_REQUIRED;
-    } else {
-      errors.question.title = null;
-    }
-    this.props.handleOnQuestionUpdate(question, errors);
+    let question = { ...this.state.question, title };
+
+    this.setValidationState('title', validateTitle(title));
+    this.props.handleOnQuestionUpdate(question, this.errors);
     this.setState({
-      question : { ...this.state.question, title : title },
-      errors : {...this.state.errors, question : errors},
+      question : { ...this.state.question, title },
     });
   }
 
@@ -50,18 +61,23 @@ export class TextQuestion extends Component {
   render = () => {
     return (
       <Panel>
-        <FormGroup>
+        <FormGroup validationState={this.validationStates.title}>
           <Col sm={10} smOffset={1}>
             {
               this.props.editing ?
                 (
-                  <FormControl
-                    name="title"
-                    type="text"
-                    value={this.state.question.title}
-                    placeholder="Enter question's title"
-                    onChange={this.handleOnTitleChange}
-                  />
+                  <div>
+                    <ControlLabel>
+                      {this.errors.title || 'Title'}
+                    </ControlLabel>
+                    <FormControl
+                      name="title"
+                      type="text"
+                      placeholder="Enter title"
+                      value={this.state.question.title}
+                      onChange={this.handleOnTitleChange}
+                    />
+                  </div>
                 ) :
                 (
                   this.props.question.title

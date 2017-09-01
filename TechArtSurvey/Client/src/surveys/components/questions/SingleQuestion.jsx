@@ -51,15 +51,11 @@ export class SingleQuestion extends Component {
   }
 
   handleOnTitleChange = (event) => {
-    let title = event.target.value;
+    const title = event.target.value;
+    const question = { ...this.state.question, title };
 
     this.setValidationState('title', validateTitle(title));
-
-    let question = { ...this.state.question };
-    question.title = title;
-
     this.props.handleOnQuestionUpdate(question, this.errors);
-
     this.setState({
       question : { ...this.state.question, title : title },
     });
@@ -98,6 +94,7 @@ export class SingleQuestion extends Component {
                     <FormControl
                       name="title"
                       type="text"
+                      placeholder="Enter title"
                       value={this.state.question.title}
                       onChange={this.handleOnTitleChange}
                     />

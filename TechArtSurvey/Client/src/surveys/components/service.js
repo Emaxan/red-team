@@ -2,7 +2,6 @@ import Question from '../models/Question';
 import { questionTypes } from '../questionTypes';
 import {
   VARIANTS_ARE_REQUIRED,
-  TITLE_IS_REQUIRED,
 } from './errors';
 
 export const changeType = (oldQuestion, type) => {
@@ -79,14 +78,6 @@ export const validateMetaInfo = (question) => {
   if(question.metaInfo.length === 0) {
     return VARIANTS_ARE_REQUIRED;
   }
-  return null;
-};
-
-export const validateTitle = (element) => {
-  if(element.title.trim().length === 0) {
-    return TITLE_IS_REQUIRED;
-  }
-
   return null;
 };
 
