@@ -74,7 +74,7 @@ export class PageNavigator extends Component {
   render = () => {
     return (
       <div>
-        <Nav bsStyle="tabs" justified>
+        <Nav bsStyle="tabs" activeKey={this.state.editingPageNumber} justified>
           {
             this.state.pages.map((page, index) => (
               <NavItem key={index} eventKey={index + 1} onSelect={this.handleOnPageSwitch}>
