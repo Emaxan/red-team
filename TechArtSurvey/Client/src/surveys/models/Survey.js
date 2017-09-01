@@ -7,4 +7,13 @@ export default class Survey {
     this.settings = settings;
     this.pages = pages;
   }
+
+  GetCopy(){
+    let survey = new Survey();
+    survey.title = this.title;
+    survey.settings = this.settings.GetCopy();
+    survey.pages = this.pages.map(p => p.GetCopy());
+
+    return survey;
+  }
 }

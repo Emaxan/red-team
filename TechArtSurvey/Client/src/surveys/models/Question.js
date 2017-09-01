@@ -8,4 +8,15 @@ export default class Question {
     this.isRequired = isRequired;
     this.metaInfo = metaInfo;
   }
+
+  GetCopy(){
+    let question = new Question();
+    question.number = this.number;
+    question.type = this.type;
+    question.title = this.title;
+    question.isRequired = this.isRequired;
+    question.metaInfo = this.metaInfo.map(m => m);
+
+    return question;
+  }
 }

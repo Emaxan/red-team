@@ -3,4 +3,12 @@ export default class Page {
     this.title = title;
     this.questions = questions;
   }
+
+  GetCopy(){
+    let page = new Page();
+    page.title = this.title;
+    page.questions = this.questions.map(q => q.GetCopy());
+
+    return page;
+  }
 }
