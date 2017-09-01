@@ -1,0 +1,14 @@
+.notification-panel {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+
+  &__title {
+    text-align: center;
+  }
+
+  &__content {
+    margin-top: 20px;
+  }
+}

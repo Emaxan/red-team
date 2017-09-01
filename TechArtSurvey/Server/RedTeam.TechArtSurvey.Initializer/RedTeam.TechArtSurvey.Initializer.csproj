@@ -9,8 +9,9 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>RedTeam.TechArtSurvey.Initializer</RootNamespace>
     <AssemblyName>RedTeam.TechArtSurvey.Initializer</AssemblyName>
-    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -30,6 +31,12 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Autofac, Version=4.6.1.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
+      <HintPath>..\packages\Autofac.4.6.1\lib\net45\Autofac.dll</HintPath>
+    </Reference>
+    <Reference Include="Autofac.Integration.WebApi, Version=4.1.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
+      <HintPath>..\packages\Autofac.WebApi2.4.1.0\lib\net45\Autofac.Integration.WebApi.dll</HintPath>
+    </Reference>
     <Reference Include="AutoMapper, Version=6.1.1.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
       <HintPath>..\packages\AutoMapper.6.1.1\lib\net45\AutoMapper.dll</HintPath>
     </Reference>
@@ -40,31 +47,33 @@
       <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.AspNet.Identity.Core, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" />
-    <Reference Include="Ninject, Version=3.2.0.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
-      <HintPath>..\packages\Ninject.3.2.2.0\lib\net45-full\Ninject.dll</HintPath>
-    </Reference>
-    <Reference Include="Ninject.Web.Common, Version=3.2.0.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
-      <HintPath>..\packages\Ninject.Web.Common.3.2.3.0\lib\net45-full\Ninject.Web.Common.dll</HintPath>
+    <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
-    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Net.Http.Formatting, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.3\lib\net45\System.Net.Http.Formatting.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.5.2.3\lib\net45\System.Web.Http.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="MapperInitializer.cs" />
-    <Compile Include="NinjectConfigurator.cs" />
-    <Compile Include="NinjectModules\ContextModule.cs" />
-    <Compile Include="NinjectModules\ServiceModule.cs" />
+    <Compile Include="AutofacModules\ContextModule.cs" />
+    <Compile Include="AutofacModules\MapperInitializerModule.cs" />
+    <Compile Include="AutofacModules\ServiceModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="AutofacModules\UnitOfWorkModule.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\RedTeam.Common\RedTeam.Common.csproj">
+      <Project>{ab963a3f-aef2-4740-a930-ccb58f86ed11}</Project>
+      <Name>RedTeam.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\RedTeam.Repositories.EntityFramework\RedTeam.Repositories.EntityFramework.csproj">
       <Project>{7250157B-E69A-4E89-8688-51DAE08C607C}</Project>
       <Name>RedTeam.Repositories.EntityFramework</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\RedTeam.Identity\RedTeam.Identity.csproj">
-      <Project>{2B216D5D-2CC2-460A-A94D-B4AA44DA8EED}</Project>
-      <Name>RedTeam.Identity</Name>
     </ProjectReference>
     <ProjectReference Include="..\RedTeam.Repositories\RedTeam.Repositories.csproj">
       <Project>{433A7044-1A29-42CB-80B0-06E86AA12A2F}</Project>
@@ -78,9 +87,17 @@
       <Project>{e5e1a1e9-ff87-4aee-9b49-8c19a2307d5d}</Project>
       <Name>RedTeam.TechArtSurvey.Foundation.Dto</Name>
     </ProjectReference>
+    <ProjectReference Include="..\RedTeam.TechArtSurvey.Foundation.Identity\RedTeam.TechArtSurvey.Foundation.Identity.csproj">
+      <Project>{A31F5D28-449F-49FE-A1E0-B7D87DD35215}</Project>
+      <Name>RedTeam.TechArtSurvey.Foundation.Identity</Name>
+    </ProjectReference>
     <ProjectReference Include="..\RedTeam.TechArtSurvey.Foundation.Interfaces\RedTeam.TechArtSurvey.Foundation.Interfaces.csproj">
       <Project>{CDF233FB-754D-41FE-8F6C-B41F40AA680A}</Project>
       <Name>RedTeam.TechArtSurvey.Foundation.Interfaces</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\RedTeam.TechArtSurvey.Foundation\RedTeam.TechArtSurvey.Foundation.csproj">
+      <Project>{C1F00B46-6D0C-4D1E-B6D4-3FAC77CA9EF9}</Project>
+      <Name>RedTeam.TechArtSurvey.Foundation</Name>
     </ProjectReference>
     <ProjectReference Include="..\RedTeam.TechArtSurvey.Repositories.Interfaces\RedTeam.TechArtSurvey.Repositories.Interfaces.csproj">
       <Project>{A92EAE24-D485-4F0D-B77F-EB485A7FCBE3}</Project>
@@ -92,6 +109,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

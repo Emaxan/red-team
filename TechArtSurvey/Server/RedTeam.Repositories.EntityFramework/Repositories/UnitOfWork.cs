@@ -1,8 +1,8 @@
-﻿using JetBrains.Annotations;
-using RedTeam.Repositories.Interfaces;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using JetBrains.Annotations;
+using RedTeam.Repositories.Interfaces;
 
 namespace RedTeam.Repositories.EntityFramework.Repositories
 {
@@ -27,7 +27,7 @@ namespace RedTeam.Repositories.EntityFramework.Repositories
         {
             var type = typeof(TEntity);
 
-            if (!_repositoriesDictionary.ContainsKey(type))
+            if(!_repositoriesDictionary.ContainsKey(type))
             {
                 _repositoriesDictionary.Add(type, new Repository<TEntity>(Context));
             }
@@ -42,21 +42,20 @@ namespace RedTeam.Repositories.EntityFramework.Repositories
 
         public void Dispose()
         {
-          Dispose(true);
+            Dispose(true);
             GC.SuppressFinalize(this);
         }
 
 
         private void Dispose(bool disposing)
         {
-            if (!_disposed)
+            if(!_disposed)
             {
-                if (disposing)
-                {
-                    Context.Dispose();
-                }
-                _disposed = true;
+                return;
             }
+
+            Context.Dispose();
+            _disposed = true;
         }
     }
 }

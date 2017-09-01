@@ -69,8 +69,14 @@ export default {
 
   ForgotPassword : {
     text : 'Forgot password?',
-    path : '/forgotPassword',
+    path : '/forgot_password',
     display : sidebarDisplay.NOBODY,
+  },
+
+  ResetPassword : {
+    text : 'Reset password',
+    path : '/reset_password',
+    params : '/:userId/:token+',
   },
 
   Forbidden : {

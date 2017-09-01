@@ -43,13 +43,26 @@ export class SignUpForm extends Component {
     this.props.signUpRequest(this.state.user);
   }
 
+  setSuccessValidationState = (fieldName) => {
+    this.errors[fieldName] = null;
+    this.validationStates[fieldName] = 'success';
+  }
+
+  setErrorValidationState = (fieldName, message) => {
+    this.errors[fieldName] = message;
+    this.validationStates[fieldName] = 'error';
+  }
+
+  setNullValidationState = (fieldName) => {
+    this.errors[fieldName] = null;
+    this.validationStates[fieldName] = null;
+  }
+
   setValidationState = (fieldName, validationInfo) => {
     if (validationInfo.isValid) {
-      this.errors[fieldName] = null;
-      this.validationStates[fieldName] = 'success';
+      this.setSuccessValidationState(fieldName);
     } else {
-      this.errors[fieldName] = validationInfo.errors[0].message;
-      this.validationStates[fieldName] = 'error';
+      this.setErrorValidationState(fieldName, validationInfo.errors[0].message);
     }
   }
 
@@ -67,10 +80,22 @@ export class SignUpForm extends Component {
     this.setState({ user : { ...this.state.user, email : event.target.value }});
   }
 
-  handleOnEmailBlur = (event) => {
+  handleOnEmailBlur = async (event) => {
+    this.setErrorValidationState('email', 'Checking for email existing...');
+
     const email = event.target.value;
     if (!isEmpty(email)) {
-      this.props.checkEmailExistenceRequest(email);
+      await this.props.checkEmailExistenceRequest(email);
+
+      if (this.props.isEmailRegistered === null) {
+        this.setNullValidationState('email');
+      } else if (this.props.isEmailRegistered) {
+        this.setErrorValidationState('email', 'User with this email is already exists');
+      } else {
+        this.setValidationState('email', validateEmail(email));
+      }
+
+      this.setState({ user : { ...this.state.user, email : email }});
     }
   }
 
@@ -91,12 +116,12 @@ export class SignUpForm extends Component {
     this.setState({ user : { ...this.state.user, confirmationPassword : event.target.value}});
   }
 
-  isInputValid() {
+  isInputValid = () => {
     return Object.values(this.errors)
       .every((err) => err === null);
   }
 
-  render() {
+  render = () => {
     const formValid = this.isInputValid();
 
     return (
@@ -178,6 +203,7 @@ export class SignUpForm extends Component {
 
 SignUpForm.propTypes = {
   actionString : PropTypes.string.isRequired,
+  isEmailRegistered : PropTypes.bool,
   signUpRequest : PropTypes.func.isRequired,
   checkEmailExistenceRequest : PropTypes.func.isRequired,
 };

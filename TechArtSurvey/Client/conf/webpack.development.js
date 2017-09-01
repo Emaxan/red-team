@@ -1,21 +1,21 @@
-const Config = require('webpack-config');
+import webpack from 'webpack';
+import Config from 'webpack-config';
 
-const webpack = require('webpack');
+import OpenBrowserPlugin from 'open-browser-webpack-plugin';
+import StyleLintPlugin from 'stylelint-webpack-plugin';
 
-const OpenBrowserPlugin = require('open-browser-webpack-plugin');
-const StyleLintPlugin = require('stylelint-webpack-plugin');
-
-const {
+import {
   apiPath,
   devServerPath,
-} = require('./paths');
+} from './paths';
 
-module.exports = new Config.Config()
+export default new Config()
   .extend('conf/webpack.common.js')
   .merge({
     devtool : 'source-map',
+
     devServer : {
-      hot : true,
+      hot: true,
       port : 3000,
       historyApiFallback : true,
       proxy : {
@@ -27,24 +27,24 @@ module.exports = new Config.Config()
         },
       },
     },
+
     plugins : [
-      new webpack.DefinePlugin({
-        'process.env': {
-          NODE_ENV: JSON.stringify('development'),
-        },
-      }),
       new StyleLintPlugin(),
-      new OpenBrowserPlugin({ url : devServerPath }),
+      new OpenBrowserPlugin({
+        url : devServerPath,
+      }),
       new webpack.LoaderOptionsPlugin({
         options : {
           eslint : {
-            // Fail only on errors
             failOnWarning : false,
             failOnError : true,
-
-            // Toggle autofix
             fix : false,
           },
+        },
+      }),
+      new webpack.DefinePlugin({
+        'process.env': {
+          NODE_ENV : JSON.stringify('development'),
         },
       }),
     ],

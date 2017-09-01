@@ -7,15 +7,17 @@ import Routes from '../routes';
 import UserListContainer from '../../users/UserListContainer';
 import SignUpContainer from '../../auth/signUp/SignUpContainer';
 import LoginContainer from '../../auth/login/LoginContainer';
+import ResetPasswordContainer from '../../auth/resetPassword/ResetPasswordContainer';
+import ForgotPasswordContainer from '../../auth/forgotPassword/ForgotPasswordContainer';
 import { AboutContainer } from '../../about/AboutContainer';
+import { NotFound } from '../../error/NotFound';
+import { Forbidden } from '../../error/Forbidden';
+import { Home } from '../../home/Home';
 import {
   userIsAuthenticatedRedirect,
   userIsNotAuthenticatedRedirect,
   userIsAdminRedirect,
 } from '../../auth/authWrappers';
-import { NotFound } from '../../error/NotFound';
-import { Forbidden } from '../../error/Forbidden';
-import { Home } from '../../home/Home';
 import NewSurveyContainer from '../../surveys/NewSurveyContainer';
 
 import './AppContent.scss';
@@ -24,6 +26,8 @@ import './customScroll.scss';
 const UserList = userIsAuthenticatedRedirect(userIsAdminRedirect(UserListContainer));
 const Login = userIsNotAuthenticatedRedirect(LoginContainer);
 const SignUp = userIsNotAuthenticatedRedirect(SignUpContainer);
+const ForgotPassword = userIsNotAuthenticatedRedirect(ForgotPasswordContainer);
+const ResetPassword = userIsNotAuthenticatedRedirect(ResetPasswordContainer);
 const NewSurvey = userIsAuthenticatedRedirect(userIsAdminRedirect(NewSurveyContainer));
 
 const AppContent = ({ className }) => (
@@ -36,8 +40,10 @@ const AppContent = ({ className }) => (
         <Route path={Routes.SignUp.path} component={SignUp}/>
         <Route path={Routes.Login.path} component={Login} />
         <Route path={Routes.About.path} component={AboutContainer} />
+        <Route path={Routes.ForgotPassword.path} component={ForgotPassword} />
+        <Route path={Routes.ResetPassword.path.concat(Routes.ResetPassword.params)} component={ResetPassword} />
         <Route path={Routes.NewSurvey.path} component={NewSurvey} />
-        <Route component={NotFound}/>
+        <Route component={NotFound} />
       </Switch>
     </CustomScroll>
   </div>

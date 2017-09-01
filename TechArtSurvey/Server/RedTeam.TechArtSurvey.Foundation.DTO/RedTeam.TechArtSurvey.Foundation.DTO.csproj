@@ -9,8 +9,9 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>RedTeam.TechArtSurvey.Foundation.Dto</RootNamespace>
     <AssemblyName>RedTeam.TechArtSurvey.Foundation.Dto</AssemblyName>
-    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -33,11 +34,12 @@
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UsersDto\EditUserDto.cs" />
+    <Compile Include="UsersDto\ForgotPasswordDto.cs" />
+    <Compile Include="UsersDto\ResetPasswordDto.cs" />
     <Compile Include="UsersDto\RoleDto.cs" />
     <Compile Include="UsersDto\UserDto.cs" />
   </ItemGroup>

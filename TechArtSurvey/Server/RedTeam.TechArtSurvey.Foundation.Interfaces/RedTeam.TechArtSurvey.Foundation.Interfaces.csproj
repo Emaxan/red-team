@@ -9,8 +9,9 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>RedTeam.TechArtSurvey.Foundation.Interfaces</RootNamespace>
     <AssemblyName>RedTeam.TechArtSurvey.Foundation.Interfaces</AssemblyName>
-    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -34,10 +35,11 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="IApplicationUserManager.cs" />
+    <Compile Include="IResetPasswordService.cs" />
+    <Compile Include="IUserService.cs" />
     <Compile Include="ServiceResponses\IServiceResponse.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ServiceResponses\ServiceResponseCodes.cs" />
+    <Compile Include="ServiceResponses\ServiceResponseCode.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\RedTeam.TechArtSurvey.Foundation.Dto\RedTeam.TechArtSurvey.Foundation.Dto.csproj">

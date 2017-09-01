@@ -9,8 +9,9 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>RedTeam.TechArtSurvey.Foundation</RootNamespace>
     <AssemblyName>RedTeam.TechArtSurvey.Foundation</AssemblyName>
-    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -30,15 +31,79 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AutoMapper, Version=6.1.1.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <HintPath>..\packages\AutoMapper.6.1.1\lib\net45\AutoMapper.dll</HintPath>
+    </Reference>
+    <Reference Include="JetBrains.Annotations, Version=11.0.0.0, Culture=neutral, PublicKeyToken=1010a0d8d6380325, processorArchitecture=MSIL">
+      <HintPath>..\packages\JetBrains.Annotations.11.0.0\lib\net20\JetBrains.Annotations.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Core, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Core.2.2.1\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin, Version=3.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.3.1.0\lib\net45\Microsoft.Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security, Version=3.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.3.1.0\lib\net45\Microsoft.Owin.Security.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.OAuth, Version=3.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.OAuth.3.1.0\lib\net45\Microsoft.Owin.Security.OAuth.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="Owin, Version=1.0.0.0, Culture=neutral, PublicKeyToken=f0ebd12fd5e55cc5, processorArchitecture=MSIL">
+      <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ResetPasswordService.cs" />
+    <Compile Include="Responses\ServiceResponse.cs" />
+    <Compile Include="UserService.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="BusinessModel\" />
-    <Folder Include="Exceptions\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\RedTeam.Logger.Interfaces\RedTeam.Logger.Interfaces.csproj">
+      <Project>{725EC8E0-9925-4C5C-B1EF-83CFB09704D6}</Project>
+      <Name>RedTeam.Logger.Interfaces</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\RedTeam.Logger\RedTeam.Logger.csproj">
+      <Project>{2A7D081E-C19A-476B-9E46-2D17CE1769AF}</Project>
+      <Name>RedTeam.Logger</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\RedTeam.Repositories\RedTeam.Repositories.csproj">
+      <Project>{433A7044-1A29-42CB-80B0-06E86AA12A2F}</Project>
+      <Name>RedTeam.Repositories</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\RedTeam.TechArtSurvey.DomainModel\RedTeam.TechArtSurvey.DomainModel.csproj">
+      <Project>{CBA1E0F8-A057-4782-82DE-162668F2B074}</Project>
+      <Name>RedTeam.TechArtSurvey.DomainModel</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\RedTeam.TechArtSurvey.Foundation.Dto\RedTeam.TechArtSurvey.Foundation.Dto.csproj">
+      <Project>{E5E1A1E9-FF87-4AEE-9B49-8C19A2307D5D}</Project>
+      <Name>RedTeam.TechArtSurvey.Foundation.Dto</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\RedTeam.TechArtSurvey.Foundation.Identity\RedTeam.TechArtSurvey.Foundation.Identity.csproj">
+      <Project>{A31F5D28-449F-49FE-A1E0-B7D87DD35215}</Project>
+      <Name>RedTeam.TechArtSurvey.Foundation.Identity</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\RedTeam.TechArtSurvey.Foundation.Interfaces\RedTeam.TechArtSurvey.Foundation.Interfaces.csproj">
+      <Project>{CDF233FB-754D-41FE-8F6C-B41F40AA680A}</Project>
+      <Name>RedTeam.TechArtSurvey.Foundation.Interfaces</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\RedTeam.TechArtSurvey.Repositories.Interfaces\RedTeam.TechArtSurvey.Repositories.Interfaces.csproj">
+      <Project>{a92eae24-d485-4f0d-b77f-eb485a7fcbe3}</Project>
+      <Name>RedTeam.TechArtSurvey.Repositories.Interfaces</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
