@@ -118,8 +118,6 @@ TextQuestion.propTypes = {
   editing : PropTypes.bool,
 };
 
-
-
 TextQuestion.defaultProps = {
   editing : false,
 };

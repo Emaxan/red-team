@@ -95,8 +95,9 @@ FileQuestion.propTypes = {
   errors: PropTypes.shape({
     question : PropTypes.shape({
       title : PropTypes.string.isRequired,
-      metaInfo : PropTypes.arrayOf(String).isRequired,
-    }).isRequired,
+      metaInfo : PropTypes.string.isRequired,
+    }),
+  }).isRequired,
   question: PropTypes.shape({
     isRequired : PropTypes.bool.isRequired,
     metaInfo : PropTypes.arrayOf(String).isRequired,

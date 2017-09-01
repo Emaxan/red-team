@@ -88,5 +88,12 @@ export class ParamsPanel extends Component {
 
 ParamsPanel.propTypes = {
   handleOnSettingsChange : PropTypes.func.isRequired,
-  settings : PropTypes.object.isRequired,
+  settings : PropTypes.shape({
+    hasPageNumbers : PropTypes.bool.isRequired,
+    hasProgressIndicator : PropTypes.bool.isRequired,
+    hasQuestionNumbers : PropTypes.bool.isRequired,
+    hasRequiredFieldsStars : PropTypes.bool.isRequired,
+    isAnonymous : PropTypes.bool.isRequired,
+    isRandomOrdered : PropTypes.bool.isRequired,
+  }).isRequired,
 };
