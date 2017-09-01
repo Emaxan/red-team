@@ -17,7 +17,7 @@ export class ScaleRatingQuestion extends Component {
     question.metaInfo = this.props.question.metaInfo.map(m => m);
 
     if(question.metaInfo.length<1){
-      question.metaInfo.push(50);
+      question.metaInfo.push('50');
     }
 
     this.state = {
@@ -50,9 +50,9 @@ export class ScaleRatingQuestion extends Component {
       this.props.handleOnQuestionUpdate(this.state.question, this.state.errors);
       return;
     }
-    this.setState({question : {...this.state.question, metaInfo : value}});
+    this.setState({question : {...this.state.question, metaInfo : [value[0].toString()]}});
     let question = {...this.state.question};
-    question.metaInfo = value;
+    question.metaInfo = [value[0].toString()];
     this.props.handleOnQuestionUpdate(question, this.state.errors);
   }
 
@@ -88,7 +88,7 @@ export class ScaleRatingQuestion extends Component {
                 min: 0,
                 max: 100,
               }}
-              start={this.state.question.metaInfo}
+              start={[Number(this.state.question.metaInfo[0])]}
               connect={[true, false]}
               step={1}
               tooltips
