@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Panel, Button, Checkbox, ButtonGroup } from 'react-bootstrap';
+import { Panel, Button, Checkbox, ButtonGroup, Glyphicon } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 
 import { questionsFactory } from '../questionsFactory';
@@ -79,9 +79,7 @@ export class EditingQuestionWrapper extends Component {
           <Checkbox onChange={this.handleOnRequiredClick} checked={this.state.question.isRequired} className="top-actions__required">
             Required
           </Checkbox>
-          <Button onClick={this.handleOnDeleteClick}>
-            Delete
-          </Button>
+          <Glyphicon glyph="trash" role="button" title="Remove question" onClick={this.handleOnDeleteClick} />
         </div>
         {
           questionsFactory[this.state.question.type](

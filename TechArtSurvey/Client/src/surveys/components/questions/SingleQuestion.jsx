@@ -112,7 +112,8 @@ export class SingleQuestion extends Component {
                           <label htmlFor={'option' + i}>
                             <Glyphicon
                               glyph="remove"
-                              role="button" title="Remove option"
+                              role="button"
+                              title="Remove option"
                               onClick={() => this.handleOnRemoveOption(i)}
                             />
                           </label>

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Col, FormGroup, FormControl, Button, NavItem, Nav, ControlLabel } from 'react-bootstrap';
+import { Col, FormGroup, FormControl, Glyphicon, NavItem, Nav, ControlLabel } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 import QuestionList from './QuestionList';
 
@@ -119,7 +119,7 @@ export class PageNavigator extends Component {
                 />
               </Col>
             </FormGroup>
-            <Button className="page-delete" onClick={this.handleOnDeleteClick}>Delete</Button>
+            <Glyphicon glyph="trash" role="button" title="Remove page" onClick={this.handleOnDeleteClick} className="page-delete"/>
           </div>
           <QuestionList
             questions={this.state.pages[this.state.editingPageNumber - 1].questions}

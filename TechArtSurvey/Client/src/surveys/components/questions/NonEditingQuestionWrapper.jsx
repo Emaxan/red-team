@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Button } from 'react-bootstrap';
+import { Button, Glyphicon } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 
 import { questionsFactory } from '../questionsFactory';
@@ -33,7 +33,7 @@ export class NonEditingQuestionWrapper extends Component {
   }
 
   render = () =>
-    <div className = "question-wrapper">
+    <div className="question-wrapper">
       {
         questionsFactory[this.state.question.type](
           this.state.question,
@@ -45,7 +45,7 @@ export class NonEditingQuestionWrapper extends Component {
         )
       }
       <Button onClick={this.handleOnEditClick} className="question-wrapper__edit">
-        Edit
+        <Glyphicon glyph="pencil" />
       </Button>
     </div>
 }
