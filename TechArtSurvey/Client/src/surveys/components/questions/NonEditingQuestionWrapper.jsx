@@ -3,6 +3,8 @@ import { Button } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 
 import { questionsFactory } from '../questionsFactory';
+import Question from '../../models/Question';
+import QuestionError from '../../models/QuestionError';
 
 import './NonEditingQuestionWrapper.scss';
 
@@ -11,12 +13,13 @@ export class NonEditingQuestionWrapper extends Component {
     super(props);
 
     this.state = {
-      question : { ...this.props.question },
+      question : this.props.question.getCopy(),
+      errors : this.props.errors.getCopy(),
     };
   }
 
   componentWillReceiveProps = (props) => {
-    let question = {...props.question};
+    let question = props.question.getCopy();
     this.setState({ question : question });
   }
 
@@ -37,6 +40,7 @@ export class NonEditingQuestionWrapper extends Component {
           null,
           {
             isValid : this.isQuestionValid(),
+            errors : this.state.errors,
           },
         )
       }
@@ -47,16 +51,7 @@ export class NonEditingQuestionWrapper extends Component {
 }
 
 NonEditingQuestionWrapper.propTypes = {
-  question : PropTypes.shape({
-    isRequired : PropTypes.bool.isRequired,
-    metaInfo : PropTypes.arrayOf(String).isRequired,
-    number : PropTypes.number.isRequired,
-    title : PropTypes.string.isRequired,
-    type : PropTypes.string.isRequired,
-  }).isRequired,
-  errors : PropTypes.shape({
-    title : PropTypes.string.isRequired,
-    metaInfo : PropTypes.string.isRequired,
-  }).isRequired,
+  question : PropTypes.instanceOf(Question).isRequired,
+  errors : PropTypes.instanceOf(QuestionError).isRequired,
   handleOnEditingQuestionNumberChange : PropTypes.func.isRequired,
 };

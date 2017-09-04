@@ -9,6 +9,7 @@ import { NonEditingQuestionWrapper } from './questions/NonEditingQuestionWrapper
 import { EditingQuestionWrapper } from './questions/EditingQuestionWrapper';
 import { getLastNumber } from './service';
 import Question from '../models/Question';
+import QuestionError from '../models/QuestionError';
 import DraggableQuestion from './DraggableQuestion';
 import { changeType } from './service';
 
@@ -16,8 +17,8 @@ class QuestionList extends Component {
   constructor(props) {
     super(props);
 
-    let questions = this.props.questions.map(q => ({...q}));
-    let questionsBuffer = this.props.questions.map(q => ({...q}));
+    let questions = this.props.questions.map(q => q.getCopy());
+    let questionsBuffer = this.props.questions.map(q => q.getCopy());
 
     this.state = {
       questions : questions,
@@ -30,8 +31,8 @@ class QuestionList extends Component {
   }
 
   componentWillReceiveProps = (props) => {
-    let questions = props.questions.map(q => ({...q}));
-    let questionsBuffer = props.questions.map(q => ({...q}));
+    let questions = props.questions.map(q => q.getCopy());
+    let questionsBuffer = props.questions.map(q => q.getCopy());
 
     let newQuestions = this.checkIfEditingQuestionTypeChanged(questions, props.newEditingQuestionType);
     if (newQuestions) {
@@ -54,8 +55,8 @@ class QuestionList extends Component {
       },
     }));
 
-    let questionsBuffer = this.state.questionsBuffer.map(q => ({...q}));
-    let questions = questionsBuffer.map(q => ({...q}));
+    let questionsBuffer = this.state.questionsBuffer.map(q => q.getCopy());
+    let questions = questionsBuffer.map(q => q.getCopy());
 
     let temp = this.errors[dragIndex];
     this.errors[dragIndex] = this.errors[hoverIndex];
@@ -69,9 +70,9 @@ class QuestionList extends Component {
       return null;
     }
 
-    let questions = oldQuestions.map(q => ({...q}));
+    let questions = oldQuestions.map(q => q.getCopy());
     let index = questions.findIndex(q => q.number == this.state.editingQuestionNumber);
-    let oldQuestion = {...questions[index]};
+    let oldQuestion = questions[index].getCopy();
     let newQuestion = changeType(oldQuestion, type);
 
     if (!newQuestion) {
@@ -84,19 +85,16 @@ class QuestionList extends Component {
   }
 
   handleOnAddQuestionBtnClick = () => {
-    let questions = this.state.questions.map(q => ({...q}));
+    let questions = this.state.questions.map(q => q.getCopy());
     questions.push(new Question(++this.lastNumber));
     this.setState({ editingQuestionNumber : this.lastNumber, questions : questions });
-    this.errors.push({
-      title : '',
-      metaInfo : '',
-    });
+    this.errors.push(new QuestionError());
     this.props.handleOnQuestionsArraySave(questions, this.errors);
     this.props.handleOnEditingQuestionNumberChange(this.lastNumber);
   }
 
   handleOnDeleteClick = () => {
-    let questions = this.state.questions.map(q => ({...q}));
+    let questions = this.state.questions.map(q => q.getCopy());
     let index = questions.findIndex(q => q.number == this.state.editingQuestionNumber);
     questions.splice(index, 1);
     this.errors.splice(index, 1);
@@ -106,10 +104,10 @@ class QuestionList extends Component {
   }
 
   handleOnQuestionSave = (question, errors) => {
-    let questionsBuffer = this.state.questionsBuffer.map(q => ({...q}));
+    let questionsBuffer = this.state.questionsBuffer.map(q => q.getCopy());
     let index = questionsBuffer.findIndex(q => q.number == this.state.editingQuestionNumber);
     questionsBuffer[index] = question;
-    let questions = questionsBuffer.map(q => ({...q}));
+    let questions = questionsBuffer.map(q => q.getCopy());
     this.setState({ editingQuestionNumber : -1, questions : questions, questionsBuffer : questionsBuffer });
     this.errors[index] = errors;
     this.props.handleOnQuestionsArraySave(questions, this.errors);
@@ -117,7 +115,7 @@ class QuestionList extends Component {
   }
 
   handleOnEditingQuestionNumberChange = (number) => {
-    let resetBuffer = this.state.questions.map(q => ({...q}));
+    let resetBuffer = this.state.questions.map(q => q.getCopy());
     this.setState({ editingQuestionNumber : number, questionsBuffer : resetBuffer });
     this.props.handleOnEditingQuestionNumberChange(number);
   }
@@ -174,12 +172,12 @@ class QuestionList extends Component {
 }
 
 QuestionList.propTypes = {
-  questions : PropTypes.array.isRequired,
+  questions : PropTypes.arrayOf(PropTypes.instanceOf(Question)).isRequired,
+  errors : PropTypes.arrayOf(PropTypes.instanceOf(QuestionError)).isRequired,
   handleOnQuestionsArraySave : PropTypes.func.isRequired,
   handleOnEditingQuestionNumberChange : PropTypes.func.isRequired,
   editingQuestionNumber : PropTypes.number.isRequired,
   newEditingQuestionType: PropTypes.string,
-  errors : PropTypes.array.isRequired,
 };
 
 export default DragDropContext(HTML5Backend)(QuestionList);

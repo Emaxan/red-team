@@ -5,6 +5,8 @@ import PropTypes from 'prop-types';
 import {
   validateTitle,
 } from '../../../utils/validation/questionValidation';
+import Question from '../../models/Question';
+import QuestionError from '../../models/QuestionError';
 
 import './SingleQuestion.scss';
 import './Question.scss';
@@ -13,14 +15,11 @@ export class SingleQuestion extends Component {
   constructor(props) {
     super(props);
 
-    let { question } = this.props;
-    question.metaInfo = this.props.question.metaInfo.map(m => m);
-
     this.state = {
-      question : question,
+      question : this.props.question.getCopy(),
     };
 
-    this.errors = { ...this.props.errors };
+    this.errors = this.props.errors.getCopy();
 
     this.validationStates = {
       title : null,
@@ -32,11 +31,8 @@ export class SingleQuestion extends Component {
   }
 
   componentWillReceiveProps = (props) => {
-    let { question } = props;
-    question.metaInfo = props.question.metaInfo.map(m => m);
-
     this.setState({
-      question : question,
+      question : props.question.getCopy(),
     });
   }
 
@@ -52,30 +48,24 @@ export class SingleQuestion extends Component {
 
   handleOnTitleChange = (event) => {
     const title = event.target.value;
-    const question = { ...this.state.question, title };
-
+    const question = this.state.question.getCopy();
+    question.title = title;
     this.setValidationState('title', validateTitle(title));
     this.props.handleOnQuestionUpdate(question, this.errors);
-    this.setState({
-      question : { ...this.state.question, title : title },
-    });
+    this.setState({question});
   }
 
   handleOnOptionChange = (optionId, value) => {
-    let metaInfo = this.state.question.metaInfo.map(m => m);
-    metaInfo[optionId] = value;
-    this.setState({ question : { ...this.state.question, metaInfo : metaInfo } });
-    let question = {...this.state.question};
-    question.metaInfo = metaInfo;
+    let question = this.state.question.getCopy();
+    question.metaInfo[optionId] = value;
+    this.setState({question});
     this.props.handleOnQuestionUpdate(question, this.errors);
   }
 
   handleOnAddOption = () => {
-    let metaInfo = this.state.question.metaInfo.map(m => m);
-    metaInfo.push('');
-    this.setState({ question : { ...this.state.question, metaInfo : metaInfo } });
-    let question = {...this.state.question};
-    question.metaInfo = metaInfo;
+    let question = this.state.question.getCopy();
+    question.metaInfo.push('');
+    this.setState({question});
     this.props.handleOnQuestionUpdate(question, this.errors);
   }
 
@@ -151,19 +141,8 @@ export class SingleQuestion extends Component {
 }
 
 SingleQuestion.propTypes = {
-  errors : PropTypes.shape({
-    question : PropTypes.shape({
-      title : PropTypes.string.isRequired,
-      metaInfo : PropTypes.string.isRequired,
-    }),
-  }).isRequired,
-  question : PropTypes.shape({
-    isRequired : PropTypes.bool.isRequired,
-    metaInfo : PropTypes.arrayOf(String).isRequired,
-    number : PropTypes.number.isRequired,
-    title : PropTypes.string.isRequired,
-    type : PropTypes.string.isRequired,
-  }).isRequired,
+  errors : PropTypes.instanceOf(QuestionError).isRequired,
+  question : PropTypes.instanceOf(Question).isRequired,
   handleOnQuestionUpdate : PropTypes.func,
   editing : PropTypes.bool,
   isValid : PropTypes.bool,

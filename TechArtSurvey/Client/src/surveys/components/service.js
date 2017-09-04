@@ -82,7 +82,7 @@ export const validateMetaInfo = (question) => {
 };
 
 export const prepareSurvey = (survey) => {
-  let newSurvey = {...survey};
+  let newSurvey = survey.getCopy();
   let newPages = survey.pages.map((page, index) => {
     let newQuestions = page.questions.map(q => {
       let variants = q.metaInfo.map(m => ({text : m}));

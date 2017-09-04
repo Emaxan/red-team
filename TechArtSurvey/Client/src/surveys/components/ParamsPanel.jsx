@@ -2,55 +2,57 @@ import React, { Component } from 'react';
 import { Panel, ButtonToolbar, ToggleButton, ToggleButtonGroup } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 
+import Settings from '../models/Settings';
+
 export class ParamsPanel extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      settings : {...this.props.settings},
+      settings : this.props.settings.getCopy(),
     };
   }
 
   componentWillReceiveProps = (props) => {
-    this.setState({ settings : {...props.settings} });
+    this.setState({ settings : props.settings.getCopy() });
   }
 
   handleOnIsAnonymousChange = () => {
-    let settings = {...this.state.settings};
+    let settings = this.state.settings.getCopy();
     settings.isAnonymous = !settings.isAnonymous;
     this.setState({ settings : settings });
     this.props.handleOnSettingsChange(settings);
   }
 
   handleOnHasQuestionNumbersChange = () => {
-    let settings = {...this.state.settings};
+    let settings = this.state.settings.getCopy();
     settings.hasQuestionNumbers = !settings.hasQuestionNumbers;
     this.setState({ settings : settings });
     this.props.handleOnSettingsChange(settings);
   }
 
   handleOnHasPageNumbersChange = () => {
-    let settings = {...this.state.settings};
+    let settings = this.state.settings.getCopy();
     settings.hasPageNumbers = !settings.hasPageNumbers;
     this.setState({ settings : settings });
     this.props.handleOnSettingsChange(settings);
   }
 
   handleOnIsRandomOrderedChange = () => {
-    let settings = {...this.state.settings};
+    let settings = this.state.settings.getCopy();
     settings.isRandomOrdered = !settings.isRandomOrdered;
     this.setState({ settings : settings });
     this.props.handleOnSettingsChange(settings);
   }
 
   handleOnHasRequiredFieldsStarsChange = () => {
-    let settings = {...this.state.settings};
+    let settings = this.state.settings.getCopy();
     settings.hasRequiredFieldsStars = !settings.hasRequiredFieldsStars;
     this.setState({ settings : settings });
     this.props.handleOnSettingsChange(settings);
   }
 
   handleOnHasProgressIndicatorChange = () => {
-    let settings = {...this.state.settings};
+    let settings = this.state.settings.getCopy();
     settings.hasProgressIndicator = !settings.hasProgressIndicator;
     this.setState({ settings : settings });
     this.props.handleOnSettingsChange(settings);
@@ -88,12 +90,5 @@ export class ParamsPanel extends Component {
 
 ParamsPanel.propTypes = {
   handleOnSettingsChange : PropTypes.func.isRequired,
-  settings : PropTypes.shape({
-    hasPageNumbers : PropTypes.bool.isRequired,
-    hasProgressIndicator : PropTypes.bool.isRequired,
-    hasQuestionNumbers : PropTypes.bool.isRequired,
-    hasRequiredFieldsStars : PropTypes.bool.isRequired,
-    isAnonymous : PropTypes.bool.isRequired,
-    isRandomOrdered : PropTypes.bool.isRequired,
-  }).isRequired,
+  settings : PropTypes.instanceOf(Settings).isRequired,
 };

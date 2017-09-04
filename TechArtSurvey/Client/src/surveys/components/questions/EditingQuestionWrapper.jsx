@@ -3,6 +3,8 @@ import { Panel, Button, Checkbox, ButtonGroup } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 
 import { questionsFactory } from '../questionsFactory';
+import Question from '../../models/Question';
+import QuestionError from '../../models/QuestionError';
 import {
   VARIANTS_ARE_REQUIRED,
 } from '../errors';
@@ -14,24 +16,24 @@ export class EditingQuestionWrapper extends Component {
     super(props);
 
     this.state = {
-      question : {...this.props.question},
-      errors : {...this.props.errors},
+      question : this.props.question.getCopy(),
+      errors : this.props.errors.getCopy(),
     };
   }
 
-  componentWillReceiveProps = (props, errors) => {
+  componentWillReceiveProps = (props) => {
     let { type } = props.question;
-    this.setState({ question : { ...this.state.question, type : type }, errors : {...errors} });
+    let question = this.state.question.getCopy();
+    question.type = type;
+    this.setState({ question });
   }
 
   handleOnQuestionUpdate = (question, errors) => {
-    let metaInfo = question.metaInfo.map(m => m);
-    question.metaInfo = metaInfo;
-    this.setState({ question: {...question}, errors : {...errors} });
+    this.setState({ question: question.getCopy(), errors : errors.getCopy() });
   }
 
   handleOnSaveClick = () => {
-    let question = {...this.state.question};
+    let question = this.state.question.getCopy();
     let metaInfo = [];
     question.title = question.title.trim();
     question.metaInfo.map(m => {
@@ -40,14 +42,15 @@ export class EditingQuestionWrapper extends Component {
       }
     });
     question.metaInfo = metaInfo;
-    let errors = {...this.state.errors};
+    let errors = this.state.errors.getCopy();
     if(metaInfo.length === 0) {
       errors.metaInfo = VARIANTS_ARE_REQUIRED;
     } else {
       errors.metaInfo = null;
     }
-    this.setState({ question: {...question}, errors : {...errors} });
-    this.props.handleOnQuestionSave({...question}, errors);
+    const q = question.getCopy();
+    this.setState({ question: q, errors : errors.getCopy() });
+    this.props.handleOnQuestionSave(q, errors);
   }
 
   handleOnCancelClick = () => {
@@ -57,7 +60,7 @@ export class EditingQuestionWrapper extends Component {
   handleOnRequiredClick = () => {
     let { question } = this.state;
     question.isRequired = !question.isRequired;
-    this.setState({ question: {...question} });
+    this.setState({ question: question.getCopy() });
   }
 
   handleOnDeleteClick = () => {
@@ -104,17 +107,8 @@ export class EditingQuestionWrapper extends Component {
 
 EditingQuestionWrapper.propTypes = {
   handleOnQuestionSave : PropTypes.func.isRequired,
-  question : PropTypes.shape({
-    isRequired : PropTypes.bool.isRequired,
-    metaInfo : PropTypes.arrayOf(String).isRequired,
-    number : PropTypes.number.isRequired,
-    title : PropTypes.string.isRequired,
-    type : PropTypes.string.isRequired,
-  }).isRequired,
-  errors : PropTypes.shape({
-    title : PropTypes.string.isRequired,
-    metaInfo : PropTypes.string.isRequired,
-  }).isRequired,
+  question : PropTypes.instanceOf(Question).isRequired,
+  errors : PropTypes.instanceOf(QuestionError).isRequired,
   handleOnEditingQuestionNumberChange : PropTypes.func.isRequired,
   handleOnDeleteClick : PropTypes.func.isRequired,
   editing : PropTypes.bool.isRequired,

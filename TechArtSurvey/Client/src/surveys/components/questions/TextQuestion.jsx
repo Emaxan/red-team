@@ -5,19 +5,18 @@ import PropTypes from 'prop-types';
 import {
   validateTitle,
 } from '../../../utils/validation/questionValidation';
+import Question from '../../models/Question';
+import QuestionError from '../../models/QuestionError';
 
 export class TextQuestion extends Component {
   constructor(props) {
     super(props);
 
-    let { question } = this.props;
-    question.metaInfo = this.props.question.metaInfo.map(m => m);
-
     this.state = {
-      question : question,
+      question : this.props.question.getCopy(),
     };
 
-    this.errors = { ...this.props.errors };
+    this.errors = this.props.errors.getCopy();
 
     this.validationStates = {
       title : null,
@@ -39,23 +38,19 @@ export class TextQuestion extends Component {
   }
 
   handleOnTitleChange = (event) => {
-    let title = event.target.value;
-    let question = { ...this.state.question, title };
-
+    const title = event.target.value;
+    const question = this.state.question.getCopy();
+    question.title = title;
     this.setValidationState('title', validateTitle(title));
+    this.setState({question});
     this.props.handleOnQuestionUpdate(question, this.errors);
-    this.setState({
-      question : { ...this.state.question, title },
-    });
   }
 
   handleOnOptionChange = (optionId, value) => {
-    let metaInfo = this.state.question.metaInfo.map(m => m);
-    metaInfo[optionId] = value;
-    this.setState({ question : { ...this.state.question, metaInfo : metaInfo } });
-    let question = {...this.state.question};
-    question.metaInfo = metaInfo;
-    this.props.handleOnQuestionUpdate(question, this.state.errors);
+    let question = this.state.question.getCopy();
+    question.metaInfo[optionId] = value;
+    this.setState({question});
+    this.props.handleOnQuestionUpdate(question, this.errors);
   }
 
   render = () => {
@@ -117,20 +112,9 @@ export class TextQuestion extends Component {
 }
 
 TextQuestion.propTypes = {
-  errors : PropTypes.shape({
-    question : PropTypes.shape({
-      title : PropTypes.string.isRequired,
-      metaInfo : PropTypes.string.isRequired,
-    }).isRequired,
-  }).isRequired,
-  question : PropTypes.shape({
-    isRequired : PropTypes.bool.isRequired,
-    metaInfo : PropTypes.arrayOf(String).isRequired,
-    number : PropTypes.number.isRequired,
-    title : PropTypes.string.isRequired,
-    type : PropTypes.string.isRequired,
-  }).isRequired,
-  handleOnQuestionUpdate : PropTypes.func.isRequired,
+  errors : PropTypes.instanceOf(QuestionError).isRequired,
+  question : PropTypes.instanceOf(Question).isRequired,
+  handleOnQuestionUpdate : PropTypes.func,
   editing : PropTypes.bool,
 };
 

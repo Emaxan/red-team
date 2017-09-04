@@ -6,19 +6,21 @@ import QuestionList from './QuestionList';
 import {
   validateTitle,
 } from '../../utils/validation/commonValidation';
+import Page from '../models/Page';
+import PageErrors from '../models/PageErrors';
 
 import './PageNavigator.scss';
 
 export class PageNavigator extends Component {
   constructor(props) {
     super(props);
-    let pages = this.props.pages.map(p => ({...p}));
+    let pages = this.props.pages.map(p => p.getCopy());
     this.state = {
       editingPageNumber : 1,
       pages : pages,
     };
 
-    this.errors = { ...this.props.errors };
+    this.errors = this.props.errors.map(e => e.getCopy());
 
     this.validationStates = {
       title : null,
@@ -26,7 +28,7 @@ export class PageNavigator extends Component {
   }
 
   componentWillReceiveProps = (props) => {
-    let pages = props.pages.map(p => ({...p}));
+    let pages = props.pages.map(p => p.getCopy());
     this.setState({
       pages : pages,
       editingPageNumber : props.editingPageNumber,
@@ -53,7 +55,7 @@ export class PageNavigator extends Component {
   }
 
   handleOnDeleteClick = () => {
-    let pages = this.state.pages.map(p => ({...p}));
+    let pages = this.state.pages.map(p => p.getCopy());
     if(pages.length == 1) {
       return;
     }
@@ -72,7 +74,7 @@ export class PageNavigator extends Component {
 
     this.setValidationState('title', validateTitle(title));
 
-    let pages = this.state.pages.map(p => ({...p}));
+    let pages = this.state.pages.map(p => p.getCopy());
     pages[this.state.editingPageNumber - 1].title = title;
     this.setState({ pages : pages });
 
@@ -125,7 +127,7 @@ export class PageNavigator extends Component {
             handleOnQuestionsArraySave={this.handleOnQuestionsArraySave}
             editingQuestionNumber={this.props.editingQuestionNumber}
             newEditingQuestionType={this.props.newEditingQuestionType}
-            errors={this.errors[this.state.editingPageNumber - 1].questions}
+            errors={this.errors[this.state.editingPageNumber - 1].questionErrors}
           />
         </div>
       </div>
@@ -135,8 +137,8 @@ export class PageNavigator extends Component {
 
 PageNavigator.propTypes = {
   editingPageNumber : PropTypes.number.isRequired,
-  pages : PropTypes.array.isRequired,
-  errors : PropTypes.array.isRequired,
+  pages : PropTypes.arrayOf(PropTypes.instanceOf(Page)).isRequired,
+  errors : PropTypes.arrayOf(PropTypes.instanceOf(PageErrors)).isRequired,
   handleOnPageSwitch : PropTypes.func.isRequired,
   handleOnPagesUpdate : PropTypes.func.isRequired,
   newEditingQuestionType : PropTypes.string.isRequired,

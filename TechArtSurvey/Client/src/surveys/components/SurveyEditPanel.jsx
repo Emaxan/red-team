@@ -6,7 +6,9 @@ import { questionTypesArray } from './questionTypesPresentation';
 import { QuestionTypesPanel } from './QuestionTypesPanel';
 import { ParamsPanel } from './ParamsPanel';
 import Page from '../models/Page';
-import Settings from '../models/Settings';
+import Survey from '../models/Survey';
+import SurveyErrors from '../models/SurveyErrors';
+import PageErrors from '../models/PageErrors';
 import { PageNavigator } from './PageNavigator';
 import { isSurveyValid, prepareSurvey } from './service';
 import { validateTitle } from '../../utils/validation/commonValidation';
@@ -17,31 +19,16 @@ export class SurveyEditPanel extends Component {
   constructor(props) {
     super(props);
 
+    const survey = this.props.survey.getCopy();
+
     this.state = {
       editingPageNumber : 1,
       editingQuestionNumber : -1,
       newEditingQuestionType: null,
-      survey : {
-        title : this.props.survey.title,
-        pages : this.props.survey.pages,
-        settings : {
-          isAnonymous : this.props.survey.settings.isAnonymous,
-          hasQuestionNumbers : this.props.survey.settings.hasQuestionNumbers,
-          hasPageNumbers : this.props.survey.settings.hasPageNumbers,
-          isRandomOrdered : this.props.survey.settings.isRandomOrdered,
-          hasRequiredFieldsStars : this.props.survey.settings.hasRequiredFieldsStars,
-          hasProgressIndicator : this.props.survey.settings.hasProgressIndicator,
-        },
-      },
+      survey,
     };
 
-    this.errors = {
-      title : '',
-      pages : [{
-        title : '',
-        questions : [],
-      }],
-    };
+    this.errors = new SurveyErrors();
 
     this.validationStates = {
       title : null,
@@ -61,7 +48,9 @@ export class SurveyEditPanel extends Component {
   handleOnTitleChange = (event) => {
     const title = event.target.value;
     this.setValidationState('title', validateTitle(title));
-    this.setState({ survey : { ...this.state.survey, title }});
+    let survey = this.state.survey.getCopy();
+    survey.title = title;
+    this.setState({survey});
   }
 
   handleOnSaveClick = () => {
@@ -75,10 +64,12 @@ export class SurveyEditPanel extends Component {
   }
 
   handleOnQuestionsArraySave = (questions, errors) => {
-    let pages = this.state.survey.pages.map(q => ({...q}));
+    let pages = this.state.survey.pages.map(p => p.getCopy());
     pages[this.state.editingPageNumber - 1].questions = questions;
+    let survey = this.state.survey.getCopy();
+    survey.pages = pages;
     this.setState({
-      survey : { ...this.state.survey, pages : pages },
+      survey,
       newEditingQuestionType : null,
     });
     this.errors.pages = errors;
@@ -107,29 +98,32 @@ export class SurveyEditPanel extends Component {
   }
 
   handleOnAddPageClick = () => {
-    let pages = this.state.survey.pages.map(q => ({...q}));
+    let pages = this.state.survey.pages.map(p => p.getCopy());
     pages.push(new Page());
+    let survey = this.state.survey.getCopy();
+    survey.pages = pages;
     this.setState({
       editingPageNumber : pages.length,
       editingQuestionNumber : -1,
       newEditingQuestionType : null,
-      survey : { ...this.state.survey, pages : pages },
+      survey,
     });
-    this.errors.pages.push({
-      title : '',
-      questions : [],
-    });
+    this.errors.pages.push(new PageErrors());
   }
 
   handleOnPagesUpdate = (pages, errors) => {
-    let newPages = pages.map(p => ({...p}));
-    this.setState({ survey : { ...this.state.survey, pages : newPages } });
+    let newPages = pages.map(p => p.getCopy());
+    let survey = this.state.survey.getCopy();
+    survey.pages = newPages;
+    this.setState({survey});
     this.errors.pages = errors;
   }
 
   handleOnSettingsChange = (settings) => {
-    let newSettings = {...settings};
-    this.setState({ survey : { ...this.state.survey, settings : newSettings } });
+    const newSettings = settings.getCopy();
+    let survey = this.state.survey.getCopy();
+    survey.settings = newSettings;
+    this.setState({survey});
   }
 
   getEditingQuestionType() {
@@ -191,7 +185,7 @@ export class SurveyEditPanel extends Component {
               editingQuestionNumber={this.state.editingQuestionNumber}
               newEditingQuestionType={this.state.newEditingQuestionType}
               handleOnEditingQuestionNumberChange={this.handleOnEditingQuestionNumberChange}
-              errors={this.errors.pages}
+              errors={this.errors.pageErrors}
             />
           </Form>
         </Panel>
@@ -214,10 +208,6 @@ export class SurveyEditPanel extends Component {
 }
 
 SurveyEditPanel.propTypes = {
-  survey : PropTypes.shape({
-    title : PropTypes.string.isRequired,
-    settings : PropTypes.instanceOf(Settings).isRequired,
-    pages : PropTypes.arrayOf(PropTypes.instanceOf(Page)).isRequired,
-  }).isRequired,
+  survey : PropTypes.instanceOf(Survey).isRequired,
   saveSurvey : PropTypes.func.isRequired,
 };

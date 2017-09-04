@@ -5,19 +5,18 @@ import PropTypes from 'prop-types';
 import {
   validateTitle,
 } from '../../../utils/validation/questionValidation';
+import Question from '../../models/Question';
+import QuestionError from '../../models/QuestionError';
 
 export class FileQuestion extends Component {
   constructor(props) {
     super(props);
 
-    let { question } = this.props;
-    question.metaInfo = this.props.question.metaInfo.map(m => m);
-
     this.state = {
-      question : question,
+      question : this.props.question.getCopy(),
     };
 
-    this.errors = { ...this.props.errors };
+    this.errors = this.props.errors.getCopy();
 
     this.validationStates = {
       title : null,
@@ -39,22 +38,20 @@ export class FileQuestion extends Component {
   }
 
   handleOnTitleChange = (event) => {
-    let title = event.target.value;
-    let question = { ...this.state.question, title };
-
+    const title = event.target.value;
+    const question = this.state.question.getCopy();
+    question.title = title;
     this.setValidationState('title', validateTitle(title));
     this.props.handleOnQuestionUpdate(question, this.errors);
-    this.setState({
-      question : { ...this.state.question, title },
-    });
+    this.setState({question});
   }
 
   handleOnFileChange = () => {
     if(this.props.editing) return;
-    this.setState({ metaInfo : [this.fileUpload.files[0].name] });
-    let question = {...this.state};
+    let question = this.state.question.getCopy();
     question.metaInfo = [this.fileUpload.files[0].name];
-    this.props.handleOnQuestionUpdate(question);
+    this.setState({question});
+    this.props.handleOnQuestionUpdate(question, this.errors);
   }
 
   render = () => {
@@ -108,20 +105,9 @@ export class FileQuestion extends Component {
 }
 
 FileQuestion.propTypes = {
-  errors: PropTypes.shape({
-    question : PropTypes.shape({
-      title : PropTypes.string.isRequired,
-      metaInfo : PropTypes.string.isRequired,
-    }),
-  }).isRequired,
-  question: PropTypes.shape({
-    isRequired : PropTypes.bool.isRequired,
-    metaInfo : PropTypes.arrayOf(String).isRequired,
-    number : PropTypes.number.isRequired,
-    title : PropTypes.string.isRequired,
-    type : PropTypes.string.isRequired,
-  }).isRequired,
-  handleOnQuestionUpdate: PropTypes.func.isRequired,
+  errors : PropTypes.instanceOf(QuestionError).isRequired,
+  question : PropTypes.instanceOf(Question).isRequired,
+  handleOnQuestionUpdate : PropTypes.func,
   editing : PropTypes.bool,
 };
 
