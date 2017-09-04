@@ -72,7 +72,7 @@ export class SurveyEditPanel extends Component {
       survey,
       newEditingQuestionType : null,
     });
-    this.errors.pages = errors;
+    this.errors.pageErrors = errors;
   }
 
   handleOnTypeChange = (type) => {
@@ -108,7 +108,7 @@ export class SurveyEditPanel extends Component {
       newEditingQuestionType : null,
       survey,
     });
-    this.errors.pages.push(new PageErrors());
+    this.errors.pageErrors.push(new PageErrors());
   }
 
   handleOnPagesUpdate = (pages, errors) => {
@@ -116,7 +116,7 @@ export class SurveyEditPanel extends Component {
     let survey = this.state.survey.getCopy();
     survey.pages = newPages;
     this.setState({survey});
-    this.errors.pages = errors;
+    this.errors.pageErrors = errors;
   }
 
   handleOnSettingsChange = (settings) => {
