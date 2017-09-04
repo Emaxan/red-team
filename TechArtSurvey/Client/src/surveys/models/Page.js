@@ -1,7 +1,9 @@
 export default class Page {
-  constructor(title = '', questions = []) {
-    this.title = title;
+  constructor(number = 1, title = null, questions = []) {
     this.questions = questions;
+    this.title = title === null
+      ? 'Page ' + number
+      : title;
   }
 
   getCopy(){

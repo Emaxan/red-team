@@ -1,5 +1,5 @@
 export default class PageErrors {
-  constructor(title = '', questionErrors = []) {
+  constructor(title = null, questionErrors = []) {
     this.title = title;
     this.questionErrors = questionErrors;
   }

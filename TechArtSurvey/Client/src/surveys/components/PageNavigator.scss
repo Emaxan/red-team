@@ -18,4 +18,9 @@
     }
   }
 }
+.nav {
+  & .error-tab {
+    color: red;
+  }
+}
 
