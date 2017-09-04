@@ -87,15 +87,6 @@ export class PageNavigator extends Component {
     this.props.handleOnQuestionsArraySave(questions, this.errors);
   }
 
-  getClassName = (index) => {
-    const errorTab = 'error-tab';
-    if(!isPageValid(this.errors[index])) {
-      return errorTab;
-    }
-
-    return '';
-  }
-
   render = () => {
     return (
       <div>
@@ -103,7 +94,7 @@ export class PageNavigator extends Component {
           {
             this.state.pages.map((page, index) => (
               <NavItem key={index} eventKey={index + 1} onSelect={this.handleOnPageSwitch}>
-                <div className={this.getClassName(index)}>
+                <div className={isPageValid(this.errors[index]) ? '' : 'error-tab'}>
                   {
                     (page.title && page.title.trim().length > 0)
                       ? <span>{page.title}</span>
