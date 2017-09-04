@@ -58,9 +58,11 @@ export class SingleQuestion extends Component {
 
   handleOnRemoveOption = (index) => {
     let question = this.state.question.getCopy();
-    question.metaInfo.splice(index, 1);
-    this.setState({question});
-    this.props.handleOnQuestionUpdate(question, this.errors);
+    if (question.metaInfo.length > 1) {
+      question.metaInfo.splice(index, 1);
+      this.setState({question});
+      this.props.handleOnQuestionUpdate(question, this.errors);
+    }
   }
 
   render = () => {
