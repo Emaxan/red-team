@@ -8,6 +8,7 @@ import {
 } from '../../../utils/validation/questionValidation';
 import Question from '../../models/Question';
 import QuestionError from '../../models/QuestionError';
+import { reactBootstrapValidationUtility as rbValidationUtility } from '../../../utils/validation/reactBootstrapValidationUtility';
 
 import './ScaleRatingQuestion.scss';
 
@@ -30,27 +31,15 @@ export class ScaleRatingQuestion extends Component {
     this.validationStates = {
       title : null,
     };
-  }
 
-  componentWillMount = () => {
-    this.setValidationState('title', validateTitle(this.state.question.title));
-  }
-
-  setValidationState = (fieldName, validationInfo) => {
-    if (validationInfo.isValid) {
-      this.errors[fieldName] = null;
-      this.validationStates[fieldName] = 'success';
-    } else {
-      this.errors[fieldName] = validationInfo.errors[0].message;
-      this.validationStates[fieldName] = 'error';
-    }
+    rbValidationUtility.setValidationState('title', this.errors, this.validationStates, validateTitle(this.state.question.title));
   }
 
   handleOnTitleChange = (event) => {
     const title = event.target.value;
     const question = this.state.question.getCopy();
     question.title = title;
-    this.setValidationState('title', validateTitle(title));
+    rbValidationUtility.setValidationState('title', this.errors, this.validationStates, validateTitle(title));
     this.props.handleOnQuestionUpdate(question, this.errors);
     this.setState({question});
   }

@@ -1,3 +1,6 @@
+export const REACT_BOOTSTRAP_VALIDATION_STATE_SUCCESS = 'success';
+export const REACT_BOOTSTRAP_VALIDATION_STATE_ERROR = 'error';
+
 export const USER_NAME_MIN_LENGTH = 5;
 export const USER_PASSWORD_MIN_LENGTH = 8;
 

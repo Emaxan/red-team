@@ -1,12 +1,11 @@
 import React, { Component } from 'react';
-import { Panel, Col, FormGroup, FormControl, Button, Radio, ControlLabel } from 'react-bootstrap';
+import { Col, FormGroup, FormControl, Button, Radio, Panel, ControlLabel } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 
-import {
-  validateTitle,
-} from '../../../utils/validation/questionValidation';
 import Question from '../../models/Question';
 import QuestionError from '../../models/QuestionError';
+import { validateTitle } from '../../../utils/validation/questionValidation';
+import { reactBootstrapValidationUtility as rbValidationUtility } from '../../../utils/validation/reactBootstrapValidationUtility';
 
 import './SingleQuestion.scss';
 import './Question.scss';
@@ -24,10 +23,8 @@ export class SingleQuestion extends Component {
     this.validationStates = {
       title : null,
     };
-  }
 
-  componentWillMount = () => {
-    this.setValidationState('title', validateTitle(this.state.question.title));
+    rbValidationUtility.setValidationState('title', this.errors, this.validationStates, validateTitle(this.state.question.title));
   }
 
   componentWillReceiveProps = (props) => {
@@ -36,21 +33,11 @@ export class SingleQuestion extends Component {
     });
   }
 
-  setValidationState = (fieldName, validationInfo) => {
-    if (validationInfo.isValid) {
-      this.errors[fieldName] = null;
-      this.validationStates[fieldName] = 'success';
-    } else {
-      this.errors[fieldName] = validationInfo.errors[0].message;
-      this.validationStates[fieldName] = 'error';
-    }
-  }
-
   handleOnTitleChange = (event) => {
     const title = event.target.value;
     const question = this.state.question.getCopy();
     question.title = title;
-    this.setValidationState('title', validateTitle(title));
+    rbValidationUtility.setValidationState('title', this.errors, this.validationStates, validateTitle(title));
     this.props.handleOnQuestionUpdate(question, this.errors);
     this.setState({question});
   }
