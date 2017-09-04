@@ -29,7 +29,7 @@ export class NonEditingQuestionWrapper extends Component {
 
   isQuestionValid = () => {
     // WILL BE CHANGED
-    return this.props.errors.title === null;
+    return (this.props.errors.title === null && this.props.errors.metaInfo === null);
   }
 
   render = () =>
