@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Col, FormGroup, FormControl, Button, Radio, Panel, ControlLabel } from 'react-bootstrap';
+import { Col, FormGroup, FormControl, Button, Radio, Panel, ControlLabel, Glyphicon } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 
 import Question from '../../models/Question';
@@ -56,6 +56,13 @@ export class SingleQuestion extends Component {
     this.props.handleOnQuestionUpdate(question, this.errors);
   }
 
+  handleOnRemoveOption = (index) => {
+    let question = this.state.question.getCopy();
+    question.metaInfo.splice(index, 1);
+    this.setState({question});
+    this.props.handleOnQuestionUpdate(question, this.errors);
+  }
+
   render = () => {
     return (
       <Panel className={this.props.isValid ? '' : 'panel-has-error'}>
@@ -92,13 +99,24 @@ export class SingleQuestion extends Component {
                   {
                     this.props.editing ?
                       (
-                        <FormControl
-                          type='text'
-                          name={this.state.question.title}
-                          value={option}
-                          placeholder="Option"
-                          onChange={(e) => this.handleOnOptionChange(i, e.target.value)}
-                        />
+                        <span>
+                          <FormControl
+                            type='text'
+                            id={'option' + i}
+                            name={'option' + i}
+                            value={option}
+                            placeholder="Option"
+                            onChange={(e) => this.handleOnOptionChange(i, e.target.value)}
+                            className="option"
+                          />
+                          <label htmlFor={'option' + i}>
+                            <Glyphicon
+                              glyph="remove"
+                              role="button" title="Remove option"
+                              onClick={() => this.handleOnRemoveOption(i)}
+                            />
+                          </label>
+                        </span>
                       ) :
                       (
                         <Radio id={`${this.state.question.number}.${i}`} name={this.state.question.title}>
