@@ -96,3 +96,14 @@ export const prepareSurvey = (survey) => {
 
   return newSurvey;
 };
+
+export const getDefaultMetaInfoByType = (type) => {
+  switch (type) {
+  case questionTypes.SINGLE_ANSWER:
+  case questionTypes.MULTIPLE_ANSWER:
+    return [ '' ];
+
+  default:
+    return [];
+  }
+};

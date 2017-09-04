@@ -1,7 +1,8 @@
 import { defaultType } from '../questionTypes';
+import { getDefaultMetaInfoByType } from '../components/service';
 
 export default class Question {
-  constructor(number, type = defaultType, title = '', isRequired = true, metaInfo = []) {
+  constructor(number, type = defaultType, title = '', isRequired = true, metaInfo = getDefaultMetaInfoByType(type)) {
     this.number = number;
     this.type = type;
     this.title = title;
