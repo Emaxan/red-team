@@ -1,8 +1,5 @@
 import Question from '../models/Question';
 import { questionTypes } from '../questionTypes';
-import {
-  VARIANTS_ARE_REQUIRED,
-} from './errors';
 
 export const changeType = (oldQuestion, type) => {
   if (oldQuestion.type === type) {
@@ -46,6 +43,20 @@ export const getLastNumber = (questions) => {
 
 const hasError = fieldError => fieldError != null;
 
+export const isPageValid = (pageErrors) => {
+  if (hasError(pageErrors.title) || pageErrors.questionErrors.length === 0) {
+    return false;
+  }
+  let isValid = true;
+  pageErrors.questionErrors.map(qe => {
+    if(hasError(qe.title) || hasError(qe.metaInfo)) {
+      isValid = false;
+    }
+  });
+
+  return isValid;
+};
+
 export const isSurveyValid = (survey) => {
   if(hasError(survey.title)) {
     return false;
@@ -53,32 +64,13 @@ export const isSurveyValid = (survey) => {
 
   let isValid = true;
 
-  survey.pages.map(page => {
-    if (hasError(page.title)) {
+  survey.pageErrors.map(pe => {
+    if (!isPageValid(pe)) {
       isValid = false;
-
-      return;
     }
-    page.questions.map(question => {
-      if(hasError(question.title) || hasError(question.metaInfo)) {
-        isValid = false;
-
-        return;
-      }
-    });
   });
 
   return isValid;
-};
-
-export const validateMetaInfo = (question) => {
-  if(question.type == questionTypes.TEXT_ANSWER || question.type == questionTypes.FILE_ANSWER) {
-    return null;
-  }
-  if(question.metaInfo.length === 0) {
-    return VARIANTS_ARE_REQUIRED;
-  }
-  return null;
 };
 
 export const prepareSurvey = (survey) => {

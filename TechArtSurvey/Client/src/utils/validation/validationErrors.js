@@ -45,4 +45,14 @@ export const validationErrors = {
     id : constants.QUESTION_TITLE_REQUIRED_ERROR_ID,
     message : 'Question\'s title is required',
   },
+
+  QuestionsRequired : {
+    id : constants.QUESTIONS_REQUIRED_ERROR_ID,
+    message : 'Page\'s questions are required',
+  },
+
+  VariantsRequired : {
+    id : constants.VARIANTS_REQUIRED_ERROR_ID,
+    message : 'Variants are required',
+  },
 };

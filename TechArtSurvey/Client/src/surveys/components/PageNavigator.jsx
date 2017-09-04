@@ -8,6 +8,7 @@ import {
 } from '../../utils/validation/commonValidation';
 import Page from '../models/Page';
 import PageErrors from '../models/PageErrors';
+import { isPageValid } from './service';
 
 import './PageNavigator.scss';
 
@@ -33,7 +34,7 @@ export class PageNavigator extends Component {
       pages : pages,
       editingPageNumber : props.editingPageNumber,
     });
-    this.errors = props.errors;
+    this.errors = props.errors.map(e => e.getCopy());
   }
 
   setValidationState = (fieldName, validationInfo) => {
@@ -86,6 +87,15 @@ export class PageNavigator extends Component {
     this.props.handleOnQuestionsArraySave(questions, this.errors);
   }
 
+  getClassName = (index) => {
+    const errorTab = 'error-tab';
+    if(!isPageValid(this.errors[index])) {
+      return errorTab;
+    }
+
+    return '';
+  }
+
   render = () => {
     return (
       <div>
@@ -93,11 +103,13 @@ export class PageNavigator extends Component {
           {
             this.state.pages.map((page, index) => (
               <NavItem key={index} eventKey={index + 1} onSelect={this.handleOnPageSwitch}>
-                {
-                  (page.title && page.title.trim().length > 0)
-                    ? <span>{page.title}</span>
-                    : <span>Page {index + 1}</span>
-                }
+                <div className={this.getClassName(index)}>
+                  {
+                    (page.title && page.title.trim().length > 0)
+                      ? <span>{page.title}</span>
+                      : <span>Page {index + 1}</span>
+                  }
+                </div>
               </NavItem>
             ))
           }

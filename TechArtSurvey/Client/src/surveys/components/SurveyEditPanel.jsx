@@ -99,7 +99,7 @@ export class SurveyEditPanel extends Component {
 
   handleOnAddPageClick = () => {
     let pages = this.state.survey.pages.map(p => p.getCopy());
-    pages.push(new Page());
+    pages.push(new Page(pages.length + 1));
     let survey = this.state.survey.getCopy();
     survey.pages = pages;
     this.setState({
