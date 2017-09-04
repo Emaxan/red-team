@@ -1,5 +1,7 @@
+import QuestionError from './QuestionError';
+
 export default class PageErrors {
-  constructor(title = null, questionErrors = []) {
+  constructor(title = null, questionErrors = [new QuestionError()]) {
     this.title = title;
     this.questionErrors = questionErrors;
   }
