@@ -131,7 +131,7 @@ export class PageNavigator extends Component {
             <FormGroup className="page-form-group" validationState={this.validationStates.title}>
               <Col sm={10}>
                 <ControlLabel>
-                  {this.errors[this.state.editingPageNumber - 1].title || 'Page\'s title'}
+                  {this.errors[this.state.editingPageNumber - 1].title || 'Page title'}
                 </ControlLabel>
                 <FormControl
                   type="text"

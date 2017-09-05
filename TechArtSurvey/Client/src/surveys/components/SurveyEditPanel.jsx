@@ -22,7 +22,7 @@ export class SurveyEditPanel extends Component {
     this.state = {
       editingCanceled : false,
       editingPageNumber : 1,
-      editingQuestionNumber : -1,
+      editingQuestionNumber : 0,
       newEditingQuestionType: null,
       survey,
     };
