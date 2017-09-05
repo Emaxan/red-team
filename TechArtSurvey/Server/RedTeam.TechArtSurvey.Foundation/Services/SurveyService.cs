@@ -11,6 +11,7 @@ using RedTeam.TechArtSurvey.DomainModel.Entities.Surveys;
 using RedTeam.TechArtSurvey.Foundation.Dto.SurveysDto;
 using RedTeam.TechArtSurvey.Foundation.Interfaces;
 using RedTeam.TechArtSurvey.Foundation.Responses;
+using RedTeam.Common.EnvironmentInfo;
 
 namespace RedTeam.TechArtSurvey.Foundation.Services
 {
@@ -20,13 +21,15 @@ namespace RedTeam.TechArtSurvey.Foundation.Services
         private readonly ITechArtSurveyUnitOfWork _uow;
         private readonly IMapper _mapper;
         private readonly IValidationService _validationService;
+        private readonly IEnvironmentInfoService _environmentInfoService;
 
 
-        public SurveyService(ITechArtSurveyUnitOfWork uow, IMapper mapper, IValidationService validationService)
+        public SurveyService(ITechArtSurveyUnitOfWork uow, IMapper mapper, IValidationService validationService, IEnvironmentInfoService environmentInfoService)
         {
             _uow = uow;
             _mapper = mapper;
             _validationService = validationService;
+            _environmentInfoService = environmentInfoService;
         }
 
 
@@ -49,8 +52,8 @@ namespace RedTeam.TechArtSurvey.Foundation.Services
                 return ServiceResponse.CreateUnsuccessful<SurveyDto>(ServiceResponseCode.DefaultValueIsWrong);
             }
 
-            survey.CreatedDate = DateTime.Now;
-            version.UpdatedDate = DateTime.Now;
+            survey.CreatedDate = _environmentInfoService.CurrentUtcDateTime;
+            version.UpdatedDate = _environmentInfoService.CurrentUtcDateTime;
             version.Version = 1;
             _uow.Surveys.Create(survey);
             await _uow.SaveAsync();
@@ -69,7 +72,7 @@ namespace RedTeam.TechArtSurvey.Foundation.Services
             }
             var version = survey.Versions.First();
             version.Version = surv.Versions.Count + 1;
-            version.UpdatedDate = DateTime.Now;
+            version.UpdatedDate = _environmentInfoService.CurrentUtcDateTime;
             await _uow.Surveys.UpdateVersionAsync(survey.Id, _mapper.Map<SurveyVersionDto, SurveyVersion>(version));
             await _uow.SaveAsync();
 

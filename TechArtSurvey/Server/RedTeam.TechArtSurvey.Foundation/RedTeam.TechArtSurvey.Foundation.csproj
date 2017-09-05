@@ -74,6 +74,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\RedTeam.Common\RedTeam.Common.csproj">
+      <Project>{AB963A3F-AEF2-4740-A930-CCB58F86ED11}</Project>
+      <Name>RedTeam.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\RedTeam.Logger.Interfaces\RedTeam.Logger.Interfaces.csproj">
       <Project>{725EC8E0-9925-4C5C-B1EF-83CFB09704D6}</Project>
       <Name>RedTeam.Logger.Interfaces</Name>

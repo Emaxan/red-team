@@ -40,7 +40,10 @@
   <ItemGroup>
     <Compile Include="EmailSender\SmtpEmailSender.cs" />
     <Compile Include="EmailSender\IEmailSender.cs" />
+    <Compile Include="EnvironmentInfo\EnvironmentInfoService.cs" />
+    <Compile Include="EnvironmentInfo\IEnvironmentInfoService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

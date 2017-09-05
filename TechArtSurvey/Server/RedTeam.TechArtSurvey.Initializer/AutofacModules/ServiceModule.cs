@@ -1,5 +1,4 @@
-﻿using System.Collections.Specialized;
-using Autofac;
+﻿using Autofac;
 using RedTeam.Common.EmailSender;
 using RedTeam.TechArtSurvey.Foundation.Identity.Managers;
 using RedTeam.TechArtSurvey.Foundation.Identity.Services;
@@ -7,7 +6,7 @@ using RedTeam.TechArtSurvey.Foundation.Identity.Stores;
 using RedTeam.TechArtSurvey.Foundation.Interfaces;
 using RedTeam.TechArtSurvey.Foundation.Services;
 using Microsoft.AspNet.Identity;
-using RedTeam.TechArtSurvey.Foundation;
+using RedTeam.Common.EnvironmentInfo;
 
 namespace RedTeam.TechArtSurvey.Initializer.AutofacModules
 {
@@ -25,6 +24,7 @@ namespace RedTeam.TechArtSurvey.Initializer.AutofacModules
             builder.RegisterType<ValidationService>().As<IValidationService>().InstancePerDependency();
             builder.RegisterType<SmtpEmailSender>().As<IEmailSender>().InstancePerRequest();
             builder.RegisterType<EmailIdentityMessageService>().As<IIdentityMessageService>().InstancePerRequest();
+            builder.RegisterType<EnvironmentInfoService>().As<IEnvironmentInfoService>().InstancePerRequest();
         }
     }
 }
