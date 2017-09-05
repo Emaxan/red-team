@@ -124,7 +124,9 @@ export class PageNavigator extends Component {
               </NavItem>
             ))
           }
-          <NavItem onSelect={this.handleOnAddPageClick}>+</NavItem>
+          <NavItem onSelect={this.handleOnAddPageClick}>
+            <Glyphicon glyph="plus" className="text-muted" />
+          </NavItem>
         </Nav>
         <div className="page">
           <div className="page-control">
