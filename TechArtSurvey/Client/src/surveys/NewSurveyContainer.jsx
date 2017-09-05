@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 
 import { SurveyEditPanel } from './components/SurveyEditPanel';
 import Survey from './models/Survey';
-import { createSurveyRequest } from './actions';
+import { createSurveyRequest, cancelSurveyCreationRequest } from './actions';
 
 const mapStateToProps = (state) => ({
   errors : state.surveys.errors,
@@ -12,13 +12,15 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = {
   saveSurvey : createSurveyRequest,
+  cancelSurveyCreation : cancelSurveyCreationRequest,
 };
 
-const NewSurveyContainer = ({ errors, survey, saveSurvey }) => (
+const NewSurveyContainer = ({ errors, survey, saveSurvey, cancelSurveyCreation }) => (
   <SurveyEditPanel
     errors={errors}
     survey={survey}
     saveSurvey={saveSurvey}
+    cancelSurveyCreation={cancelSurveyCreation}
   />
 );
 

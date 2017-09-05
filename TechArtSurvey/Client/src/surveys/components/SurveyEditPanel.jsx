@@ -126,6 +126,10 @@ export class SurveyEditPanel extends Component {
     this.setState({survey});
   }
 
+  handleOnCancelClick = () => {
+    this.props.cancelSurveyCreation();
+  }
+
   getEditingQuestionType() {
     if(this.state.editingQuestionNumber === -1) {
       return null;
@@ -166,7 +170,7 @@ export class SurveyEditPanel extends Component {
                 <Button >
                   Save as template
                 </Button>
-                <Button>
+                <Button onClick={this.handleOnCancelClick}>
                   Cancel
                 </Button>
               </ButtonGroup>
@@ -210,4 +214,5 @@ export class SurveyEditPanel extends Component {
 SurveyEditPanel.propTypes = {
   survey : PropTypes.instanceOf(Survey).isRequired,
   saveSurvey : PropTypes.func.isRequired,
+  cancelSurveyCreation : PropTypes.func.isRequired,
 };

@@ -29,3 +29,5 @@ export const createSurveyRequest = (survey) => (dispatch) => {
       dispatch(createSurveyError(error));
     });
 };
+
+export const cancelSurveyCreationRequest = () => (dispatch) => dispatch(push('/'));
