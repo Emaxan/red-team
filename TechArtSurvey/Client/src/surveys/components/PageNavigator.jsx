@@ -137,6 +137,7 @@ export class PageNavigator extends Component {
                   type="text"
                   value={this.state.pages[this.state.editingPageNumber - 1].title}
                   onChange={this.handleOnTitleChange}
+                  placeholder="Enter page title"
                 />
               </Col>
             </FormGroup>

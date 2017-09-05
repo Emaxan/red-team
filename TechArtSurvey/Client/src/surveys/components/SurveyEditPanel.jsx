@@ -137,6 +137,7 @@ export class SurveyEditPanel extends Component {
                   type="text"
                   value={this.state.survey.title}
                   onChange={this.handleOnTitleChange}
+                  placeholder="Enter survey title"
                 />
               </Col>
             </FormGroup>
