@@ -18,17 +18,7 @@ namespace RedTeam.TechArtSurvey.Repositories.Repositories
             
         }
 
-
-        public override Survey Create(Survey entity)
-        {
-            if ( entity.Id == 0 )
-            {
-                entity.Id = DbSet.Max(s => s.Id) + 1;
-            }
-
-            return base.Create(entity);
-        }
-
+        
         public override async Task<IReadOnlyCollection<Survey>> GetAllAsync()
         {
             var surveys = await base.GetAllAsync();
