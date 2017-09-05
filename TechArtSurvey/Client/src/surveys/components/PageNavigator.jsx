@@ -129,9 +129,6 @@ export class PageNavigator extends Component {
         <div className="page">
           <div className="page-control">
             <FormGroup className="page-form-group" validationState={this.validationStates.title}>
-              <Col componentClass={ControlLabel} sm={2}>
-                New page
-              </Col>
               <Col sm={10}>
                 <ControlLabel>
                   {this.errors[this.state.editingPageNumber - 1].title || 'Page\'s title'}

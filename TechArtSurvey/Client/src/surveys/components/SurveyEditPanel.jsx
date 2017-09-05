@@ -119,9 +119,6 @@ export class SurveyEditPanel extends Component {
       <div className="survey-edit-panel">
         <Panel className="col-md-6">
           <Form horizontal>
-            <Col componentClass={ControlLabel} sm={2}>
-                New survey
-            </Col>
             <FormGroup validationState={this.validationStates.title}>
               <Col sm={10}>
                 <ControlLabel>
