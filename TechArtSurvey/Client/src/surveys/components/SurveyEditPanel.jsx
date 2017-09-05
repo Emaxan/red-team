@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Form, Col, Panel, FormGroup, FormControl, ControlLabel, Button, ButtonGroup, ButtonToolbar } from 'react-bootstrap';
+import { Form, Col, Panel, FormGroup, FormControl, ControlLabel, Button, ButtonGroup, ButtonToolbar, Modal } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 
 import { questionTypesArray } from './questionTypesPresentation';
@@ -20,6 +20,7 @@ export class SurveyEditPanel extends Component {
     const survey = this.props.survey.getCopy();
 
     this.state = {
+      editingCanceled : false,
       editingPageNumber : 1,
       editingQuestionNumber : -1,
       newEditingQuestionType: null,
@@ -91,7 +92,15 @@ export class SurveyEditPanel extends Component {
   }
 
   handleOnCancelClick = () => {
+    this.setState({ editingCanceled : true });
+  }
+
+  handleOnConfirmCancellationClick = () => {
     this.props.cancelSurveyCreation();
+  }
+
+  handleOnUndoCancellationClick = () => {
+    this.setState({ editingCanceled : false });
   }
 
   handleOnPageSwitch = (pageNumber) => {
@@ -168,6 +177,20 @@ export class SurveyEditPanel extends Component {
             />
           </div>
         </div>
+
+        <Modal
+          show={this.state.editingCanceled}
+          onHide={this.handleOnUndoCancellationClick}
+          container={this}
+        >
+          <Modal.Header>
+            Are you sure that you want to cancel your actions?
+          </Modal.Header>
+          <Modal.Footer>
+            <Button onClick={this.handleOnConfirmCancellationClick}>Yes</Button>
+            <Button onClick={this.handleOnUndoCancellationClick}>No</Button>
+          </Modal.Footer>
+        </Modal>
       </div>
     );
   }
