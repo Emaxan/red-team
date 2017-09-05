@@ -12,18 +12,6 @@ namespace RedTeam.TechArtSurvey.Repositories.Interfaces
 
         ISurveyRepository Surveys { get; }
 
-        IRepository<SurveyPage> Pages { get; }
-
-        IRepository<Question> Questions { get; }
-
-        IRepository<QuestionVariant> QuestionVariants { get; }
-
-        IRepository<QuestionAnswer> QuestionAnswers { get; }
-
-        IRepository<SurveyResponse> SurveyResponses { get; }
-
-        IRepository<SurveyVersion> SurveyVersions { get; }
-
         IQuestionTypeRepository QuestionTypes { get; }
     }
 }

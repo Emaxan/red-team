@@ -6,8 +6,8 @@ using RedTeam.TechArtSurvey.Foundation.Identity.Services;
 using RedTeam.TechArtSurvey.Foundation.Identity.Stores;
 using RedTeam.TechArtSurvey.Foundation.Interfaces;
 using RedTeam.TechArtSurvey.Foundation.Services;
-using System.Configuration;
 using Microsoft.AspNet.Identity;
+using RedTeam.TechArtSurvey.Foundation;
 
 namespace RedTeam.TechArtSurvey.Initializer.AutofacModules
 {

@@ -13,12 +13,6 @@ namespace RedTeam.TechArtSurvey.Repositories
         private IRoleRepository _roleRepository;
         private ISurveyRepository _surveyRepository;
         private IQuestionTypeRepository _questionTypeRepository;
-        private IRepository<QuestionVariant> _questionVariantRepository;
-        private IRepository<QuestionAnswer> _questionAnswers;
-        private IRepository<SurveyResponse> _surveyResponses;
-        private IRepository<SurveyVersion> _surveyVersions;
-        private IRepository<SurveyPage> _surveyPageRepository;
-        private IRepository<Question> _questionRepository;
 
 
         public IUserRepository Users
@@ -41,54 +35,6 @@ namespace RedTeam.TechArtSurvey.Repositories
             get
             {
                 return _surveyRepository ?? (_surveyRepository = new SurveyRepository(Context));
-            }
-        }
-
-        public IRepository<SurveyPage> Pages
-        {
-            get
-            {
-                return _surveyPageRepository ?? (_surveyPageRepository = new Repository<SurveyPage>(Context));
-            }
-        }
-
-        public IRepository<Question> Questions
-        {
-            get
-            {
-                return _questionRepository ?? (_questionRepository = new Repository<Question>(Context));
-            }
-        }
-
-        public IRepository<QuestionVariant> QuestionVariants
-        {
-            get
-            {
-                return _questionVariantRepository ?? (_questionVariantRepository = new Repository<QuestionVariant>(Context));
-            }
-        }
-
-        public IRepository<QuestionAnswer> QuestionAnswers
-        {
-            get
-            {
-                return _questionAnswers ?? (_questionAnswers = new Repository<QuestionAnswer>(Context));
-            }
-        }
-
-        public IRepository<SurveyResponse> SurveyResponses
-        {
-            get
-            {
-                return _surveyResponses ?? (_surveyResponses = new Repository<SurveyResponse>(Context));
-            }
-        }
-
-        public IRepository<SurveyVersion> SurveyVersions
-        {
-            get
-            {
-                return _surveyVersions ?? (_surveyVersions = new Repository<SurveyVersion>(Context));
             }
         }
 

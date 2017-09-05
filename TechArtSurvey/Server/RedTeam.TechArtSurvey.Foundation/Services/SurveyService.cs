@@ -93,13 +93,13 @@ namespace RedTeam.TechArtSurvey.Foundation.Services
             var responses = versions.SelectMany(sv => sv.Responses).ToArray();
             var answers = responses.SelectMany(sr => sr.Answers).ToArray();
 
-            _uow.QuestionVariants.DeleteRange(variants);
-            _uow.QuestionAnswers.DeleteRange(answers);
-            _uow.Questions.DeleteRange(questions);
-            _uow.Pages.DeleteRange(pages);
-            _uow.SurveyResponses.DeleteRange(responses);
-            _uow.SurveyVersions.DeleteRange(versions);
-            _uow.Surveys.Delete(surv);
+            _uow.GetRepository<QuestionVariant>().DeleteRange(variants);
+            _uow.GetRepository<QuestionAnswer>().DeleteRange(answers);
+            _uow.GetRepository<Question>().DeleteRange(questions);
+            _uow.GetRepository<SurveyPage>().DeleteRange(pages);
+            _uow.GetRepository<SurveyResponse>().DeleteRange(responses);
+            _uow.GetRepository<SurveyVersion>().DeleteRange(versions);
+            _uow.GetRepository<Survey>().Delete(surv);
 
             await _uow.SaveAsync();
 
