@@ -5,10 +5,8 @@ import PropTypes from 'prop-types';
 import { questionTypesArray } from './questionTypesPresentation';
 import { QuestionTypesPanel } from './QuestionTypesPanel';
 import { ParamsPanel } from './ParamsPanel';
-import Page from '../models/Page';
 import Survey from '../models/Survey';
 import SurveyErrors from '../models/SurveyErrors';
-import PageErrors from '../models/PageErrors';
 import { PageNavigator } from './PageNavigator';
 import { isSurveyValid, prepareSurvey } from './service';
 import { validateTitle } from '../../utils/validation/commonValidation';
@@ -63,18 +61,6 @@ export class SurveyEditPanel extends Component {
     alert('Zaebis! Chotko! Survey is ready to be sent to the server');
   }
 
-  handleOnQuestionsArraySave = (questions, errors) => {
-    let pages = this.state.survey.pages.map(p => p.getCopy());
-    pages[this.state.editingPageNumber - 1].questions = questions;
-    let survey = this.state.survey.getCopy();
-    survey.pages = pages;
-    this.setState({
-      survey,
-      newEditingQuestionType : null,
-    });
-    this.errors.pageErrors = errors;
-  }
-
   handleOnTypeChange = (type) => {
     if (this.state.editingQuestionNumber === -1) {
       return;
@@ -87,28 +73,6 @@ export class SurveyEditPanel extends Component {
       editingQuestionNumber : number,
       newEditingQuestionType : null,
     });
-  }
-
-  handleOnPageSwitch = (pageNumber) => {
-    this.setState({
-      editingPageNumber : pageNumber,
-      editingQuestionNumber : -1,
-      newEditingQuestionType : null,
-    });
-  }
-
-  handleOnAddPageClick = () => {
-    let pages = this.state.survey.pages.map(p => p.getCopy());
-    pages.push(new Page(pages.length + 1));
-    let survey = this.state.survey.getCopy();
-    survey.pages = pages;
-    this.setState({
-      editingPageNumber : pages.length,
-      editingQuestionNumber : -1,
-      newEditingQuestionType : null,
-      survey,
-    });
-    this.errors.pageErrors.push(new PageErrors());
   }
 
   handleOnPagesUpdate = (pages, errors) => {
@@ -128,6 +92,14 @@ export class SurveyEditPanel extends Component {
 
   handleOnCancelClick = () => {
     this.props.cancelSurveyCreation();
+  }
+
+  handleOnPageSwitch = (pageNumber) => {
+    this.setState({
+      editingPageNumber : pageNumber,
+      editingQuestionNumber : -1,
+      newEditingQuestionType : null,
+    });
   }
 
   getEditingQuestionType() {
@@ -174,21 +146,14 @@ export class SurveyEditPanel extends Component {
                   Cancel
                 </Button>
               </ButtonGroup>
-              <ButtonGroup className="new-page">
-                <Button onClick={this.handleOnAddPageClick}>
-                  New page
-                </Button>
-              </ButtonGroup>
             </ButtonToolbar>
             <PageNavigator
               handleOnPagesUpdate={this.handleOnPagesUpdate}
-              handleOnPageSwitch={this.handleOnPageSwitch}
               pages={this.state.survey.pages}
-              editingPageNumber={this.state.editingPageNumber}
-              handleOnQuestionsArraySave={this.handleOnQuestionsArraySave}
               editingQuestionNumber={this.state.editingQuestionNumber}
               newEditingQuestionType={this.state.newEditingQuestionType}
               handleOnEditingQuestionNumberChange={this.handleOnEditingQuestionNumberChange}
+              handleOnPageSwitch={this.handleOnPageSwitch}
               errors={this.errors.pageErrors}
             />
           </Form>

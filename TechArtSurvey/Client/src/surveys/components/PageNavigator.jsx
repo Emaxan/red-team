@@ -32,7 +32,6 @@ export class PageNavigator extends Component {
     let pages = props.pages.map(p => p.getCopy());
     this.setState({
       pages : pages,
-      editingPageNumber : props.editingPageNumber,
     });
     this.errors = props.errors.map(e => e.getCopy());
   }
@@ -47,11 +46,29 @@ export class PageNavigator extends Component {
     }
   }
 
+  handleOnAddPageClick = () => {
+    let pages = this.state.pages.map(p => p.getCopy());
+    pages.push(new Page(pages.length + 1));
+    this.setState({
+      editingPageNumber : pages.length,
+      editingQuestionNumber : -1,
+      newEditingQuestionType : null,
+      pages,
+    });
+    this.errors.push(new PageErrors());
+    this.props.handleOnPagesUpdate(pages, this.errors);
+    this.props.handleOnPageSwitch(pages.length);
+  }
+
   handleOnPageSwitch = (pageNumber) => {
     if(pageNumber == this.state.editingPageNumber) {
       return;
     }
-    this.setState({ editingPageNumber : pageNumber });
+    this.setState({
+      editingPageNumber : pageNumber,
+      editingQuestionNumber : -1,
+      newEditingQuestionType : null,
+    });
     this.props.handleOnPageSwitch(pageNumber);
   }
 
@@ -67,7 +84,7 @@ export class PageNavigator extends Component {
       pages : pages,
     });
     this.props.handleOnPagesUpdate(pages, this.errors);
-    this.props.handleOnPageSwitch(1);
+    this.handleOnPageSwitch(1);
   }
 
   handleOnTitleChange = (event) => {
@@ -83,8 +100,11 @@ export class PageNavigator extends Component {
   }
 
   handleOnQuestionsArraySave = (questions, errors) => {
-    this.errors[this.state.editingPageNumber - 1].questions = errors;
-    this.props.handleOnQuestionsArraySave(questions, this.errors);
+    this.errors[this.state.editingPageNumber - 1].questionErrors = errors;
+    let pages = this.state.pages.map(p => p.getCopy());
+    pages[this.state.editingPageNumber - 1].questions = questions.map(q => q.getCopy());
+    this.props.handleOnPagesUpdate(pages, this.errors);
+    this.props.handleOnEditingQuestionNumberChange(-1);
   }
 
   render = () => {
@@ -104,6 +124,7 @@ export class PageNavigator extends Component {
               </NavItem>
             ))
           }
+          <NavItem onSelect={this.handleOnAddPageClick}>+</NavItem>
         </Nav>
         <div className="page">
           <div className="page-control">
@@ -139,13 +160,11 @@ export class PageNavigator extends Component {
 }
 
 PageNavigator.propTypes = {
-  editingPageNumber : PropTypes.number.isRequired,
   pages : PropTypes.arrayOf(PropTypes.instanceOf(Page)).isRequired,
   errors : PropTypes.arrayOf(PropTypes.instanceOf(PageErrors)).isRequired,
-  handleOnPageSwitch : PropTypes.func.isRequired,
   handleOnPagesUpdate : PropTypes.func.isRequired,
+  handleOnPageSwitch : PropTypes.func.isRequired,
   newEditingQuestionType : PropTypes.string.isRequired,
   editingQuestionNumber : PropTypes.number.isRequired,
-  handleOnQuestionsArraySave : PropTypes.func.isRequired,
   handleOnEditingQuestionNumberChange : PropTypes.func.isRequired,
 };
