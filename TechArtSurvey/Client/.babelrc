@@ -1,16 +1,11 @@
 {
   "presets": [
-    "react",
-    [
-      "es2015",
-      {
-        "modules": false
-      }
-    ]
+    "react", 
+    "es2015"
   ],
   "plugins": [
-    "transform-class-properties",
     "react-hot-loader/babel",
+    "transform-class-properties",
     "transform-object-rest-spread",
     [
       "module-resolver",

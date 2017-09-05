@@ -4,15 +4,14 @@ import PropTypes from 'prop-types';
 
 import { loginRequest, disableGreeting } from './actions';
 import { LoginForm } from './components/LoginForm';
-import { AuthPanel } from '../AuthPanel';
-import GreetingPanel from './components/GreetingPanel';
-
-import './LoginContainer.scss';
+import { AuthPanel } from '../components/AuthPanel';
+import { GreetingPanel } from './components/GreetingPanel';
 
 const mapStateToProps = (state) => ({
   errors : state.login.errors,
   actionString : 'Log In',
   isGreetingEnabled : state.login.isGreetingEnabled,
+  greetingMessage : state.login.greetingMessage,
 });
 
 const mapDispatchToProps = ({
@@ -21,28 +20,22 @@ const mapDispatchToProps = ({
 });
 
 export class LoginContainer extends Component {
-  constructor(props) {
-    super(props);
-  }
-
-  componentWillUnmount() {
+  componentWillUnmount = () => {
     this.props.disableGreeting();
   }
 
-  render() {
+  render = () => {
     return (
-      <div className="login-container">
-        { this.props.isGreetingEnabled ? <GreetingPanel /> : '' }
-        <AuthPanel
+      <AuthPanel
+        actionString={this.props.actionString}
+        errors={this.props.errors}
+      >
+        { this.props.isGreetingEnabled ? <GreetingPanel greetingMessage={this.props.greetingMessage} /> : '' }
+        <LoginForm
           actionString={this.props.actionString}
-          errors={this.props.errors}
-        >
-          <LoginForm
-            actionString={this.props.actionString}
-            loginRequest={this.props.loginRequest}
-          />
-        </AuthPanel>
-      </div>
+          loginRequest={this.props.loginRequest}
+        />
+      </AuthPanel>
     );
   }
 }
@@ -50,6 +43,7 @@ export class LoginContainer extends Component {
 LoginContainer.propTypes = {
   ...AuthPanel.propTypes,
   ...LoginForm.propTypes,
+  ...GreetingPanel.propTypes,
   isGreetingEnabled : PropTypes.bool.isRequired,
   disableGreeting : PropTypes.func.isRequired,
 };

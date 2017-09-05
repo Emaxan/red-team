@@ -9,7 +9,7 @@ import {
 } from './actionTypes';
 
 const usersInitialState = Record({
-  fetching : false,
+  isFetching : false,
   userList : List(),
   filterInput : '',
 });
@@ -18,15 +18,15 @@ const initialState = new usersInitialState();
 
 export const usersReducer = handleActions({
   [GET_USERS_START] : (state) =>
-    state.set('fetching', true),
+    state.set('isFetching', true),
 
   [GET_USERS_SUCCESS] : (state, action) =>
-    state.set('fetching', false)
+    state.set('isFetching', false)
       .set('userList', state.get('userList')
         .merge(List(action.payload.userList))),
 
   [GET_USERS_ERROR] : (state) =>
-    state.set('fetching', false),
+    state.set('isFetching', false),
 
   [GET_USERS_FILTER] : (state, action) =>
     state.set('filterInput', action.payload.filterInput),

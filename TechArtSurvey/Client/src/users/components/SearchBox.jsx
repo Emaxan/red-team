@@ -2,13 +2,16 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 export class SearchBox extends Component {
-  handleOnTextChanged(e) {
-    const text = e.target.value.trim();
+  handleOnTextChanged = (event) => {
+    const text = event.target.value.trim();
     this.props.setFilter(text);
   }
 
-  render() {
-    return <input placeholder="Search" onChange={this.handleOnTextChanged.bind(this)} />;
+  render = () => {
+    return <input
+      placeholder="Search"
+      onChange={this.handleOnTextChanged.bind(this)}
+    />;
   }
 }
 

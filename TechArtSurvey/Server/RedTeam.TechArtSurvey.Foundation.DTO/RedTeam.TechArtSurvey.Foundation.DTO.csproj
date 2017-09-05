@@ -34,7 +34,6 @@
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -50,6 +49,8 @@
     <Compile Include="SurveysDto\SurveyVersionDto.cs" />
     <Compile Include="SurveysDto\TemplateDto.cs" />
     <Compile Include="UsersDto\EditUserDto.cs" />
+    <Compile Include="UsersDto\ForgotPasswordDto.cs" />
+    <Compile Include="UsersDto\ResetPasswordDto.cs" />
     <Compile Include="UsersDto\RoleDto.cs" />
     <Compile Include="UsersDto\SurveyParticipantDto.cs" />
     <Compile Include="UsersDto\UserDto.cs" />

@@ -19,11 +19,11 @@ const mapStateToProps = (state) => ({
 const SideBar = userIsAuthenticated(Sidebar);
 
 class App extends Component {
-  componentDidUpdate(){
+  componentDidUpdate = () => {
     $.material.init({validate : false});
   }
 
-  render() {
+  render = () => {
     return (
       <div className="wrapper">
         <Header userName={this.props.userName} email={this.props.email} />

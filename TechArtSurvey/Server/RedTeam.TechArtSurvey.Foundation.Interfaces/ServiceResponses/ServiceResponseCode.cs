@@ -11,6 +11,7 @@
         InvalidCredentials,
         TokenExpired,
         TokenNotFound,
+        ResetPasswordTokenInvalid,
 
         SurveyNotFoundById,
         
