@@ -1,5 +1,4 @@
-﻿using JetBrains.Annotations;
-using RedTeam.Logger;
+﻿using RedTeam.Logger;
 using RedTeam.Repositories.Interfaces;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -71,18 +70,17 @@ namespace RedTeam.Repositories.EntityFramework.Repositories
             _dbSet.Remove(entity);
         }
 
-        public void DeleteRange(IEnumerable<TEntity> entities)
+        public void DeleteRange(IReadOnlyCollection<TEntity> entities)
         {
-            var ent = entities as IList<TEntity> ?? entities.ToList();
-            LoggerContext.Logger.Info($"Delete {ent.Count} entity from database with type {typeof(TEntity).Name}");
-            foreach (var entity in ent)
+            LoggerContext.Logger.Info($"Delete {entities.Count} entity from database with type {typeof(TEntity).Name}");
+            foreach (var entity in entities)
             {
                 if (!_dbSet.Local.Contains(entity))
                 {
                     _dbSet.Attach(entity);
                 }
             }
-            _dbSet.RemoveRange(ent);
+            _dbSet.RemoveRange(entities);
         }
     }
 }

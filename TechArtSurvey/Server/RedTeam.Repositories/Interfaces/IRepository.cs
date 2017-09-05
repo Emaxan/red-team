@@ -33,6 +33,6 @@ namespace RedTeam.Repositories.Interfaces
         /// <summary>
         ///     Delete range of entities.
         /// </summary>
-        void DeleteRange(IEnumerable<TEntity> entities);
+        void DeleteRange(IReadOnlyCollection<TEntity> entities);
     }
 }
