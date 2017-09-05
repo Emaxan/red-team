@@ -3,11 +3,11 @@ using JetBrains.Annotations;
 using RedTeam.Logger;
 using RedTeam.TechArtSurvey.Foundation.Dto.UsersDto;
 using RedTeam.TechArtSurvey.Foundation.Identity.Managers;
-using RedTeam.TechArtSurvey.Foundation.Responses;
 using RedTeam.TechArtSurvey.Foundation.Interfaces;
 using RedTeam.TechArtSurvey.Foundation.Interfaces.ServiceResponses;
+using RedTeam.TechArtSurvey.Foundation.Responses;
 
-namespace RedTeam.TechArtSurvey.Foundation
+namespace RedTeam.TechArtSurvey.Foundation.Services
 {
     [UsedImplicitly]
     public class ResetPasswordService : IResetPasswordService
