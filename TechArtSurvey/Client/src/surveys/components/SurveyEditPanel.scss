@@ -1,7 +1,6 @@
 .survey-edit-panel {
-  display: flex;
-  justify-content: space-evenly;
-  align-items: end;
+  display: -webkit-box;
+  margin-top: 20px;
 
   & .new-page.btn-group {
     float: right;
@@ -11,4 +10,8 @@
     padding-top: 10px;
     padding-bottom: 10px;
   }
+}
+
+.settings-panel {
+  margin-left: 20px;
 }

@@ -155,7 +155,7 @@ export class SurveyEditPanel extends Component {
             />
           </Form>
         </Panel>
-        <div>
+        <div className='settings-panel'>
           <div>
             <QuestionTypesPanel
               handleOnTypeChange={this.handleOnTypeChange}
