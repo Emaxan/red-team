@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data.Entity;
-using System.Diagnostics;
 using System.Threading.Tasks;
 using JetBrains.Annotations;
+using RedTeam.Logger;
 using RedTeam.Repositories.Interfaces;
 
 namespace RedTeam.Repositories.EntityFramework.Repositories
@@ -21,6 +20,7 @@ namespace RedTeam.Repositories.EntityFramework.Repositories
         public UnitOfWork(IDbContext context)
         {
             Context = context;
+            Context.Database.Log = s => LoggerContext.Logger.Info("DBQuery " + s);
             _repositoriesDictionary = new Dictionary<Type, object>();
         }
 
@@ -39,8 +39,6 @@ namespace RedTeam.Repositories.EntityFramework.Repositories
 
         public async Task SaveAsync()
         {
-            ((DbContext)Context).Database.Log = s => Debug.WriteLine(s);
-
             await Context.SaveChangesAsync();
         }
 
