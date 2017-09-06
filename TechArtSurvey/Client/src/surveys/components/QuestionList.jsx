@@ -8,7 +8,7 @@ import update from 'immutability-helper';
 import DraggableQuestion from './DraggableQuestion';
 import { NonEditingQuestionWrapper } from './questions/NonEditingQuestionWrapper';
 import { EditingQuestionWrapper } from './questions/EditingQuestionWrapper';
-import { getLastNumber, changeType } from './service';
+import { getLastNumber, changeQuestionType } from './service';
 import Question from '../models/Question';
 import QuestionError from '../models/QuestionError';
 
@@ -109,7 +109,7 @@ class QuestionList extends Component {
     let questions = oldQuestions.map(q => q.getCopy());
     let index = questions.findIndex(q => q.number === this.state.editingQuestionNumber);
     let oldQuestion = questions[index].getCopy();
-    let newQuestion = changeType(oldQuestion, type);
+    let newQuestion = changeQuestionType(oldQuestion, type);
 
     if (!newQuestion) {
       return null;

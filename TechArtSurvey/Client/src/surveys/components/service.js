@@ -1,7 +1,7 @@
 import Question from '../models/Question';
 import { questionTypes } from '../questionTypes';
 
-export const changeType = (oldQuestion, type) => {
+export const changeQuestionType = (oldQuestion, type) => {
   if (oldQuestion.type === type) {
     return null;
   }
@@ -41,15 +41,16 @@ export const getLastNumber = (questions) => {
   return numberList[numberList.length - 1];
 };
 
-const hasError = fieldError => fieldError != null;
+const isNotNull = fieldError => fieldError !== null;
 
 export const isPageValid = (pageErrors) => {
-  if (hasError(pageErrors.title) || pageErrors.questionErrors.length === 0) {
+  if (isNotNull(pageErrors.title) || pageErrors.questionErrors.length === 0) {
     return false;
   }
+
   let isValid = true;
   pageErrors.questionErrors.map(qe => {
-    if(hasError(qe.title) || hasError(qe.metaInfo)) {
+    if (isNotNull(qe.title) || isNotNull(qe.metaInfo)) {
       isValid = false;
     }
   });
@@ -58,7 +59,7 @@ export const isPageValid = (pageErrors) => {
 };
 
 export const isSurveyValid = (survey) => {
-  if(hasError(survey.title)) {
+  if (isNotNull(survey.title)) {
     return false;
   }
 
@@ -73,25 +74,27 @@ export const isSurveyValid = (survey) => {
   return isValid;
 };
 
-export const prepareSurvey = (survey) => {
+export const prepareSurveyForRequest = (survey) => {
   let newSurvey = survey.getCopy();
+
   let newPages = survey.pages.map((page, index) => {
     let newQuestions = page.questions.map(q => {
-      let variants = q.metaInfo.map(m => ({text : m}));
-      let newQuestion = {
+      return {
         title : q.title,
-        variants : variants,
+        variants : q.metaInfo.map(m => ({ text : m })),
         number : q.number,
-        type : {name : q.type},
+        type : { name : q.type },
         isRequired : q.isRequired,
       };
-      return newQuestion;
     });
-    let newPage = {...page};
+
+    let newPage = { ...page };
     newPage.questions = newQuestions;
     newPage.number = index;
+
     return newPage;
   });
+
   newSurvey.pages = newPages;
 
   return newSurvey;

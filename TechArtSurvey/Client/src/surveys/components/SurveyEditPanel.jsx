@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import { QuestionTypesPanel } from './QuestionTypesPanel';
 import { PageNavigator } from './PageNavigator';
 import { ParamsPanel } from './ParamsPanel';
-import { isSurveyValid, prepareSurvey } from './service';
+import { isSurveyValid, prepareSurveyForRequest } from './service';
 import { questionTypesArray } from './questionTypesPresentation';
 import { questionTypes } from '../questionTypes';
 import Survey from '../models/Survey';
@@ -46,7 +46,7 @@ export class SurveyEditPanel extends Component {
     if (!isSurveyValid(this.errors)) {
       alert('Invalid survey. Check up all required fields.');
     } else {
-      let survey = prepareSurvey(this.state.survey);
+      let survey = prepareSurveyForRequest(this.state.survey);
       console.log(survey);
       alert('Zaebis! Chotko! Survey is ready to be sent to the server');
     }
