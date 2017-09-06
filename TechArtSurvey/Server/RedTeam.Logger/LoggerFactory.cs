@@ -1,5 +1,4 @@
 ﻿using RedTeam.Logger.Interfaces;
-using System;
 using System.Reflection;
 
 namespace RedTeam.Logger

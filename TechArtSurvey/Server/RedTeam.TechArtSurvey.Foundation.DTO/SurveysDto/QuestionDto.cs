@@ -1,8 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using JetBrains.Annotations;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace RedTeam.TechArtSurvey.Foundation.Dto.SurveysDto
 {
+    [UsedImplicitly]
     public class QuestionDto
     {
         [Required(AllowEmptyStrings = false)]

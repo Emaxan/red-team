@@ -4,7 +4,6 @@ using RedTeam.Repositories.Interfaces;
 using RedTeam.TechArtSurvey.Repositories.Interfaces.Repositories;
 using System.Collections.Generic;
 using System.Data.Entity;
-using System.Linq;
 using System.Threading.Tasks;
 using RedTeam.TechArtSurvey.DomainModel.Entities.Users;
 

@@ -1,5 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
-using System.Data.Entity.ModelConfiguration;
+﻿using System.Data.Entity.ModelConfiguration;
 using RedTeam.TechArtSurvey.DomainModel.Entities.Surveys;
 
 namespace RedTeam.TechArtSurvey.Repositories.EF.Surveys

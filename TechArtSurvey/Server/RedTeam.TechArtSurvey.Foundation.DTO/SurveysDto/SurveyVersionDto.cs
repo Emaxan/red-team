@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using JetBrains.Annotations;
 
 namespace RedTeam.TechArtSurvey.Foundation.Dto.SurveysDto
 {
+    [UsedImplicitly]
     public class SurveyVersionDto
     {
         public int Version { get; set; }

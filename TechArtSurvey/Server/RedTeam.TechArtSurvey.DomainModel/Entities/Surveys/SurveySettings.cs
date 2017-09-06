@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace RedTeam.TechArtSurvey.DomainModel.Entities.Surveys
+﻿namespace RedTeam.TechArtSurvey.DomainModel.Entities.Surveys
 {
     public class SurveySettings
     {

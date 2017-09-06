@@ -1,7 +1,7 @@
+using System.Data.Entity.Migrations;
+
 namespace RedTeam.TechArtSurvey.Repositories.Migrations
 {
-    using System;
-    using System.Data.Entity.Migrations;
     
     public partial class AddSurveys : DbMigration
     {

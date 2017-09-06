@@ -1,6 +1,5 @@
 ﻿using RedTeam.Repositories.EntityFramework.Repositories;
 using RedTeam.Repositories.Interfaces;
-using RedTeam.TechArtSurvey.DomainModel.Entities.Surveys;
 using RedTeam.TechArtSurvey.Repositories.Interfaces;
 using RedTeam.TechArtSurvey.Repositories.Interfaces.Repositories;
 using RedTeam.TechArtSurvey.Repositories.Repositories;

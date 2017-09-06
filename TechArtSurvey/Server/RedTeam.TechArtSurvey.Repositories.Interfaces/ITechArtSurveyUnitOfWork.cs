@@ -1,5 +1,4 @@
 ﻿using RedTeam.Repositories.Interfaces;
-using RedTeam.TechArtSurvey.DomainModel.Entities.Surveys;
 using RedTeam.TechArtSurvey.Repositories.Interfaces.Repositories;
 
 namespace RedTeam.TechArtSurvey.Repositories.Interfaces
