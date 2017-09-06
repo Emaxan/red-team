@@ -2,12 +2,13 @@ import React, { Component } from 'react';
 import { Form, Col, Panel, FormGroup, FormControl, ControlLabel, Button, ButtonGroup, ButtonToolbar, Modal } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 
+import { questionTypes } from '../questionTypes';
 import { questionTypesArray } from './questionTypesPresentation';
 import { QuestionTypesPanel } from './QuestionTypesPanel';
+import { PageNavigator } from './PageNavigator';
 import { ParamsPanel } from './ParamsPanel';
 import Survey from '../models/Survey';
 import SurveyErrors from '../models/SurveyErrors';
-import { PageNavigator } from './PageNavigator';
 import { isSurveyValid, prepareSurvey } from './service';
 import { validateTitle } from '../../utils/validation/commonValidation';
 import { reactBootstrapValidationUtility as rbValidationUtility } from '../../utils/validation/reactBootstrapValidationUtility';
@@ -18,14 +19,12 @@ export class SurveyEditPanel extends Component {
   constructor(props) {
     super(props);
 
-    const survey = this.props.survey.getCopy();
-
     this.state = {
       editingCanceled : false,
       editingPageNumber : 1,
       editingQuestionNumber : 0,
-      newEditingQuestionType: null,
-      survey,
+      newEditingQuestionType: questionTypes.NONE,
+      survey : this.props.survey.getCopy(),
     };
 
     this.errors = new SurveyErrors();
@@ -44,26 +43,25 @@ export class SurveyEditPanel extends Component {
   }
 
   handleOnSaveClick = () => {
-    if(!isSurveyValid(this.errors)) {
+    if (!isSurveyValid(this.errors)) {
       alert('Invalid survey. Check up all required fields.');
-      return;
+    } else {
+      let survey = prepareSurvey(this.state.survey);
+      console.log(survey);
+      alert('Zaebis! Chotko! Survey is ready to be sent to the server');
     }
-    let survey = prepareSurvey(this.state.survey);
-    console.log(survey);
-    alert('Zaebis! Chotko! Survey is ready to be sent to the server');
   }
 
   handleOnTypeChange = (type) => {
-    if (this.state.editingQuestionNumber === -1) {
-      return;
+    if (this.state.editingQuestionNumber !== -1) {
+      this.setState({ newEditingQuestionType : type });
     }
-    this.setState({ newEditingQuestionType : type });
   }
 
   handleOnEditingQuestionNumberChange = (number) => {
     this.setState({
       editingQuestionNumber : number,
-      newEditingQuestionType : null,
+      newEditingQuestionType : questionTypes.NONE,
     });
   }
 
@@ -71,7 +69,7 @@ export class SurveyEditPanel extends Component {
     let newPages = pages.map(p => p.getCopy());
     let survey = this.state.survey.getCopy();
     survey.pages = newPages;
-    this.setState({survey});
+    this.setState({ survey });
     this.errors.pageErrors = errors;
   }
 
@@ -79,7 +77,7 @@ export class SurveyEditPanel extends Component {
     const newSettings = settings.getCopy();
     let survey = this.state.survey.getCopy();
     survey.settings = newSettings;
-    this.setState({survey});
+    this.setState({ survey });
   }
 
   handleOnCancelClick = () => {
@@ -98,19 +96,18 @@ export class SurveyEditPanel extends Component {
     this.setState({
       editingPageNumber : pageNumber,
       editingQuestionNumber : -1,
-      newEditingQuestionType : null,
+      newEditingQuestionType : questionTypes.NONE,
     });
   }
 
   getEditingQuestionType() {
-    if(this.state.editingQuestionNumber === -1) {
-      return null;
+    if (this.state.editingQuestionNumber === -1) {
+      return questionTypes.NONE;
     }
-    if(this.state.newEditingQuestionType) {
-      return this.state.newEditingQuestionType;
-    }
+
     let { questions } = this.state.survey.pages[this.state.editingPageNumber - 1];
-    let index = questions.findIndex(q => q.number == this.state.editingQuestionNumber);
+    let index = questions.findIndex(q => q.number === this.state.editingQuestionNumber);
+
     return questions[index].type;
   }
 
