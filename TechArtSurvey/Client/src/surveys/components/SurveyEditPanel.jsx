@@ -126,7 +126,7 @@ export class SurveyEditPanel extends Component {
   render = () => {
     return (
       <div className="survey-edit-panel">
-        <Panel className="col-md-6">
+        <Panel className="col-md-6 col-md-offset-3">
           <Form horizontal>
             <FormGroup validationState={this.validationStates.title}>
               <Col sm={10}>
