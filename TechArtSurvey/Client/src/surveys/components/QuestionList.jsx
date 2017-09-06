@@ -23,7 +23,7 @@ class QuestionList extends Component {
     this.state = {
       questions : questions,
       questionsBuffer : questionsBuffer,
-      editingQuestionNumber : -1,
+      editingQuestionNumber : 0,
     };
 
     this.lastNumber = getLastNumber(this.state.questions);
