@@ -3,12 +3,11 @@ import { Col, FormGroup, FormControl, Glyphicon, NavItem, Nav, ControlLabel } fr
 import PropTypes from 'prop-types';
 import QuestionList from './QuestionList';
 
-import {
-  validateTitle,
-} from '../../utils/validation/commonValidation';
+import { validateTitle } from '../../utils/validation/commonValidation';
 import Page from '../models/Page';
 import PageErrors from '../models/PageErrors';
 import { isPageValid } from './service';
+import { reactBootstrapValidationUtility as rbValidationUtility } from '../../utils/validation/reactBootstrapValidationUtility';
 
 import './PageNavigator.scss';
 
@@ -34,16 +33,6 @@ export class PageNavigator extends Component {
       pages : pages,
     });
     this.errors = props.errors.map(e => e.getCopy());
-  }
-
-  setValidationState = (fieldName, validationInfo) => {
-    if (validationInfo.isValid) {
-      this.errors[this.state.editingPageNumber - 1][fieldName] = null;
-      this.validationStates[fieldName] = 'success';
-    } else {
-      this.errors[this.state.editingPageNumber - 1][fieldName] = validationInfo.errors[0].message;
-      this.validationStates[fieldName] = 'error';
-    }
   }
 
   handleOnAddPageClick = () => {
@@ -90,13 +79,10 @@ export class PageNavigator extends Component {
 
   handleOnTitleChange = (event) => {
     let title = event.target.value;
-
-    this.setValidationState('title', validateTitle(title));
-
+    rbValidationUtility.setValidationState('title', this.errors[this.state.editingPageNumber - 1], this.validationStates, validateTitle(title));
     let pages = this.state.pages.map(p => p.getCopy());
     pages[this.state.editingPageNumber - 1].title = title;
     this.setState({ pages : pages });
-
     this.props.handleOnPagesUpdate(pages, this.errors);
   }
 

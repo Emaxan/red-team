@@ -10,6 +10,7 @@ import SurveyErrors from '../models/SurveyErrors';
 import { PageNavigator } from './PageNavigator';
 import { isSurveyValid, prepareSurvey } from './service';
 import { validateTitle } from '../../utils/validation/commonValidation';
+import { reactBootstrapValidationUtility as rbValidationUtility } from '../../utils/validation/reactBootstrapValidationUtility';
 
 import './SurveyEditPanel.scss';
 
@@ -34,22 +35,12 @@ export class SurveyEditPanel extends Component {
     };
   }
 
-  setValidationState = (fieldName, validationInfo) => {
-    if (validationInfo.isValid) {
-      this.errors[fieldName] = null;
-      this.validationStates[fieldName] = 'success';
-    } else {
-      this.errors[fieldName] = validationInfo.errors[0].message;
-      this.validationStates[fieldName] = 'error';
-    }
-  }
-
   handleOnTitleChange = (event) => {
     const title = event.target.value;
-    this.setValidationState('title', validateTitle(title));
+    rbValidationUtility.setValidationState('title', this.errors, this.validationStates, validateTitle(title));
     let survey = this.state.survey.getCopy();
     survey.title = title;
-    this.setState({survey});
+    this.setState({ survey });
   }
 
   handleOnSaveClick = () => {

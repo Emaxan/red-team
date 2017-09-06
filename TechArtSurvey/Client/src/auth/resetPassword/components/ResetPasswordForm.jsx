@@ -2,10 +2,8 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Form, FormGroup, FormControl, ControlLabel, Button } from 'react-bootstrap';
 
-import {
-  validatePassword,
-  validateConfirmationPassword,
-} from '../../../utils/validation/userValidation.js';
+import { validatePassword, validateConfirmationPassword } from '../../../utils/validation/userValidation.js';
+import { reactBootstrapValidationUtility as rbValidationUtility } from '../../../utils/validation/reactBootstrapValidationUtility';
 
 export class ResetPasswordForm extends Component {
   constructor(props) {
@@ -39,23 +37,24 @@ export class ResetPasswordForm extends Component {
     );
   }
 
-  setValidationState = (fieldName, validationInfo) => {
-    if (validationInfo.isValid) {
-      this.errors[fieldName] = null;
-      this.validationStates[fieldName] = 'success';
-    } else {
-      this.errors[fieldName] = validationInfo.errors[0].message;
-      this.validationStates[fieldName] = 'error';
-    }
-  }
-
   makeConfirmationPasswordValidation = (password, confirmationPassword) => {
-    this.setValidationState('confirmationNewPassword', validateConfirmationPassword(password, confirmationPassword));
+    rbValidationUtility.setValidationState(
+      'confirmationNewPassword',
+      this.errors,
+      this.validationStates,
+      validateConfirmationPassword(password, confirmationPassword),
+    );
   }
 
   handleOnNewPasswordChange = (event) => {
     const validationInfo = validatePassword(event.target.value);
-    this.setValidationState('newPassword', validationInfo);
+
+    rbValidationUtility.setValidationState(
+      'confirmationNewPassword',
+      this.errors,
+      this.validationStates,
+      validationInfo,
+    );
 
     if (validationInfo.isValid) {
       this.makeConfirmationPasswordValidation(event.target.value,
