@@ -1,4 +1,5 @@
 export const questionTypes = {
+  NONE : '',
   SINGLE_ANSWER : 'SINGLE_ANSWER',
   MULTIPLE_ANSWER : 'MULTIPLE_ANSWER',
   FILE_ANSWER : 'FILE_ANSWER',
