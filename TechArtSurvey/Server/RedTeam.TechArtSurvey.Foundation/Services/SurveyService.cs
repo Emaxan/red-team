@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 using AutoMapper;
 using JetBrains.Annotations;
@@ -83,7 +84,19 @@ namespace RedTeam.TechArtSurvey.Foundation.Services
         {
             LoggerContext.Logger.Info($"Delete Survey with id = {id}");
             
-            var surv = await _uow.Surveys.GetByIdForDeleteAsync(id);
+            var includes = new Expression<Func<Survey, object>>[]
+                           {
+                               s => s.Author,
+                               s => s.Versions,
+                               s => s.Versions.Select(v => v.Responses),
+                               s => s.Versions.Select(v => v.Responses.Select(r => r.Answers)),
+                               s => s.Versions.Select(v => v.Pages),
+                               s => s.Versions.Select(v => v.Pages.Select(p => p.Questions)),
+                               s => s.Versions.Select(v => v.Pages.Select(p => p.Questions.Select(q => q.Type))),
+                               s => s.Versions.Select(v => v.Pages.Select(p => p.Questions.Select(q => q.Variants)))
+                           };
+
+            var surv = await _uow.Surveys.GetByIdAsync(id, includes);
             if ( surv == null )
             {
                 return ServiceResponse.CreateUnsuccessful<object>(ServiceResponseCode.SurveyNotFoundById);
@@ -123,7 +136,17 @@ namespace RedTeam.TechArtSurvey.Foundation.Services
         {
             LoggerContext.Logger.Info($"Get Survey with id = {id} and version = {version}");
 
-            var surv = await _uow.Surveys.GetSurveyByIdAndVersionAsync(id, version);
+            var includes = new Expression<Func<Survey, object>>[]
+                           {
+                               s => s.Author,
+                               s => s.Versions.Where(v => v.Version == version),//TODO
+                               s => s.Versions.Select(v => v.Pages),
+                               s => s.Versions.Select(v => v.Pages.Select(p => p.Questions)),
+                               s => s.Versions.Select(v => v.Pages.Select(p => p.Questions.Select(q => q.Type))),
+                               s => s.Versions.Select(v => v.Pages.Select(p => p.Questions.Select(q => q.Variants)))
+                           };
+
+            var surv = await _uow.Surveys.GetSurveyByIdAndVersionAsync(id, version, includes);
             return surv == null ?
                        ServiceResponse.CreateUnsuccessful<EditSurveyDto>(ServiceResponseCode.SurveyNotFoundById) :
                        ServiceResponse.CreateSuccessful(_mapper.Map<Survey, EditSurveyDto>(surv));

@@ -75,7 +75,7 @@ namespace RedTeam.TechArtSurvey.Foundation.Services
         {
             LoggerContext.Logger.Info($"Delete user with id = {id}");
 
-            var us = await _uow.Users.GetByIdAsync(id);
+            var us = await _uow.Users.GetByIdAsync(id, u => u.Role);
             if (us == null)
             {
                 return ServiceResponse.CreateUnsuccessful<object>(ServiceResponseCode.UserNotFoundById);
@@ -89,7 +89,7 @@ namespace RedTeam.TechArtSurvey.Foundation.Services
         {
             LoggerContext.Logger.Info($"Get user with id = {id}");
 
-            var user = await _uow.Users.GetByIdAsync(id);
+            var user = await _uow.Users.GetByIdAsync(id, u => u.Role);
             return user == null ? 
                 ServiceResponse.CreateUnsuccessful<EditUserDto>(ServiceResponseCode.UserNotFoundById) : 
                 ServiceResponse.CreateSuccessful(_mapper.Map<User, EditUserDto>(user));
@@ -99,20 +99,17 @@ namespace RedTeam.TechArtSurvey.Foundation.Services
         {
             LoggerContext.Logger.Info($"Get user by email = {email}");
 
-            var user = await _uow.Users.GetUserByEmailAsync(email);
-            if (user == null)
-            {
-                return ServiceResponse.CreateUnsuccessful<EditUserDto>(ServiceResponseCode.UserNotFoundByEmail);
-            }
-
-            return ServiceResponse.CreateSuccessful(_mapper.Map<User, EditUserDto>(user));
+            var user = await _uow.Users.GetUserByEmailAsync(email, u => u.Role);
+            return user == null
+                       ? ServiceResponse.CreateUnsuccessful<EditUserDto>(ServiceResponseCode.UserNotFoundByEmail)
+                       : ServiceResponse.CreateSuccessful(_mapper.Map<User, EditUserDto>(user));
         }
 
         public async Task<IServiceResponse<bool>> CheckByEmailAsync(string email)
         {
             LoggerContext.Logger.Info($"Get user with email = {email}");
 
-            var user = await _uow.Users.GetUserByEmailAsync(email);
+            var user = await _uow.Users.GetUserByEmailAsync(email, u => u.Role);
             return user == null ? 
                 ServiceResponse.CreateSuccessful(false) : 
                 ServiceResponse.CreateSuccessful(true);
@@ -122,7 +119,7 @@ namespace RedTeam.TechArtSurvey.Foundation.Services
         {
             LoggerContext.Logger.Info("Get all users");
 
-            var users = await _uow.Users.GetAllAsync();
+            var users = await _uow.Users.GetAllAsync(u => u.Role);
             var mapped = _mapper.Map<IReadOnlyCollection<User>, IReadOnlyCollection<EditUserDto>>(users);
 
             return ServiceResponse.CreateSuccessful(mapped);

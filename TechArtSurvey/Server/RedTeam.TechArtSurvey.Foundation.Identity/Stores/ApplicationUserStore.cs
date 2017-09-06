@@ -41,21 +41,21 @@ namespace RedTeam.TechArtSurvey.Foundation.Identity.Stores
 
         public async Task<User> FindByIdAsync(int userId)
         {
-            var user = await _uow.Users.GetByIdAsync(Convert.ToInt32(userId));
+            var user = await _uow.Users.GetByIdAsync(Convert.ToInt32(userId), u => u.Role);
 
             return user;
         }
 
         public async Task<User> FindByNameAsync(string userName)
         {
-            var user = await _uow.Users.GetUserByEmailAsync(userName);
+            var user = await _uow.Users.GetUserByEmailAsync(userName, u => u.Role);
 
             return user;
         }
 
         public async Task<User> FindByEmailAsync(string email)
         {
-            var user = await _uow.Users.GetUserByEmailAsync(email);
+            var user = await _uow.Users.GetUserByEmailAsync(email, u => u.Role);
 
             return user;
         }
@@ -155,12 +155,13 @@ namespace RedTeam.TechArtSurvey.Foundation.Identity.Stores
             {
                 throw new ArgumentNullException(nameof(user));
             }
-            if (user.Role == null)
-            {
-                return Task.FromResult<IList<string>>(new List<string>());
-            }
 
-            return Task.FromResult<IList<string>>(new List<string> { user.Role.RoleType.ToString() });
+            return Task.FromResult<IList<string>>(user.Role == null
+                                                      ? new List<string>()
+                                                      : new List<string>
+                                                        {
+                                                            user.Role.RoleType.ToString()
+                                                        });
         }
 
         public Task<bool> IsInRoleAsync(User user, string roleName)
@@ -196,7 +197,7 @@ namespace RedTeam.TechArtSurvey.Foundation.Identity.Stores
 
         public async Task<IReadOnlyCollection<User>> GetAllAsync()
         {
-            return await _uow.Users.GetAllAsync();
+            return await _uow.Users.GetAllAsync(u => u.Role);
         }
     }
 }

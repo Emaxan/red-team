@@ -1,8 +1,10 @@
-﻿using RedTeam.Logger;
+﻿using System;
+using RedTeam.Logger;
 using RedTeam.Repositories.Interfaces;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 
 namespace RedTeam.Repositories.EntityFramework.Repositories
@@ -35,20 +37,29 @@ namespace RedTeam.Repositories.EntityFramework.Repositories
             return _dbSet.Add(entity);
         }
         
-        public virtual async Task<TEntity> GetByIdAsync(int id)
+        public virtual async Task<TEntity> GetByIdAsync(int id, params Expression<Func<TEntity, object>>[] includes)
         {
             LoggerContext.Logger.Info($"Get entity from database with id {id}");
             var entity = await _dbSet.FindAsync(id);
 
-            return entity;
+            return entity == null
+                       ? null
+                       : await includes.Aggregate(new List<TEntity>
+                                                  {
+                                                      entity
+                                                  }.AsQueryable(),
+                                                  (cur, include) => cur.Include(include)).
+                             SingleOrDefaultAsync();
         }
 
-        public virtual async Task<IReadOnlyCollection<TEntity>> GetAllAsync()
+        public virtual async Task<IReadOnlyCollection<TEntity>> GetAllAsync(params Expression<Func<TEntity, object>>[] includes)
         {
             LoggerContext.Logger.Info($"Get all entities from database with type {typeof(TEntity).Name}");
-            var entities = await _dbSet.ToListAsync();
 
-            return entities;
+            return await includes.Aggregate<
+                                      Expression<Func<TEntity, object>>, 
+                                      IQueryable<TEntity>
+                                  >(_dbSet, (cur, include) => cur.Include(include)).ToListAsync();
         }
 
         public virtual void Update(TEntity entity)

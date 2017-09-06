@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 
 namespace RedTeam.Repositories.Interfaces
@@ -13,12 +15,12 @@ namespace RedTeam.Repositories.Interfaces
         /// <summary>
         ///     Get all entities
         /// </summary>
-        Task<IReadOnlyCollection<TEntity>> GetAllAsync();
+        Task<IReadOnlyCollection<TEntity>> GetAllAsync(params Expression<Func<TEntity, object>>[] includes);
 
         /// <summary>
         ///     Finds one entity based on its Identifier.
         /// </summary>
-        Task<TEntity> GetByIdAsync(int id);
+        Task<TEntity> GetByIdAsync(int id, params Expression<Func<TEntity, object>>[] includes);
 
         /// <summary>
         ///     Updates the existing entity.
