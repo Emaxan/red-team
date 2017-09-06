@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import { Col, FormGroup, FormControl, Glyphicon, NavItem, Nav, ControlLabel } from 'react-bootstrap';
 import PropTypes from 'prop-types';
-import QuestionList from './QuestionList';
 
-import { validateTitle } from '../../utils/validation/commonValidation';
+import { isPageValid } from './service';
+import QuestionList from './QuestionList';
 import Page from '../models/Page';
 import PageErrors from '../models/PageErrors';
-import { isPageValid } from './service';
+import { validateTitle } from '../../utils/validation/commonValidation';
 import { reactBootstrapValidationUtility as rbValidationUtility } from '../../utils/validation/reactBootstrapValidationUtility';
 
 import './PageNavigator.scss';
@@ -14,10 +14,10 @@ import './PageNavigator.scss';
 export class PageNavigator extends Component {
   constructor(props) {
     super(props);
-    let pages = this.props.pages.map(p => p.getCopy());
+
     this.state = {
       editingPageNumber : 1,
-      pages : pages,
+      pages : this.props.pages.map(p => p.getCopy()),
     };
 
     this.errors = this.props.errors.map(e => e.getCopy());
@@ -29,21 +29,19 @@ export class PageNavigator extends Component {
 
   componentWillReceiveProps = (props) => {
     let pages = props.pages.map(p => p.getCopy());
-    this.setState({
-      pages : pages,
-    });
+    this.setState({ pages });
     this.errors = props.errors.map(e => e.getCopy());
   }
 
   handleOnAddPageClick = () => {
     let pages = this.state.pages.map(p => p.getCopy());
     pages.push(new Page(pages.length + 1));
+
     this.setState({
       editingPageNumber : pages.length,
-      editingQuestionNumber : 0,
-      newEditingQuestionType : null,
       pages,
     });
+
     this.errors.push(new PageErrors());
     this.props.handleOnPagesUpdate(pages, this.errors);
     this.props.handleOnPageSwitch(pages.length);
@@ -51,45 +49,46 @@ export class PageNavigator extends Component {
   }
 
   handleOnPageSwitch = (pageNumber) => {
-    if(pageNumber == this.state.editingPageNumber) {
-      return;
+    if (pageNumber !== this.state.editingPageNumber) {
+      this.setState({ editingPageNumber : pageNumber });
+      this.props.handleOnPageSwitch(pageNumber);
     }
-    this.setState({
-      editingPageNumber : pageNumber,
-      editingQuestionNumber : -1,
-      newEditingQuestionType : null,
-    });
-    this.props.handleOnPageSwitch(pageNumber);
   }
 
-  handleOnDeleteClick = () => {
+  handleOnDeletePageClick = () => {
     let pages = this.state.pages.map(p => p.getCopy());
-    if(pages.length == 1) {
-      return;
+
+    if (pages.length !== 1) {
+      pages.splice(this.state.editingPageNumber - 1, 1);
+      this.errors.splice(this.state.editingPageNumber - 1, 1);
+
+      this.setState({
+        editingPageNumber : 1,
+        pages,
+      });
+
+      this.props.handleOnPagesUpdate(pages, this.errors);
+      this.handleOnPageSwitch(1);
     }
-    pages.splice(this.state.editingPageNumber - 1, 1);
-    this.errors.splice(this.state.editingPageNumber - 1, 1);
-    this.setState({
-      editingPageNumber: 1,
-      pages : pages,
-    });
-    this.props.handleOnPagesUpdate(pages, this.errors);
-    this.handleOnPageSwitch(1);
   }
 
-  handleOnTitleChange = (event) => {
+  handleOnPageTitleChange = (event) => {
     let title = event.target.value;
     rbValidationUtility.setValidationState('title', this.errors[this.state.editingPageNumber - 1], this.validationStates, validateTitle(title));
+
     let pages = this.state.pages.map(p => p.getCopy());
     pages[this.state.editingPageNumber - 1].title = title;
-    this.setState({ pages : pages });
+    this.setState({ pages });
+
     this.props.handleOnPagesUpdate(pages, this.errors);
   }
 
   handleOnQuestionsArraySave = (questions, errors) => {
     this.errors[this.state.editingPageNumber - 1].questionErrors = errors;
+
     let pages = this.state.pages.map(p => p.getCopy());
     pages[this.state.editingPageNumber - 1].questions = questions.map(q => q.getCopy());
+
     this.props.handleOnPagesUpdate(pages, this.errors);
     this.props.handleOnEditingQuestionNumberChange(-1);
   }
@@ -125,12 +124,12 @@ export class PageNavigator extends Component {
                 <FormControl
                   type="text"
                   value={this.state.pages[this.state.editingPageNumber - 1].title}
-                  onChange={this.handleOnTitleChange}
+                  onChange={this.handleOnPageTitleChange}
                   placeholder="Enter page title"
                 />
               </Col>
             </FormGroup>
-            <Glyphicon glyph="trash" role="button" title="Remove page" onClick={this.handleOnDeleteClick} className="page-delete"/>
+            <Glyphicon glyph="trash" role="button" title="Remove page" onClick={this.handleOnDeletePageClick} className="page-delete"/>
           </div>
           <QuestionList
             questions={this.state.pages[this.state.editingPageNumber - 1].questions}

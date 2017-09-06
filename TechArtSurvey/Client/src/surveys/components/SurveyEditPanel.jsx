@@ -2,14 +2,14 @@ import React, { Component } from 'react';
 import { Form, Col, Panel, FormGroup, FormControl, ControlLabel, Button, ButtonGroup, ButtonToolbar, Modal } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 
-import { questionTypes } from '../questionTypes';
-import { questionTypesArray } from './questionTypesPresentation';
 import { QuestionTypesPanel } from './QuestionTypesPanel';
 import { PageNavigator } from './PageNavigator';
 import { ParamsPanel } from './ParamsPanel';
+import { isSurveyValid, prepareSurvey } from './service';
+import { questionTypesArray } from './questionTypesPresentation';
+import { questionTypes } from '../questionTypes';
 import Survey from '../models/Survey';
 import SurveyErrors from '../models/SurveyErrors';
-import { isSurveyValid, prepareSurvey } from './service';
 import { validateTitle } from '../../utils/validation/commonValidation';
 import { reactBootstrapValidationUtility as rbValidationUtility } from '../../utils/validation/reactBootstrapValidationUtility';
 
