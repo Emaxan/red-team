@@ -51,13 +51,14 @@ export class PageNavigator extends Component {
     pages.push(new Page(pages.length + 1));
     this.setState({
       editingPageNumber : pages.length,
-      editingQuestionNumber : -1,
+      editingQuestionNumber : 0,
       newEditingQuestionType : null,
       pages,
     });
     this.errors.push(new PageErrors());
     this.props.handleOnPagesUpdate(pages, this.errors);
     this.props.handleOnPageSwitch(pages.length);
+    this.props.handleOnEditingQuestionNumberChange(0);
   }
 
   handleOnPageSwitch = (pageNumber) => {
