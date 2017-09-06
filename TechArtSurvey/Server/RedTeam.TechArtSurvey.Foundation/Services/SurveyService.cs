@@ -12,6 +12,7 @@ using RedTeam.TechArtSurvey.Foundation.Dto.SurveysDto;
 using RedTeam.TechArtSurvey.Foundation.Interfaces;
 using RedTeam.TechArtSurvey.Foundation.Responses;
 using RedTeam.Common.EnvironmentInfo;
+using RedTeam.Common.Validator;
 
 namespace RedTeam.TechArtSurvey.Foundation.Services
 {
@@ -20,15 +21,13 @@ namespace RedTeam.TechArtSurvey.Foundation.Services
     {
         private readonly ITechArtSurveyUnitOfWork _uow;
         private readonly IMapper _mapper;
-        private readonly IValidationService _validationService;
         private readonly IEnvironmentInfoService _environmentInfoService;
 
 
-        public SurveyService(ITechArtSurveyUnitOfWork uow, IMapper mapper, IValidationService validationService, IEnvironmentInfoService environmentInfoService)
+        public SurveyService(ITechArtSurveyUnitOfWork uow, IMapper mapper, IEnvironmentInfoService environmentInfoService)
         {
             _uow = uow;
             _mapper = mapper;
-            _validationService = validationService;
             _environmentInfoService = environmentInfoService;
         }
 
@@ -43,10 +42,11 @@ namespace RedTeam.TechArtSurvey.Foundation.Services
             var version = survey.Versions.First();
 
             if(version.Pages.Any(
-                page => page.Questions.Any(
-                    question => !_validationService.ValidateDefaultValue(question.Default,question.Type.Type)
+                    page => page.Questions.Any(
+                        question => ValidatorFactory.
+                            GetValidator(question.Type.Type).
+                            ValidateDefaultValue(question.Default))
                 )
-              )
             )
             {
                 return ServiceResponse.CreateUnsuccessful<SurveyDto>(ServiceResponseCode.DefaultValueIsWrong);

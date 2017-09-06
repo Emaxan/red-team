@@ -64,7 +64,6 @@
     <Compile Include="Responses\ServiceResponse.cs" />
     <Compile Include="Services\SurveyService.cs" />
     <Compile Include="Services\UserService.cs" />
-    <Compile Include="Services\ValidationService.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="BusinessModel\" />
