@@ -90,7 +90,10 @@ export class PageNavigator extends Component {
     pages[this.state.editingPageNumber - 1].questions = questions.map(q => q.getCopy());
 
     this.props.handleOnPagesUpdate(pages, this.errors);
-    this.props.handleOnEditingQuestionNumberChange(resetEditingQuestionNumber ? -1 : this.props.editingQuestionNumber);
+
+    if (resetEditingQuestionNumber) {
+      this.props.handleOnEditingQuestionNumberChange(-1);
+    }
   }
 
   render = () => {

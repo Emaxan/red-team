@@ -46,7 +46,11 @@ const questionTarget = {
 
 class DraggableQuestion extends Component {
   render() {
-    const opacity = this.props.isDragging ? 0.5 : 1;
+    let opacity = this.props.isDragging ? 0 : 1;
+
+    if (!this.props.canDrag) {
+      opacity = 1;
+    }
 
     return (
       this.props.connectDragSource(this.props.connectDropTarget(
