@@ -1,6 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace RedTeam.TechArtSurvey.Foundation.Dto.UsersDto
+﻿namespace RedTeam.TechArtSurvey.Foundation.Dto.UsersDto
 {
     public class ReadUserDto : UserDto
     {
