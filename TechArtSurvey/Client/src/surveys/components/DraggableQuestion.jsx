@@ -50,6 +50,14 @@ class DraggableQuestion extends Component {
 
     if (!this.props.canDrag) {
       opacity = 1;
+
+      return (
+        this.props.connectDropTarget(
+          <div style={{ opacity }} ref={node => (this.node = node)}>
+            {this.props.children}
+          </div>,
+        )
+      );
     }
 
     return (
