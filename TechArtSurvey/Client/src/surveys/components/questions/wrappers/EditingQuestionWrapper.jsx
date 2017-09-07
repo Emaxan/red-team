@@ -2,12 +2,10 @@ import React, { Component } from 'react';
 import { Panel, Button, Checkbox, ButtonGroup, Glyphicon } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 
-import { questionsFactory } from '../questionsFactory';
-import Question from '../../models/Question';
-import QuestionError from '../../models/QuestionError';
-import {
-  VARIANTS_ARE_REQUIRED,
-} from '../errors';
+import { questionsFactory } from '../../questionsFactory';
+import Question from '../../../models/Question';
+import QuestionError from '../../../models/QuestionError';
+import { VARIANTS_ARE_REQUIRED } from '../../errors';
 
 import './EditingQuestionWrapper.scss';
 
@@ -18,6 +16,7 @@ export class EditingQuestionWrapper extends Component {
     this.state = {
       question : this.props.question.getCopy(),
       errors : this.props.errors.getCopy(),
+      overInput : false,
     };
   }
 
@@ -72,35 +71,40 @@ export class EditingQuestionWrapper extends Component {
     return this.state.errors.title === null;
   }
 
-  render = () =>
-    <div>
-      <Panel className="edit-question" onMouseEnter={() => console.log('enter')} onMouseLeave={() => console.log('leave')}>
-        <div className="top-actions">
-          <Checkbox onChange={this.handleOnRequiredClick} checked={this.state.question.isRequired} className="top-actions__required">
+  render = () => {
+    const element = (
+      <div>
+        <Panel className="edit-question" onMouseEnter={() => this.setState({ overInput : true })} onMouseLeave={() => this.setState({ overInput : false })}>
+          <div className="top-actions">
+            <Checkbox onChange={this.handleOnRequiredClick} checked={this.state.question.isRequired} className="top-actions__required">
             Required
-          </Checkbox>
-          <Glyphicon glyph="trash" role="button" title="Remove question" onClick={this.handleOnDeleteClick} />
-        </div>
-        {
-          questionsFactory[this.state.question.type](
-            this.state.question,
-            this.handleOnQuestionUpdate,
-            {
-              editing : this.props.editing,
-              errors : this.state.errors,
-            },
-          )
-        }
-        <ButtonGroup className="bottom-actions">
-          <Button onClick={this.handleOnSaveClick} disabled={!this.isQuestionValid()}>
+            </Checkbox>
+            <Glyphicon glyph="trash" role="button" title="Remove question" onClick={this.handleOnDeleteClick} />
+          </div>
+          {
+            questionsFactory[this.state.question.type](
+              this.state.question,
+              this.handleOnQuestionUpdate,
+              {
+                editing : this.props.editing,
+                errors : this.state.errors,
+              },
+            )
+          }
+          <ButtonGroup className="bottom-actions">
+            <Button onClick={this.handleOnSaveClick} disabled={!this.isQuestionValid()}>
             Save
-          </Button>
-          <Button onClick={this.handleOnCancelClick}>
+            </Button>
+            <Button onClick={this.handleOnCancelClick}>
             Cancel
-          </Button>
-        </ButtonGroup>
-      </Panel>
-    </div>;
+            </Button>
+          </ButtonGroup>
+        </Panel>
+      </div>
+    );
+
+    return element;
+  }
 }
 
 EditingQuestionWrapper.propTypes = {

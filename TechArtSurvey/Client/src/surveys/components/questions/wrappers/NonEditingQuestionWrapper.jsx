@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import { Button, Glyphicon } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 
-import { questionsFactory } from '../questionsFactory';
-import Question from '../../models/Question';
-import QuestionError from '../../models/QuestionError';
+import { questionsFactory } from '../../questionsFactory';
+import Question from '../../../models/Question';
+import QuestionError from '../../../models/QuestionError';
 
 import './NonEditingQuestionWrapper.scss';
 
