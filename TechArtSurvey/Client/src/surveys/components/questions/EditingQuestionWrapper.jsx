@@ -74,7 +74,7 @@ export class EditingQuestionWrapper extends Component {
 
   render = () =>
     <div>
-      <Panel className="edit-question">
+      <Panel className="edit-question" onMouseEnter={() => console.log('enter')} onMouseLeave={() => console.log('leave')}>
         <div className="top-actions">
           <Checkbox onChange={this.handleOnRequiredClick} checked={this.state.question.isRequired} className="top-actions__required">
             Required

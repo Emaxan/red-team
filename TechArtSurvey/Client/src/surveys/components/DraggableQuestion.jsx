@@ -5,6 +5,10 @@ import { DragSource, DropTarget  } from 'react-dnd';
 import { ItemTypes } from './constants';
 
 const questionSource = {
+  canDrag(props) {
+    return props.canDrag;
+  },
+
   beginDrag(props) {
     return {
       id : props.id,
@@ -62,6 +66,7 @@ DraggableQuestion.propTypes = {
   index : PropTypes.number.isRequired,
   moveQuestion : PropTypes.func.isRequired,
   children : PropTypes.any.isRequired,
+  canDrag : PropTypes.bool.isRequired,
 };
 
 const dropTargetCollect = (connect) => ({

@@ -43,28 +43,6 @@ class QuestionList extends Component {
     this.errors = props.errors;
   }
 
-  moveQuestion = (dragIndex, hoverIndex) => {
-    const dragQuestion = this.state.questionsBuffer[dragIndex];
-
-    this.setState(update(this.state, {
-      questionsBuffer: {
-        $splice: [
-          [dragIndex, 1],
-          [hoverIndex, 0, dragQuestion],
-        ],
-      },
-    }));
-
-    let questionsBuffer = this.state.questionsBuffer.map(q => q.getCopy());
-    let questions = questionsBuffer.map(q => q.getCopy());
-
-    const temp = this.errors[dragIndex];
-    this.errors[dragIndex] = this.errors[hoverIndex];
-    this.errors[hoverIndex] = temp;
-
-    this.props.handleOnQuestionsArraySave(questions, this.errors);
-  }
-
   handleOnAddQuestionClick = () => {
     let questions = this.state.questions.map(q => q.getCopy());
     questions.push(new Question(++this.lastNumber));
@@ -120,6 +98,28 @@ class QuestionList extends Component {
     return questions;
   }
 
+  moveQuestion = (dragIndex, hoverIndex) => {
+    const dragQuestion = this.state.questionsBuffer[dragIndex];
+
+    this.setState(update(this.state, {
+      questionsBuffer: {
+        $splice: [
+          [dragIndex, 1],
+          [hoverIndex, 0, dragQuestion],
+        ],
+      },
+    }));
+
+    let questionsBuffer = this.state.questionsBuffer.map(q => q.getCopy());
+    let questions = questionsBuffer.map(q => q.getCopy());
+
+    const temp = this.errors[dragIndex];
+    this.errors[dragIndex] = this.errors[hoverIndex];
+    this.errors[hoverIndex] = temp;
+
+    this.props.handleOnQuestionsArraySave(questions, this.errors, false);
+  }
+
   render = () => {
     return (
       <div>
@@ -132,6 +132,7 @@ class QuestionList extends Component {
                   id={question.number}
                   index={index}
                   moveQuestion={this.moveQuestion}
+                  canDrag={false}
                 >
                   <NonEditingQuestionWrapper
                     question={question}
@@ -151,6 +152,7 @@ class QuestionList extends Component {
                 id={question.number}
                 index={index}
                 moveQuestion={this.moveQuestion}
+                canDrag={true}
               >
                 <EditingQuestionWrapper
                   question={question}
