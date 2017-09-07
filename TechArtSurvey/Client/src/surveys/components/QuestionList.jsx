@@ -5,7 +5,7 @@ import { DragDropContext } from 'react-dnd';
 import HTML5Backend from 'react-dnd-html5-backend';
 import update from 'immutability-helper';
 
-import DraggableQuestion from './DraggableQuestion';
+import DraggableQuestion from './questions/dnd/DraggableQuestion';
 import { NonEditingQuestionWrapper } from './questions/wrappers/NonEditingQuestionWrapper';
 import { EditingQuestionWrapper } from './questions/wrappers/EditingQuestionWrapper';
 import { getLastNumber, changeQuestionType } from './service';
