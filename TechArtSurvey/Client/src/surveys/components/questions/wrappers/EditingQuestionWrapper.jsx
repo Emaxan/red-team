@@ -5,7 +5,6 @@ import PropTypes from 'prop-types';
 import { questionsFactory } from '../../questionsFactory';
 import Question from '../../../models/Question';
 import QuestionError from '../../../models/QuestionError';
-import { VARIANTS_ARE_REQUIRED } from '../../errors';
 
 import './EditingQuestionWrapper.scss';
 
@@ -42,11 +41,7 @@ export class EditingQuestionWrapper extends Component {
     });
     question.metaInfo = metaInfo;
     let errors = this.state.errors.getCopy();
-    if(metaInfo.length === 0) {
-      errors.metaInfo = VARIANTS_ARE_REQUIRED;
-    } else {
-      errors.metaInfo = null;
-    }
+    errors.metaInfo = null;
     const q = question.getCopy();
     this.setState({ question: q, errors : errors.getCopy() });
     this.props.handleOnQuestionSave(q, errors);
