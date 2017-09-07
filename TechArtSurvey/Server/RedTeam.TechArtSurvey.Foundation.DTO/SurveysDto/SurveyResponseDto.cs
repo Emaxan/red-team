@@ -14,7 +14,7 @@ namespace RedTeam.TechArtSurvey.Foundation.Dto.SurveysDto
 
         public SurveyVersionDto SurveyVersion { get; set; }
 
-        public SurveyParticipantDto User { get; set; }
+        public UserDto User { get; set; }
 
         public ICollection<QuestionAnswerDto> Answers { get; set; }
     }

@@ -14,9 +14,9 @@ namespace RedTeam.TechArtSurvey.Initializer.AutofacModules
             builder.Register(c => new MapperConfiguration(cfg =>
                                                           {
                                                               cfg.AddProfiles(GetType().Assembly);
-                                                              cfg.CreateMap<User, UserDto>().ReverseMap();
+                                                              cfg.CreateMap<User, ReadUserDto>().ReverseMap();
                                                               cfg.CreateMap<User, EditUserDto>().ReverseMap();
-                                                              cfg.CreateMap<User, SurveyParticipantDto>().ReverseMap();
+                                                              cfg.CreateMap<User, UserDto>().ReverseMap();
                                                               cfg.CreateMap<Role, RoleDto>().ReverseMap();
                                                               cfg.CreateMap<Survey, SurveyDto>().ReverseMap();
                                                               cfg.CreateMap<Survey, EditSurveyDto>().ReverseMap();

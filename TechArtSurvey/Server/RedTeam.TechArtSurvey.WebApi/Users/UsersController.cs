@@ -43,7 +43,7 @@ namespace RedTeam.TechArtSurvey.WebApi.Users
         // GET api/Users/{id}
         [Route("{id}")]
         [HttpGet]
-        public async Task<IServiceResponse<EditUserDto>> GetUser(int id)
+        public async Task<IServiceResponse<ReadUserDto>> GetUser(int id)
         {
             LoggerContext.Logger.Info($"Get User with id = {id}");
 
@@ -63,7 +63,7 @@ namespace RedTeam.TechArtSurvey.WebApi.Users
 
         [Route("")]
         [HttpGet]
-        public async Task<IServiceResponse<IReadOnlyCollection<EditUserDto>>> GetUsers()
+        public async Task<IServiceResponse<IReadOnlyCollection<ReadUserDto>>> GetUsers()
         {
             LoggerContext.Logger.Info("Get all users");
 

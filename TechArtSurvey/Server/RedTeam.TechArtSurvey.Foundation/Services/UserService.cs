@@ -32,14 +32,14 @@ namespace RedTeam.TechArtSurvey.Foundation.Services
         }
 
 
-        public async Task<IServiceResponse<UserDto>> CreateAsync(UserDto userDto)
+        public async Task<IServiceResponse<EditUserDto>> CreateAsync(EditUserDto userDto)
         {
-            var us = _mapper.Map<UserDto, User>(userDto);
+            var us = _mapper.Map<EditUserDto, User>(userDto);
             us.Role = await _roleManager.FindByNameAsync(default(RoleTypes).ToString());
             var result = await _userManager.CreateAsync(us, us.Password);
             return !result.Succeeded ? 
-                ServiceResponse.CreateUnsuccessful<UserDto>(ServiceResponseCode.UserAlreadyExists) : 
-                ServiceResponse.CreateSuccessful(_mapper.Map<User, UserDto>(us));
+                ServiceResponse.CreateUnsuccessful<EditUserDto>(ServiceResponseCode.UserAlreadyExists) : 
+                ServiceResponse.CreateSuccessful(_mapper.Map<User, EditUserDto>(us));
         }
 
         public async Task<IServiceResponse<ClaimsIdentity>> GetClaimsByCredentialsAsync(string email, string password)
@@ -85,24 +85,24 @@ namespace RedTeam.TechArtSurvey.Foundation.Services
             return ServiceResponse.CreateSuccessful();
         }
 
-        public async Task<IServiceResponse<EditUserDto>> GetByIdAsync(int id)
+        public async Task<IServiceResponse<ReadUserDto>> GetByIdAsync(int id)
         {
             LoggerContext.Logger.Info($"Get user with id = {id}");
 
             var user = await _uow.Users.GetByIdAsync(id, u => u.Role);
             return user == null ? 
-                ServiceResponse.CreateUnsuccessful<EditUserDto>(ServiceResponseCode.UserNotFoundById) : 
-                ServiceResponse.CreateSuccessful(_mapper.Map<User, EditUserDto>(user));
+                ServiceResponse.CreateUnsuccessful<ReadUserDto>(ServiceResponseCode.UserNotFoundById) : 
+                ServiceResponse.CreateSuccessful(_mapper.Map<User, ReadUserDto>(user));
         }
 
-        public async Task<IServiceResponse<EditUserDto>> GetByEmailAsync(string email)
+        public async Task<IServiceResponse<ReadUserDto>> GetByEmailAsync(string email)
         {
             LoggerContext.Logger.Info($"Get user by email = {email}");
 
             var user = await _uow.Users.GetUserByEmailAsync(email, u => u.Role);
             return user == null
-                       ? ServiceResponse.CreateUnsuccessful<EditUserDto>(ServiceResponseCode.UserNotFoundByEmail)
-                       : ServiceResponse.CreateSuccessful(_mapper.Map<User, EditUserDto>(user));
+                       ? ServiceResponse.CreateUnsuccessful<ReadUserDto>(ServiceResponseCode.UserNotFoundByEmail)
+                       : ServiceResponse.CreateSuccessful(_mapper.Map<User, ReadUserDto>(user));
         }
 
         public async Task<IServiceResponse<bool>> CheckByEmailAsync(string email)
@@ -115,12 +115,12 @@ namespace RedTeam.TechArtSurvey.Foundation.Services
                 ServiceResponse.CreateSuccessful(true);
         }
 
-        public async Task<IServiceResponse<IReadOnlyCollection<EditUserDto>>> GetAllAsync()
+        public async Task<IServiceResponse<IReadOnlyCollection<ReadUserDto>>> GetAllAsync()
         {
             LoggerContext.Logger.Info("Get all users");
 
             var users = await _uow.Users.GetAllAsync(u => u.Role);
-            var mapped = _mapper.Map<IReadOnlyCollection<User>, IReadOnlyCollection<EditUserDto>>(users);
+            var mapped = _mapper.Map<IReadOnlyCollection<User>, IReadOnlyCollection<ReadUserDto>>(users);
 
             return ServiceResponse.CreateSuccessful(mapped);
         }

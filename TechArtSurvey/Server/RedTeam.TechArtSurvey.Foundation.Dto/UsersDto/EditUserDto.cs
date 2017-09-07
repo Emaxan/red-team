@@ -1,7 +1,11 @@
-﻿namespace RedTeam.TechArtSurvey.Foundation.Dto.UsersDto
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace RedTeam.TechArtSurvey.Foundation.Dto.UsersDto
 {
-    public class EditUserDto : UserDto
+    public class EditUserDto : ReadUserDto
     {
-        public int Id { get; set; }
+        [Required]
+        [MinLength(8, ErrorMessage = "Password should be at least 8 characters")]
+        public string Password { get; set; }
     }
 }
