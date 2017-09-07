@@ -11,9 +11,10 @@ namespace RedTeam.Common.Validator
             {
                 case QuestionTypeEnum.Multi:
                 case QuestionTypeEnum.Single:
-                case QuestionTypeEnum.Text:
                 case QuestionTypeEnum.File:
                     return new FakeValidator();
+                case QuestionTypeEnum.Text:
+                    return new TextQuestionValidator();
                 case QuestionTypeEnum.Rating:
                     return new RatingQuestionValidator();
                 case QuestionTypeEnum.Scale:

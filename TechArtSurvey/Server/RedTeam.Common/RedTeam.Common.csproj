@@ -48,6 +48,7 @@
     <Compile Include="Validator\IValidator.cs" />
     <Compile Include="Validator\RatingQuestionValidator.cs" />
     <Compile Include="Validator\ScaleQuestionValidator.cs" />
+    <Compile Include="Validator\TextQuestionValidator.cs" />
     <Compile Include="Validator\ValidatorFactory.cs" />
   </ItemGroup>
   <ItemGroup>

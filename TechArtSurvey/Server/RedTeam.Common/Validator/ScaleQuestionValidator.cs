@@ -4,7 +4,7 @@
     {
         public bool ValidateDefaultValue(string value)
         {
-            return int.TryParse(value, out int number) && (0 >= number || number <= 100);
+            return !(int.TryParse(value, out int number) && (0 >= number || number <= 100));
         }
     }
 }

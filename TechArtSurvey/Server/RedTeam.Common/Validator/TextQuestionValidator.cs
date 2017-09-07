@@ -1,10 +1,10 @@
 ﻿namespace RedTeam.Common.Validator
 {
-    public class FakeValidator : IValidator
+    public class TextQuestionValidator : IValidator
     {
         public bool ValidateDefaultValue(string value)
         {
-            return false;
+            return value == null;
         }
     }
 }

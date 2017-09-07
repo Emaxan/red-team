@@ -66,15 +66,29 @@ namespace RedTeam.TechArtSurvey.Foundation.Services
         {
             LoggerContext.Logger.Info($"Update Survey with id = {survey.Id}");
 
-            var surv = await _uow.Surveys.GetByIdAsync(survey.Id);
-            if ( surv == null)
+            var surv = await _uow.Surveys.GetByIdAsync(survey.Id, s => s.Versions);
+            if (surv == null)
             {
                 return ServiceResponse.CreateUnsuccessful<object>(ServiceResponseCode.SurveyNotFoundById);
             }
-            var version = survey.Versions.First();
+
+            var su = await PrepareSurvey(_mapper.Map<EditSurveyDto, Survey>(survey));
+            var version = su.Versions.First();
+
+            if (version.Pages.Any(
+                page => page.Questions.Any(
+                    question => ValidatorFactory.
+                        GetValidator(question.Type.Type).
+                        ValidateDefaultValue(question.Default))
+                )
+            )
+            {
+                return ServiceResponse.CreateUnsuccessful<SurveyDto>(ServiceResponseCode.DefaultValueIsWrong);
+            }
+
             version.Version = surv.Versions.Count + 1;
             version.UpdatedDate = _environmentInfoService.CurrentUtcDateTime;
-            await _uow.Surveys.UpdateVersionAsync(survey.Id, _mapper.Map<SurveyVersionDto, SurveyVersion>(version));
+            await _uow.Surveys.UpdateVersionAsync(survey.Id, version);
             await _uow.SaveAsync();
 
             return ServiceResponse.CreateSuccessful();
@@ -161,7 +175,7 @@ namespace RedTeam.TechArtSurvey.Foundation.Services
         {
             LoggerContext.Logger.Info("Get all Surveys");
 
-            var surveys = await _uow.Surveys.GetAllAsync();
+            var surveys = await _uow.Surveys.GetAllAsync(s => s.Versions);
 
             return ServiceResponse.CreateSuccessful(_mapper.Map<IReadOnlyCollection<Survey>, IReadOnlyCollection<EditSurveyDto>>(surveys));
         }
