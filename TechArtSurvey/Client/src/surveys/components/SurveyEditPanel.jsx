@@ -43,12 +43,8 @@ export class SurveyEditPanel extends Component {
   }
 
   handleOnSaveClick = () => {
-    if (!isSurveyValid(this.errors)) {
-      alert('Invalid survey. Check up all required fields.');
-    } else {
-      let survey = prepareSurveyForRequest(this.state.survey);
-      console.log(survey);
-      alert('Zaebis! Chotko! Survey is ready to be sent to the server');
+    if (isSurveyValid(this.errors)) {
+      prepareSurveyForRequest(this.state.survey);
     }
   }
 
