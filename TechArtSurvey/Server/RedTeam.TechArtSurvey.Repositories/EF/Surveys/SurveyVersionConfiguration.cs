@@ -32,7 +32,9 @@ namespace RedTeam.TechArtSurvey.Repositories.EF.Surveys
                 .WillCascadeOnDelete(false);
 
             HasMany(sv => sv.Pages)
-                .WithMany(sp => sp.SurveyVersions);
+                .WithRequired(sp => sp.SurveyVersion)
+                .HasForeignKey(sp => sp.SurveyVersionId)
+                .WillCascadeOnDelete(false);
         }
     }
 }

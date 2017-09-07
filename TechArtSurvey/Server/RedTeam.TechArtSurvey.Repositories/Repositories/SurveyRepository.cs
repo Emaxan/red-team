@@ -25,14 +25,7 @@ namespace RedTeam.TechArtSurvey.Repositories.Repositories
 
             var survey = await GetByIdAsync(id, includes);
 
-            return survey == null
-                       ? null
-                       : await includes.Aggregate(new List<Survey>
-                                                  {
-                                                      survey
-                                                  }.AsQueryable(),
-                                                  (cur, include) => cur.Include(include))
-                                       .SingleOrDefaultAsync();
+            return survey;
         }
 
         public async Task UpdateVersionAsync(int id, SurveyVersion version)

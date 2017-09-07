@@ -1,9 +1,10 @@
 ﻿using System.Collections.Generic;
 using Microsoft.AspNet.Identity;
+using RedTeam.Repositories.Interfaces;
 
 namespace RedTeam.TechArtSurvey.DomainModel.Entities.Users
 {
-    public class Role : IRole<int>
+    public class Role : IRole<int>, IEntity
     {
         public int Id { get; set; }
 

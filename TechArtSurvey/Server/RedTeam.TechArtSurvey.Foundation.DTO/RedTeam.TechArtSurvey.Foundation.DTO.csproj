@@ -46,7 +46,7 @@
     <Compile Include="SurveysDto\QuestionTypeDto.cs" />
     <Compile Include="SurveysDto\QuestionVariantDto.cs" />
     <Compile Include="SurveysDto\SurveyDto.cs" />
-    <Compile Include="SurveysDto\SurveyPageDto.cs" />
+    <Compile Include="SurveysDto\PageDto.cs" />
     <Compile Include="SurveysDto\SurveyResponseDto.cs" />
     <Compile Include="SurveysDto\SurveySettingsDto.cs" />
     <Compile Include="SurveysDto\SurveyVersionDto.cs" />
@@ -55,8 +55,8 @@
     <Compile Include="UsersDto\ForgotPasswordDto.cs" />
     <Compile Include="UsersDto\ResetPasswordDto.cs" />
     <Compile Include="UsersDto\RoleDto.cs" />
-    <Compile Include="UsersDto\SurveyParticipantDto.cs" />
     <Compile Include="UsersDto\UserDto.cs" />
+    <Compile Include="UsersDto\ReadUserDto.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\RedTeam.TechArtSurvey.DomainModel\RedTeam.TechArtSurvey.DomainModel.csproj">

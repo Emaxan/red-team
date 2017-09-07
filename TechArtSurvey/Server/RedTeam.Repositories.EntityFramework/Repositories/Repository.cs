@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 namespace RedTeam.Repositories.EntityFramework.Repositories
 {
     public class Repository<TEntity> : IRepository<TEntity>
-        where TEntity : class
+        where TEntity : class, IEntity
     {
         protected readonly IDbContext Context;
 
@@ -39,17 +39,10 @@ namespace RedTeam.Repositories.EntityFramework.Repositories
         
         public virtual async Task<TEntity> GetByIdAsync(int id, params Expression<Func<TEntity, object>>[] includes)
         {
-            LoggerContext.Logger.Info($"Get entity from database with id {id}");
-            var entity = await _dbSet.FindAsync(id);
+            LoggerContext.Logger.Info($"Get entity from database with type {typeof(TEntity).Name} id = {id}");
 
-            return entity == null
-                       ? null
-                       : await includes.Aggregate(new List<TEntity>
-                                                  {
-                                                      entity
-                                                  }.AsQueryable(),
-                                                  (cur, include) => cur.Include(include)).
-                             SingleOrDefaultAsync();
+            return await includes.Aggregate(_dbSet.Where(e => e.Id == id), (cur, include) => cur.Include(include))
+                                 .SingleOrDefaultAsync();
         }
 
         public virtual async Task<IReadOnlyCollection<TEntity>> GetAllAsync(params Expression<Func<TEntity, object>>[] includes)

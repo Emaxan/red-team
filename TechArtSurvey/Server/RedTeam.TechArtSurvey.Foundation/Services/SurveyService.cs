@@ -139,7 +139,7 @@ namespace RedTeam.TechArtSurvey.Foundation.Services
             var includes = new Expression<Func<Survey, object>>[]
                            {
                                s => s.Author,
-                               s => s.Versions.Where(v => v.Version == version),//TODO
+                               s => s.Versions,
                                s => s.Versions.Select(v => v.Pages),
                                s => s.Versions.Select(v => v.Pages.Select(p => p.Questions)),
                                s => s.Versions.Select(v => v.Pages.Select(p => p.Questions.Select(q => q.Type))),
@@ -147,9 +147,14 @@ namespace RedTeam.TechArtSurvey.Foundation.Services
                            };
 
             var surv = await _uow.Surveys.GetSurveyByIdAndVersionAsync(id, version, includes);
-            return surv == null ?
-                       ServiceResponse.CreateUnsuccessful<EditSurveyDto>(ServiceResponseCode.SurveyNotFoundById) :
-                       ServiceResponse.CreateSuccessful(_mapper.Map<Survey, EditSurveyDto>(surv));
+
+            if(surv == null)
+            {
+                return ServiceResponse.CreateUnsuccessful<EditSurveyDto>(ServiceResponseCode.SurveyNotFoundById);
+            }
+            surv.Versions = surv.Versions.Where(sv => sv.Version == version).ToList();
+
+            return ServiceResponse.CreateSuccessful(_mapper.Map<Survey, EditSurveyDto>(surv));
         }
 
         public async Task<IServiceResponse<IReadOnlyCollection<EditSurveyDto>>> GetAllAsync()

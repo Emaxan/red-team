@@ -23,9 +23,10 @@ namespace RedTeam.TechArtSurvey.Initializer.AutofacModules
                                                               cfg.CreateMap<Question, QuestionDto>().ReverseMap();
                                                               cfg.CreateMap<QuestionAnswer, QuestionAnswerDto>().ReverseMap();
                                                               cfg.CreateMap<SurveyVersion, SurveyVersionDto>().ReverseMap();
-                                                              cfg.CreateMap<SurveyPage, SurveyPageDto>().ReverseMap();
+                                                              cfg.CreateMap<SurveyPage, PageDto>().ReverseMap();
+                                                              cfg.CreateMap<TemplatePage, PageDto>().ReverseMap();
                                                               cfg.CreateMap<SurveyResponse, SurveyResponseDto>().ReverseMap();
-                                                              cfg.CreateMap<Template, TemplateDto>().ReverseMap();
+                                                              cfg.CreateMap<SurveyTemplate, TemplateDto>().ReverseMap();
                                                               cfg.CreateMap<QuestionVariant, QuestionVariantDto>().ReverseMap();
                                                               cfg.CreateMap<SurveySettings, SurveySettingsDto>().ReverseMap();
                                                               cfg.CreateMap<QuestionType, QuestionTypeDto>().ReverseMap();

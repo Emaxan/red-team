@@ -1,8 +1,9 @@
 ﻿using System.Collections.Generic;
+using RedTeam.Repositories.Interfaces;
 
 namespace RedTeam.TechArtSurvey.DomainModel.Entities.Surveys
 {
-    public class QuestionVariant
+    public class QuestionVariant : IEntity
     {
         public int Id { get; set; }
 

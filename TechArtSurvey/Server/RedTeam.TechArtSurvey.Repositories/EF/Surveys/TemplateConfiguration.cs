@@ -3,17 +3,19 @@ using RedTeam.TechArtSurvey.DomainModel.Entities.Surveys;
 
 namespace RedTeam.TechArtSurvey.Repositories.EF.Surveys
 {
-    public class TemplateConfiguration : EntityTypeConfiguration<Template>
+    public class TemplateConfiguration : EntityTypeConfiguration<SurveyTemplate>
     {
         public TemplateConfiguration()
         {
-            ToTable("Template");
+            ToTable("SurveyTemplate");
 
             Property(t => t.Title).IsRequired();
             Property(t => t.Description).IsRequired();
 
             HasMany(t => t.Pages)
-                .WithMany(sp => sp.Templates);
+                .WithRequired(tp => tp.Template)
+                .HasForeignKey(tp => tp.TemplateId)
+                .WillCascadeOnDelete(false);
         }
     }
 }

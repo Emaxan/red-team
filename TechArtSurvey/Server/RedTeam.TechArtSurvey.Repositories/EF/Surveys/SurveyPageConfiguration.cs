@@ -9,18 +9,10 @@ namespace RedTeam.TechArtSurvey.Repositories.EF.Surveys
         {
             ToTable("SurveyPage");
 
-            Property(sp => sp.Title).IsRequired();
-            Property(sp => sp.Number).IsRequired();
-
-            HasMany(sp => sp.Questions)
-                .WithRequired(q => q.Page)
-                .HasForeignKey(q => q.PageId);
-
-            HasMany(sp => sp.SurveyVersions)
-                .WithMany(sv => sv.Pages);
-
-            HasMany(sp => sp.Templates)
-                .WithMany(t => t.Pages);
+            HasRequired(sp => sp.SurveyVersion)
+                .WithMany(sv => sv.Pages)
+                .HasForeignKey(sp => sp.SurveyVersionId)
+                .WillCascadeOnDelete(false);
         }
     }
 }

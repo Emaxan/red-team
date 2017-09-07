@@ -1,10 +1,11 @@
 ﻿using System.Collections.Generic;
 using Microsoft.AspNet.Identity;
+using RedTeam.Repositories.Interfaces;
 using RedTeam.TechArtSurvey.DomainModel.Entities.Surveys;
 
 namespace RedTeam.TechArtSurvey.DomainModel.Entities.Users
 {
-    public class User: IUser<int>
+    public class User: IUser<int>, IEntity
     {
         public int Id { get; set; }
 

@@ -21,7 +21,7 @@ namespace RedTeam.TechArtSurvey.Repositories.EF.Surveys
                 .WillCascadeOnDelete(false);
 
             HasRequired(q => q.Page)
-                .WithMany(sp => sp.Questions)
+                .WithMany(p => p.Questions)
                 .HasForeignKey(q => q.PageId)
                 .WillCascadeOnDelete(false);
 

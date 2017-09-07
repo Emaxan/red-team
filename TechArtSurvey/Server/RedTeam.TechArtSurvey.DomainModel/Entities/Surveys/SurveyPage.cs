@@ -2,18 +2,10 @@
 
 namespace RedTeam.TechArtSurvey.DomainModel.Entities.Surveys
 {
-    public class SurveyPage
+    public class SurveyPage : Page
     {
-        public int Id { get; set; }
+        public int SurveyVersionId { get; set; }
 
-        public string Title { get; set; }
-
-        public int Number { get; set; }
-
-        public ICollection<Question> Questions { get; set; }
-
-        public ICollection<SurveyVersion> SurveyVersions { get; set; }
-
-        public ICollection<Template> Templates { get; set; }
+        public SurveyVersion SurveyVersion { get; set; }
     }
 }

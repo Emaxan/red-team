@@ -11,12 +11,6 @@ namespace RedTeam.TechArtSurvey.Repositories.EF.Surveys
 
             Property(qa => qa.Value).IsRequired();
 
-            HasKey(qa => new
-                          {
-                              qa.SurveyResponseId,
-                              qa.QuestionId
-                          });
-
             HasRequired(qa => qa.Question)
                 .WithMany(q => q.Answers)
                 .HasForeignKey(qa => qa.QuestionId)

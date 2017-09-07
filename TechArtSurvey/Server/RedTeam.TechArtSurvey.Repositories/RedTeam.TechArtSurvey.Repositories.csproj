@@ -50,6 +50,7 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="EF\Surveys\PageConfiguration.cs" />
     <Compile Include="EF\Surveys\QuestionAnswerConfiguration.cs" />
     <Compile Include="EF\Surveys\QuestionConfiguration.cs" />
     <Compile Include="EF\Surveys\QuestionTypeConfiguration.cs" />
@@ -59,6 +60,7 @@
     <Compile Include="EF\Surveys\SurveyResponseConfiguration.cs" />
     <Compile Include="EF\Surveys\SurveyVersionConfiguration.cs" />
     <Compile Include="EF\Surveys\TemplateConfiguration.cs" />
+    <Compile Include="EF\Surveys\TemplatePageConfiguration.cs" />
     <Compile Include="EF\Users\RoleConfiguration.cs" />
     <Compile Include="EF\TechArtSurveyContext.cs" />
     <Compile Include="EF\Users\UserConfiguration.cs" />
@@ -70,9 +72,9 @@
     <Compile Include="Migrations\201708211924101_requiredRole.Designer.cs">
       <DependentUpon>201708211924101_requiredRole.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201708301342060_AddSurveys.cs" />
-    <Compile Include="Migrations\201708301342060_AddSurveys.Designer.cs">
-      <DependentUpon>201708301342060_AddSurveys.cs</DependentUpon>
+    <Compile Include="Migrations\201709070902428_AddSurveys.cs" />
+    <Compile Include="Migrations\201709070902428_AddSurveys.Designer.cs">
+      <DependentUpon>201709070902428_AddSurveys.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -115,8 +117,8 @@
     <EmbeddedResource Include="Migrations\201708211924101_requiredRole.resx">
       <DependentUpon>201708211924101_requiredRole.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201708301342060_AddSurveys.resx">
-      <DependentUpon>201708301342060_AddSurveys.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201709070902428_AddSurveys.resx">
+      <DependentUpon>201709070902428_AddSurveys.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

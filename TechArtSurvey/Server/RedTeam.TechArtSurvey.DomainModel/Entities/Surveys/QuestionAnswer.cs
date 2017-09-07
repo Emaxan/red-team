@@ -1,9 +1,12 @@
 ﻿using System.Collections.Generic;
+using RedTeam.Repositories.Interfaces;
 
 namespace RedTeam.TechArtSurvey.DomainModel.Entities.Surveys
 {
-    public class QuestionAnswer
+    public class QuestionAnswer: IEntity
     {
+        public int Id { get; set; }
+
         public int SurveyResponseId { get; set; }
 
         public SurveyResponse SurveyResponse { get; set; }

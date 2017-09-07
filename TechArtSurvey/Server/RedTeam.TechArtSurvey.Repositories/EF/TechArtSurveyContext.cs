@@ -17,7 +17,7 @@ namespace RedTeam.TechArtSurvey.Repositories.EF
 
         public DbSet<Survey> Surveys { get; set; }
 
-        public DbSet<SurveyPage> SurveyPages { get; set; }
+        public DbSet<Page> Pages { get; set; }
 
         public DbSet<Question> Questions { get; set; }
 
@@ -29,7 +29,7 @@ namespace RedTeam.TechArtSurvey.Repositories.EF
 
         public DbSet<QuestionVariant> QuestionVariants { get; set; }
 
-        public DbSet<Template> Templates { get; set; }
+        public DbSet<SurveyTemplate> Templates { get; set; }
 
         public DbSet<QuestionType> QuestionTypes { get; set; }
 
@@ -62,6 +62,8 @@ namespace RedTeam.TechArtSurvey.Repositories.EF
             modelBuilder.Configurations.Add(new SurveyConfiguration());
             modelBuilder.Configurations.Add(new SurveyVersionConfiguration());
             modelBuilder.Configurations.Add(new SurveyPageConfiguration());
+            modelBuilder.Configurations.Add(new TemplatePageConfiguration());
+            modelBuilder.Configurations.Add(new PageConfiguration());
             modelBuilder.Configurations.Add(new TemplateConfiguration());
             modelBuilder.Configurations.Add(new QuestionVariantConfiguration());
             modelBuilder.Configurations.Add(new QuestionTypeConfiguration());

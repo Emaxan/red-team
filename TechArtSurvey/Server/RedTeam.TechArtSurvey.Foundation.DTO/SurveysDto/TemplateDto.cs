@@ -12,6 +12,6 @@ namespace RedTeam.TechArtSurvey.Foundation.Dto.SurveysDto
 
         public string Description { get; set; }
 
-        public ICollection<SurveyPageDto> Pages { get; set; }
+        public ICollection<PageDto> Pages { get; set; }
     }
 }

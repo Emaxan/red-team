@@ -65,7 +65,7 @@ namespace RedTeam.TechArtSurvey.Repositories.Migrations
                                             CreatedDate = DateTime.Now,
                                         });
 
-            var pages = new List<SurveyPage>
+            var pages = new List<Page>
                         {
                             new SurveyPage
                             {
@@ -85,19 +85,19 @@ namespace RedTeam.TechArtSurvey.Repositories.Migrations
                                 Number = 3,
                                 Title = "Third page"
                             },
-                            new SurveyPage
+                            new TemplatePage
                             {
                                 Id = 4,
                                 Number = 1,
                                 Title = "First template page"
                             },
-                            new SurveyPage
+                            new TemplatePage
                             {
                                 Id = 5,
                                 Number = 2,
                                 Title = "Second template page"
                             },
-                            new SurveyPage
+                            new TemplatePage
                             {
                                 Id = 6,
                                 Number = 3,
@@ -105,7 +105,7 @@ namespace RedTeam.TechArtSurvey.Repositories.Migrations
                             }
                         };
 
-            pages.ForEach(p => context.SurveyPages.AddOrUpdate(sp => sp.Id, p));
+            pages.ForEach(p => context.Pages.AddOrUpdate(sp => sp.Id, p));
 
             context.SurveyVersions.AddOrUpdate(sv => sv.Id, 
                                                new SurveyVersion
@@ -126,9 +126,9 @@ namespace RedTeam.TechArtSurvey.Repositories.Migrations
                                                               },
                                                    Pages = new List<SurveyPage>
                                                            {
-                                                               pages[0],
-                                                               pages[1],
-                                                               pages[2]
+                                                               pages[0] as SurveyPage,
+                                                               pages[1] as SurveyPage,
+                                                               pages[2] as SurveyPage
                                                            }
                                                });
 
@@ -225,16 +225,16 @@ namespace RedTeam.TechArtSurvey.Repositories.Migrations
                                                 });
 
             context.Templates.AddOrUpdate(t => t.Id,
-                                          new Template
+                                          new SurveyTemplate
                                           {
                                               Id = 1,
                                               Title = "My first template",
                                               Description = "My first template description",
-                                              Pages = new List<SurveyPage>
+                                              Pages = new List<TemplatePage>
                                                       {
-                                                          pages[3],
-                                                          pages[4],
-                                                          pages[5]
+                                                          pages[3] as TemplatePage,
+                                                          pages[4] as TemplatePage,
+                                                          pages[5] as TemplatePage
                                                       }
                                           });
         }

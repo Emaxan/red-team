@@ -20,6 +20,6 @@ namespace RedTeam.TechArtSurvey.Foundation.Dto.SurveysDto
         public DateTime UpdatedDate { get; set; }
 
         [Required]
-        public ICollection<SurveyPageDto> Pages { get; set; }
+        public ICollection<PageDto> Pages { get; set; }
     }
 }

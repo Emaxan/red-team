@@ -5,7 +5,7 @@ using JetBrains.Annotations;
 namespace RedTeam.TechArtSurvey.Foundation.Dto.SurveysDto
 {
     [UsedImplicitly]
-    public class SurveyPageDto
+    public class PageDto
     {
         [Required(AllowEmptyStrings = false)]
         public string Title { get; set; }

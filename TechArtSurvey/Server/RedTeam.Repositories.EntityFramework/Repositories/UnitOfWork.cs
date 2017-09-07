@@ -25,7 +25,7 @@ namespace RedTeam.Repositories.EntityFramework.Repositories
         }
 
 
-        public IRepository<TEntity> GetRepository<TEntity>() where TEntity : class
+        public IRepository<TEntity> GetRepository<TEntity>() where TEntity : class, IEntity
         {
             var type = typeof(TEntity);
 

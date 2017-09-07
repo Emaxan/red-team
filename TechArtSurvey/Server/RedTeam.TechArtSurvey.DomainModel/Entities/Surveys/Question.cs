@@ -1,14 +1,15 @@
 ﻿using System.Collections.Generic;
+using RedTeam.Repositories.Interfaces;
 
 namespace RedTeam.TechArtSurvey.DomainModel.Entities.Surveys
 {
-    public class Question
+    public class Question : IEntity
     {
         public int Id { get; set; }
 
         public int PageId { get; set; }
 
-        public SurveyPage Page { get; set; }
+        public Page Page { get; set; }
 
         public string Default { get; set; }
 
