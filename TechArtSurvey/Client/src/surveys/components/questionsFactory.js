@@ -1,15 +1,14 @@
 import {
-  createSingleQuestion,
-  createMultipleQuestion,
   createFileQuestion,
   createTextQuestion,
   createScaleRatingQuestion,
   createStarRatingQuestion,
+  createVariantQuestion,
 } from './questionCreators';
 
 export const questionsFactory = {
-  SINGLE_ANSWER : createSingleQuestion,
-  MULTIPLE_ANSWER : createMultipleQuestion,
+  SINGLE_ANSWER : createVariantQuestion,
+  MULTIPLE_ANSWER : createVariantQuestion,
   FILE_ANSWER : createFileQuestion,
   TEXT_ANSWER : createTextQuestion,
   SCALE_RATING_ANSWER : createScaleRatingQuestion,

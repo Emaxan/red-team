@@ -3,6 +3,7 @@
 }
 
 .form-horizontal {
+  & .checkbox,
   & .radio,
   & .form-group {
     margin: 0;
@@ -15,4 +16,8 @@
     display: inline;
     width: 90%;
   }
+}
+
+.form-group .checkbox .option {
+  color: black;
 }

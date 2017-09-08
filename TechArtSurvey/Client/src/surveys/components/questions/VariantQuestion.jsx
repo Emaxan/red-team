@@ -1,15 +1,16 @@
 import React, { Component } from 'react';
-import { Panel, Col, FormGroup, FormControl, Button, Checkbox, Glyphicon } from 'react-bootstrap';
+import { Col, FormGroup, FormControl, Button, Radio, Panel, Glyphicon, Checkbox } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 
 import Question from '../../models/Question';
 import QuestionError from '../../models/QuestionError';
 import { validateMetaInfo } from '../../../utils/validation/questionValidation';
 import { reactBootstrapValidationUtility as rbValidationUtility } from '../../../utils/validation/reactBootstrapValidationUtility';
+import { questionTypes } from '../../questionTypes';
 
-import './MultipleQuestion.scss';
+import './VariantQuestion.scss';
 
-export class MultipleQuestion extends Component {
+export class VariantQuestion extends Component {
   constructor(props) {
     super(props);
 
@@ -57,6 +58,7 @@ export class MultipleQuestion extends Component {
       this.props.handleOnQuestionUpdate(question, this.errors);
     }
   }
+
   render = () => {
     return (
       <Panel>
@@ -89,9 +91,17 @@ export class MultipleQuestion extends Component {
                         </span>
                       ) :
                       (
-                        <Checkbox id={`${this.state.question.number}.${i}`} name={this.state.question.title}>
-                          <label htmlFor={`${this.state.question.number}.${i}`} className="option">{option}</label>
-                        </Checkbox>
+                        this.state.question.type == questionTypes.SINGLE_ANSWER ?
+                          (
+                            <Radio id={`${this.state.question.number}.${i}`} name={this.state.question.title}>
+                              <label htmlFor={`${this.state.question.number}.${i}`} className="option">{option}</label>
+                            </Radio>
+                          ) :
+                          (
+                            <Checkbox id={`${this.state.question.number}.${i}`} name={this.state.question.title}>
+                              <label htmlFor={`${this.state.question.number}.${i}`} className="option">{option}</label>
+                            </Checkbox>
+                          )
                       )
                   }
                 </Col>
@@ -115,13 +125,15 @@ export class MultipleQuestion extends Component {
   }
 }
 
-MultipleQuestion.propTypes = {
+VariantQuestion.propTypes = {
   errors : PropTypes.instanceOf(QuestionError).isRequired,
   question : PropTypes.instanceOf(Question).isRequired,
   handleOnQuestionUpdate : PropTypes.func,
   editing : PropTypes.bool,
+  isValid : PropTypes.bool,
 };
 
-MultipleQuestion.defaultProps = {
+VariantQuestion.defaultProps = {
   editing : false,
+  isValid : true,
 };
