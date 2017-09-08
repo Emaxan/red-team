@@ -100,8 +100,6 @@ class QuestionList extends Component {
   }
 
   moveQuestion = (dragIndex, hoverIndex) => {
-    console.log('di', dragIndex);
-    console.log('hi', hoverIndex);
     const dragQuestion = this.state.questionsBuffer[dragIndex];
 
     this.setState(update(this.state, {
@@ -117,18 +115,13 @@ class QuestionList extends Component {
     let questions = questionsBuffer.map(q => q.getCopy());
 
     const temp = this.errors[dragIndex];
-    console.log('temp=', temp);
     this.errors[dragIndex] = this.errors[hoverIndex];
     this.errors[hoverIndex] = temp;
-    console.log('errs=', this.errors);
 
     this.props.handleOnQuestionsArraySave(questions, this.errors, false);
   }
 
   render = () => {
-    console.log('state', this.state);
-    console.log('errors', this.errors);
-
     return (
       <div>
         {
