@@ -2,7 +2,6 @@ import validator from 'validator';
 
 import { validationErrors } from './validationErrors';
 import ValidationResult from './validationResult';
-import { questionTypes } from '../../surveys/questionTypes';
 
 export const validateTitle = (title) => {
   let errors = [];
@@ -14,14 +13,20 @@ export const validateTitle = (title) => {
   return new ValidationResult(errors.length === 0, errors);
 };
 
-export const validateMetaInfo = (question) => {
+export const validateMetaInfo = (metaInfo) => {
   let errors = [];
-  if(question.type == questionTypes.TEXT_ANSWER || question.type == questionTypes.FILE_ANSWER) {
+  if(metaInfo.length === 0) {
+    errors.push(validationErrors.VariantsRequired);
+
     return new ValidationResult(errors.length === 0, errors);
   }
-  if(question.metaInfo.length === 0) {
-    errors.push(validationErrors.VariantsRequired);
-  }
+  metaInfo.map(option => {
+    if(!option || option == '') {
+      errors.push(validationErrors.VariantsRequired);
+
+      return new ValidationResult(errors.length === 0, errors);
+    }
+  });
 
   return new ValidationResult(errors.length === 0, errors);
 };

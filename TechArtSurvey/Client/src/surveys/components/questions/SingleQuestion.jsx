@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
-import { Col, FormGroup, FormControl, Button, Radio, Panel, ControlLabel, Glyphicon } from 'react-bootstrap';
+import { Col, FormGroup, FormControl, Button, Radio, Panel, Glyphicon } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 
 import Question from '../../models/Question';
 import QuestionError from '../../models/QuestionError';
-import { validateTitle } from '../../../utils/validation/questionValidation';
+import { validateMetaInfo } from '../../../utils/validation/questionValidation';
 import { reactBootstrapValidationUtility as rbValidationUtility } from '../../../utils/validation/reactBootstrapValidationUtility';
 
 import './SingleQuestion.scss';
@@ -18,34 +18,26 @@ export class SingleQuestion extends Component {
       question : this.props.question.getCopy(),
     };
 
-    this.errors = this.props.errors.getCopy();
-
     this.validationStates = {
-      title : null,
+      metaInfo : null,
     };
 
-    rbValidationUtility.setValidationState('title', this.errors, this.validationStates, validateTitle(this.state.question.title));
+    this.errors = this.props.errors.getCopy();
+    rbValidationUtility.setValidationState('metaInfo', this.errors, this.validationStates, validateMetaInfo(this.state.question.metaInfo));
   }
 
   componentWillReceiveProps = (props) => {
     this.setState({
       question : props.question.getCopy(),
     });
-  }
-
-  handleOnTitleChange = (event) => {
-    const title = event.target.value;
-    const question = this.state.question.getCopy();
-    question.title = title;
-    rbValidationUtility.setValidationState('title', this.errors, this.validationStates, validateTitle(title));
-    this.props.handleOnQuestionUpdate(question, this.errors);
-    this.setState({question});
+    this.errors = props.errors.getCopy();
   }
 
   handleOnOptionChange = (optionId, value) => {
     let question = this.state.question.getCopy();
     question.metaInfo[optionId] = value;
     this.setState({question});
+    rbValidationUtility.setValidationState('metaInfo', this.errors, this.validationStates, validateMetaInfo(question.metaInfo));
     this.props.handleOnQuestionUpdate(question, this.errors);
   }
 
@@ -53,6 +45,7 @@ export class SingleQuestion extends Component {
     let question = this.state.question.getCopy();
     question.metaInfo.push('');
     this.setState({question});
+    rbValidationUtility.setValidationState('metaInfo', this.errors, this.validationStates, validateMetaInfo(question.metaInfo));
     this.props.handleOnQuestionUpdate(question, this.errors);
   }
 
@@ -61,6 +54,7 @@ export class SingleQuestion extends Component {
     if (question.metaInfo.length > 1) {
       question.metaInfo.splice(index, 1);
       this.setState({question});
+      rbValidationUtility.setValidationState('metaInfo', this.errors, this.validationStates, validateMetaInfo(question.metaInfo));
       this.props.handleOnQuestionUpdate(question, this.errors);
     }
   }
@@ -68,31 +62,6 @@ export class SingleQuestion extends Component {
   render = () => {
     return (
       <Panel className={this.props.isValid ? '' : 'panel-has-error'}>
-        <FormGroup validationState={this.validationStates.title}>
-          <Col sm={10} smOffset={1}>
-            {
-              this.props.editing ?
-                (
-                  <div>
-                    <ControlLabel>
-                      {this.errors.title || 'Title'}
-                    </ControlLabel>
-                    <FormControl
-                      name="title"
-                      type="text"
-                      placeholder="Enter title"
-                      value={this.state.question.title}
-                      onChange={this.handleOnTitleChange}
-                    />
-                  </div>
-                ) :
-                (
-                  this.props.question.title
-                )
-            }
-          </Col>
-        </FormGroup>
-
         {
           this.state.question.metaInfo.map((option, i) => {
             return (

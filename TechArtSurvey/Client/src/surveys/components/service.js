@@ -43,6 +43,8 @@ export const getLastNumber = (questions) => {
 
 const isNotNull = fieldError => fieldError !== null;
 
+export const isQuestionValid = questionErrors => questionErrors.title === null && questionErrors.metaInfo === null;
+
 export const isPageValid = (pageErrors) => {
   if (isNotNull(pageErrors.title) || pageErrors.questionErrors.length === 0) {
     return false;
@@ -58,14 +60,14 @@ export const isPageValid = (pageErrors) => {
   return isValid;
 };
 
-export const isSurveyValid = (survey) => {
-  if (isNotNull(survey.title)) {
+export const isSurveyValid = (surveyErrors) => {
+  if (isNotNull(surveyErrors.title)) {
     return false;
   }
 
   let isValid = true;
 
-  survey.pageErrors.map(pe => {
+  surveyErrors.pageErrors.map(pe => {
     if (!isPageValid(pe)) {
       isValid = false;
     }
