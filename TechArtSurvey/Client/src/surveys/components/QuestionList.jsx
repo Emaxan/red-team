@@ -5,9 +5,9 @@ import { DragDropContext } from 'react-dnd';
 import HTML5Backend from 'react-dnd-html5-backend';
 import update from 'immutability-helper';
 
-import DraggableQuestion from './questions/dnd/DraggableQuestion';
-import { NonEditingQuestionWrapper } from './questions/wrappers/NonEditingQuestionWrapper';
-import { EditingQuestionWrapper } from './questions/wrappers/EditingQuestionWrapper';
+// import DraggableQuestion from './questions/dnd/DraggableQuestion';
+import NonEditingQuestionWrapper from './questions/wrappers/NonEditingQuestionWrapper';
+import EditingQuestionWrapper from './questions/wrappers/EditingQuestionWrapper';
 import { getLastNumber, changeQuestionType } from './service';
 import Question from '../models/Question';
 import QuestionError from '../models/QuestionError';
@@ -28,6 +28,8 @@ class QuestionList extends Component {
   }
 
   componentWillReceiveProps = (props) => {
+    this.errors = props.errors;
+
     let questions = props.questions.map(q => q.getCopy());
     let questionsBuffer = props.questions.map(q => q.getCopy());
 
@@ -40,7 +42,6 @@ class QuestionList extends Component {
     }
 
     this.setState({ questions, questionsBuffer, editingQuestionNumber : props.editingQuestionNumber });
-    this.errors = props.errors;
   }
 
   handleOnAddQuestionClick = () => {
@@ -99,6 +100,8 @@ class QuestionList extends Component {
   }
 
   moveQuestion = (dragIndex, hoverIndex) => {
+    console.log('di', dragIndex);
+    console.log('hi', hoverIndex);
     const dragQuestion = this.state.questionsBuffer[dragIndex];
 
     this.setState(update(this.state, {
@@ -114,56 +117,51 @@ class QuestionList extends Component {
     let questions = questionsBuffer.map(q => q.getCopy());
 
     const temp = this.errors[dragIndex];
+    console.log('temp=', temp);
     this.errors[dragIndex] = this.errors[hoverIndex];
     this.errors[hoverIndex] = temp;
+    console.log('errs=', this.errors);
 
     this.props.handleOnQuestionsArraySave(questions, this.errors, false);
   }
 
   render = () => {
+    console.log('state', this.state);
+    console.log('errors', this.errors);
+
     return (
       <div>
         {
           this.state.questionsBuffer.map((question, index) => {
             if (this.state.editingQuestionNumber !== question.number) {
               return (
-                <DraggableQuestion
-                  key={index}
+                <NonEditingQuestionWrapper
+                  key={question.number}
                   id={question.number}
                   index={index}
-                  moveQuestion={this.moveQuestion}
-                  canDrag={false}
-                >
-                  <NonEditingQuestionWrapper
-                    question={question}
-                    moveQuestion={this.moveQuestion}
-                    handleOnQuestionSave={this.handleOnQuestionSaveClick}
-                    handleOnEditingQuestionNumberChange={this.handleOnEditingQuestionNumberChange}
-                    editing={false}
-                    errors = {this.errors[index]}
-                  />
-                </DraggableQuestion>
-              );
-            }
-
-            return (
-              <DraggableQuestion
-                key={index}
-                id={question.number}
-                index={index}
-                moveQuestion={this.moveQuestion}
-                canDrag={true}
-              >
-                <EditingQuestionWrapper
                   question={question}
                   moveQuestion={this.moveQuestion}
                   handleOnQuestionSave={this.handleOnQuestionSaveClick}
                   handleOnEditingQuestionNumberChange={this.handleOnEditingQuestionNumberChange}
-                  handleOnDeleteClick={this.handleOnDeleteQuestionClick}
-                  editing
+                  editing={false}
                   errors={this.errors[index]}
                 />
-              </DraggableQuestion>
+              );
+            }
+
+            return (
+              <EditingQuestionWrapper
+                key={question.number}
+                id={question.number}
+                index={index}
+                question={question}
+                moveQuestion={this.moveQuestion}
+                handleOnQuestionSave={this.handleOnQuestionSaveClick}
+                handleOnEditingQuestionNumberChange={this.handleOnEditingQuestionNumberChange}
+                handleOnDeleteClick={this.handleOnDeleteQuestionClick}
+                editing
+                errors={this.errors[index]}
+              />
             );
           })
         }
@@ -172,6 +170,26 @@ class QuestionList extends Component {
     );
   }
 }
+
+{/* <DraggableQuestion
+                  key={index}
+                  id={question.number}
+                  index={index}
+                  moveQuestion={this.moveQuestion}
+                  canDrag={false}
+                >
+
+                </DraggableQuestion> */}
+
+{/* <DraggableQuestion
+                key={index}
+                id={question.number}
+                index={index}
+                moveQuestion={this.moveQuestion}
+                canDrag={true}
+              >
+                
+              </DraggableQuestion> */}
 
 QuestionList.propTypes = {
   questions : PropTypes.arrayOf(PropTypes.instanceOf(Question)).isRequired,

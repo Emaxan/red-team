@@ -1,16 +1,20 @@
 import React, { Component } from 'react';
 import { Button, Glyphicon, FormGroup, Col, Panel } from 'react-bootstrap';
 import PropTypes from 'prop-types';
+import { DropTarget } from 'react-dnd';
 
 import { questionsFactory } from '../../questionsFactory';
 import Question from '../../../models/Question';
 import QuestionError from '../../../models/QuestionError';
 import { isQuestionValid } from '../../service';
+import { ItemTypes } from '../dnd/constants';
 
 import './NonEditingQuestionWrapper.scss';
 import './Wrapper.scss';
 
-export class NonEditingQuestionWrapper extends Component {
+
+
+class NonEditingQuestionWrapper extends Component {
   constructor(props){
     super(props);
 
@@ -27,35 +31,75 @@ export class NonEditingQuestionWrapper extends Component {
     this.props.handleOnEditingQuestionNumberChange(this.question.number);
   }
 
-  render = () =>
-    <Panel  className={isQuestionValid(this.errors)? '' : 'panel-has-error'}>
-      <FormGroup className="title">
-        <Col sm={10} smOffset={1}>
-          {
-            this.props.question.title
-          }
-        </Col>
-      </FormGroup>
-      <div className="question-wrapper">
-        {
-          questionsFactory[this.question.type](
-            this.question,
-            null,
+  render = () => {
+    return this.props.connectDropTarget(
+      <div ref={node => (this.node = node)}>
+        <Panel  className={isQuestionValid(this.errors)? '' : 'panel-has-error'}>
+          <FormGroup className="title">
+            <Col sm={10} smOffset={1}>
+              {
+                this.props.question.title
+              }
+            </Col>
+          </FormGroup>
+          <div className="question-wrapper">
             {
-              isValid : isQuestionValid(this.question),
-              errors : this.errors,
-            },
-          )
-        }
-        <Button onClick={this.handleOnEditClick} className="question-wrapper__edit">
-          <Glyphicon glyph="pencil" />
-        </Button>
-      </div>
-    </Panel>
+              questionsFactory[this.question.type](
+                this.question,
+                null,
+                {
+                  isValid : isQuestionValid(this.question),
+                  errors : this.errors,
+                },
+              )
+            }
+            <Button onClick={this.handleOnEditClick} className="question-wrapper__edit">
+              <Glyphicon glyph="pencil" />
+            </Button>
+          </div>
+        </Panel>
+      </div>,
+    );
+  }
 }
 
 NonEditingQuestionWrapper.propTypes = {
+  connectDropTarget : PropTypes.func.isRequired,
+  moveQuestion : PropTypes.func.isRequired,
   question : PropTypes.instanceOf(Question).isRequired,
   errors : PropTypes.instanceOf(QuestionError).isRequired,
   handleOnEditingQuestionNumberChange : PropTypes.func.isRequired,
 };
+
+const nonEditingQuestionWrapperSpec = {
+  hover(props, monitor, component) {
+    const dragIndex = monitor.getItem().index;
+    const hoverIndex = props.index;
+
+    if (dragIndex === hoverIndex) {
+      return;
+    }
+
+    const hoverBoundingRect = component.node.getBoundingClientRect();
+    const hoverMiddleY = (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2;
+    const clientOffset = monitor.getClientOffset();
+    const hoverClientY = clientOffset.y - hoverBoundingRect.top;
+
+    if (dragIndex < hoverIndex && hoverClientY < hoverMiddleY) {
+      return;
+    }
+
+    if (dragIndex > hoverIndex && hoverClientY > hoverMiddleY) {
+      return;
+    }
+
+    props.moveQuestion(dragIndex, hoverIndex);
+    monitor.getItem().index = hoverIndex;
+  },
+};
+
+const nonEditingQuestionWrapperCollect = (connect) => ({
+  connectDropTarget : connect.dropTarget(),
+});
+
+export default DropTarget(ItemTypes.QUESTION, nonEditingQuestionWrapperSpec, nonEditingQuestionWrapperCollect)(NonEditingQuestionWrapper);

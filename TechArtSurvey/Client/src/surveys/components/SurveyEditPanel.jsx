@@ -62,11 +62,11 @@ export class SurveyEditPanel extends Component {
   }
 
   handleOnPagesUpdate = (pages, errors) => {
+    this.errors.pageErrors = errors;
     let newPages = pages.map(p => p.getCopy());
     let survey = this.state.survey.getCopy();
     survey.pages = newPages;
     this.setState({ survey });
-    this.errors.pageErrors = errors;
   }
 
   handleOnSettingsChange = (settings) => {
