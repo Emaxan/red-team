@@ -110,7 +110,7 @@ class EditingQuestionWrapper extends Component {
               this.state.question,
               this.handleOnQuestionUpdate,
               {
-                editing : this.props.editing,
+                editing : true,
                 errors : this.state.errors,
               },
             )
@@ -130,28 +130,22 @@ class EditingQuestionWrapper extends Component {
 }
 
 EditingQuestionWrapper.propTypes = {
-  id : PropTypes.any.isRequired,
+  number : PropTypes.any.isRequired,
   index : PropTypes.number.isRequired,
-  moveQuestion : PropTypes.func.isRequired,
-  handleOnQuestionSave : PropTypes.func.isRequired,
   question : PropTypes.instanceOf(Question).isRequired,
   errors : PropTypes.instanceOf(QuestionError).isRequired,
+  isDragging: PropTypes.bool.isRequired,
+  handleOnQuestionSave : PropTypes.func.isRequired,
   handleOnEditingQuestionNumberChange : PropTypes.func.isRequired,
   handleOnDeleteClick : PropTypes.func.isRequired,
-  editing : PropTypes.bool.isRequired,
   connectDragSource: PropTypes.func.isRequired,
   connectDragPreview: PropTypes.func.isRequired,
-  isDragging: PropTypes.bool.isRequired,
 };
 
 const editingQuestionWrapperSourceSpec = {
-  canDrag() {
-    return true;
-  },
-
   beginDrag(props) {
     return {
-      id : props.id,
+      number : props.id,
       index : props.index,
     };
   },

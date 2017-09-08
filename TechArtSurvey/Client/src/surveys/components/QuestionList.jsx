@@ -5,7 +5,6 @@ import { DragDropContext } from 'react-dnd';
 import HTML5Backend from 'react-dnd-html5-backend';
 import update from 'immutability-helper';
 
-// import DraggableQuestion from './questions/dnd/DraggableQuestion';
 import NonEditingQuestionWrapper from './questions/wrappers/NonEditingQuestionWrapper';
 import EditingQuestionWrapper from './questions/wrappers/EditingQuestionWrapper';
 import { getLastNumber, changeQuestionType } from './service';
@@ -114,9 +113,7 @@ class QuestionList extends Component {
     let questionsBuffer = this.state.questionsBuffer.map(q => q.getCopy());
     let questions = questionsBuffer.map(q => q.getCopy());
 
-    const temp = this.errors[dragIndex];
-    this.errors[dragIndex] = this.errors[hoverIndex];
-    this.errors[hoverIndex] = temp;
+    [this.errors[hoverIndex], this.errors[dragIndex]] = [this.errors[dragIndex], this.errors[hoverIndex]];
 
     this.props.handleOnQuestionsArraySave(questions, this.errors, false);
   }
@@ -130,14 +127,12 @@ class QuestionList extends Component {
               return (
                 <NonEditingQuestionWrapper
                   key={question.number}
-                  id={question.number}
                   index={index}
                   question={question}
+                  errors={this.errors[index]}
                   moveQuestion={this.moveQuestion}
                   handleOnQuestionSave={this.handleOnQuestionSaveClick}
                   handleOnEditingQuestionNumberChange={this.handleOnEditingQuestionNumberChange}
-                  editing={false}
-                  errors={this.errors[index]}
                 />
               );
             }
@@ -145,52 +140,31 @@ class QuestionList extends Component {
             return (
               <EditingQuestionWrapper
                 key={question.number}
-                id={question.number}
+                number={question.number}
                 index={index}
                 question={question}
-                moveQuestion={this.moveQuestion}
+                errors={this.errors[index]}
                 handleOnQuestionSave={this.handleOnQuestionSaveClick}
                 handleOnEditingQuestionNumberChange={this.handleOnEditingQuestionNumberChange}
                 handleOnDeleteClick={this.handleOnDeleteQuestionClick}
-                editing
-                errors={this.errors[index]}
               />
             );
           })
         }
+
         <Button onClick={this.handleOnAddQuestionClick}>Add question</Button>
       </div>
     );
   }
 }
 
-{/* <DraggableQuestion
-                  key={index}
-                  id={question.number}
-                  index={index}
-                  moveQuestion={this.moveQuestion}
-                  canDrag={false}
-                >
-
-                </DraggableQuestion> */}
-
-{/* <DraggableQuestion
-                key={index}
-                id={question.number}
-                index={index}
-                moveQuestion={this.moveQuestion}
-                canDrag={true}
-              >
-                
-              </DraggableQuestion> */}
-
 QuestionList.propTypes = {
   questions : PropTypes.arrayOf(PropTypes.instanceOf(Question)).isRequired,
   errors : PropTypes.arrayOf(PropTypes.instanceOf(QuestionError)).isRequired,
-  handleOnQuestionsArraySave : PropTypes.func.isRequired,
-  handleOnEditingQuestionNumberChange : PropTypes.func.isRequired,
   editingQuestionNumber : PropTypes.number.isRequired,
   newEditingQuestionType: PropTypes.string,
+  handleOnQuestionsArraySave : PropTypes.func.isRequired,
+  handleOnEditingQuestionNumberChange : PropTypes.func.isRequired,
 };
 
 export default DragDropContext(HTML5Backend)(QuestionList);

@@ -12,8 +12,6 @@ import { ItemTypes } from '../dnd/constants';
 import './NonEditingQuestionWrapper.scss';
 import './Wrapper.scss';
 
-
-
 class NonEditingQuestionWrapper extends Component {
   constructor(props){
     super(props);
@@ -34,7 +32,7 @@ class NonEditingQuestionWrapper extends Component {
   render = () => {
     return this.props.connectDropTarget(
       <div ref={node => (this.node = node)}>
-        <Panel  className={isQuestionValid(this.errors)? '' : 'panel-has-error'}>
+        <Panel  className={isQuestionValid(this.errors) ? '' : 'panel-has-error'}>
           <FormGroup className="title">
             <Col sm={10} smOffset={1}>
               {
@@ -64,11 +62,12 @@ class NonEditingQuestionWrapper extends Component {
 }
 
 NonEditingQuestionWrapper.propTypes = {
-  connectDropTarget : PropTypes.func.isRequired,
-  moveQuestion : PropTypes.func.isRequired,
+  index : PropTypes.number.isRequired,
   question : PropTypes.instanceOf(Question).isRequired,
   errors : PropTypes.instanceOf(QuestionError).isRequired,
+  moveQuestion : PropTypes.func.isRequired,
   handleOnEditingQuestionNumberChange : PropTypes.func.isRequired,
+  connectDropTarget : PropTypes.func.isRequired,
 };
 
 const nonEditingQuestionWrapperSpec = {
