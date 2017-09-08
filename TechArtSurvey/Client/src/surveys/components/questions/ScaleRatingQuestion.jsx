@@ -1,14 +1,10 @@
 import React, { Component } from 'react';
-import { Panel, Col, FormGroup, FormControl, ControlLabel } from 'react-bootstrap';
+import { Panel, Col, FormGroup } from 'react-bootstrap';
 import Nouislider from 'react-nouislider';
 import PropTypes from 'prop-types';
 
-import {
-  validateTitle,
-} from '../../../utils/validation/questionValidation';
 import Question from '../../models/Question';
 import QuestionError from '../../models/QuestionError';
-import { reactBootstrapValidationUtility as rbValidationUtility } from '../../../utils/validation/reactBootstrapValidationUtility';
 
 import './ScaleRatingQuestion.scss';
 
@@ -27,21 +23,6 @@ export class ScaleRatingQuestion extends Component {
     };
 
     this.errors = this.props.errors.getCopy();
-
-    this.validationStates = {
-      title : null,
-    };
-
-    rbValidationUtility.setValidationState('title', this.errors, this.validationStates, validateTitle(this.state.question.title));
-  }
-
-  handleOnTitleChange = (event) => {
-    const title = event.target.value;
-    const question = this.state.question.getCopy();
-    question.title = title;
-    rbValidationUtility.setValidationState('title', this.errors, this.validationStates, validateTitle(title));
-    this.props.handleOnQuestionUpdate(question, this.errors);
-    this.setState({question});
   }
 
   handleOnValueChange = (value) => {
@@ -55,31 +36,6 @@ export class ScaleRatingQuestion extends Component {
   render = () => {
     return (
       <Panel>
-        <FormGroup validationState={this.validationStates.title}>
-          <Col sm={10} smOffset={1}>
-            {
-              this.props.editing ?
-                (
-                  <div>
-                    <ControlLabel>
-                      {this.errors.title || 'Title'}
-                    </ControlLabel>
-                    <FormControl
-                      name="title"
-                      type="text"
-                      placeholder="Enter title"
-                      value={this.state.question.title}
-                      onChange={this.handleOnTitleChange}
-                    />
-                  </div>
-                ) :
-                (
-                  this.props.question.title
-                )
-            }
-          </Col>
-        </FormGroup>
-
         <FormGroup>
           <Col sm={8} smOffset={1}>
             <Nouislider
