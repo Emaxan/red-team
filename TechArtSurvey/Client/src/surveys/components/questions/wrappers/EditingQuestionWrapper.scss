@@ -19,6 +19,12 @@
   }
 }
 
+.editing-question-wrapper-action__move {
+  position: absolute;
+  top: 12px;
+  cursor: move;
+}
+
 .top-actions {
   top: 10px;
 }

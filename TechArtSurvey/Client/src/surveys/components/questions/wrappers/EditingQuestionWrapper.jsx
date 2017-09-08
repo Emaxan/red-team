@@ -70,15 +70,14 @@ class EditingQuestionWrapper extends Component {
   }
 
   render = () => {
-    const { isDragging, connectDragSource, connectDragPreview } = this.props;
-    const opacity = isDragging ? 0.4 : 1;
+    const opacity = this.props.isDragging ? 0 : 1;
 
-    return connectDragPreview(
-      <div style={ { opacity } } ref={node => (this.node = node)}>
+    return this.props.connectDragPreview(
+      <div style={{ opacity }} ref={node => (this.node = node)}>
         <Panel className={isQuestionValid(this.state.errors) ? 'editing-question-wrapper' : 'editing-question-wrapper panel-has-error'}>
-          {connectDragSource(
-            <span className="test-class">
-              <Glyphicon glyph="move" role="button" title="Move question" /> MOVE
+          {this.props.connectDragSource(
+            <span className="editing-question-wrapper-action__move">
+              <Glyphicon glyph="move" title="Move question" /> Move
             </span>,
           )}
           <div className="top-actions">
