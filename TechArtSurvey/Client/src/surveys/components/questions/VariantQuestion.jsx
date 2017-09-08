@@ -50,13 +50,14 @@ export class VariantQuestion extends Component {
   }
 
   handleOnRemoveOption = (index) => {
-    let question = this.state.question.getCopy();
-    if (question.metaInfo.length > 1) {
-      question.metaInfo.splice(index, 1);
-      this.setState({question});
-      rbValidationUtility.setValidationState('metaInfo', this.errors, this.validationStates, validateMetaInfo(question.metaInfo));
-      this.props.handleOnQuestionUpdate(question, this.errors);
+    if (this.state.question.metaInfo.length < 2) {
+      return;
     }
+    let question = this.state.question.getCopy();
+    question.metaInfo.splice(index, 1);
+    this.setState({question});
+    rbValidationUtility.setValidationState('metaInfo', this.errors, this.validationStates, validateMetaInfo(question.metaInfo));
+    this.props.handleOnQuestionUpdate(question, this.errors);
   }
 
   render = () => {
