@@ -4,23 +4,35 @@ import PropTypes from 'prop-types';
 
 import Question from '../../models/Question';
 import QuestionError from '../../models/QuestionError';
+import { validateMetaInfo } from '../../../utils/validation/questionValidation';
+import { reactBootstrapValidationUtility as rbValidationUtility } from '../../../utils/validation/reactBootstrapValidationUtility';
 
 export class FileQuestion extends Component {
   constructor(props) {
     super(props);
 
+    let question = this.props.question.getCopy();
+
     this.state = {
-      question : this.props.question.getCopy(),
+      question : question,
+    };
+
+    this.validationStates = {
+      metaInfo : null,
     };
 
     this.errors = this.props.errors.getCopy();
+    rbValidationUtility.setValidationState('metaInfo', this.errors, this.validationStates, validateMetaInfo(question.metaInfo));
   }
 
   handleOnFileChange = () => {
-    if(this.props.editing) return;
+    if(!this.props.editing) {
+      return;
+    }
     let question = this.state.question.getCopy();
     question.metaInfo = [this.fileUpload.files[0].name];
     this.setState({question});
+    rbValidationUtility.setValidationState('metaInfo', this.errors, this.validationStates, validateMetaInfo(question.metaInfo));
     this.props.handleOnQuestionUpdate(question, this.errors);
   }
 

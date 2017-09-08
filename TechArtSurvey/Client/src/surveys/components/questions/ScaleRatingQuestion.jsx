@@ -5,6 +5,8 @@ import PropTypes from 'prop-types';
 
 import Question from '../../models/Question';
 import QuestionError from '../../models/QuestionError';
+import { validateMetaInfo } from '../../../utils/validation/questionValidation';
+import { reactBootstrapValidationUtility as rbValidationUtility } from '../../../utils/validation/reactBootstrapValidationUtility';
 
 import './ScaleRatingQuestion.scss';
 
@@ -22,14 +24,29 @@ export class ScaleRatingQuestion extends Component {
       question : question,
     };
 
+    this.validationStates = {
+      metaInfo : null,
+    };
+
     this.errors = this.props.errors.getCopy();
+    rbValidationUtility.setValidationState('metaInfo', this.errors, this.validationStates, validateMetaInfo(question.metaInfo));
+  }
+
+  componentWillReceiveProps = (props) => {
+    this.setState({
+      question : props.question.getCopy(),
+    });
+    this.errors = props.errors.getCopy();
   }
 
   handleOnValueChange = (value) => {
-    if(!this.props.editing) return;
+    if(!this.props.editing) {
+      return;
+    }
     let question = this.state.question.getCopy();
     question.metaInfo = [value[0].toString()];
     this.setState({question});
+    rbValidationUtility.setValidationState('metaInfo', this.errors, this.validationStates, validateMetaInfo(question.metaInfo));
     this.props.handleOnQuestionUpdate(question, this.errors);
   }
 

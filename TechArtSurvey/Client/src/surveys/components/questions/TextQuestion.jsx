@@ -4,22 +4,39 @@ import PropTypes from 'prop-types';
 
 import Question from '../../models/Question';
 import QuestionError from '../../models/QuestionError';
+import { validateMetaInfo } from '../../../utils/validation/questionValidation';
+import { reactBootstrapValidationUtility as rbValidationUtility } from '../../../utils/validation/reactBootstrapValidationUtility';
 
 export class TextQuestion extends Component {
   constructor(props) {
     super(props);
 
+    let question = this.props.question.getCopy();
+
     this.state = {
-      question : this.props.question.getCopy(),
+      question : question,
+    };
+
+    this.validationStates = {
+      metaInfo : null,
     };
 
     this.errors = this.props.errors.getCopy();
+    rbValidationUtility.setValidationState('metaInfo', this.errors, this.validationStates, validateMetaInfo(question.metaInfo));
+  }
+
+  componentWillReceiveProps = (props) => {
+    this.setState({
+      question : props.question.getCopy(),
+    });
+    this.errors = props.errors.getCopy();
   }
 
   handleOnOptionChange = (optionId, value) => {
     let question = this.state.question.getCopy();
     question.metaInfo[optionId] = value;
     this.setState({question});
+    rbValidationUtility.setValidationState('metaInfo', this.errors, this.validationStates, validateMetaInfo(question.metaInfo));
     this.props.handleOnQuestionUpdate(question, this.errors);
   }
 
