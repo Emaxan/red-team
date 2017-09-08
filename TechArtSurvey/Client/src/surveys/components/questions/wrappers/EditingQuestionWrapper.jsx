@@ -10,6 +10,7 @@ import { reactBootstrapValidationUtility as rbValidationUtility } from '../../..
 import { isQuestionValid } from '../../service';
 
 import './EditingQuestionWrapper.scss';
+import './Wrapper.scss';
 
 export class EditingQuestionWrapper extends Component {
   constructor(props) {
@@ -67,12 +68,10 @@ export class EditingQuestionWrapper extends Component {
     this.props.handleOnDeleteClick();
   }
 
-  isQuestionValid = () => isQuestionValid(this.state.errors);
-
   render = () => {
     const element = (
       <div>
-        <Panel className="edit-question" onMouseEnter={() => this.setState({ overInput : true })} onMouseLeave={() => this.setState({ overInput : false })}>
+        <Panel className={isQuestionValid(this.state.errors)? 'edit-question' : 'edit-question panel-has-error'} onMouseEnter={() => this.setState({ overInput : true })} onMouseLeave={() => this.setState({ overInput : false })}>
           <div className="top-actions">
             <Checkbox onChange={this.handleOnRequiredClick} checked={this.state.question.isRequired} className="top-actions__required">
             Required
@@ -82,24 +81,18 @@ export class EditingQuestionWrapper extends Component {
           <FormGroup validationState={this.validationStates.title}>
             <Col sm={10} smOffset={1}>
               {
-                this.props.editing ?
-                  (
-                    <div>
-                      <ControlLabel>
-                        {this.state.errors.title || 'Title'}
-                      </ControlLabel>
-                      <FormControl
-                        name="title"
-                        type="text"
-                        placeholder="Enter title"
-                        value={this.state.question.title}
-                        onChange={this.handleOnTitleChange}
-                      />
-                    </div>
-                  ) :
-                  (
-                    this.props.question.title
-                  )
+                <div>
+                  <ControlLabel>
+                    {this.state.errors.title || 'Title'}
+                  </ControlLabel>
+                  <FormControl
+                    name="title"
+                    type="text"
+                    placeholder="Enter title"
+                    value={this.state.question.title}
+                    onChange={this.handleOnTitleChange}
+                  />
+                </div>
               }
             </Col>
           </FormGroup>
@@ -114,7 +107,7 @@ export class EditingQuestionWrapper extends Component {
             )
           }
           <ButtonGroup className="bottom-actions">
-            <Button onClick={this.handleOnSaveClick} disabled={!this.isQuestionValid()}>
+            <Button onClick={this.handleOnSaveClick} disabled={!isQuestionValid(this.state.errors)}>
             Save
             </Button>
             <Button onClick={this.handleOnCancelClick}>

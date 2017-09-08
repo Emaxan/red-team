@@ -1,12 +1,10 @@
 import React, { Component } from 'react';
-import { Panel, Col, FormGroup, FormControl, Button, Checkbox, ControlLabel } from 'react-bootstrap';
+import { Panel, Col, FormGroup, FormControl, Button, Checkbox, Glyphicon } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 
-import {
-  validateTitle,
-} from '../../../utils/validation/questionValidation';
 import Question from '../../models/Question';
 import QuestionError from '../../models/QuestionError';
+import { validateMetaInfo } from '../../../utils/validation/questionValidation';
 import { reactBootstrapValidationUtility as rbValidationUtility } from '../../../utils/validation/reactBootstrapValidationUtility';
 
 import './MultipleQuestion.scss';
@@ -19,28 +17,26 @@ export class MultipleQuestion extends Component {
       question : this.props.question.getCopy(),
     };
 
-    this.errors = this.props.errors.getCopy();
-
     this.validationStates = {
-      title : null,
+      metaInfo : null,
     };
 
-    rbValidationUtility.setValidationState('title', this.errors, this.validationStates, validateTitle(this.state.question.title));
+    this.errors = this.props.errors.getCopy();
+    rbValidationUtility.setValidationState('metaInfo', this.errors, this.validationStates, validateMetaInfo(this.state.question.metaInfo));
   }
 
-  handleOnTitleChange = (event) => {
-    const title = event.target.value;
-    const question = this.state.question.getCopy();
-    question.title = title;
-    rbValidationUtility.setValidationState('title', this.errors, this.validationStates, validateTitle(title));
-    this.props.handleOnQuestionUpdate(question, this.errors);
-    this.setState({question});
+  componentWillReceiveProps = (props) => {
+    this.setState({
+      question : props.question.getCopy(),
+    });
+    this.errors = props.errors.getCopy();
   }
 
   handleOnOptionChange = (optionId, value) => {
     let question = this.state.question.getCopy();
     question.metaInfo[optionId] = value;
     this.setState({question});
+    rbValidationUtility.setValidationState('metaInfo', this.errors, this.validationStates, validateMetaInfo(question.metaInfo));
     this.props.handleOnQuestionUpdate(question, this.errors);
   }
 
@@ -48,37 +44,22 @@ export class MultipleQuestion extends Component {
     let question = this.state.question.getCopy();
     question.metaInfo.push('');
     this.setState({question});
+    rbValidationUtility.setValidationState('metaInfo', this.errors, this.validationStates, validateMetaInfo(question.metaInfo));
     this.props.handleOnQuestionUpdate(question, this.errors);
   }
 
+  handleOnRemoveOption = (index) => {
+    let question = this.state.question.getCopy();
+    if (question.metaInfo.length > 1) {
+      question.metaInfo.splice(index, 1);
+      this.setState({question});
+      rbValidationUtility.setValidationState('metaInfo', this.errors, this.validationStates, validateMetaInfo(question.metaInfo));
+      this.props.handleOnQuestionUpdate(question, this.errors);
+    }
+  }
   render = () => {
     return (
       <Panel>
-        <FormGroup validationState={this.validationStates.title}>
-          <Col sm={10} smOffset={1}>
-            {
-              this.props.editing ?
-                (
-                  <div>
-                    <ControlLabel>
-                      {this.errors.title || 'Title'}
-                    </ControlLabel>
-                    <FormControl
-                      name="title"
-                      type="text"
-                      placeholder="Enter title"
-                      value={this.state.question.title}
-                      onChange={this.handleOnTitleChange}
-                    />
-                  </div>
-                ) :
-                (
-                  this.props.question.title
-                )
-            }
-          </Col>
-        </FormGroup>
-
         {
           this.state.question.metaInfo.map((option, i) => {
             return (
@@ -87,13 +68,25 @@ export class MultipleQuestion extends Component {
                   {
                     this.props.editing ?
                       (
-                        <FormControl
-                          type='text'
-                          name={this.state.question.title}
-                          value={option}
-                          placeholder="Option"
-                          onChange={(e) => this.handleOnOptionChange(i, e.target.value)}
-                        />
+                        <span>
+                          <FormControl
+                            type='text'
+                            id={'option' + i}
+                            name={'option' + i}
+                            value={option}
+                            placeholder="Option"
+                            onChange={(e) => this.handleOnOptionChange(i, e.target.value)}
+                            className="option"
+                          />
+                          <label htmlFor={'option' + i}>
+                            <Glyphicon
+                              glyph="remove"
+                              role="button"
+                              title="Remove option"
+                              onClick={() => this.handleOnRemoveOption(i)}
+                            />
+                          </label>
+                        </span>
                       ) :
                       (
                         <Checkbox id={`${this.state.question.number}.${i}`} name={this.state.question.title}>

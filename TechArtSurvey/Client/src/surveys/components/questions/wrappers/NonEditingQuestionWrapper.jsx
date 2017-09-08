@@ -1,47 +1,35 @@
 import React, { Component } from 'react';
-import { Button, Glyphicon, FormGroup, Col } from 'react-bootstrap';
+import { Button, Glyphicon, FormGroup, Col, Panel } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 
 import { questionsFactory } from '../../questionsFactory';
 import Question from '../../../models/Question';
 import QuestionError from '../../../models/QuestionError';
-import { validateTitle } from '../../../../utils/validation/questionValidation';
-import { reactBootstrapValidationUtility as rbValidationUtility } from '../../../../utils/validation/reactBootstrapValidationUtility';
 import { isQuestionValid } from '../../service';
 
 import './NonEditingQuestionWrapper.scss';
+import './Wrapper.scss';
 
 export class NonEditingQuestionWrapper extends Component {
   constructor(props){
     super(props);
 
-    this.state = {
-      question : this.props.question.getCopy(),
-      errors : this.props.errors.getCopy(),
-    };
-
-    this.validationStates = {
-      title : null,
-    };
-
-    let errors = this.props.errors.getCopy();
-    rbValidationUtility.setValidationState('title', errors, this.validationStates, validateTitle(this.state.question.title));
+    this.question = this.props.question.getCopy();
+    this.errors = this.props.errors.getCopy();
   }
 
   componentWillReceiveProps = (props) => {
-    let question = props.question.getCopy();
-    this.setState({ question : question });
+    this.question = props.question.getCopy();
+    this.errors = props.errors.getCopy();
   }
 
   handleOnEditClick = () => {
-    this.props.handleOnEditingQuestionNumberChange(this.state.question.number);
+    this.props.handleOnEditingQuestionNumberChange(this.question.number);
   }
 
-  isQuestionValid = () => isQuestionValid(this.state.question);
-
   render = () =>
-    <div>
-      <FormGroup validationState={this.validationStates.title}>
+    <Panel  className={isQuestionValid(this.errors)? '' : 'panel-has-error'}>
+      <FormGroup className="title">
         <Col sm={10} smOffset={1}>
           {
             this.props.question.title
@@ -50,12 +38,12 @@ export class NonEditingQuestionWrapper extends Component {
       </FormGroup>
       <div className="question-wrapper">
         {
-          questionsFactory[this.state.question.type](
-            this.state.question,
+          questionsFactory[this.question.type](
+            this.question,
             null,
             {
-              isValid : this.isQuestionValid(),
-              errors : this.state.errors,
+              isValid : isQuestionValid(this.question),
+              errors : this.errors,
             },
           )
         }
@@ -63,7 +51,7 @@ export class NonEditingQuestionWrapper extends Component {
           <Glyphicon glyph="pencil" />
         </Button>
       </div>
-    </div>
+    </Panel>
 }
 
 NonEditingQuestionWrapper.propTypes = {

@@ -8,7 +8,6 @@ import { validateMetaInfo } from '../../../utils/validation/questionValidation';
 import { reactBootstrapValidationUtility as rbValidationUtility } from '../../../utils/validation/reactBootstrapValidationUtility';
 
 import './SingleQuestion.scss';
-import './Question.scss';
 
 export class SingleQuestion extends Component {
   constructor(props) {
@@ -61,7 +60,7 @@ export class SingleQuestion extends Component {
 
   render = () => {
     return (
-      <Panel className={this.props.isValid ? '' : 'panel-has-error'}>
+      <Panel>
         {
           this.state.question.metaInfo.map((option, i) => {
             return (
