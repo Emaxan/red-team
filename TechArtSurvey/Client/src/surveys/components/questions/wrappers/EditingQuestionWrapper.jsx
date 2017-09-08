@@ -9,7 +9,7 @@ import QuestionError from '../../../models/QuestionError';
 import { validateTitle } from '../../../../utils/validation/questionValidation';
 import { reactBootstrapValidationUtility as rbValidationUtility } from '../../../../utils/validation/reactBootstrapValidationUtility';
 import { isQuestionValid } from '../../service';
-import { ItemTypes } from '../dnd/constants';
+import { DND_ITEM_QUESTION } from './constants';
 
 import './EditingQuestionWrapper.scss';
 import './Wrapper.scss';
@@ -158,6 +158,6 @@ const editingQuestionWrapperSourceCollect = (connect, monitor) => ({
 });
 
 export default DragSource(
-  ItemTypes.QUESTION,
+  DND_ITEM_QUESTION,
   editingQuestionWrapperSourceSpec,
   editingQuestionWrapperSourceCollect)(EditingQuestionWrapper);

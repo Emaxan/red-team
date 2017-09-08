@@ -7,7 +7,7 @@ import { questionsFactory } from '../../questionsFactory';
 import Question from '../../../models/Question';
 import QuestionError from '../../../models/QuestionError';
 import { isQuestionValid } from '../../service';
-import { ItemTypes } from '../dnd/constants';
+import { DND_ITEM_QUESTION } from './constants';
 
 import './NonEditingQuestionWrapper.scss';
 import './Wrapper.scss';
@@ -101,4 +101,4 @@ const nonEditingQuestionWrapperCollect = (connect) => ({
   connectDropTarget : connect.dropTarget(),
 });
 
-export default DropTarget(ItemTypes.QUESTION, nonEditingQuestionWrapperSpec, nonEditingQuestionWrapperCollect)(NonEditingQuestionWrapper);
+export default DropTarget(DND_ITEM_QUESTION, nonEditingQuestionWrapperSpec, nonEditingQuestionWrapperCollect)(NonEditingQuestionWrapper);
