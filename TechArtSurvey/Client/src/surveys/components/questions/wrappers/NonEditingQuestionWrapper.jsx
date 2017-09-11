@@ -36,7 +36,7 @@ class NonEditingQuestionWrapper extends Component {
           <FormGroup className="title">
             <Col sm={10} smOffset={1}>
               {
-                this.props.question.title
+                (this.props.index + 1) + '. ' + this.props.question.title
               }
             </Col>
           </FormGroup>
