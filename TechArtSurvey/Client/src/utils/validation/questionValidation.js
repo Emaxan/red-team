@@ -15,7 +15,7 @@ export const validateTitle = (title) => {
 
 export const validateMetaInfo = (metaInfo) => {
   let errors = [];
-  if(metaInfo.length === 0) {
+  if(validator.isEmpty(metaInfo)) {
     errors.push(validationErrors.VariantsRequired);
 
     return new ValidationResult(errors.length === 0, errors);
