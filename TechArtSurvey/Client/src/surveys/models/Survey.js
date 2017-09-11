@@ -8,11 +8,12 @@ export default class Survey {
     this.pages = pages;
   }
 
-  getCopy(){
-    let survey = new Survey();
-    survey.title = this.title;
-    survey.settings = this.settings.getCopy();
-    survey.pages = this.pages.map(p => p.getCopy());
+  getCopy = () => {
+    const survey = new Survey(
+      this.title,
+      this.settings.getCopy(),
+      this.pages.map(p => p.getCopy()),
+    );
 
     return survey;
   }

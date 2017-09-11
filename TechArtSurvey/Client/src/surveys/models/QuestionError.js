@@ -4,10 +4,11 @@ export default class QuestionError {
     this.metaInfo = metaInfo;
   }
 
-  getCopy(){
-    let errors = new QuestionError();
-    errors.title = this.title;
-    errors.metaInfo = this.metaInfo;
+  getCopy = () => {
+    const errors = new QuestionError(
+      this.title,
+      this.metaInfo,
+    );
 
     return errors;
   }

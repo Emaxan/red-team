@@ -8,10 +8,12 @@ export default class Page {
       : title;
   }
 
-  getCopy(){
-    let page = new Page();
-    page.title = this.title;
-    page.questions = this.questions.map(q => q.getCopy());
+  getCopy = () => {
+    let page = new Page(
+      1,
+      this.title,
+      this.questions.map(q => q.getCopy()),
+    );
 
     return page;
   }

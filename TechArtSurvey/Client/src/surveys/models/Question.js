@@ -10,13 +10,14 @@ export default class Question {
     this.metaInfo = metaInfo;
   }
 
-  getCopy(){
-    let question = new Question();
-    question.number = this.number;
-    question.type = this.type;
-    question.title = this.title;
-    question.isRequired = this.isRequired;
-    question.metaInfo = this.metaInfo.map(m => m);
+  getCopy = () => {
+    const question = new Question(
+      this.number,
+      this.type,
+      this.title,
+      this.isRequired,
+      this.metaInfo.map(m => m),
+    );
 
     return question;
   }

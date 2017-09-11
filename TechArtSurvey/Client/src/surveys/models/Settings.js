@@ -15,14 +15,15 @@ export default class Settings {
     this.hasProgressIndicator = hasProgressIndicator;
   }
 
-  getCopy(){
-    let settings = new Settings();
-    settings.isAnonymous = this.isAnonymous;
-    settings.hasQuestionNumbers = this.hasQuestionNumbers;
-    settings.hasPageNumbers = this.hasPageNumbers;
-    settings.isRandomOrdered = this.isRandomOrdered;
-    settings.hasRequiredFieldsStars = this.hasRequiredFieldsStars;
-    settings.hasProgressIndicator = this.hasProgressIndicator;
+  getCopy = () => {
+    const settings = new Settings(
+      this.isAnonymous,
+      this.hasQuestionNumbers,
+      this.hasPageNumbers,
+      this.isRandomOrdered,
+      this.hasRequiredFieldsStars,
+      this.hasProgressIndicator,
+    );
 
     return settings;
   }

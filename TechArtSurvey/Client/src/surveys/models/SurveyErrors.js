@@ -6,10 +6,11 @@ export default class SurveyErrors {
     this.pageErrors = pageErrors;
   }
 
-  getCopy(){
-    let errors = new SurveyErrors();
-    errors.title = this.title;
-    errors.pageErrors = this.pageErrors.map(pe => pe.getCopy());
+  getCopy = () => {
+    const errors = new SurveyErrors(
+      this.title,
+      this.pageErrors.map(pe => pe.getCopy()),
+    );
 
     return errors;
   }

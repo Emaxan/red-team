@@ -6,10 +6,11 @@ export default class PageErrors {
     this.questionErrors = questionErrors;
   }
 
-  getCopy(){
-    let errors = new PageErrors();
-    errors.title = this.title;
-    errors.questionErrors = this.questionErrors.map(qe => qe.getCopy());
+  getCopy = () => {
+    const errors = new PageErrors(
+      this.title,
+      this.questionErrors.map(qe => qe.getCopy()),
+    );
 
     return errors;
   }
