@@ -1,23 +1,68 @@
-import Question from '../models/Question';
 import { questionTypes, defaultType } from '../questionTypes';
 import QuestionError from '../models/QuestionError';
+
+export const changeQuestionError = (oldError, oldQuestionType, newQuestionType) => {
+  let newError = oldError.getCopy();
+  switch (newQuestionType) {
+  case questionTypes.SINGLE_ANSWER: {
+    if (oldQuestionType == questionTypes.MULTIPLE_ANSWER) {
+      return newError;
+    }
+    newError.metaInfo = '';
+
+    return newError;
+  }
+  case questionTypes.MULTIPLE_ANSWER: {
+    if (oldQuestionType == questionTypes.SINGLE_ANSWER) {
+      return newError;
+    }
+    newError.metaInfo = '';
+
+    return newError;
+  }
+
+  default: {
+    newError.metaInfo = null;
+
+    return newError;
+  }
+  }
+};
 
 export const changeQuestionType = (oldQuestion, type) => {
   if (oldQuestion.type === type) {
     return null;
   }
 
-  var newQuestion = new Question(oldQuestion.number, type, oldQuestion.title, oldQuestion.isRequired);
-  if ((oldQuestion.type == questionTypes.SINGLE_ANSWER
-      || oldQuestion.type == questionTypes.MULTIPLE_ANSWER)
-      && (type == questionTypes.SINGLE_ANSWER
-      || type == questionTypes.MULTIPLE_ANSWER))
-  {
-    let metaInfo = oldQuestion.metaInfo.map(m => m);
-    newQuestion.metaInfo = metaInfo;
-  }
+  var newQuestion = oldQuestion.getCopy();
+  newQuestion.type = type;
 
-  return newQuestion;
+  switch (newQuestion.type) {
+  case questionTypes.FILE_ANSWER:
+  case questionTypes.TEXT_ANSWER:
+  case questionTypes.SCALE_RATING_ANSWER:
+  case questionTypes.STAR_RATING_ANSWER: {
+    newQuestion.metaInfo = getDefaultMetaInfoByType(newQuestion.type);
+
+    return newQuestion;
+  }
+  case questionTypes.SINGLE_ANSWER: {
+    if (oldQuestion.type == questionTypes.MULTIPLE_ANSWER) {
+      return newQuestion;
+    }
+    newQuestion.metaInfo = getDefaultMetaInfoByType(newQuestion.type);
+
+    return newQuestion;
+  }
+  case questionTypes.MULTIPLE_ANSWER: {
+    if (oldQuestion.type == questionTypes.SINGLE_ANSWER) {
+      return newQuestion;
+    }
+    newQuestion.metaInfo = getDefaultMetaInfoByType(newQuestion.type);
+
+    return newQuestion;
+  }
+  }
 };
 
 export const getLastNumber = (questions) => {

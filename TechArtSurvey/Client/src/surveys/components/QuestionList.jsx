@@ -7,7 +7,7 @@ import update from 'immutability-helper';
 
 import NonEditingQuestionWrapper from './questions/wrappers/NonEditingQuestionWrapper';
 import EditingQuestionWrapper from './questions/wrappers/EditingQuestionWrapper';
-import { getLastNumber, changeQuestionType, getDefaultErrorByType } from './service';
+import { getLastNumber, getDefaultErrorByType } from './service';
 import Question from '../models/Question';
 import QuestionError from '../models/QuestionError';
 
@@ -33,13 +33,8 @@ class QuestionList extends Component {
     let questionsBuffer = props.questions.map(q => q.getCopy());
 
     if (props.newEditingQuestionType !== this.editingQuestionType) {
-      this.editingQuestionType = props.newEditingQuestionType;
-      let newQuestions = this.changeQuestionsOnQuestionTypeChange(questions, props.newEditingQuestionType);
-      if (newQuestions) {
-        questionsBuffer = newQuestions;
-      }
+      this.handleOnTypeChange(props.newEditingQuestionType);
     }
-
     this.setState({ questions, questionsBuffer, editingQuestionNumber : props.editingQuestionNumber });
   }
 
@@ -79,23 +74,16 @@ class QuestionList extends Component {
     this.props.handleOnEditingQuestionNumberChange(number);
   }
 
-  changeQuestionsOnQuestionTypeChange = (oldQuestions, type) => {
+  handleOnTypeChange = (type) => {
     if (!type || type.length === 0) {
       return null;
     }
 
-    let questions = oldQuestions.map(q => q.getCopy());
-    let index = questions.findIndex(q => q.number === this.state.editingQuestionNumber);
-    let oldQuestion = questions[index].getCopy();
-    let newQuestion = changeQuestionType(oldQuestion, type);
-
-    if (!newQuestion) {
+    if(this.state.editingQuestionNumber === -1) {
       return null;
     }
 
-    questions[index] = newQuestion;
-
-    return questions;
+    this.editingQuestionType = type;
   }
 
   moveQuestion = (dragIndex, hoverIndex) => {
@@ -143,6 +131,7 @@ class QuestionList extends Component {
                 number={question.number}
                 index={index}
                 question={question}
+                newType={this.editingQuestionType}
                 errors={this.errors[index]}
                 handleOnQuestionSave={this.handleOnQuestionSaveClick}
                 handleOnEditingQuestionNumberChange={this.handleOnEditingQuestionNumberChange}

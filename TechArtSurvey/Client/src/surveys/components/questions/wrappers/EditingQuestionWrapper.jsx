@@ -8,7 +8,7 @@ import Question from '../../../models/Question';
 import QuestionError from '../../../models/QuestionError';
 import { validateTitle } from '../../../../utils/validation/questionValidation';
 import { reactBootstrapValidationUtility as rbValidationUtility } from '../../../../utils/validation/reactBootstrapValidationUtility';
-import { isQuestionValid } from '../../service';
+import { isQuestionValid, changeQuestionType, changeQuestionError } from '../../service';
 import { DND_ITEM_QUESTION } from './constants';
 
 import './EditingQuestionWrapper.scss';
@@ -32,10 +32,18 @@ class EditingQuestionWrapper extends Component {
   }
 
   componentWillReceiveProps = (props) => {
-    let { type } = props.question;
+    if(!props.newType) {
+      return;
+    }
+    let type = props.newType;
     let question = this.state.question.getCopy();
+    let errors = this.state.errors.getCopy();
+    if (question.type != type) {
+      errors = changeQuestionError(this.state.errors, question.type, type);
+      question = changeQuestionType(question, type);
+    }
     question.type = type;
-    this.setState({ question });
+    this.setState({ question, errors });
   }
 
   handleOnTitleChange = (event) => {
@@ -132,6 +140,7 @@ EditingQuestionWrapper.propTypes = {
   number : PropTypes.any.isRequired,
   index : PropTypes.number.isRequired,
   question : PropTypes.instanceOf(Question).isRequired,
+  newType : PropTypes.string,
   errors : PropTypes.instanceOf(QuestionError).isRequired,
   isDragging: PropTypes.bool.isRequired,
   handleOnQuestionSave : PropTypes.func.isRequired,
