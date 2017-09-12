@@ -17,7 +17,6 @@ class QuestionList extends Component {
 
     this.state = {
       questions : this.props.questions.map(q => q.getCopy()),
-      questionsBuffer :  this.props.questions.map(q => q.getCopy()),
       editingQuestionNumber : 0,
     };
 
@@ -30,12 +29,11 @@ class QuestionList extends Component {
     this.errors = props.errors;
 
     let questions = props.questions.map(q => q.getCopy());
-    let questionsBuffer = props.questions.map(q => q.getCopy());
 
     if (props.newEditingQuestionType !== this.editingQuestionType) {
       this.handleOnTypeChange(props.newEditingQuestionType);
     }
-    this.setState({ questions, questionsBuffer, editingQuestionNumber : props.editingQuestionNumber });
+    this.setState({ questions, editingQuestionNumber : props.editingQuestionNumber });
   }
 
   handleOnAddQuestionClick = () => {
@@ -58,19 +56,17 @@ class QuestionList extends Component {
   }
 
   handleOnQuestionSaveClick = (question, errors) => {
-    let questionsBuffer = this.state.questionsBuffer.map(q => q.getCopy());
-    let index = questionsBuffer.findIndex(q => q.number === this.state.editingQuestionNumber);
-    questionsBuffer[index] = question;
-    let questions = questionsBuffer.map(q => q.getCopy());
-    this.setState({ editingQuestionNumber : -1, questions, questionsBuffer });
+    let questions = this.state.questions.map(q => q.getCopy());
+    let index = questions.findIndex(q => q.number === this.state.editingQuestionNumber);
+    questions[index] = question;
+    this.setState({ editingQuestionNumber : -1, questions });
     this.errors[index] = errors;
     this.props.handleOnQuestionsArraySave(questions, this.errors);
     this.props.handleOnEditingQuestionNumberChange(-1);
   }
 
   handleOnEditingQuestionNumberChange = (number) => {
-    let resetBuffer = this.state.questions.map(q => q.getCopy());
-    this.setState({ editingQuestionNumber : number, questionsBuffer : resetBuffer });
+    this.setState({ editingQuestionNumber : number });
     this.props.handleOnEditingQuestionNumberChange(number);
   }
 
@@ -87,10 +83,10 @@ class QuestionList extends Component {
   }
 
   moveQuestion = (dragIndex, hoverIndex) => {
-    const dragQuestion = this.state.questionsBuffer[dragIndex];
+    const dragQuestion = this.state.questions[dragIndex];
 
     this.setState(update(this.state, {
-      questionsBuffer: {
+      questions: {
         $splice: [
           [dragIndex, 1],
           [hoverIndex, 0, dragQuestion],
@@ -98,8 +94,7 @@ class QuestionList extends Component {
       },
     }));
 
-    let questionsBuffer = this.state.questionsBuffer.map(q => q.getCopy());
-    let questions = questionsBuffer.map(q => q.getCopy());
+    let questions = this.state.questions.map(q => q.getCopy());
 
     [this.errors[hoverIndex], this.errors[dragIndex]] = [this.errors[dragIndex], this.errors[hoverIndex]];
 
@@ -110,7 +105,7 @@ class QuestionList extends Component {
     return (
       <div>
         {
-          this.state.questionsBuffer.map((question, index) => {
+          this.state.questions.map((question, index) => {
             if (this.state.editingQuestionNumber !== question.number) {
               return (
                 <NonEditingQuestionWrapper
