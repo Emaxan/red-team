@@ -1,5 +1,6 @@
 import Question from '../models/Question';
-import { questionTypes } from '../questionTypes';
+import { questionTypes, defaultType } from '../questionTypes';
+import QuestionError from '../models/QuestionError';
 
 export const changeQuestionType = (oldQuestion, type) => {
   if (oldQuestion.type === type) {
@@ -110,5 +111,16 @@ export const getDefaultMetaInfoByType = (type) => {
 
   default:
     return [];
+  }
+};
+
+export const getDefaultErrorByType = (type = defaultType) => {
+  switch (type) {
+  case questionTypes.SINGLE_ANSWER:
+  case questionTypes.MULTIPLE_ANSWER:
+    return new QuestionError();
+
+  default:
+    return new QuestionError('', null);
   }
 };

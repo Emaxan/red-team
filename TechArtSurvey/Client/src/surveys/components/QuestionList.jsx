@@ -7,7 +7,7 @@ import update from 'immutability-helper';
 
 import NonEditingQuestionWrapper from './questions/wrappers/NonEditingQuestionWrapper';
 import EditingQuestionWrapper from './questions/wrappers/EditingQuestionWrapper';
-import { getLastNumber, changeQuestionType } from './service';
+import { getLastNumber, changeQuestionType, getDefaultErrorByType } from './service';
 import Question from '../models/Question';
 import QuestionError from '../models/QuestionError';
 
@@ -47,7 +47,7 @@ class QuestionList extends Component {
     let questions = this.state.questions.map(q => q.getCopy());
     questions.push(new Question(++this.lastNumber));
     this.setState({ editingQuestionNumber : this.lastNumber, questions });
-    this.errors.push(new QuestionError());
+    this.errors.push(getDefaultErrorByType());
     this.props.handleOnQuestionsArraySave(questions, this.errors);
     this.props.handleOnEditingQuestionNumberChange(this.lastNumber);
   }
