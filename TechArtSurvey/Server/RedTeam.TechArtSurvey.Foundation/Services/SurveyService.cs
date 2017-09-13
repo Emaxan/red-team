@@ -23,13 +23,15 @@ namespace RedTeam.TechArtSurvey.Foundation.Services
         private readonly ITechArtSurveyUnitOfWork _uow;
         private readonly IMapper _mapper;
         private readonly IEnvironmentInfoService _environmentInfoService;
+        private readonly IValidatorFactory _validatorFactory;
 
 
-        public SurveyService(ITechArtSurveyUnitOfWork uow, IMapper mapper, IEnvironmentInfoService environmentInfoService)
+        public SurveyService(ITechArtSurveyUnitOfWork uow, IMapper mapper, IEnvironmentInfoService environmentInfoService, IValidatorFactory validatorFactory)
         {
             _uow = uow;
             _mapper = mapper;
             _environmentInfoService = environmentInfoService;
+            _validatorFactory = validatorFactory;
         }
 
 
@@ -42,12 +44,20 @@ namespace RedTeam.TechArtSurvey.Foundation.Services
 
             var version = survey.Versions.First();
 
-            if(version.Pages.Any(
-                    page => page.Questions.Any(
-                        question => ValidatorFactory.
-                            GetValidator(question.Type.Type).
-                            ValidateDefaultValue(question.Default))
-                )
+            if(!version.Pages.All(
+                                 page =>
+                                 {
+                                     var res = page.Questions.All(
+                                                         question =>
+                                                         {
+                                                             var result = _validatorFactory.
+                                                                 GetValidator(question.Type.Type).
+                                                                 ValidateDefaultValue(question.Default);
+                                                             return result;
+                                                         });
+                                     return res;
+                                 }
+                                )
             )
             {
                 return ServiceResponse.CreateUnsuccessful<SurveyDto>(ServiceResponseCode.DefaultValueIsWrong);
@@ -76,11 +86,11 @@ namespace RedTeam.TechArtSurvey.Foundation.Services
             var version = su.Versions.First();
 
             if (version.Pages.Any(
-                page => page.Questions.Any(
-                    question => ValidatorFactory.
-                        GetValidator(question.Type.Type).
-                        ValidateDefaultValue(question.Default))
-                )
+                    page => !page.Questions.Any(
+                        question => _validatorFactory.
+                            GetValidator(question.Type.Type).
+                            ValidateDefaultValue(question.Default))
+                    )
             )
             {
                 return ServiceResponse.CreateUnsuccessful<SurveyDto>(ServiceResponseCode.DefaultValueIsWrong);

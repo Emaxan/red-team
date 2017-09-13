@@ -1,11 +1,13 @@
 ﻿using System;
+using JetBrains.Annotations;
 using RedTeam.TechArtSurvey.DomainModel.Entities.Surveys;
 
 namespace RedTeam.Common.Validator
 {
-    public static class ValidatorFactory
+    [UsedImplicitly]
+    public class ValidatorFactory : IValidatorFactory
     {
-        public static IValidator GetValidator(QuestionTypeEnum type)
+        public IValidator GetValidator(QuestionTypeEnum type)
         {
             switch(type)
             {

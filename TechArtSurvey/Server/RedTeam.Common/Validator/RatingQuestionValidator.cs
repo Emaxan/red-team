@@ -4,7 +4,7 @@
     {
         public bool ValidateDefaultValue(string value)
         {
-            return !(int.TryParse(value, out int stars) && (0 >= stars || stars <= 5));
+            return int.TryParse(value, out int stars) && (0 >= stars || stars <= 5);
         }
     }
 }

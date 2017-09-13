@@ -35,7 +35,6 @@
       <HintPath>..\RedTeam.Repositories.EntityFramework\bin\Debug\JetBrains.Annotations.dll</HintPath>
     </Reference>
     <Reference Include="System" />
-    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
@@ -46,6 +45,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Validator\FakeValidator.cs" />
     <Compile Include="Validator\IValidator.cs" />
+    <Compile Include="Validator\IValidatorFactory.cs" />
     <Compile Include="Validator\RatingQuestionValidator.cs" />
     <Compile Include="Validator\ScaleQuestionValidator.cs" />
     <Compile Include="Validator\TextQuestionValidator.cs" />

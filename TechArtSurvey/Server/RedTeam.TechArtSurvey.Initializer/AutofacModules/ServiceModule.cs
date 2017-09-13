@@ -7,6 +7,7 @@ using RedTeam.TechArtSurvey.Foundation.Interfaces;
 using RedTeam.TechArtSurvey.Foundation.Services;
 using Microsoft.AspNet.Identity;
 using RedTeam.Common.EnvironmentInfo;
+using RedTeam.Common.Validator;
 
 namespace RedTeam.TechArtSurvey.Initializer.AutofacModules
 {
@@ -24,6 +25,7 @@ namespace RedTeam.TechArtSurvey.Initializer.AutofacModules
             builder.RegisterType<SmtpEmailSender>().As<IEmailSender>().InstancePerRequest();
             builder.RegisterType<EmailIdentityMessageService>().As<IIdentityMessageService>().InstancePerRequest();
             builder.RegisterType<EnvironmentInfoService>().As<IEnvironmentInfoService>().InstancePerRequest();
+            builder.RegisterType<ValidatorFactory>().As<IValidatorFactory>().InstancePerRequest();
         }
     }
 }

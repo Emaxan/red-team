@@ -4,7 +4,7 @@
     {
         public bool ValidateDefaultValue(string value)
         {
-            return false;
+            return true;
         }
     }
 }
