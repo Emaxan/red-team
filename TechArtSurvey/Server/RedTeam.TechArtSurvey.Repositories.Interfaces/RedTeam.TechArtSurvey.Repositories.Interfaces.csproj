@@ -41,9 +41,11 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Repositories\IQuestionTypeRepository.cs" />
     <Compile Include="Repositories\IRoleRepository.cs" />
     <Compile Include="ITechArtSurveyUnitOfWork.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repositories\ISurveyRepository.cs" />
     <Compile Include="Repositories\IUserRepository.cs" />
   </ItemGroup>
   <ItemGroup>

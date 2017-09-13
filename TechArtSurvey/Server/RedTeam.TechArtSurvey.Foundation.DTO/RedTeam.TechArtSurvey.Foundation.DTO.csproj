@@ -31,17 +31,32 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="JetBrains.Annotations">
+      <HintPath>..\RedTeam.Repositories.EntityFramework\bin\Debug\JetBrains.Annotations.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SurveysDto\EditSurveyDto.cs" />
+    <Compile Include="SurveysDto\QuestionAnswerDto.cs" />
+    <Compile Include="SurveysDto\QuestionDto.cs" />
+    <Compile Include="SurveysDto\QuestionTypeDto.cs" />
+    <Compile Include="SurveysDto\QuestionVariantDto.cs" />
+    <Compile Include="SurveysDto\SurveyDto.cs" />
+    <Compile Include="SurveysDto\PageDto.cs" />
+    <Compile Include="SurveysDto\SurveyResponseDto.cs" />
+    <Compile Include="SurveysDto\SurveySettingsDto.cs" />
+    <Compile Include="SurveysDto\SurveyVersionDto.cs" />
+    <Compile Include="SurveysDto\TemplateDto.cs" />
     <Compile Include="UsersDto\EditUserDto.cs" />
     <Compile Include="UsersDto\ForgotPasswordDto.cs" />
     <Compile Include="UsersDto\ResetPasswordDto.cs" />
     <Compile Include="UsersDto\RoleDto.cs" />
     <Compile Include="UsersDto\UserDto.cs" />
+    <Compile Include="UsersDto\ReadUserDto.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\RedTeam.TechArtSurvey.DomainModel\RedTeam.TechArtSurvey.DomainModel.csproj">

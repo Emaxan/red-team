@@ -1,7 +1,6 @@
 ﻿using Autofac;
 using RedTeam.Repositories.Interfaces;
 using RedTeam.TechArtSurvey.Repositories.EF;
-using RedTeam.TechArtSurvey.Repositories.Interfaces;
 
 namespace RedTeam.TechArtSurvey.Initializer.AutofacModules
 {

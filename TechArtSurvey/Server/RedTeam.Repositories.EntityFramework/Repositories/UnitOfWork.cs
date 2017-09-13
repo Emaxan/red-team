@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using JetBrains.Annotations;
+using RedTeam.Logger;
 using RedTeam.Repositories.Interfaces;
 
 namespace RedTeam.Repositories.EntityFramework.Repositories
@@ -19,11 +20,12 @@ namespace RedTeam.Repositories.EntityFramework.Repositories
         public UnitOfWork(IDbContext context)
         {
             Context = context;
+            Context.Database.Log = s => LoggerContext.Logger.Info("DBQuery " + s);
             _repositoriesDictionary = new Dictionary<Type, object>();
         }
 
 
-        public IRepository<TEntity> GetRepository<TEntity>() where TEntity : class
+        public IRepository<TEntity> GetRepository<TEntity>() where TEntity : class, IEntity
         {
             var type = typeof(TEntity);
 

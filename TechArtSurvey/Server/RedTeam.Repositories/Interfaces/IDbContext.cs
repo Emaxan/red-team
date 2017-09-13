@@ -14,6 +14,8 @@ namespace RedTeam.Repositories.Interfaces
 
         DbEntityEntry<TEntity> Entry<TEntity>(TEntity entity) where TEntity : class;
 
+        Database Database { get; }
+
         void Dispose();
     }
 }

@@ -1,15 +1,16 @@
-﻿using JetBrains.Annotations;
+﻿using System;
 using RedTeam.Logger;
 using RedTeam.Repositories.Interfaces;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 
 namespace RedTeam.Repositories.EntityFramework.Repositories
 {
     public class Repository<TEntity> : IRepository<TEntity>
-        where TEntity : class
+        where TEntity : class, IEntity
     {
         protected readonly IDbContext Context;
 
@@ -35,22 +36,23 @@ namespace RedTeam.Repositories.EntityFramework.Repositories
 
             return _dbSet.Add(entity);
         }
-
-        [CanBeNull]
-        public virtual async Task<TEntity> GetByIdAsync(int id)
+        
+        public virtual async Task<TEntity> GetByIdAsync(int id, params Expression<Func<TEntity, object>>[] includes)
         {
-            LoggerContext.Logger.Info($"Get entity from database with id {id}");
-            var user = await _dbSet.FindAsync(id);
+            LoggerContext.Logger.Info($"Get entity from database with type {typeof(TEntity).Name} id = {id}");
 
-            return user;
+            return await includes.Aggregate(_dbSet.Where(e => e.Id == id), (cur, include) => cur.Include(include))
+                                 .SingleOrDefaultAsync();
         }
 
-        public virtual async Task<IReadOnlyCollection<TEntity>> GetAllAsync()
+        public virtual async Task<IReadOnlyCollection<TEntity>> GetAllAsync(params Expression<Func<TEntity, object>>[] includes)
         {
             LoggerContext.Logger.Info($"Get all entities from database with type {typeof(TEntity).Name}");
-            var users = await _dbSet.ToListAsync();
 
-            return users;
+            return await includes.Aggregate<
+                                      Expression<Func<TEntity, object>>, 
+                                      IQueryable<TEntity>
+                                  >(_dbSet, (cur, include) => cur.Include(include)).ToListAsync();
         }
 
         public virtual void Update(TEntity entity)
@@ -70,6 +72,19 @@ namespace RedTeam.Repositories.EntityFramework.Repositories
                 _dbSet.Attach(entity);
             }
             _dbSet.Remove(entity);
+        }
+
+        public void DeleteRange(IReadOnlyCollection<TEntity> entities)
+        {
+            LoggerContext.Logger.Info($"Delete {entities.Count} entity from database with type {typeof(TEntity).Name}");
+            foreach (var entity in entities)
+            {
+                if (!_dbSet.Local.Contains(entity))
+                {
+                    _dbSet.Attach(entity);
+                }
+            }
+            _dbSet.RemoveRange(entities);
         }
     }
 }

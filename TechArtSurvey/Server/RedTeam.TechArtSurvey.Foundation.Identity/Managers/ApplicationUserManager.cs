@@ -3,7 +3,7 @@ using JetBrains.Annotations;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security.DataProtection;
-using RedTeam.TechArtSurvey.DomainModel.Entities;
+using RedTeam.TechArtSurvey.DomainModel.Entities.Users;
 using RedTeam.TechArtSurvey.Foundation.Identity.Stores;
 
 namespace RedTeam.TechArtSurvey.Foundation.Identity.Managers

@@ -1,4 +1,4 @@
-﻿namespace RedTeam.TechArtSurvey.DomainModel.Entities
+﻿namespace RedTeam.TechArtSurvey.DomainModel.Entities.Users
 {
     public enum RoleTypes
     {

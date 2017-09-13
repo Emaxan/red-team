@@ -8,13 +8,13 @@ namespace RedTeam.TechArtSurvey.Foundation.Interfaces
 {
     public interface IUserService
     {
-        Task<IServiceResponse<UserDto>> CreateAsync(UserDto userDto);
+        Task<IServiceResponse<EditUserDto>> CreateAsync(EditUserDto userDto);
         Task<IServiceResponse<ClaimsIdentity>> GetClaimsByCredentialsAsync(string email, string password);
         Task<IServiceResponse> UpdateAsync(EditUserDto user);
         Task<IServiceResponse> DeleteByIdAsync(int id);
-        Task<IServiceResponse<EditUserDto>> GetByIdAsync(int id);
-        Task<IServiceResponse<EditUserDto>> GetByEmailAsync(string email);
+        Task<IServiceResponse<ReadUserDto>> GetByIdAsync(int id);
+        Task<IServiceResponse<ReadUserDto>> GetByEmailAsync(string email);
         Task<IServiceResponse<bool>> CheckByEmailAsync(string email);
-        Task<IServiceResponse<IReadOnlyCollection<EditUserDto>>> GetAllAsync();
+        Task<IServiceResponse<IReadOnlyCollection<ReadUserDto>>> GetAllAsync();
     }
 }

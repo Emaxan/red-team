@@ -1,7 +1,10 @@
-﻿using JetBrains.Annotations;
+﻿using System.Data.Entity;
+using JetBrains.Annotations;
 using RedTeam.Repositories.Interfaces;
-using RedTeam.TechArtSurvey.DomainModel.Entities;
-using System.Data.Entity;
+using RedTeam.TechArtSurvey.DomainModel.Entities.Surveys;
+using RedTeam.TechArtSurvey.DomainModel.Entities.Users;
+using RedTeam.TechArtSurvey.Repositories.EF.Surveys;
+using RedTeam.TechArtSurvey.Repositories.EF.Users;
 
 namespace RedTeam.TechArtSurvey.Repositories.EF
 {
@@ -11,6 +14,24 @@ namespace RedTeam.TechArtSurvey.Repositories.EF
         public DbSet<User> Users { get; set; }
 
         public DbSet<Role> Roles { get; set; }
+
+        public DbSet<Survey> Surveys { get; set; }
+
+        public DbSet<Page> Pages { get; set; }
+
+        public DbSet<Question> Questions { get; set; }
+
+        public DbSet<SurveyResponse> SurveyResponses { get; set; }
+
+        public DbSet<QuestionAnswer> QuestionAnswers { get; set; }
+
+        public DbSet<SurveyVersion> SurveyVersions { get; set; }
+
+        public DbSet<QuestionVariant> QuestionVariants { get; set; }
+
+        public DbSet<SurveyTemplate> Templates { get; set; }
+
+        public DbSet<QuestionType> QuestionTypes { get; set; }
 
 
         public TechArtSurveyContext()
@@ -35,6 +56,17 @@ namespace RedTeam.TechArtSurvey.Repositories.EF
         {
             modelBuilder.Configurations.Add(new UserConfiguration());
             modelBuilder.Configurations.Add(new RoleConfiguration());
+            modelBuilder.Configurations.Add(new QuestionConfiguration());
+            modelBuilder.Configurations.Add(new QuestionAnswerConfiguration());
+            modelBuilder.Configurations.Add(new SurveyResponseConfiguration());
+            modelBuilder.Configurations.Add(new SurveyConfiguration());
+            modelBuilder.Configurations.Add(new SurveyVersionConfiguration());
+            modelBuilder.Configurations.Add(new SurveyPageConfiguration());
+            modelBuilder.Configurations.Add(new TemplatePageConfiguration());
+            modelBuilder.Configurations.Add(new PageConfiguration());
+            modelBuilder.Configurations.Add(new TemplateConfiguration());
+            modelBuilder.Configurations.Add(new QuestionVariantConfiguration());
+            modelBuilder.Configurations.Add(new QuestionTypeConfiguration());
             base.OnModelCreating(modelBuilder);
         }  
     }

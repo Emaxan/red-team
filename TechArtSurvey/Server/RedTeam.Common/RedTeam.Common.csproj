@@ -9,8 +9,9 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>RedTeam.Common</RootNamespace>
     <AssemblyName>RedTeam.Common</AssemblyName>
-    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -34,13 +35,27 @@
       <HintPath>..\RedTeam.Repositories.EntityFramework\bin\Debug\JetBrains.Annotations.dll</HintPath>
     </Reference>
     <Reference Include="System" />
-    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="EmailSender\SmtpEmailSender.cs" />
     <Compile Include="EmailSender\IEmailSender.cs" />
+    <Compile Include="EnvironmentInfo\EnvironmentInfoService.cs" />
+    <Compile Include="EnvironmentInfo\IEnvironmentInfoService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Validator\FakeValidator.cs" />
+    <Compile Include="Validator\IValidator.cs" />
+    <Compile Include="Validator\IValidatorFactory.cs" />
+    <Compile Include="Validator\RatingQuestionValidator.cs" />
+    <Compile Include="Validator\ScaleQuestionValidator.cs" />
+    <Compile Include="Validator\TextQuestionValidator.cs" />
+    <Compile Include="Validator\ValidatorFactory.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\RedTeam.TechArtSurvey.DomainModel\RedTeam.TechArtSurvey.DomainModel.csproj">
+      <Project>{cba1e0f8-a057-4782-82de-162668f2b074}</Project>
+      <Name>RedTeam.TechArtSurvey.DomainModel</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

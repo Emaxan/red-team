@@ -8,5 +8,9 @@ namespace RedTeam.TechArtSurvey.Repositories.Interfaces
         IUserRepository Users { get; }
 
         IRoleRepository Roles { get; }
+
+        ISurveyRepository Surveys { get; }
+
+        IQuestionTypeRepository QuestionTypes { get; }
     }
 }

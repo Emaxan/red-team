@@ -1,7 +1,7 @@
-﻿using RedTeam.TechArtSurvey.DomainModel.Entities;
-using System.Data.Entity.ModelConfiguration;
+﻿using System.Data.Entity.ModelConfiguration;
+using RedTeam.TechArtSurvey.DomainModel.Entities.Users;
 
-namespace RedTeam.TechArtSurvey.Repositories.EF
+namespace RedTeam.TechArtSurvey.Repositories.EF.Users
 {
     internal class RoleConfiguration : EntityTypeConfiguration<Role>
     {

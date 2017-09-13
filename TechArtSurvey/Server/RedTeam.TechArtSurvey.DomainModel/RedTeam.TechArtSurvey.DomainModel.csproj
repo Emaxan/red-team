@@ -47,13 +47,32 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Entities\Role.cs" />
-    <Compile Include="Entities\RoleTypes.cs" />
-    <Compile Include="Entities\User.cs" />
+    <Compile Include="Entities\Surveys\Page.cs" />
+    <Compile Include="Entities\Surveys\Question.cs" />
+    <Compile Include="Entities\Surveys\QuestionAnswer.cs" />
+    <Compile Include="Entities\Surveys\QuestionType.cs" />
+    <Compile Include="Entities\Surveys\QuestionTypeEnum.cs" />
+    <Compile Include="Entities\Surveys\QuestionVariant.cs" />
+    <Compile Include="Entities\Surveys\Survey.cs" />
+    <Compile Include="Entities\Surveys\SurveyPage.cs" />
+    <Compile Include="Entities\Surveys\SurveyResponse.cs" />
+    <Compile Include="Entities\Surveys\SurveySettings.cs" />
+    <Compile Include="Entities\Surveys\SurveyVersion.cs" />
+    <Compile Include="Entities\Surveys\SurveyTemplate.cs" />
+    <Compile Include="Entities\Surveys\TemplatePage.cs" />
+    <Compile Include="Entities\Users\Role.cs" />
+    <Compile Include="Entities\Users\RoleTypes.cs" />
+    <Compile Include="Entities\Users\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\RedTeam.Repositories\RedTeam.Repositories.csproj">
+      <Project>{433A7044-1A29-42CB-80B0-06E86AA12A2F}</Project>
+      <Name>RedTeam.Repositories</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

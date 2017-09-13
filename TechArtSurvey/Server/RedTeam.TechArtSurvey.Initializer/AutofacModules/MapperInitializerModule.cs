@@ -1,6 +1,8 @@
 ﻿using Autofac;
 using AutoMapper;
-using RedTeam.TechArtSurvey.DomainModel.Entities;
+using RedTeam.TechArtSurvey.DomainModel.Entities.Surveys;
+using RedTeam.TechArtSurvey.DomainModel.Entities.Users;
+using RedTeam.TechArtSurvey.Foundation.Dto.SurveysDto;
 using RedTeam.TechArtSurvey.Foundation.Dto.UsersDto;
 
 namespace RedTeam.TechArtSurvey.Initializer.AutofacModules
@@ -12,9 +14,22 @@ namespace RedTeam.TechArtSurvey.Initializer.AutofacModules
             builder.Register(c => new MapperConfiguration(cfg =>
                                                           {
                                                               cfg.AddProfiles(GetType().Assembly);
+                                                              cfg.CreateMap<User, ReadUserDto>().ReverseMap();
+                                                              cfg.CreateMap<User, EditUserDto>().ReverseMap();
                                                               cfg.CreateMap<User, UserDto>().ReverseMap();
                                                               cfg.CreateMap<Role, RoleDto>().ReverseMap();
-                                                              cfg.CreateMap<User, EditUserDto>().ReverseMap();
+                                                              cfg.CreateMap<Survey, SurveyDto>().ReverseMap();
+                                                              cfg.CreateMap<Survey, EditSurveyDto>().ReverseMap();
+                                                              cfg.CreateMap<Question, QuestionDto>().ReverseMap();
+                                                              cfg.CreateMap<QuestionAnswer, QuestionAnswerDto>().ReverseMap();
+                                                              cfg.CreateMap<SurveyVersion, SurveyVersionDto>().ReverseMap();
+                                                              cfg.CreateMap<SurveyPage, PageDto>().ReverseMap();
+                                                              cfg.CreateMap<TemplatePage, PageDto>().ReverseMap();
+                                                              cfg.CreateMap<SurveyResponse, SurveyResponseDto>().ReverseMap();
+                                                              cfg.CreateMap<SurveyTemplate, TemplateDto>().ReverseMap();
+                                                              cfg.CreateMap<QuestionVariant, QuestionVariantDto>().ReverseMap();
+                                                              cfg.CreateMap<SurveySettings, SurveySettingsDto>().ReverseMap();
+                                                              cfg.CreateMap<QuestionType, QuestionTypeDto>().ReverseMap();
                                                           })).AsSelf().SingleInstance();
 
             builder.Register(c => c.Resolve<MapperConfiguration>().CreateMapper(c.Resolve)).As<IMapper>().SingleInstance();

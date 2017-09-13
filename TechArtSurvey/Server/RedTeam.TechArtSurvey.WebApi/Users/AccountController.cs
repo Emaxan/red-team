@@ -20,10 +20,11 @@ namespace RedTeam.TechArtSurvey.WebApi.Users
         }
 
 
+        // POST api/account/signup
         [Route("signup")]
         [HttpPost]
         [AllowAnonymous]
-        public async Task<IServiceResponse<UserDto>> Signup(UserDto user)
+        public async Task<IServiceResponse<ReadUserDto>> Signup(EditUserDto user)
         {      
             return await _userService.CreateAsync(user);
         }

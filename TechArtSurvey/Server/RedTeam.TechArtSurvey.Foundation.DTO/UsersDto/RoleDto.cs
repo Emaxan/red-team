@@ -1,8 +1,10 @@
-﻿using RedTeam.TechArtSurvey.DomainModel.Entities;
-using System;
+﻿using System;
+using JetBrains.Annotations;
+using RedTeam.TechArtSurvey.DomainModel.Entities.Users;
 
 namespace RedTeam.TechArtSurvey.Foundation.Dto.UsersDto
 {
+    [UsedImplicitly]
     public class RoleDto
     {
         private string _roleType;

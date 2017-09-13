@@ -20,8 +20,7 @@ namespace RedTeam.TechArtSurvey.WebApi.Users
         }
 
 
-
-        // PUT api/Users/5
+        // PUT api/Users
         [Route("")]
         [HttpPut]
         public async Task<IServiceResponse> EditUser(EditUserDto user)
@@ -31,7 +30,7 @@ namespace RedTeam.TechArtSurvey.WebApi.Users
             return await _userService.UpdateAsync(user);
         }
 
-        // DELETE api/Users
+        // DELETE api/Users/{id}
         [Route("{id}")]
         [HttpDelete]
         public async Task<IServiceResponse> RemoveUser(int id)
@@ -41,10 +40,10 @@ namespace RedTeam.TechArtSurvey.WebApi.Users
             return await _userService.DeleteByIdAsync(id);
         }
 
-        // GET api/Users/5
-        [Route("")]
+        // GET api/Users/{id}
+        [Route("{id}")]
         [HttpGet]
-        public async Task<IServiceResponse<EditUserDto>> GetUser(int id)
+        public async Task<IServiceResponse<ReadUserDto>> GetUser(int id)
         {
             LoggerContext.Logger.Info($"Get User with id = {id}");
 
@@ -64,7 +63,7 @@ namespace RedTeam.TechArtSurvey.WebApi.Users
 
         [Route("")]
         [HttpGet]
-        public async Task<IServiceResponse<IReadOnlyCollection<EditUserDto>>> GetUsers()
+        public async Task<IServiceResponse<IReadOnlyCollection<ReadUserDto>>> GetUsers()
         {
             LoggerContext.Logger.Info("Get all users");
 
