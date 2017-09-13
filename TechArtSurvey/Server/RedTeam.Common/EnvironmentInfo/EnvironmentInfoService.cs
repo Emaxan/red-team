@@ -6,6 +6,6 @@ namespace RedTeam.Common.EnvironmentInfo
     [UsedImplicitly]
     public class EnvironmentInfoService : IEnvironmentInfoService
     {
-        public DateTime CurrentUtcDateTime => DateTime.Now;
+        public DateTime CurrentUtcDateTime => DateTime.UtcNow;
     }
 }
