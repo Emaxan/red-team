@@ -13,6 +13,8 @@ namespace RedTeam.TechArtSurvey.DomainModel.Entities.Surveys
 
         public string Text { get; set; }
 
+        public double UsageStat { get; set; }
+
         public ICollection<QuestionAnswer> Answers { get; set; }
     }
 }

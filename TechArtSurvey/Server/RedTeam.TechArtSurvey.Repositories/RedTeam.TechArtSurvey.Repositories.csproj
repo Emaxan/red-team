@@ -76,6 +76,10 @@
     <Compile Include="Migrations\201709070902428_AddSurveys.Designer.cs">
       <DependentUpon>201709070902428_AddSurveys.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201803060930188_UsageStat.cs" />
+    <Compile Include="Migrations\201803060930188_UsageStat.Designer.cs">
+      <DependentUpon>201803060930188_UsageStat.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\QuestionTypeRepository.cs" />
@@ -119,6 +123,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201709070902428_AddSurveys.resx">
       <DependentUpon>201709070902428_AddSurveys.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201803060930188_UsageStat.resx">
+      <DependentUpon>201803060930188_UsageStat.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

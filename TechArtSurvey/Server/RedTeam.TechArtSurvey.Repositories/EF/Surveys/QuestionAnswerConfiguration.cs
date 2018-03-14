@@ -9,7 +9,7 @@ namespace RedTeam.TechArtSurvey.Repositories.EF.Surveys
         {
             ToTable("QuestionAnswer");
 
-            Property(qa => qa.Value).IsRequired();
+            Property(qa => qa.Value).IsOptional();
 
             HasRequired(qa => qa.Question)
                 .WithMany(q => q.Answers)

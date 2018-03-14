@@ -7,6 +7,8 @@ namespace RedTeam.TechArtSurvey.Repositories.EF.Users
     {
         public RoleConfiguration()
         {
+            Property(r => r.Name).IsRequired();
+
             HasMany(r => r.Users)
                     .WithRequired(u => u.Role)
                     .HasForeignKey(u => u.RoleId);

@@ -11,6 +11,7 @@ namespace RedTeam.TechArtSurvey.Repositories.EF.Surveys
 
             Property(qv => qv.QuestionId).IsRequired();
             Property(qv => qv.Text).IsRequired();
+            Property(qv => qv.UsageStat).IsRequired();
 
             HasRequired(qv => qv.Question)
                 .WithMany(q => q.Variants)
