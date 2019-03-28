@@ -4,6 +4,7 @@ import { Form, FormGroup, FormControl, ControlLabel, Button } from 'react-bootst
 import { isEmpty } from 'lodash';
 
 import { validateEmail } from '../../../utils/validation/userValidation';
+import { reactBootstrapValidationUtility as rbValidationUtility } from '../../../utils/validation/reactBootstrapValidationUtility';
 
 export class ForgotPasswordForm extends Component {
   constructor(props) {
@@ -13,8 +14,13 @@ export class ForgotPasswordForm extends Component {
       emailInput : '',
     };
 
-    this.emailError = '';
-    this.emailValidationState = null;
+    this.errors = {
+      email : '',
+    },
+
+    this.validationStates = {
+      email : null,
+    };
   }
 
   handleOnSubmit = (event) => {
@@ -23,31 +29,28 @@ export class ForgotPasswordForm extends Component {
   }
 
   setSuccessValidationState = () => {
-    this.emailError = null;
-    this.emailValidationState = 'success';
+    this.errors.email = null;
+    this.validationStates.email = 'success';
   }
 
   setErrorValidationState = (message) => {
-    this.emailError = message;
-    this.emailValidationState = 'error';
+    this.errors.email = message;
+    this.validationStates.email = 'error';
   }
 
   setNullValidationState = () => {
-    this.emailError = null;
-    this.emailValidationState = null;
+    this.errors.email = null;
+    this.validationStates.email = null;
   }
-
-  setValidationState = (validationInfo) => {
-    if (validationInfo.isValid) {
-      this.setSuccessValidationState();
-    } else {
-      this.setErrorValidationState(validationInfo.errors[0].message);
-    }
-  }
-
 
   handleOnEmailChange = (event) => {
-    this.setValidationState(validateEmail(event.target.value));
+    rbValidationUtility.setValidationState(
+      'email',
+      this.errors,
+      this.validationStates,
+      validateEmail(event.target.value),
+    );
+
     this.setState({ emailInput : event.target.value });
   }
 
@@ -71,7 +74,7 @@ export class ForgotPasswordForm extends Component {
   }
 
   isInputValid = () => {
-    return this.emailError === null;
+    return this.errors.email === null;
   }
 
   render = () => {
@@ -79,9 +82,9 @@ export class ForgotPasswordForm extends Component {
 
     return (
       <Form onSubmit={this.handleOnSubmit} horizontal>
-        <FormGroup validationState={this.emailValidationState} className="label-floating">
+        <FormGroup validationState={this.validationStates.email} className="label-floating">
           <ControlLabel htmlFor="email">
-            { this.emailError || 'Email' }
+            { this.errors.email || 'Email' }
           </ControlLabel>
           <FormControl
             id="email"

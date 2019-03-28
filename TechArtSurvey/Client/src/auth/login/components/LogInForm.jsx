@@ -4,10 +4,8 @@ import PropTypes from 'prop-types';
 import { Form, FormGroup, FormControl, ControlLabel, Button } from 'react-bootstrap';
 
 import Routes from '../../../app/routes';
-import {
-  validateEmail,
-  validatePassword,
-} from '../../../utils/validation/userValidation.js';
+import { validateEmail, validatePassword } from '../../../utils/validation/userValidation.js';
+import { reactBootstrapValidationUtility as rbValidationUtility } from '../../../utils/validation/reactBootstrapValidationUtility';
 
 import './LoginForm.scss';
 
@@ -38,23 +36,25 @@ export class LoginForm extends Component {
     this.props.loginRequest(this.state.user);
   }
 
-  setValidationState = (fieldName, validationInfo) => {
-    if (validationInfo.isValid) {
-      this.errors[fieldName] = null;
-      this.validationStates[fieldName] = 'success';
-    } else {
-      this.errors[fieldName] = validationInfo.errors[0].message;
-      this.validationStates[fieldName] = 'error';
-    }
-  }
-
   handleOnEmailChange = (event) => {
-    this.setValidationState('email', validateEmail(event.target.value));
+    rbValidationUtility.setValidationState(
+      'email',
+      this.errors,
+      this.validationStates,
+      validateEmail(event.target.value),
+    );
+
     this.setState({ user : { ...this.state.user, email : event.target.value }});
   }
 
   handleOnPasswordChange = (event) => {
-    this.setValidationState('password', validatePassword(event.target.value));
+    rbValidationUtility.setValidationState(
+      'password',
+      this.errors,
+      this.validationStates,
+      validatePassword(event.target.value),
+    );
+
     this.setState({ user : { ...this.state.user, password : event.target.value}});
   }
 

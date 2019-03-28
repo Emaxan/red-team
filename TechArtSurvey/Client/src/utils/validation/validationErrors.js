@@ -1,6 +1,11 @@
 import * as constants from './constants';
 
 export const validationErrors = {
+  TitleRequired : {
+    id : constants.COMMON_TITLE_REQUIRED_ERROR_ID,
+    message : 'Title is required',
+  },
+
   UserNameRequired : {
     id : constants.USER_NAME_REQUIRED_ERROR_ID,
     message : 'Name is required',
@@ -34,5 +39,20 @@ export const validationErrors = {
   UserConfirmationPasswordMustMatch : {
     id : constants.USER_CONFIRMATION_PASSWORD_MUST_MATCH_ERROR_ID,
     message : 'Passwords must match',
+  },
+
+  QuestionTitleRequired : {
+    id : constants.QUESTION_TITLE_REQUIRED_ERROR_ID,
+    message : 'Question title is required',
+  },
+
+  QuestionsRequired : {
+    id : constants.QUESTIONS_REQUIRED_ERROR_ID,
+    message : 'Page questions are required',
+  },
+
+  VariantsRequired : {
+    id : constants.VARIANTS_REQUIRED_ERROR_ID,
+    message : 'Variants are required',
   },
 };

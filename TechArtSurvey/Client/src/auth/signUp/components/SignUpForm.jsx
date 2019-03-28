@@ -8,7 +8,8 @@ import {
   validateEmail,
   validatePassword,
   validateConfirmationPassword,
-} from '../../../utils/validation/userValidation.js';
+} from '../../../utils/validation/userValidation';
+import { reactBootstrapValidationUtility as rbValidationUtility } from '../../../utils/validation/reactBootstrapValidationUtility';
 
 export class SignUpForm extends Component {
   constructor(props) {
@@ -43,11 +44,6 @@ export class SignUpForm extends Component {
     this.props.signUpRequest(this.state.user);
   }
 
-  setSuccessValidationState = (fieldName) => {
-    this.errors[fieldName] = null;
-    this.validationStates[fieldName] = 'success';
-  }
-
   setErrorValidationState = (fieldName, message) => {
     this.errors[fieldName] = message;
     this.validationStates[fieldName] = 'error';
@@ -58,25 +54,34 @@ export class SignUpForm extends Component {
     this.validationStates[fieldName] = null;
   }
 
-  setValidationState = (fieldName, validationInfo) => {
-    if (validationInfo.isValid) {
-      this.setSuccessValidationState(fieldName);
-    } else {
-      this.setErrorValidationState(fieldName, validationInfo.errors[0].message);
-    }
-  }
-
-  makeConfirmationPasswordValidation = (password, confirmationPassword)  =>{
-    this.setValidationState('confirmationPassword', validateConfirmationPassword(password, confirmationPassword));
+  makeConfirmationPasswordValidation = (password, confirmationPassword) => {
+    rbValidationUtility.setValidationState(
+      'confirmationPassword',
+      this.errors,
+      this.validationStates,
+      validateConfirmationPassword(password, confirmationPassword),
+    );
   }
 
   handleOnNameChange = (event) => {
-    this.setValidationState('name', validateName(event.target.value));
+    rbValidationUtility.setValidationState(
+      'name',
+      this.errors,
+      this.validationStates,
+      validateName(event.target.value),
+    );
+
     this.setState({ user : { ...this.state.user, name : event.target.value }});
   }
 
   handleOnEmailChange = (event) => {
-    this.setValidationState('email', validateEmail(event.target.value));
+    rbValidationUtility.setValidationState(
+      'email',
+      this.errors,
+      this.validationStates,
+      validateEmail(event.target.value),
+    );
+
     this.setState({ user : { ...this.state.user, email : event.target.value }});
   }
 
@@ -92,7 +97,12 @@ export class SignUpForm extends Component {
       } else if (this.props.isEmailRegistered) {
         this.setErrorValidationState('email', 'User with this email is already exists');
       } else {
-        this.setValidationState('email', validateEmail(email));
+        rbValidationUtility.setValidationState(
+          'email',
+          this.errors,
+          this.validationStates,
+          validateEmail(email),
+        );
       }
 
       this.setState({ user : { ...this.state.user, email : email }});
@@ -101,7 +111,13 @@ export class SignUpForm extends Component {
 
   handleOnPasswordChange = (event) => {
     const validationInfo = validatePassword(event.target.value);
-    this.setValidationState('password', validationInfo);
+
+    rbValidationUtility.setValidationState(
+      'password',
+      this.errors,
+      this.validationStates,
+      validationInfo,
+    );
 
     if (validationInfo.isValid) {
       this.makeConfirmationPasswordValidation(event.target.value,

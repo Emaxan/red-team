@@ -20,14 +20,14 @@ export default new Config()
       filename : 'bundle.js',
     },
 
-    context : path.resolve(__dirname, '../'),
+    context : path.join(__dirname, '../'),
 
     resolve : {
       extensions : [ '.js', '.jsx' ],
     },
 
     module : {
-      loaders : [
+      rules : [
         {
           test : /\.jsx?$/,
           exclude : /node_modules/,
@@ -44,24 +44,34 @@ export default new Config()
           },
         },
         {
-          test : /\.css$/,
-          use : ExtractTextPlugin.extract({
-            loader : 'css-loader',
-            options : {
-              minimize : true,
+          test : /\.(scss|css)$/,
+          use : [
+            {
+              loader : 'style-loader',
             },
-          }),
+            {
+              loader : 'css-loader',
+              options : { importLoaders: 1 },
+            },
+            {
+              loader : 'sass-loader',
+            }],
         },
         {
-          test : /\.scss$/,
-          use : ExtractTextPlugin.extract({
-            fallback : 'style-loader',
-            use : [ 'css-loader', 'sass-loader', 'postcss-loader' ],
-          }),
+          test : /\.(svg|png|jpe?g|gif)$/,
+          use : [{
+            loader : 'url-loader',
+            options : {
+              limit : 8192,
+            },
+          }],
         },
         {
-          test : /\.woff2?$|\.ttf$|\.eot$|\.svg$|\.png$|\.jpg$|\.gif$/,
-          loader : 'file-loader',
+          test : /\.(eot|svg|ttf|woff|woff2)$/,
+          use : [
+            {
+              loader : 'file-loader',
+            }],
         },
       ],
     },

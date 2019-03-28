@@ -18,6 +18,7 @@ import {
   userIsNotAuthenticatedRedirect,
   userIsAdminRedirect,
 } from '../../auth/authWrappers';
+import NewSurveyContainer from '../../surveys/NewSurveyContainer';
 
 import './AppContent.scss';
 import './customScroll.scss';
@@ -27,6 +28,7 @@ const Login = userIsNotAuthenticatedRedirect(LoginContainer);
 const SignUp = userIsNotAuthenticatedRedirect(SignUpContainer);
 const ForgotPassword = userIsNotAuthenticatedRedirect(ForgotPasswordContainer);
 const ResetPassword = userIsNotAuthenticatedRedirect(ResetPasswordContainer);
+const NewSurvey = userIsAuthenticatedRedirect(userIsAdminRedirect(NewSurveyContainer));
 
 const AppContent = ({ className }) => (
   <div className={'main ' + className}>
@@ -40,6 +42,7 @@ const AppContent = ({ className }) => (
         <Route path={Routes.About.path} component={AboutContainer} />
         <Route path={Routes.ForgotPassword.path} component={ForgotPassword} />
         <Route path={Routes.ResetPassword.path.concat(Routes.ResetPassword.params)} component={ResetPassword} />
+        <Route path={Routes.NewSurvey.path} component={NewSurvey} />
         <Route component={NotFound} />
       </Switch>
     </CustomScroll>
