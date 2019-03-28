@@ -29,8 +29,7 @@ If the domain-model was changed, to avoid conflicts between code and database, y
 
 ##### Updating database according to migration #####
 
-When `add-migration` was finished successfully, you can use `update-database -projectname:RedTeam.TechArtSurvey.Repositories 
--startupprojectname:RedTeam.TechArtSurvey.WebApi` to update database according to the last generated `<timestamp>_MigrationName.cs` file. Now you don't have any conflicts between your code and database!
+When `add-migration` was finished successfully, you can use `update-database -projectname:RedTeam.TechArtSurvey.Repositories -startupprojectname:RedTeam.TechArtSurvey.WebApi` to update database according to the last generated `<timestamp>_MigrationName.cs` file. Now you don't have any conflicts between your code and database!
 
 ### Remarks ###
 

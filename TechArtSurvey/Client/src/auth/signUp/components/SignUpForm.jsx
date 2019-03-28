@@ -101,7 +101,7 @@ export class SignUpForm extends Component {
           'email',
           this.errors,
           this.validationStates,
-          validateEmail(event.target.value),
+          validateEmail(email),
         );
       }
 
