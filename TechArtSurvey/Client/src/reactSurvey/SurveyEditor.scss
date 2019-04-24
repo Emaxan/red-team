@@ -1,0 +1,13 @@
+.svd_container .svd_content .svd_survey_designer .svd_editors .svd_questions_editor {
+  overflow-y: visible;
+  height: 100%;
+}
+
+.svd_container .svd_content .svd_survey_designer .svd_editors .svd_questions_editor .empty-message {
+  line-height: 20vh;
+}
+
+.svd_container .svd_properties .svd_object_editor {
+  height: 100%;
+  overflow-y: visible;
+}

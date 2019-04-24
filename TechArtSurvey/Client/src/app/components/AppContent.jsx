@@ -13,12 +13,13 @@ import { AboutContainer } from '../../about/AboutContainer';
 import { NotFound } from '../../error/NotFound';
 import { Forbidden } from '../../error/Forbidden';
 import { Home } from '../../home/Home';
+import reactSurvey from '../../reactSurvey/Survey';
 import {
   userIsAuthenticatedRedirect,
   userIsNotAuthenticatedRedirect,
   userIsAdminRedirect,
 } from '../../auth/authWrappers';
-import NewSurveyContainer from '../../surveys/NewSurveyContainer';
+//import NewSurveyContainer from '../../surveys/NewSurveyContainer';
 
 import './AppContent.scss';
 import './customScroll.scss';
@@ -28,7 +29,7 @@ const Login = userIsNotAuthenticatedRedirect(LoginContainer);
 const SignUp = userIsNotAuthenticatedRedirect(SignUpContainer);
 const ForgotPassword = userIsNotAuthenticatedRedirect(ForgotPasswordContainer);
 const ResetPassword = userIsNotAuthenticatedRedirect(ResetPasswordContainer);
-const NewSurvey = userIsAuthenticatedRedirect(userIsAdminRedirect(NewSurveyContainer));
+//const NewSurvey = userIsAuthenticatedRedirect(userIsAdminRedirect(NewSurveyContainer));
 
 const AppContent = ({ className }) => (
   <div className={'main ' + className}>
@@ -42,7 +43,7 @@ const AppContent = ({ className }) => (
         <Route path={Routes.About.path} component={AboutContainer} />
         <Route path={Routes.ForgotPassword.path} component={ForgotPassword} />
         <Route path={Routes.ResetPassword.path.concat(Routes.ResetPassword.params)} component={ResetPassword} />
-        <Route path={Routes.NewSurvey.path} component={NewSurvey} />
+        <Route path={Routes.NewSurvey.path} component={reactSurvey} />
         <Route component={NotFound} />
       </Switch>
     </CustomScroll>
