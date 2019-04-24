@@ -6,6 +6,6 @@ namespace RedTeam.TechArtSurvey.Repositories.Interfaces.Repositories
 {
     public interface IQuestionTypeRepository: IRepository<QuestionType>
     {
-        Task<QuestionType> FindByTypeAsync(QuestionTypeEnum questionType);
+        Task<QuestionType> FindByTypeAsync(QuestionTypes questionType);
     }
 }

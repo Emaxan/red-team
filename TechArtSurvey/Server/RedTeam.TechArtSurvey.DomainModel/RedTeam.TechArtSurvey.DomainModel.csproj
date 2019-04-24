@@ -47,12 +47,26 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Entities\Surveys\Questions\BarRating.cs" />
+    <Compile Include="Entities\Surveys\Questions\Boolean.cs" />
+    <Compile Include="Entities\Surveys\Questions\Checkbox.cs" />
+    <Compile Include="Entities\Surveys\Triggers\CopyValueTrigger.cs" />
+    <Compile Include="Entities\Surveys\Questions\DatePicker.cs" />
+    <Compile Include="Entities\Surveys\Questions\Dropdown.cs" />
+    <Compile Include="Entities\Surveys\LocalizableString.cs" />
+    <Compile Include="Entities\Surveys\Questions\Matrix.cs" />
+    <Compile Include="Entities\Surveys\Questions\MatrixCol.cs" />
+    <Compile Include="Entities\Surveys\Questions\MatrixRow.cs" />
     <Compile Include="Entities\Surveys\Page.cs" />
     <Compile Include="Entities\Surveys\Question.cs" />
     <Compile Include="Entities\Surveys\QuestionAnswer.cs" />
     <Compile Include="Entities\Surveys\QuestionType.cs" />
-    <Compile Include="Entities\Surveys\QuestionTypeEnum.cs" />
+    <Compile Include="Entities\Surveys\QuestionTypes.cs" />
     <Compile Include="Entities\Surveys\QuestionVariant.cs" />
+    <Compile Include="Entities\Surveys\Questions\RadioGroup.cs" />
+    <Compile Include="Entities\Surveys\Questions\Rating.cs" />
+    <Compile Include="Entities\Surveys\Triggers\RunExpressionTrigger.cs" />
+    <Compile Include="Entities\Surveys\Triggers\SetValueTrigger.cs" />
     <Compile Include="Entities\Surveys\Survey.cs" />
     <Compile Include="Entities\Surveys\SurveyPage.cs" />
     <Compile Include="Entities\Surveys\SurveyResponse.cs" />
@@ -60,6 +74,10 @@
     <Compile Include="Entities\Surveys\SurveyVersion.cs" />
     <Compile Include="Entities\Surveys\SurveyTemplate.cs" />
     <Compile Include="Entities\Surveys\TemplatePage.cs" />
+    <Compile Include="Entities\Surveys\Questions\Text.cs" />
+    <Compile Include="Entities\Surveys\Questions\TextArea.cs" />
+    <Compile Include="Entities\Surveys\Trigger.cs" />
+    <Compile Include="Entities\Surveys\Triggers\VisibleTrigger.cs" />
     <Compile Include="Entities\Users\Role.cs" />
     <Compile Include="Entities\Users\RoleTypes.cs" />
     <Compile Include="Entities\Users\User.cs" />

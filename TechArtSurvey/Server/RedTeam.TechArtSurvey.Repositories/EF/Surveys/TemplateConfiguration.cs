@@ -9,8 +9,15 @@ namespace RedTeam.TechArtSurvey.Repositories.EF.Surveys
         {
             ToTable("SurveyTemplate");
 
-            Property(t => t.Title).IsRequired();
-            Property(t => t.Description).IsRequired();
+            HasRequired(t => t.Description)
+                .WithMany()
+                .HasForeignKey(t => t.DescriptionId)
+                .WillCascadeOnDelete(false);
+
+            HasRequired(t => t.Title)
+                .WithMany()
+                .HasForeignKey(t => t.TitleId)
+                .WillCascadeOnDelete(false);
 
             HasMany(t => t.Pages)
                 .WithRequired(tp => tp.Template)

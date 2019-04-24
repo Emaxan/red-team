@@ -4,6 +4,6 @@ namespace RedTeam.Common.Validator
 {
     public interface IValidatorFactory
     {
-        IValidator GetValidator(QuestionTypeEnum type);
+        IValidator GetValidator(QuestionTypes type);
     }
 }

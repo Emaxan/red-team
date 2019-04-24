@@ -44,28 +44,27 @@ namespace RedTeam.TechArtSurvey.Foundation.Services
 
             var version = survey.Versions.First();
 
-            if(!version.Pages.All(
-                                 page =>
-                                 {
-                                     var res = page.Questions.All(
-                                                         question =>
-                                                         {
-                                                             var result = _validatorFactory.
-                                                                 GetValidator(question.Type.Type).
-                                                                 ValidateDefaultValue(question.Default);
-                                                             return result;
-                                                         });
-                                     return res;
-                                 }
-                                )
-            )
-            {
-                return ServiceResponse.CreateUnsuccessful<SurveyDto>(ServiceResponseCode.DefaultValueIsWrong);
-            }
+            //if(!version.Pages.All(
+            //                     page =>
+            //                     {
+            //                         var res = page.Questions.All(
+            //                                             question =>
+            //                                             {
+            //                                                 var result = _validatorFactory.
+            //                                                     GetValidator(question.Type.Type).
+            //                                                     ValidateDefaultValue(question.Default);
+            //                                                 return result;
+            //                                             });
+            //                         return res;
+            //                     }
+            //                    )
+            //)
+            //{
+            //    return ServiceResponse.CreateUnsuccessful<SurveyDto>(ServiceResponseCode.DefaultValueIsWrong);
+            //}
 
-            survey.CreatedDate = _environmentInfoService.CurrentUtcDateTime;
-            version.UpdatedDate = _environmentInfoService.CurrentUtcDateTime;
-            version.Version = 1;
+            version.CreatedDate = _environmentInfoService.CurrentUtcDateTime;
+            version.Number = 1;
             _uow.Surveys.Create(survey);
             await _uow.SaveAsync();
 
@@ -85,19 +84,19 @@ namespace RedTeam.TechArtSurvey.Foundation.Services
             var su = await PrepareSurvey(_mapper.Map<EditSurveyDto, Survey>(survey));
             var version = su.Versions.First();
 
-            if (version.Pages.Any(
-                    page => !page.Questions.Any(
-                        question => _validatorFactory.
-                            GetValidator(question.Type.Type).
-                            ValidateDefaultValue(question.Default))
-                    )
-            )
-            {
-                return ServiceResponse.CreateUnsuccessful<SurveyDto>(ServiceResponseCode.DefaultValueIsWrong);
-            }
+            //if (version.Pages.Any(
+            //        page => !page.Questions.Any(
+            //            question => _validatorFactory.
+            //                GetValidator(question.Type.Type).
+            //                ValidateDefaultValue(question.Default))
+            //        )
+            //)
+            //{
+            //    return ServiceResponse.CreateUnsuccessful<SurveyDto>(ServiceResponseCode.DefaultValueIsWrong);
+            //}
 
-            version.Version = surv.Versions.Count + 1;
-            version.UpdatedDate = _environmentInfoService.CurrentUtcDateTime;
+            version.Number = surv.Versions.Count + 1;
+            version.CreatedDate = _environmentInfoService.CurrentUtcDateTime;
             await _uow.Surveys.UpdateVersionAsync(survey.Id, version);
             await _uow.SaveAsync();
 
@@ -117,7 +116,7 @@ namespace RedTeam.TechArtSurvey.Foundation.Services
                                s => s.Versions.Select(v => v.Pages),
                                s => s.Versions.Select(v => v.Pages.Select(p => p.Questions)),
                                s => s.Versions.Select(v => v.Pages.Select(p => p.Questions.Select(q => q.Type))),
-                               s => s.Versions.Select(v => v.Pages.Select(p => p.Questions.Select(q => q.Variants)))
+                               s => s.Versions.Select(v => v.Pages.Select(p => p.Questions.Select(q => q.Choices)))
                            };
 
             var surv = await _uow.Surveys.GetByIdAsync(id, includes);
@@ -129,7 +128,7 @@ namespace RedTeam.TechArtSurvey.Foundation.Services
             var versions = surv.Versions.ToArray();
             var pages = versions.SelectMany(sv => sv.Pages).ToArray();
             var questions = pages.SelectMany(sp => sp.Questions).ToArray();
-            var variants = questions.SelectMany(q => q.Variants).ToArray();
+            var variants = questions.SelectMany(q => q.Choices).ToArray();
             var responses = versions.SelectMany(sv => sv.Responses).ToArray();
             var answers = responses.SelectMany(sr => sr.Answers).ToArray();
 
@@ -167,7 +166,7 @@ namespace RedTeam.TechArtSurvey.Foundation.Services
                                s => s.Versions.Select(v => v.Pages),
                                s => s.Versions.Select(v => v.Pages.Select(p => p.Questions)),
                                s => s.Versions.Select(v => v.Pages.Select(p => p.Questions.Select(q => q.Type))),
-                               s => s.Versions.Select(v => v.Pages.Select(p => p.Questions.Select(q => q.Variants)))
+                               s => s.Versions.Select(v => v.Pages.Select(p => p.Questions.Select(q => q.Choices)))
                            };
 
             var surv = await _uow.Surveys.GetSurveyByIdAndVersionAsync(id, version, includes);
@@ -176,7 +175,7 @@ namespace RedTeam.TechArtSurvey.Foundation.Services
             {
                 return ServiceResponse.CreateUnsuccessful<EditSurveyDto>(ServiceResponseCode.SurveyNotFoundById);
             }
-            surv.Versions = surv.Versions.Where(sv => sv.Version == version).ToList();
+            surv.Versions = surv.Versions.Where(sv => sv.Number == version).ToList();
 
             return ServiceResponse.CreateSuccessful(_mapper.Map<Survey, EditSurveyDto>(surv));
         }
@@ -201,7 +200,7 @@ namespace RedTeam.TechArtSurvey.Foundation.Services
                 {
                     foreach(var question in page.Questions)
                     {
-                        if (!Enum.TryParse(question.Type.Name, out QuestionTypeEnum qt))
+                        if (!Enum.TryParse(question.Type.Name, out QuestionTypes qt))
                         {
                             throw new NullReferenceException(nameof(question.Type));
                         }

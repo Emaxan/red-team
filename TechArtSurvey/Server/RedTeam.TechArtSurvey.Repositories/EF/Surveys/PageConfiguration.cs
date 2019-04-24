@@ -9,10 +9,17 @@ namespace RedTeam.TechArtSurvey.Repositories.EF.Surveys
         {
             ToTable("Page");
 
-            Property(sp => sp.Title).IsRequired();
-            Property(sp => sp.Number).IsRequired();
+            Property(p => p.Name).IsRequired();
+            Property(p => p.VisibleIf).IsRequired();
+            Property(p => p.Visible).IsRequired();
+            Property(p => p.QuestionsOrder).IsRequired();
 
-            HasMany(sp => sp.Questions)
+            HasRequired(p => p.Title)
+                .WithMany()
+                .HasForeignKey(p => p.TitleId)
+                .WillCascadeOnDelete(false);
+
+            HasMany(p => p.Questions)
                 .WithRequired(q => q.Page)
                 .HasForeignKey(q => q.PageId)
                 .WillCascadeOnDelete(false);

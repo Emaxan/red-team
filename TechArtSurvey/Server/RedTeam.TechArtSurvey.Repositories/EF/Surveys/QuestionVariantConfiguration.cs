@@ -10,11 +10,18 @@ namespace RedTeam.TechArtSurvey.Repositories.EF.Surveys
             ToTable("QuestionVariant");
 
             Property(qv => qv.QuestionId).IsRequired();
-            Property(qv => qv.Text).IsRequired();
             Property(qv => qv.UsageStat).IsRequired();
+            Property(qv => qv.Value).IsRequired();
+            Property(qv => qv.VisibleIf).IsRequired();
+            Property(qv => qv.EnableIf).IsRequired();
+
+            HasRequired(qv => qv.Text)
+                .WithMany()
+                .HasForeignKey(qv => qv.TextId)
+                .WillCascadeOnDelete(false);
 
             HasRequired(qv => qv.Question)
-                .WithMany(q => q.Variants)
+                .WithMany(q => q.Choices)
                 .HasForeignKey(qv => qv.QuestionId)
                 .WillCascadeOnDelete(false);
 
