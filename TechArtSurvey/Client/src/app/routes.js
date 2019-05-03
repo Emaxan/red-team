@@ -76,6 +76,7 @@ export default {
   ResetPassword : {
     text : 'Reset password',
     path : '/reset_password',
+    display : sidebarDisplay.NOBODY,
     params : '/:userId/:token+',
   },
 
@@ -92,11 +93,12 @@ export default {
     icon : 'glyphicon glyphicon-th-list',
   },
 
-  NewSurvey : {
-    text : 'New survey',
-    path : '/survey/new',
+  EditSurvey : {
+    text : 'Edit survey',
+    path : '/survey/edit',
     display : sidebarDisplay.ADMIN,
     icon : 'glyphicon glyphicon-plus',
+    params : '/:surveyId?/:version?',
   },
 
   MySurveys : {

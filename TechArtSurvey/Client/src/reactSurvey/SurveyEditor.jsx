@@ -1,6 +1,14 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import ReactRouterPropTypes from 'react-router-prop-types';
+import { pushSurveyRequest, getSurveyRequest } from './actions';
 import * as SurveyJSEditor from 'surveyjs-editor';
 import * as SurveyKo from 'survey-knockout';
+import $ from 'jquery';
+
+import 'survey-react/survey.css';
+
 import 'surveyjs-editor/surveyeditor.css';
 import './SurveyEditor.scss';
 
@@ -10,7 +18,6 @@ import 'select2/dist/css/select2.css';
 import 'jquery-bar-rating/dist/themes/css-stars.css';
 import 'jquery-bar-rating/dist/themes/fontawesome-stars.css';
 
-import $ from 'jquery';
 import 'jquery-ui/ui/widgets/datepicker.js';
 import 'select2/dist/js/select2.js';
 import 'jquery-bar-rating';
@@ -24,6 +31,16 @@ widgets.jqueryuidatepicker(SurveyKo, $);
 
 class SurveyEditor extends Component {
   editor;
+
+  componentWillMount() {
+    const {surveyId, version} = this.props.match.params;
+    if (surveyId && version) {
+      this.props.getSurveyRequest(surveyId, version);
+    } else {
+      //error
+    }
+  }
+
   componentDidMount() {
     let editorOptions = {
       generateValidJSON: true,	//The default value of this options is true. By default, the valid JSON is generated. You may want to use non-standard, but more readable format, JSON5.
@@ -68,17 +85,17 @@ class SurveyEditor extends Component {
     //     .locales["de"] = deutschStrings;
     // //Make this locale the current
     // //SurveyJSEditor.localization.currentLocale = "de";
-
     this.editor = new SurveyJSEditor.SurveyEditor(
       'surveyEditorContainer',
       editorOptions,
     );
     this.editor.saveSurveyFunc = this.saveMySurvey;
-    $('.svd_commercial_container').remove();
 
     this.editor
       .onCanShowProperty
       .add(function (sender, options) {
+        // console.log(options.obj.getType(), options.property.name);
+        if(options.property.name == 'choicesByUrl') options.canShow = false;
         if (options.obj.getType() == 'survey') {
           options.canShow = [
             'title',
@@ -114,14 +131,132 @@ class SurveyEditor extends Component {
           ].includes(options.property.name);
         }
       });
+
+    $('.svd_commercial_container').remove();
   }
+
   render() {
+    if(this.editor) this.editor.text = JSON.stringify(this.prepareAfterLoad(this.props.survey));
     return <div id="surveyEditorContainer" />;
   }
+
   saveMySurvey = () => {
-    // console.log(JSON.stringify(this.editor.text));
-    console.log(JSON.parse(this.editor.text));
+    let s = this.prepareSurveyToSend(JSON.parse(this.editor.text));
+    this.props.pushSurveyRequest(JSON.stringify(s));
   };
+
+  deepExtend = (destination, source) => {
+    for (var property in source) {
+      if (typeof source[property] === 'object' &&
+       source[property] !== null ) {
+        destination[property] = destination[property] || (Array.isArray(source[property]) ? [] : {});
+        destination[property] = this.deepExtend(destination[property], source[property]);
+      } else {
+        destination[property] = source[property];
+      }
+    }
+    return destination;
+  };
+
+  prepareAfterLoad(survey) {
+    let sv = this.deepExtend({}, survey);
+
+    sv.pages.forEach(page => {
+      if(!page.elements) return;
+      page.elements.forEach(elem => {
+        elem.type = elem.type.name;
+      });
+    });
+
+    return sv;
+  }
+
+  prepareSurveyToSend = (survey) => {
+
+    survey.author = {
+      userName: this.props.userName,
+      email: this.props.email,
+    };
+    if(!survey.triggers) survey.triggers = [];
+    var s = this.editor.translation.survey;
+    survey.completeText = s.locCompleteText.values.default?s.locCompleteText.values:{default:survey.completeText||''};
+    survey.completedHtml = s.locCompletedHtml.values.default?s.locCompletedHtml.values:{default:survey.completedHtml||''};
+    survey.pageNextText = s.locPageNextText.values.default?s.locPageNextText.values:{default:survey.pageNextText||''};
+    survey.pagePrevText = s.locPagePrevText.values.default?s.locPagePrevText.values:{default:survey.pagePrevText||''};
+    survey.startSurveyText = s.locStartSurveyText.values.default?s.locStartSurveyText.values:{default:survey.startSurveyText||''};
+    survey.title = s.locTitle.values.default?s.locTitle.values:{default:survey.title||''};
+
+    if(!survey.requiredText) survey.requiredText = '*';
+    if(!survey.isSinglePage) survey.isSinglePage = false;
+    if(!survey.firstPageIsStarted) survey.firstPageIsStarted = false;
+    if(!survey.showCompletedPage) survey.showCompletedPage = true;
+    if(!survey.showPrevButton) survey.showPrevButton = true;
+    if(!survey.maxTimeToFinish) survey.maxTimeToFinish = 0;
+    if(!survey.maxTimeToFinishPage) survey.maxTimeToFinishPage = 0;
+    survey.pages.forEach(page => {
+      if(!page.title.default) page.title = {default:page.title};
+      if(!page.visibleIf) page.visibleIf = '';
+      if(!page.visible) page.visible = true;
+      page.elements.forEach(elem => {
+        if(!elem.visibleIf) elem.visibleIf = '';
+        if(!elem.enableIf) elem.enableIf = '';
+        if(!elem.visible) elem.visible = true;
+        if(!elem.inputType) elem.inputType = 'text';
+        if(!elem.startWithNewLine) elem.startWithNewLine = true;
+        if(!elem.placeHolder) elem.placeHolder = {default:''};
+        else if(!elem.placeHolder.default) elem.placeHolder = {default:elem.placeHolder};
+        if(!elem.label) elem.label = {default:''};
+        else if(!elem.label.default) elem.label = {default:elem.label};
+        if(!elem.otherText) elem.otherText = {default:''};
+        else if(!elem.otherText.default) elem.otherText = {default:elem.otherText};
+        if(!elem.minRateDescription) elem.minRateDescription = {default:''};
+        else if(!elem.minRateDescription.default) elem.minRateDescription = {default:elem.minRateDescription};
+        if(!elem.maxRateDescription) elem.maxRateDescription = {default:''};
+        else if(!elem.maxRateDescription.default) elem.maxRateDescription = {default:elem.maxRateDescription};
+        if(!elem.title) elem.title = {default:''};
+        else if(!elem.title.default) elem.title = {default:elem.title};
+        let t = elem.type.charAt(0).toUpperCase() + elem.type.slice(1);
+        elem.type = {name:t};
+        if(elem.choices) this.checkChoices(elem.choices);
+        else elem.choices = [];
+      });
+    });
+
+    return survey;
+  }
+
+  checkChoices(choices) {
+    if(choices.length==0) return [];
+    if(choices[0].value) {
+      choices.forEach(choice => {
+        if(!choice.text) choice.text = {default:choice.value};
+        else if(!choice.text.default) choice.text = {default:choice.text};
+      });
+    } else {
+      let ch = choices;
+      choices.length = 0;
+      ch.forEach(c => {
+        choices.push({default: c});
+      });
+    }
+  }
 }
 
-export default SurveyEditor;
+const mapStateToProps = (state) => ({
+  userName : state.auth.userInfo.userName,
+  email : state.auth.userInfo.email,
+  survey : state.surveys.survey,
+});
+
+const mapDispatchToProps = ({pushSurveyRequest, getSurveyRequest});
+
+SurveyEditor.propTypes = {
+  match : ReactRouterPropTypes.match.isRequired,
+  userName : PropTypes.string.isRequired,
+  email : PropTypes.string.isRequired,
+  survey : PropTypes.object.isRequired,
+  pushSurveyRequest : PropTypes.func.isRequired,
+  getSurveyRequest : PropTypes.func.isRequired,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(SurveyEditor);

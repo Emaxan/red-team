@@ -4,9 +4,7 @@
     {
         public bool HasOther { get; set; }
 
-        public int OtherTextId { get; set; }
-
-        public LocalizableString OtherText { get; set; }
+        public int ColCount { get; set; }
 
         public string ChoicesOrder { get; set; }
     }

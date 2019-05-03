@@ -11,11 +11,7 @@ namespace RedTeam.TechArtSurvey.Repositories.EF.Surveys.Questions
 
             Property(rg => rg.HasOther).IsRequired();
             Property(rg => rg.ChoicesOrder).IsRequired();
-
-            HasRequired(rg => rg.OtherText)
-                .WithMany()
-                .HasForeignKey(rg => rg.OtherTextId)
-                .WillCascadeOnDelete(false);
+            Property(c => c.ColCount).IsRequired();
         }
     }
 }

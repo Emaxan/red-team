@@ -7,13 +7,21 @@ namespace RedTeam.TechArtSurvey.Foundation.Dto.SurveysDto
     [UsedImplicitly]
     public class PageDto
     {
+        [Required]
+        public LocalizableStringDto Title { get; set; }
+
         [Required(AllowEmptyStrings = false)]
-        public string Title { get; set; }
+        public string Name { get; set; }
+
+        public string VisibleIf { get; set; }
 
         [Required]
-        [Range(1, int.MaxValue)]
-        public int Number { get; set; }
+        public bool Visible { get; set; }
 
-        public ICollection<QuestionDto> Questions { get; set; }
+        [Required(AllowEmptyStrings = false)]
+        public string QuestionsOrder { get; set; }
+
+        [Required]
+        public ICollection<QuestionDto> Elements { get; set; }
     }
 }

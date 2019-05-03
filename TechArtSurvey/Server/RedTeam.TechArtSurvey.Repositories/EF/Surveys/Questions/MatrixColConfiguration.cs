@@ -18,9 +18,9 @@ namespace RedTeam.TechArtSurvey.Repositories.EF.Surveys.Questions
                 .HasForeignKey(mc => mc.TextId)
                 .WillCascadeOnDelete(false);
 
-            HasRequired(mc => mc.Matrix)
+            HasRequired(mc => mc.Question)
                 .WithMany(m => m.MatrixCols)
-                .HasForeignKey(mc => mc.MatrixId)
+                .HasForeignKey(mc => mc.QuestionId)
                 .WillCascadeOnDelete(false);
         }
     }

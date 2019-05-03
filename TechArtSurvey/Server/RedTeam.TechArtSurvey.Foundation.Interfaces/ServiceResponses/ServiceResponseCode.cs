@@ -14,7 +14,8 @@
         ResetPasswordTokenInvalid,
 
         SurveyNotFoundById,
-        
+        SurveyNotFoundByVersion,
+
         DefaultValueIsWrong,
     }
 }

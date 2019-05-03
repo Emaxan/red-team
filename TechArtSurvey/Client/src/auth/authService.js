@@ -32,16 +32,14 @@ export default class AuthService {
   static getUserInfo() {
     const token = this.getToken();
 
-    if (token) {
-      const jwt = jwt_decode(this.getToken());
-      return {
-        userName : jwt.unique_name,
-        email : jwt.email,
-        role : jwt.role,
-      };
-    }
+    if (!token) return { };
 
-    return { };
+    const jwt = jwt_decode(this.getToken());
+    return {
+      userName : jwt.unique_name,
+      email : jwt.email,
+      role : jwt.role,
+    };
   }
 
   static isAuthenticated() {

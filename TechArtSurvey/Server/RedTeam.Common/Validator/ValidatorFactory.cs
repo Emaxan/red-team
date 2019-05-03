@@ -12,7 +12,7 @@ namespace RedTeam.Common.Validator
             switch(type)
             {
                 case QuestionTypes.Checkbox:
-                case QuestionTypes.RadioGroup:
+                case QuestionTypes.Radiogroup:
                     return new FakeValidator();
                 case QuestionTypes.Text:
                     return new TextQuestionValidator();
@@ -26,9 +26,9 @@ namespace RedTeam.Common.Validator
                     throw new NotImplementedException();
                 case QuestionTypes.Matrix:
                     throw new NotImplementedException();
-                case QuestionTypes.BarRating:
+                case QuestionTypes.Barrating:
                     throw new NotImplementedException();
-                case QuestionTypes.DatePicker:
+                case QuestionTypes.Datepicker:
                     throw new NotImplementedException();
                 default:
                     throw new ArgumentOutOfRangeException(nameof(type), type, null);

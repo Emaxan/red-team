@@ -10,11 +10,6 @@ namespace RedTeam.TechArtSurvey.Repositories.EF.Surveys.Questions
             ToTable("TextArea");
 
             Property(ta => ta.Rows).IsRequired();
-
-            HasRequired(ta => ta.Placeholder)
-                .WithMany()
-                .HasForeignKey(ta => ta.PlaceholderId)
-                .WillCascadeOnDelete(false);
         }
     }
 }

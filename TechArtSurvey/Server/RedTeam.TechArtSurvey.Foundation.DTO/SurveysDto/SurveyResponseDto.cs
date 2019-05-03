@@ -12,7 +12,7 @@ namespace RedTeam.TechArtSurvey.Foundation.Dto.SurveysDto
 
         public DateTime PassedDate { get; set; }
 
-        public SurveyVersionDto SurveyVersion { get; set; }
+        public SurveyVersionHeaderDto SurveyVersionHeader { get; set; }
 
         public UserDto User { get; set; }
 

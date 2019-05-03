@@ -9,10 +9,7 @@ namespace RedTeam.TechArtSurvey.Repositories.EF.Surveys.Questions
         {
             ToTable("Text");
 
-            HasRequired(t => t.Placeholder)
-                .WithMany()
-                .HasForeignKey(t => t.PlaceholderId)
-                .WillCascadeOnDelete(false);
+            Property(t => t.InputType).IsRequired();
         }
     }
 }

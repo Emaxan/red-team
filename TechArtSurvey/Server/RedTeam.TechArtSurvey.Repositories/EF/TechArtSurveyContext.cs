@@ -36,7 +36,25 @@ namespace RedTeam.TechArtSurvey.Repositories.EF
         public DbSet<QuestionType> QuestionTypes { get; set; }
 
         public DbSet<LocalizableString> LocalizableStrings { get; set; }
-
+        //SurveyPage
+        //TemplatePage
+        //TextArea
+        //Text
+        //MatrixCol
+        //MatrixRow
+        //Matrix
+        //Dropdown
+        //DatePicker
+        //Checkbox
+        //Boolean
+        //BarRating
+        //Rating
+        //RadioGroup
+        //Trigger
+        //VisibleTrigger
+        //RunExpressionTrigger
+        //SetValueTrigger
+        //CopyValueTrigger
 
         public TechArtSurveyContext()
         {
@@ -76,13 +94,13 @@ namespace RedTeam.TechArtSurvey.Repositories.EF
             modelBuilder.Configurations.Add(new TextConfiguration());
             modelBuilder.Configurations.Add(new MatrixColConfiguration());
             modelBuilder.Configurations.Add(new MatrixRowConfiguration());
-            modelBuilder.Configurations.Add(new MatrixConfiguration());
+            //modelBuilder.Configurations.Add(new MatrixConfiguration());
             modelBuilder.Configurations.Add(new DropdownConfiguration());
-            modelBuilder.Configurations.Add(new DatePickerConfiguration());
+            //modelBuilder.Configurations.Add(new DatePickerConfiguration());
             modelBuilder.Configurations.Add(new CheckboxConfiguration());
-            modelBuilder.Configurations.Add(new BooleanConfiguration());
+            //modelBuilder.Configurations.Add(new BooleanConfiguration());
             modelBuilder.Configurations.Add(new BarRatingConfiguration());
-            modelBuilder.Configurations.Add(new RatingConfiguration());
+            //modelBuilder.Configurations.Add(new RatingConfiguration());
             modelBuilder.Configurations.Add(new RadioGroupConfiguration());
             modelBuilder.Configurations.Add(new TriggerConfiguration());
             modelBuilder.Configurations.Add(new VisibleTriggerConfiguration());

@@ -7,22 +7,28 @@ namespace RedTeam.TechArtSurvey.Foundation.Dto.SurveysDto
     [UsedImplicitly]
     public class QuestionDto
     {
+        [Required]
+        public LocalizableStringDto Title { get; set; }
+
         [Required(AllowEmptyStrings = false)]
-        public string Title { get; set; }
-
-        [Required]
-        [Range(1, int.MaxValue)]
-        public int Number { get; set; }
-
-        public string Default { get; set; }
-
-        [Required]
-        public QuestionTypeDto Type { get; set; }
+        public string Name { get; set; }
 
         [Required]
         public bool IsRequired { get; set; }
 
+        [Required(AllowEmptyStrings = false)]
+        public QuestionTypeDto Type { get; set; }
+
+        public string EnableIf { get; set; }
+
+        public string VisibleIf { get; set; }
+
         [Required]
-        public ICollection<QuestionVariantDto> Variants { get; set; }
+        public bool Visible { get; set; }
+
+        [Required]
+        public bool StartWithNewLine { get; set; }
+
+        public ICollection<QuestionVariantDto> Choices { get; set; }
     }
 }

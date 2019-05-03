@@ -72,13 +72,13 @@ namespace RedTeam.TechArtSurvey.Repositories.Migrations
                         TextId = c.Int(nullable: false),
                         Value = c.String(nullable: false),
                         VisibleIf = c.String(nullable: false),
-                        MatrixId = c.Int(nullable: false),
+                        QuestionId = c.Int(nullable: false),
                     })
                 .PrimaryKey(t => t.Id)
-                .ForeignKey("dbo.Matrix", t => t.MatrixId)
+                .ForeignKey("dbo.Question", t => t.QuestionId)
                 .ForeignKey("dbo.LocalizableString", t => t.TextId)
                 .Index(t => t.TextId)
-                .Index(t => t.MatrixId);
+                .Index(t => t.QuestionId);
             
             CreateTable(
                 "dbo.MatrixRow",
@@ -88,13 +88,13 @@ namespace RedTeam.TechArtSurvey.Repositories.Migrations
                         TextId = c.Int(nullable: false),
                         Value = c.String(nullable: false),
                         VisibleIf = c.String(nullable: false),
-                        MatrixId = c.Int(nullable: false),
+                        QuestionId = c.Int(nullable: false),
                     })
                 .PrimaryKey(t => t.Id)
-                .ForeignKey("dbo.Matrix", t => t.MatrixId)
+                .ForeignKey("dbo.Question", t => t.QuestionId)
                 .ForeignKey("dbo.LocalizableString", t => t.TextId)
                 .Index(t => t.TextId)
-                .Index(t => t.MatrixId);
+                .Index(t => t.QuestionId);
             
             CreateTable(
                 "dbo.VisibleTriggerPages",
@@ -128,32 +128,17 @@ namespace RedTeam.TechArtSurvey.Repositories.Migrations
                     {
                         Id = c.Int(nullable: false),
                         Rows = c.Int(nullable: false),
-                        PlaceholderId = c.Int(nullable: false),
                     })
                 .PrimaryKey(t => t.Id)
                 .ForeignKey("dbo.Question", t => t.Id)
-                .ForeignKey("dbo.LocalizableString", t => t.PlaceholderId)
-                .Index(t => t.Id)
-                .Index(t => t.PlaceholderId);
+                .Index(t => t.Id);
             
             CreateTable(
                 "dbo.Text",
                 c => new
                     {
                         Id = c.Int(nullable: false),
-                        PlaceholderId = c.Int(nullable: false),
-                    })
-                .PrimaryKey(t => t.Id)
-                .ForeignKey("dbo.Question", t => t.Id)
-                .ForeignKey("dbo.LocalizableString", t => t.PlaceholderId)
-                .Index(t => t.Id)
-                .Index(t => t.PlaceholderId);
-            
-            CreateTable(
-                "dbo.Matrix",
-                c => new
-                    {
-                        Id = c.Int(nullable: false),
+                        InputType = c.String(nullable: false),
                     })
                 .PrimaryKey(t => t.Id)
                 .ForeignKey("dbo.Question", t => t.Id)
@@ -165,30 +150,11 @@ namespace RedTeam.TechArtSurvey.Repositories.Migrations
                     {
                         Id = c.Int(nullable: false),
                         HasOther = c.Boolean(nullable: false),
-                        OtherTextId = c.Int(nullable: false),
-                        OptionsCaptionId = c.Int(nullable: false),
                         ChoicesOrder = c.String(nullable: false),
                     })
                 .PrimaryKey(t => t.Id)
                 .ForeignKey("dbo.Question", t => t.Id)
-                .ForeignKey("dbo.LocalizableString", t => t.OtherTextId)
-                .ForeignKey("dbo.LocalizableString", t => t.OptionsCaptionId)
-                .Index(t => t.Id)
-                .Index(t => t.OtherTextId)
-                .Index(t => t.OptionsCaptionId);
-            
-            CreateTable(
-                "dbo.DatePicker",
-                c => new
-                    {
-                        Id = c.Int(nullable: false),
-                        PlaceholderId = c.Int(nullable: false),
-                    })
-                .PrimaryKey(t => t.Id)
-                .ForeignKey("dbo.Question", t => t.Id)
-                .ForeignKey("dbo.LocalizableString", t => t.PlaceholderId)
-                .Index(t => t.Id)
-                .Index(t => t.PlaceholderId);
+                .Index(t => t.Id);
             
             CreateTable(
                 "dbo.Checkbox",
@@ -196,27 +162,12 @@ namespace RedTeam.TechArtSurvey.Repositories.Migrations
                     {
                         Id = c.Int(nullable: false),
                         HasOther = c.Boolean(nullable: false),
-                        OtherTextId = c.Int(nullable: false),
+                        ColCount = c.Int(nullable: false),
                         ChoicesOrder = c.String(nullable: false),
                     })
                 .PrimaryKey(t => t.Id)
                 .ForeignKey("dbo.Question", t => t.Id)
-                .ForeignKey("dbo.LocalizableString", t => t.OtherTextId)
-                .Index(t => t.Id)
-                .Index(t => t.OtherTextId);
-            
-            CreateTable(
-                "dbo.Boolean",
-                c => new
-                    {
-                        Id = c.Int(nullable: false),
-                        LabelId = c.Int(nullable: false),
-                    })
-                .PrimaryKey(t => t.Id)
-                .ForeignKey("dbo.Question", t => t.Id)
-                .ForeignKey("dbo.LocalizableString", t => t.LabelId)
-                .Index(t => t.Id)
-                .Index(t => t.LabelId);
+                .Index(t => t.Id);
             
             CreateTable(
                 "dbo.BarRating",
@@ -230,36 +181,17 @@ namespace RedTeam.TechArtSurvey.Repositories.Migrations
                 .Index(t => t.Id);
             
             CreateTable(
-                "dbo.Rating",
-                c => new
-                    {
-                        Id = c.Int(nullable: false),
-                        Rows = c.Int(nullable: false),
-                        MinRateDescriptionId = c.Int(nullable: false),
-                        MaxRateDescriptionId = c.Int(nullable: false),
-                    })
-                .PrimaryKey(t => t.Id)
-                .ForeignKey("dbo.Question", t => t.Id)
-                .ForeignKey("dbo.LocalizableString", t => t.MinRateDescriptionId)
-                .ForeignKey("dbo.LocalizableString", t => t.MaxRateDescriptionId)
-                .Index(t => t.Id)
-                .Index(t => t.MinRateDescriptionId)
-                .Index(t => t.MaxRateDescriptionId);
-            
-            CreateTable(
                 "dbo.RadioGroup",
                 c => new
                     {
                         Id = c.Int(nullable: false),
                         HasOther = c.Boolean(nullable: false),
-                        OtherTextId = c.Int(nullable: false),
+                        ColCount = c.Int(nullable: false),
                         ChoicesOrder = c.String(nullable: false),
                     })
                 .PrimaryKey(t => t.Id)
                 .ForeignKey("dbo.Question", t => t.Id)
-                .ForeignKey("dbo.LocalizableString", t => t.OtherTextId)
-                .Index(t => t.Id)
-                .Index(t => t.OtherTextId);
+                .Index(t => t.Id);
             
             CreateTable(
                 "dbo.VisibleTrigger",
@@ -312,6 +244,17 @@ namespace RedTeam.TechArtSurvey.Repositories.Migrations
             AddColumn("dbo.Page", "Name", c => c.String(nullable: false));
             AddColumn("dbo.Page", "Visible", c => c.Boolean(nullable: false));
             AddColumn("dbo.Page", "QuestionsOrder", c => c.String(nullable: false));
+            AddColumn("dbo.Question", "TitleId", c => c.Int(nullable: false));
+            AddColumn("dbo.Question", "Name", c => c.String(nullable: false));
+            AddColumn("dbo.Question", "EnableIf", c => c.String(nullable: false));
+            AddColumn("dbo.Question", "VisibleIf", c => c.String(nullable: false));
+            AddColumn("dbo.Question", "Visible", c => c.Boolean(nullable: false));
+            AddColumn("dbo.Question", "StartWithNewLine", c => c.Boolean(nullable: false));
+            AddColumn("dbo.Question", "PlaceholderId", c => c.Int(nullable: false));
+            AddColumn("dbo.Question", "MinRateDescriptionId", c => c.Int(nullable: false));
+            AddColumn("dbo.Question", "MaxRateDescriptionId", c => c.Int(nullable: false));
+            AddColumn("dbo.Question", "OptionsCaptionId", c => c.Int(nullable: false));
+            AddColumn("dbo.Question", "Discriminator", c => c.String(maxLength: 128));
             AddColumn("dbo.SurveyVersion", "Number", c => c.Int(nullable: false));
             AddColumn("dbo.SurveyVersion", "TitleId", c => c.Int(nullable: false));
             AddColumn("dbo.SurveyVersion", "CompletedHtmlId", c => c.Int(nullable: false));
@@ -376,14 +319,12 @@ namespace RedTeam.TechArtSurvey.Repositories.Migrations
             AddColumn("dbo.SurveyTemplate", "PageNextText_StringId", c => c.Int());
             AddColumn("dbo.SurveyTemplate", "PagePrevText_StringId", c => c.Int());
             AddColumn("dbo.SurveyTemplate", "StartSurveyText_StringId", c => c.Int());
-            AddColumn("dbo.Question", "TitleId", c => c.Int(nullable: false));
-            AddColumn("dbo.Question", "Name", c => c.String(nullable: false));
-            AddColumn("dbo.Question", "EnableIf", c => c.String(nullable: false));
-            AddColumn("dbo.Question", "VisibleIf", c => c.String(nullable: false));
-            AddColumn("dbo.Question", "Visible", c => c.Boolean(nullable: false));
-            AddColumn("dbo.Question", "StartWithNewLine", c => c.Boolean(nullable: false));
             CreateIndex("dbo.Page", "TitleId");
             CreateIndex("dbo.Question", "TitleId");
+            CreateIndex("dbo.Question", "PlaceholderId");
+            CreateIndex("dbo.Question", "MinRateDescriptionId");
+            CreateIndex("dbo.Question", "MaxRateDescriptionId");
+            CreateIndex("dbo.Question", "OptionsCaptionId");
             CreateIndex("dbo.SurveyVersion", "TitleId");
             CreateIndex("dbo.SurveyVersion", "CompletedHtmlId");
             CreateIndex("dbo.SurveyVersion", "StartSurveyTextId");
@@ -414,10 +355,17 @@ namespace RedTeam.TechArtSurvey.Repositories.Migrations
             AddForeignKey("dbo.SurveyTemplate", "TitleId", "dbo.LocalizableString", "StringId");
             AddForeignKey("dbo.SurveyVersion", "TitleId", "dbo.LocalizableString", "StringId");
             AddForeignKey("dbo.QuestionVariant", "TextId", "dbo.LocalizableString", "StringId");
+            AddForeignKey("dbo.Question", "MaxRateDescriptionId", "dbo.LocalizableString", "StringId");
+            AddForeignKey("dbo.Question", "MinRateDescriptionId", "dbo.LocalizableString", "StringId");
+            AddForeignKey("dbo.Question", "OptionsCaptionId", "dbo.LocalizableString", "StringId");
+            AddForeignKey("dbo.Question", "PlaceholderId", "dbo.LocalizableString", "StringId");
             AddForeignKey("dbo.Question", "TitleId", "dbo.LocalizableString", "StringId");
             AddForeignKey("dbo.Page", "TitleId", "dbo.LocalizableString", "StringId");
             DropColumn("dbo.Page", "Title");
             DropColumn("dbo.Page", "Number");
+            DropColumn("dbo.Question", "Default");
+            DropColumn("dbo.Question", "Title");
+            DropColumn("dbo.Question", "Number");
             DropColumn("dbo.SurveyVersion", "Version");
             DropColumn("dbo.SurveyVersion", "Title");
             DropColumn("dbo.SurveyVersion", "IsAnonymous");
@@ -431,16 +379,10 @@ namespace RedTeam.TechArtSurvey.Repositories.Migrations
             DropColumn("dbo.QuestionVariant", "Text");
             DropColumn("dbo.SurveyTemplate", "Title");
             DropColumn("dbo.SurveyTemplate", "Description");
-            DropColumn("dbo.Question", "Default");
-            DropColumn("dbo.Question", "Title");
-            DropColumn("dbo.Question", "Number");
         }
         
         public override void Down()
         {
-            AddColumn("dbo.Question", "Number", c => c.Int(nullable: false));
-            AddColumn("dbo.Question", "Title", c => c.String(nullable: false));
-            AddColumn("dbo.Question", "Default", c => c.String());
             AddColumn("dbo.SurveyTemplate", "Description", c => c.String(nullable: false));
             AddColumn("dbo.SurveyTemplate", "Title", c => c.String(nullable: false));
             AddColumn("dbo.QuestionVariant", "Text", c => c.String(nullable: false));
@@ -454,38 +396,31 @@ namespace RedTeam.TechArtSurvey.Repositories.Migrations
             AddColumn("dbo.SurveyVersion", "IsAnonymous", c => c.Boolean(nullable: false));
             AddColumn("dbo.SurveyVersion", "Title", c => c.String(nullable: false));
             AddColumn("dbo.SurveyVersion", "Version", c => c.Int(nullable: false));
+            AddColumn("dbo.Question", "Number", c => c.Int(nullable: false));
+            AddColumn("dbo.Question", "Title", c => c.String(nullable: false));
+            AddColumn("dbo.Question", "Default", c => c.String());
             AddColumn("dbo.Page", "Number", c => c.Int(nullable: false));
             AddColumn("dbo.Page", "Title", c => c.String(nullable: false));
             DropForeignKey("dbo.CopyValueTrigger", "Id", "dbo.Trigger");
             DropForeignKey("dbo.SetValueTrigger", "Id", "dbo.Trigger");
             DropForeignKey("dbo.RunExpressionTrigger", "Id", "dbo.Trigger");
             DropForeignKey("dbo.VisibleTrigger", "Id", "dbo.Trigger");
-            DropForeignKey("dbo.RadioGroup", "OtherTextId", "dbo.LocalizableString");
             DropForeignKey("dbo.RadioGroup", "Id", "dbo.Question");
-            DropForeignKey("dbo.Rating", "MaxRateDescriptionId", "dbo.LocalizableString");
-            DropForeignKey("dbo.Rating", "MinRateDescriptionId", "dbo.LocalizableString");
-            DropForeignKey("dbo.Rating", "Id", "dbo.Question");
             DropForeignKey("dbo.BarRating", "Id", "dbo.Question");
-            DropForeignKey("dbo.Boolean", "LabelId", "dbo.LocalizableString");
-            DropForeignKey("dbo.Boolean", "Id", "dbo.Question");
-            DropForeignKey("dbo.Checkbox", "OtherTextId", "dbo.LocalizableString");
             DropForeignKey("dbo.Checkbox", "Id", "dbo.Question");
-            DropForeignKey("dbo.DatePicker", "PlaceholderId", "dbo.LocalizableString");
-            DropForeignKey("dbo.DatePicker", "Id", "dbo.Question");
-            DropForeignKey("dbo.Dropdown", "OptionsCaptionId", "dbo.LocalizableString");
-            DropForeignKey("dbo.Dropdown", "OtherTextId", "dbo.LocalizableString");
             DropForeignKey("dbo.Dropdown", "Id", "dbo.Question");
-            DropForeignKey("dbo.Matrix", "Id", "dbo.Question");
-            DropForeignKey("dbo.Text", "PlaceholderId", "dbo.LocalizableString");
             DropForeignKey("dbo.Text", "Id", "dbo.Question");
-            DropForeignKey("dbo.TextArea", "PlaceholderId", "dbo.LocalizableString");
             DropForeignKey("dbo.TextArea", "Id", "dbo.Question");
             DropForeignKey("dbo.Page", "TitleId", "dbo.LocalizableString");
-            DropForeignKey("dbo.MatrixRow", "TextId", "dbo.LocalizableString");
-            DropForeignKey("dbo.MatrixRow", "MatrixId", "dbo.Matrix");
-            DropForeignKey("dbo.MatrixCol", "TextId", "dbo.LocalizableString");
-            DropForeignKey("dbo.MatrixCol", "MatrixId", "dbo.Matrix");
             DropForeignKey("dbo.Question", "TitleId", "dbo.LocalizableString");
+            DropForeignKey("dbo.Question", "PlaceholderId", "dbo.LocalizableString");
+            DropForeignKey("dbo.Question", "OptionsCaptionId", "dbo.LocalizableString");
+            DropForeignKey("dbo.Question", "MinRateDescriptionId", "dbo.LocalizableString");
+            DropForeignKey("dbo.Question", "MaxRateDescriptionId", "dbo.LocalizableString");
+            DropForeignKey("dbo.MatrixRow", "TextId", "dbo.LocalizableString");
+            DropForeignKey("dbo.MatrixRow", "QuestionId", "dbo.Question");
+            DropForeignKey("dbo.MatrixCol", "TextId", "dbo.LocalizableString");
+            DropForeignKey("dbo.MatrixCol", "QuestionId", "dbo.Question");
             DropForeignKey("dbo.QuestionVariant", "TextId", "dbo.LocalizableString");
             DropForeignKey("dbo.Trigger", "SurveyVersionId", "dbo.SurveyVersion");
             DropForeignKey("dbo.SurveyVersion", "TitleId", "dbo.LocalizableString");
@@ -511,33 +446,19 @@ namespace RedTeam.TechArtSurvey.Repositories.Migrations
             DropIndex("dbo.SetValueTrigger", new[] { "Id" });
             DropIndex("dbo.RunExpressionTrigger", new[] { "Id" });
             DropIndex("dbo.VisibleTrigger", new[] { "Id" });
-            DropIndex("dbo.RadioGroup", new[] { "OtherTextId" });
             DropIndex("dbo.RadioGroup", new[] { "Id" });
-            DropIndex("dbo.Rating", new[] { "MaxRateDescriptionId" });
-            DropIndex("dbo.Rating", new[] { "MinRateDescriptionId" });
-            DropIndex("dbo.Rating", new[] { "Id" });
             DropIndex("dbo.BarRating", new[] { "Id" });
-            DropIndex("dbo.Boolean", new[] { "LabelId" });
-            DropIndex("dbo.Boolean", new[] { "Id" });
-            DropIndex("dbo.Checkbox", new[] { "OtherTextId" });
             DropIndex("dbo.Checkbox", new[] { "Id" });
-            DropIndex("dbo.DatePicker", new[] { "PlaceholderId" });
-            DropIndex("dbo.DatePicker", new[] { "Id" });
-            DropIndex("dbo.Dropdown", new[] { "OptionsCaptionId" });
-            DropIndex("dbo.Dropdown", new[] { "OtherTextId" });
             DropIndex("dbo.Dropdown", new[] { "Id" });
-            DropIndex("dbo.Matrix", new[] { "Id" });
-            DropIndex("dbo.Text", new[] { "PlaceholderId" });
             DropIndex("dbo.Text", new[] { "Id" });
-            DropIndex("dbo.TextArea", new[] { "PlaceholderId" });
             DropIndex("dbo.TextArea", new[] { "Id" });
             DropIndex("dbo.VisibleTriggerQuestions", new[] { "Question_Id" });
             DropIndex("dbo.VisibleTriggerQuestions", new[] { "VisibleTrigger_Id" });
             DropIndex("dbo.VisibleTriggerPages", new[] { "Page_Id" });
             DropIndex("dbo.VisibleTriggerPages", new[] { "VisibleTrigger_Id" });
-            DropIndex("dbo.MatrixRow", new[] { "MatrixId" });
+            DropIndex("dbo.MatrixRow", new[] { "QuestionId" });
             DropIndex("dbo.MatrixRow", new[] { "TextId" });
-            DropIndex("dbo.MatrixCol", new[] { "MatrixId" });
+            DropIndex("dbo.MatrixCol", new[] { "QuestionId" });
             DropIndex("dbo.MatrixCol", new[] { "TextId" });
             DropIndex("dbo.QuestionVariant", new[] { "TextId" });
             DropIndex("dbo.SurveyTemplate", new[] { "StartSurveyText_StringId" });
@@ -556,14 +477,12 @@ namespace RedTeam.TechArtSurvey.Repositories.Migrations
             DropIndex("dbo.SurveyVersion", new[] { "StartSurveyTextId" });
             DropIndex("dbo.SurveyVersion", new[] { "CompletedHtmlId" });
             DropIndex("dbo.SurveyVersion", new[] { "TitleId" });
+            DropIndex("dbo.Question", new[] { "OptionsCaptionId" });
+            DropIndex("dbo.Question", new[] { "MaxRateDescriptionId" });
+            DropIndex("dbo.Question", new[] { "MinRateDescriptionId" });
+            DropIndex("dbo.Question", new[] { "PlaceholderId" });
             DropIndex("dbo.Question", new[] { "TitleId" });
             DropIndex("dbo.Page", new[] { "TitleId" });
-            DropColumn("dbo.Question", "StartWithNewLine");
-            DropColumn("dbo.Question", "Visible");
-            DropColumn("dbo.Question", "VisibleIf");
-            DropColumn("dbo.Question", "EnableIf");
-            DropColumn("dbo.Question", "Name");
-            DropColumn("dbo.Question", "TitleId");
             DropColumn("dbo.SurveyTemplate", "StartSurveyText_StringId");
             DropColumn("dbo.SurveyTemplate", "PagePrevText_StringId");
             DropColumn("dbo.SurveyTemplate", "PageNextText_StringId");
@@ -628,6 +547,17 @@ namespace RedTeam.TechArtSurvey.Repositories.Migrations
             DropColumn("dbo.SurveyVersion", "CompletedHtmlId");
             DropColumn("dbo.SurveyVersion", "TitleId");
             DropColumn("dbo.SurveyVersion", "Number");
+            DropColumn("dbo.Question", "Discriminator");
+            DropColumn("dbo.Question", "OptionsCaptionId");
+            DropColumn("dbo.Question", "MaxRateDescriptionId");
+            DropColumn("dbo.Question", "MinRateDescriptionId");
+            DropColumn("dbo.Question", "PlaceholderId");
+            DropColumn("dbo.Question", "StartWithNewLine");
+            DropColumn("dbo.Question", "Visible");
+            DropColumn("dbo.Question", "VisibleIf");
+            DropColumn("dbo.Question", "EnableIf");
+            DropColumn("dbo.Question", "Name");
+            DropColumn("dbo.Question", "TitleId");
             DropColumn("dbo.Page", "QuestionsOrder");
             DropColumn("dbo.Page", "Visible");
             DropColumn("dbo.Page", "Name");
@@ -638,13 +568,9 @@ namespace RedTeam.TechArtSurvey.Repositories.Migrations
             DropTable("dbo.RunExpressionTrigger");
             DropTable("dbo.VisibleTrigger");
             DropTable("dbo.RadioGroup");
-            DropTable("dbo.Rating");
             DropTable("dbo.BarRating");
-            DropTable("dbo.Boolean");
             DropTable("dbo.Checkbox");
-            DropTable("dbo.DatePicker");
             DropTable("dbo.Dropdown");
-            DropTable("dbo.Matrix");
             DropTable("dbo.Text");
             DropTable("dbo.TextArea");
             DropTable("dbo.VisibleTriggerQuestions");

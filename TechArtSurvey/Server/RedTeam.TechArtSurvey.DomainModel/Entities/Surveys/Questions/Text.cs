@@ -2,8 +2,6 @@
 {
     public class Text : Question
     {
-        public int PlaceholderId { get; set; }
-
-        public LocalizableString Placeholder { get; set; }
+        public string InputType { get; set; }
     }
 }

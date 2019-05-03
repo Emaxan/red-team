@@ -6,7 +6,14 @@ namespace RedTeam.TechArtSurvey.Foundation.Dto.SurveysDto
     [UsedImplicitly]
     public class QuestionVariantDto
     {
+        [Required]
+        public LocalizableStringDto Text { get; set; }
+
         [Required(AllowEmptyStrings = false)]
-        public string Text { get; set; }
+        public string Value { get; set; }
+
+        public string VisibleIf { get; set; }
+
+        public string EnableIf { get; set; }
     }
 }

@@ -3,14 +3,14 @@
     public enum QuestionTypes
     {
         Checkbox,
-        RadioGroup,
+        Radiogroup,
         Text, 
         Comment,
         Rating, 
         Dropdown,
         Boolean,
         Matrix,
-        BarRating,
-        DatePicker,
+        Barrating,
+        Datepicker,
     }
 }

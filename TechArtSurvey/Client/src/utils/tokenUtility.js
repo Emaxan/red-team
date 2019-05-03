@@ -7,6 +7,9 @@ export const tokenUtility = {
     await updateTokens(refreshToken).then((response) => {
       AuthService.setToken(response.data.access_token);
       AuthService.setRefreshToken(response.data.refresh_token);
+    }).catch(() => {
+      AuthService.clearUserInfo();
+      throw new Error('Token is invalid. Please Log In once again.');
     });
   },
 };

@@ -99,9 +99,9 @@
     <Compile Include="Migrations\201803060930188_UsageStat.Designer.cs">
       <DependentUpon>201803060930188_UsageStat.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201904242147054_New Database.cs" />
-    <Compile Include="Migrations\201904242147054_New Database.Designer.cs">
-      <DependentUpon>201904242147054_New Database.cs</DependentUpon>
+    <Compile Include="Migrations\201904271153220_NewDatabase.cs" />
+    <Compile Include="Migrations\201904271153220_NewDatabase.Designer.cs">
+      <DependentUpon>201904271153220_NewDatabase.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -150,8 +150,8 @@
     <EmbeddedResource Include="Migrations\201803060930188_UsageStat.resx">
       <DependentUpon>201803060930188_UsageStat.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201904242147054_New Database.resx">
-      <DependentUpon>201904242147054_New Database.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201904271153220_NewDatabase.resx">
+      <DependentUpon>201904271153220_NewDatabase.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

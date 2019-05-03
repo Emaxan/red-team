@@ -12,8 +12,8 @@
 
         public string VisibleIf { get; set; }
 
-        public int MatrixId { get; set; }
+        public int QuestionId { get; set; }
 
-        public Matrix Matrix { get; set; }
+        public Question Question { get; set; }
     }
 }

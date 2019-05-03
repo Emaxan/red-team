@@ -7,7 +7,7 @@ namespace RedTeam.TechArtSurvey.Foundation.Interfaces
 {
     public interface ISurveyService
     {
-        Task<IServiceResponse<SurveyDto>> CreateAsync(SurveyDto surveyDto);
+        Task<IServiceResponse<SurveyDto>> CreateAsync(EditSurveyDto surveyDto);
 
         Task<IServiceResponse> UpdateAsync(EditSurveyDto survey);
 
@@ -17,6 +17,6 @@ namespace RedTeam.TechArtSurvey.Foundation.Interfaces
 
         Task<IServiceResponse<EditSurveyDto>> GetByIdAndVersionAsync(int id, int version);
 
-        Task<IServiceResponse<IReadOnlyCollection<EditSurveyDto>>> GetAllAsync();
+        Task<IServiceResponse<IReadOnlyCollection<SurveyDto>>> GetAllAsync();
     }
 }

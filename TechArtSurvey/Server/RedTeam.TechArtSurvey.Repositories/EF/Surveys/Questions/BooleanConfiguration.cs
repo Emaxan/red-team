@@ -8,11 +8,6 @@ namespace RedTeam.TechArtSurvey.Repositories.EF.Surveys.Questions
         public BooleanConfiguration()
         {
             ToTable("Boolean");
-
-            HasRequired(b => b.Label)
-                .WithMany()
-                .HasForeignKey(b => b.LabelId)
-                .WillCascadeOnDelete(false);
         }
     }
 }

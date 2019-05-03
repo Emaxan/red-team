@@ -21,6 +21,26 @@ namespace RedTeam.TechArtSurvey.Repositories.EF.Surveys
                 .HasForeignKey(q => q.TitleId)
                 .WillCascadeOnDelete(false);
 
+            HasRequired(q => q.Placeholder)
+                .WithMany()
+                .HasForeignKey(q => q.PlaceholderId)
+                .WillCascadeOnDelete(false);
+
+            HasRequired(q => q.MinRateDescription)
+                .WithMany()
+                .HasForeignKey(q => q.MinRateDescriptionId)
+                .WillCascadeOnDelete(false);
+
+            HasRequired(q => q.MaxRateDescription)
+                .WithMany()
+                .HasForeignKey(q => q.MaxRateDescriptionId)
+                .WillCascadeOnDelete(false);
+
+            HasRequired(q => q.OptionsCaption)
+                .WithMany()
+                .HasForeignKey(q => q.OptionsCaptionId)
+                .WillCascadeOnDelete(false);
+
             HasMany(q => q.Answers)
                 .WithRequired(qa => qa.Question)
                 .HasForeignKey(qa => qa.QuestionId)

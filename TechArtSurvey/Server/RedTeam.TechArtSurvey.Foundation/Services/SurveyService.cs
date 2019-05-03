@@ -26,7 +26,8 @@ namespace RedTeam.TechArtSurvey.Foundation.Services
         private readonly IValidatorFactory _validatorFactory;
 
 
-        public SurveyService(ITechArtSurveyUnitOfWork uow, IMapper mapper, IEnvironmentInfoService environmentInfoService, IValidatorFactory validatorFactory)
+        public SurveyService(ITechArtSurveyUnitOfWork uow, IMapper mapper,
+            IEnvironmentInfoService environmentInfoService, IValidatorFactory validatorFactory)
         {
             _uow = uow;
             _mapper = mapper;
@@ -35,12 +36,11 @@ namespace RedTeam.TechArtSurvey.Foundation.Services
         }
 
 
-        public async Task<IServiceResponse<SurveyDto>> CreateAsync(SurveyDto surveyDto)
+        public async Task<IServiceResponse<SurveyDto>> CreateAsync(EditSurveyDto surveyDto)
         {
-            LoggerContext.Logger.Info($"Create Survey '{surveyDto.Versions.First().Title}'");
+            LoggerContext.Logger.Info($"Create Survey '{surveyDto.Title.Default}'");
 
-
-            var survey = await PrepareSurvey(_mapper.Map<SurveyDto, Survey>(surveyDto));
+            var survey = await PrepareSurvey(_mapper.Map<EditSurveyDto, SurveyOnlyVersion>(surveyDto).ToSurvey());
 
             var version = survey.Versions.First();
 
@@ -64,7 +64,10 @@ namespace RedTeam.TechArtSurvey.Foundation.Services
             //}
 
             version.CreatedDate = _environmentInfoService.CurrentUtcDateTime;
+            version.StartDate = _environmentInfoService.CurrentUtcDateTime;
+            version.EndDate = _environmentInfoService.CurrentUtcDateTime;
             version.Number = 1;
+
             _uow.Surveys.Create(survey);
             await _uow.SaveAsync();
 
@@ -106,21 +109,21 @@ namespace RedTeam.TechArtSurvey.Foundation.Services
         public async Task<IServiceResponse> DeleteByIdAsync(int id)
         {
             LoggerContext.Logger.Info($"Delete Survey with id = {id}");
-            
+
             var includes = new Expression<Func<Survey, object>>[]
-                           {
-                               s => s.Author,
-                               s => s.Versions,
-                               s => s.Versions.Select(v => v.Responses),
-                               s => s.Versions.Select(v => v.Responses.Select(r => r.Answers)),
-                               s => s.Versions.Select(v => v.Pages),
-                               s => s.Versions.Select(v => v.Pages.Select(p => p.Questions)),
-                               s => s.Versions.Select(v => v.Pages.Select(p => p.Questions.Select(q => q.Type))),
-                               s => s.Versions.Select(v => v.Pages.Select(p => p.Questions.Select(q => q.Choices)))
-                           };
+            {
+                s => s.Author,
+                s => s.Versions,
+                s => s.Versions.Select(v => v.Responses),
+                s => s.Versions.Select(v => v.Responses.Select(r => r.Answers)),
+                s => s.Versions.Select(v => v.Pages),
+                s => s.Versions.Select(v => v.Pages.Select(p => p.Questions)),
+                s => s.Versions.Select(v => v.Pages.Select(p => p.Questions.Select(q => q.Type))),
+                s => s.Versions.Select(v => v.Pages.Select(p => p.Questions.Select(q => q.Choices)))
+            };
 
             var surv = await _uow.Surveys.GetByIdAsync(id, includes);
-            if ( surv == null )
+            if (surv == null)
             {
                 return ServiceResponse.CreateUnsuccessful<object>(ServiceResponseCode.SurveyNotFoundById);
             }
@@ -150,9 +153,9 @@ namespace RedTeam.TechArtSurvey.Foundation.Services
             LoggerContext.Logger.Info($"Get Survey with id = {id}");
 
             var surv = await _uow.Surveys.GetByIdAsync(id);
-            return surv == null ?
-                       ServiceResponse.CreateUnsuccessful<EditSurveyDto>(ServiceResponseCode.SurveyNotFoundById) :
-                       ServiceResponse.CreateSuccessful(_mapper.Map<Survey, EditSurveyDto>(surv));
+            return surv == null
+                ? ServiceResponse.CreateUnsuccessful<EditSurveyDto>(ServiceResponseCode.SurveyNotFoundById)
+                : ServiceResponse.CreateSuccessful(_mapper.Map<Survey, EditSurveyDto>(surv));
         }
 
         public async Task<IServiceResponse<EditSurveyDto>> GetByIdAndVersionAsync(int id, int version)
@@ -160,33 +163,65 @@ namespace RedTeam.TechArtSurvey.Foundation.Services
             LoggerContext.Logger.Info($"Get Survey with id = {id} and version = {version}");
 
             var includes = new Expression<Func<Survey, object>>[]
-                           {
-                               s => s.Author,
-                               s => s.Versions,
-                               s => s.Versions.Select(v => v.Pages),
-                               s => s.Versions.Select(v => v.Pages.Select(p => p.Questions)),
-                               s => s.Versions.Select(v => v.Pages.Select(p => p.Questions.Select(q => q.Type))),
-                               s => s.Versions.Select(v => v.Pages.Select(p => p.Questions.Select(q => q.Choices)))
-                           };
+            {
+                s => s.Versions,
+                s => s.Versions.Select(v => v.CompletedHtml),
+                s => s.Versions.Select(v => v.CompleteText),
+                s => s.Versions.Select(v => v.PageNextText),
+                s => s.Versions.Select(v => v.PagePrevText),
+                s => s.Versions.Select(v => v.StartSurveyText),
+                s => s.Versions.Select(v => v.Title),
+                s => s.Versions.Select(v => v.Triggers),
+                s => s.Versions.Select(v => v.Pages),
+                s => s.Versions.Select(v => v.Pages.Select(p => p.Title)),
+                s => s.Versions.Select(v => v.Pages.Select(p => p.Questions)),
+                s => s.Versions.Select(v => v.Pages.Select(p => p.Questions.Select(q => q.Placeholder))),
+                s => s.Versions.Select(v => v.Pages.Select(p => p.Questions.Select(q => q.OptionsCaption))),
+                s => s.Versions.Select(v => v.Pages.Select(p => p.Questions.Select(q => q.MaxRateDescription))),
+                s => s.Versions.Select(v => v.Pages.Select(p => p.Questions.Select(q => q.MinRateDescription))),
+                s => s.Versions.Select(v => v.Pages.Select(p => p.Questions.Select(q => q.MatrixRows))),
+                s => s.Versions.Select(v =>
+                    v.Pages.Select(p => p.Questions.Select(q => q.MatrixRows.Select(mr => mr.Text)))),
+                s => s.Versions.Select(v => v.Pages.Select(p => p.Questions.Select(q => q.MatrixCols))),
+                s => s.Versions.Select(v =>
+                    v.Pages.Select(p => p.Questions.Select(q => q.MatrixCols.Select(mc => mc.Text)))),
+                s => s.Versions.Select(v => v.Pages.Select(p => p.Questions.Select(q => q.MinRateDescription))),
+                s => s.Versions.Select(v => v.Pages.Select(p => p.Questions.Select(q => q.Type))),
+                s => s.Versions.Select(v => v.Pages.Select(p => p.Questions.Select(q => q.Title))),
+                s => s.Versions.Select(v => v.Pages.Select(p => p.Questions.Select(q => q.Choices))),
+                s => s.Versions.Select(v =>
+                    v.Pages.Select(p => p.Questions.Select(q => q.Choices.Select(qv => qv.Text)))),
+                s => s.Author
+            };
 
             var surv = await _uow.Surveys.GetSurveyByIdAndVersionAsync(id, version, includes);
 
-            if(surv == null)
+            if (surv == null)
             {
                 return ServiceResponse.CreateUnsuccessful<EditSurveyDto>(ServiceResponseCode.SurveyNotFoundById);
             }
-            surv.Versions = surv.Versions.Where(sv => sv.Number == version).ToList();
 
-            return ServiceResponse.CreateSuccessful(_mapper.Map<Survey, EditSurveyDto>(surv));
+            var su = SurveyOnlyVersion.FromSurveyByVersion(surv, version);
+
+            return su.Version == null
+                ? ServiceResponse.CreateUnsuccessful<EditSurveyDto>(ServiceResponseCode.SurveyNotFoundByVersion)
+                : ServiceResponse.CreateSuccessful(_mapper.Map<SurveyOnlyVersion, EditSurveyDto>(su));
         }
 
-        public async Task<IServiceResponse<IReadOnlyCollection<EditSurveyDto>>> GetAllAsync()
+        public async Task<IServiceResponse<IReadOnlyCollection<SurveyDto>>> GetAllAsync()
         {
             LoggerContext.Logger.Info("Get all Surveys");
 
-            var surveys = await _uow.Surveys.GetAllAsync(s => s.Versions);
+            var includes = new Expression<Func<Survey, object>>[]
+            {
+                s => s.Versions,
+                s => s.Versions.Select(v => v.Title),
+                s => s.Author
+            };
 
-            return ServiceResponse.CreateSuccessful(_mapper.Map<IReadOnlyCollection<Survey>, IReadOnlyCollection<EditSurveyDto>>(surveys));
+            var surveys = await _uow.Surveys.GetAllAsync(includes);
+
+            return ServiceResponse.CreateSuccessful(_mapper.Map<IReadOnlyCollection<Survey>, IReadOnlyCollection<SurveyDto>>(surveys));
         }
 
         private async Task<Survey> PrepareSurvey(Survey survey)
@@ -196,9 +231,9 @@ namespace RedTeam.TechArtSurvey.Foundation.Services
 
             foreach (var version in survey.Versions)
             {
-                foreach(var page in version.Pages)
+                foreach (var page in version.Pages)
                 {
-                    foreach(var question in page.Questions)
+                    foreach (var question in page.Questions)
                     {
                         if (!Enum.TryParse(question.Type.Name, out QuestionTypes qt))
                         {
@@ -208,6 +243,12 @@ namespace RedTeam.TechArtSurvey.Foundation.Services
                         var questionType = await _uow.QuestionTypes.FindByTypeAsync(qt) ??
                                            throw new NullReferenceException(nameof(question.Type));
                         question.Type = questionType;
+
+                        var empty = new LocalizableString {Default = ""};
+                        if (question.MinRateDescription == null) question.MinRateDescription = empty;
+                        if (question.MaxRateDescription == null) question.MaxRateDescription = empty;
+                        if (question.OptionsCaption == null) question.OptionsCaption = empty;
+                        if (question.Placeholder == null) question.Placeholder = empty;
                     }
                 }
             }

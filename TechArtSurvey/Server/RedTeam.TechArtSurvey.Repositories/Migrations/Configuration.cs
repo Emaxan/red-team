@@ -109,6 +109,7 @@ namespace RedTeam.TechArtSurvey.Repositories.Migrations
                 new LocalizableString {StringId = 32, Default = "First Placeholder"},
                 new LocalizableString {StringId = 33, Default = "Second Placeholder"},
                 new LocalizableString {StringId = 34, Default = "Third Placeholder"},
+                new LocalizableString {StringId = 35, Default = ""},
             };
 
             localizableStrings.ForEach(ls => context.LocalizableStrings.AddOrUpdate(locs => locs.StringId, ls));
@@ -147,7 +148,7 @@ namespace RedTeam.TechArtSurvey.Repositories.Migrations
                                                        ShowProgressBar = "bottom",
                                                        ShowQuestionNumbers = "on",
                                                        ShowTimerPanel = "top",
-                                                       ShowTimerPanelMode = "both"
+                                                       ShowTimerPanelMode = "all"
                                                    },
                                                    Pages = new List<SurveyPage>()
                                                });
@@ -268,7 +269,11 @@ namespace RedTeam.TechArtSurvey.Repositories.Migrations
                     EnableIf = "",
                     Visible = true,
                     StartWithNewLine = true,
-                    PlaceholderId = 26
+                    PlaceholderId = 26,
+                    MinRateDescriptionId = 35,
+                    MaxRateDescriptionId = 35,
+                    OptionsCaptionId = 35,
+                    InputType = "text"
                 },
                 new Checkbox()
                 {
@@ -284,7 +289,11 @@ namespace RedTeam.TechArtSurvey.Repositories.Migrations
                     StartWithNewLine = true,
                     HasOther = true,
                     ChoicesOrder = "random",
-                    OtherTextId = 27
+                    PlaceholderId = 27,
+                    MinRateDescriptionId = 35,
+                    MaxRateDescriptionId = 35,
+                    OptionsCaptionId = 35,
+                    ColCount = 3
                 },
                 new Text()
                 {
@@ -298,7 +307,11 @@ namespace RedTeam.TechArtSurvey.Repositories.Migrations
                     EnableIf = "",
                     Visible = true,
                     StartWithNewLine = true,
-                    PlaceholderId = 28
+                    PlaceholderId = 28,
+                    MinRateDescriptionId = 35,
+                    MaxRateDescriptionId = 35,
+                    OptionsCaptionId = 35,
+                    InputType = "text"
                 },
                 new Text()
                 {
@@ -312,7 +325,11 @@ namespace RedTeam.TechArtSurvey.Repositories.Migrations
                     EnableIf = "",
                     Visible = true,
                     StartWithNewLine = true,
-                    PlaceholderId = 32
+                    PlaceholderId = 32,
+                    MinRateDescriptionId = 35,
+                    MaxRateDescriptionId = 35,
+                    OptionsCaptionId = 35,
+                    InputType = "text"
                 },
                 new Text()
                 {
@@ -326,7 +343,11 @@ namespace RedTeam.TechArtSurvey.Repositories.Migrations
                     EnableIf = "",
                     Visible = true,
                     StartWithNewLine = true,
-                    PlaceholderId = 33
+                    PlaceholderId = 33,
+                    MinRateDescriptionId = 35,
+                    MaxRateDescriptionId = 35,
+                    OptionsCaptionId = 35,
+                    InputType = "text"
                 },
                 new Text()
                 {
@@ -340,7 +361,11 @@ namespace RedTeam.TechArtSurvey.Repositories.Migrations
                     EnableIf = "",
                     Visible = true,
                     StartWithNewLine = true,
-                    PlaceholderId = 34
+                    PlaceholderId = 34,
+                    MinRateDescriptionId = 35,
+                    MaxRateDescriptionId = 35,
+                    OptionsCaptionId = 35,
+                    InputType = "text"
                 });
 
             var questionVariants = new List<QuestionVariant>

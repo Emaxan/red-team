@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using JetBrains.Annotations;
+using RedTeam.TechArtSurvey.DomainModel.Entities.Surveys;
 
 namespace RedTeam.TechArtSurvey.Foundation.Dto.SurveysDto
 {

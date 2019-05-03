@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using RedTeam.Repositories.Interfaces;
+using RedTeam.TechArtSurvey.DomainModel.Entities.Surveys.Questions;
 using RedTeam.TechArtSurvey.DomainModel.Entities.Surveys.Triggers;
 
 namespace RedTeam.TechArtSurvey.DomainModel.Entities.Surveys
@@ -37,5 +38,27 @@ namespace RedTeam.TechArtSurvey.DomainModel.Entities.Surveys
         public ICollection<QuestionAnswer> Answers { get; set; }
 
         public ICollection<VisibleTrigger> VisibleTriggers { get; set; }
+
+        // From other questions
+
+        public int PlaceholderId { get; set; }
+
+        public LocalizableString Placeholder { get; set; }
+
+        public int MinRateDescriptionId { get; set; }
+
+        public LocalizableString MinRateDescription { get; set; }
+
+        public int MaxRateDescriptionId { get; set; }
+
+        public LocalizableString MaxRateDescription { get; set; }
+
+        public int OptionsCaptionId { get; set; }
+
+        public LocalizableString OptionsCaption { get; set; }
+
+        public ICollection<MatrixRow> MatrixRows { get; set; }
+
+        public ICollection<MatrixCol> MatrixCols { get; set; }
     }
 }

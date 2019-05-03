@@ -8,11 +8,6 @@ namespace RedTeam.TechArtSurvey.Repositories.EF.Surveys.Questions
         public DatePickerConfiguration()
         {
             ToTable("DatePicker");
-
-            HasRequired(dp => dp.Placeholder)
-                .WithMany()
-                .HasForeignKey(dp => dp.PlaceholderId)
-                .WillCascadeOnDelete(false);
         }
     }
 }
