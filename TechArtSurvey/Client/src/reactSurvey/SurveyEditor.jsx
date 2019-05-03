@@ -44,7 +44,7 @@ class SurveyEditor extends Component {
   componentDidMount() {
     let editorOptions = {
       generateValidJSON: true,	//The default value of this options is true. By default, the valid JSON is generated. You may want to use non-standard, but more readable format, JSON5.
-      showJSONEditorTab: true ,	//Set this option to false to hide the JSON Tab.
+      showJSONEditorTab: true ,	//Set this option to false to hide the JSON Tab. //TODO Remove this later.
       showTestSurveyTab: true,	//Set this option to false to hide the Survey Test Tab.
       showEmbededSurveyTab: false,	//Set this option to true to show the Survey Embedded Tab. This tab is hidden by default. It shows how to integrate the survey into another web page.
       showTranslationTab: true,	//Set this option to true to show the Translation Tab. This tab is hidden by default. It allows to edit all localizable strings for several languages on one page. It allows to import/export into from csv file.
@@ -177,68 +177,70 @@ class SurveyEditor extends Component {
       userName: this.props.userName,
       email: this.props.email,
     };
-    if(!survey.triggers) survey.triggers = [];
-    var s = this.editor.translation.survey;
-    survey.completeText = s.locCompleteText.values.default?s.locCompleteText.values:{default:survey.completeText||''};
-    survey.completedHtml = s.locCompletedHtml.values.default?s.locCompletedHtml.values:{default:survey.completedHtml||''};
-    survey.pageNextText = s.locPageNextText.values.default?s.locPageNextText.values:{default:survey.pageNextText||''};
-    survey.pagePrevText = s.locPagePrevText.values.default?s.locPagePrevText.values:{default:survey.pagePrevText||''};
-    survey.startSurveyText = s.locStartSurveyText.values.default?s.locStartSurveyText.values:{default:survey.startSurveyText||''};
-    survey.title = s.locTitle.values.default?s.locTitle.values:{default:survey.title||''};
+    var s = this.editor.survey;
+    survey.triggers = s.triggers;
+    survey.completeText = s.locCompleteText.values;
+    survey.completedHtml = s.locCompletedHtml.values;
+    survey.pageNextText = s.locPageNextText.values;
+    survey.pagePrevText = s.locPagePrevText.values;
+    survey.startSurveyText = s.locStartSurveyText.values;
+    survey.title = s.locTitle.values;
 
-    if(!survey.requiredText) survey.requiredText = '*';
-    if(!survey.isSinglePage) survey.isSinglePage = false;
-    if(!survey.firstPageIsStarted) survey.firstPageIsStarted = false;
-    if(!survey.showCompletedPage) survey.showCompletedPage = true;
-    if(!survey.showPrevButton) survey.showPrevButton = true;
-    if(!survey.maxTimeToFinish) survey.maxTimeToFinish = 0;
-    if(!survey.maxTimeToFinishPage) survey.maxTimeToFinishPage = 0;
-    survey.pages.forEach(page => {
-      if(!page.title.default) page.title = {default:page.title};
-      if(!page.visibleIf) page.visibleIf = '';
-      if(!page.visible) page.visible = true;
-      page.elements.forEach(elem => {
-        if(!elem.visibleIf) elem.visibleIf = '';
-        if(!elem.enableIf) elem.enableIf = '';
-        if(!elem.visible) elem.visible = true;
-        if(!elem.inputType) elem.inputType = 'text';
-        if(!elem.startWithNewLine) elem.startWithNewLine = true;
-        if(!elem.placeHolder) elem.placeHolder = {default:''};
-        else if(!elem.placeHolder.default) elem.placeHolder = {default:elem.placeHolder};
-        if(!elem.label) elem.label = {default:''};
-        else if(!elem.label.default) elem.label = {default:elem.label};
-        if(!elem.otherText) elem.otherText = {default:''};
-        else if(!elem.otherText.default) elem.otherText = {default:elem.otherText};
-        if(!elem.minRateDescription) elem.minRateDescription = {default:''};
-        else if(!elem.minRateDescription.default) elem.minRateDescription = {default:elem.minRateDescription};
-        if(!elem.maxRateDescription) elem.maxRateDescription = {default:''};
-        else if(!elem.maxRateDescription.default) elem.maxRateDescription = {default:elem.maxRateDescription};
-        if(!elem.title) elem.title = {default:''};
-        else if(!elem.title.default) elem.title = {default:elem.title};
-        let t = elem.type.charAt(0).toUpperCase() + elem.type.slice(1);
-        elem.type = {name:t};
-        if(elem.choices) this.checkChoices(elem.choices);
-        else elem.choices = [];
-      });
-    });
+    survey.requiredText = s.requiredText;
+    survey.isSinglePage = s.isSinglePage;
+    survey.firstPageIsStarted = s.firstPageIsStarted;
+    survey.showCompletedPage = s.showCompletedPage;
+    survey.showPrevButton = s.showPrevButton;
+    survey.maxTimeToFinish = s.maxTimeToFinish;
+    survey.maxTimeToFinishPage = s.maxTimeToFinishPage;
+    survey.questionErrorLocation = s.questionErrorLocation;
+    survey.questionTitleLocation = s.questionTitleLocation;
+    survey.showQuestionNumbers = s.showQuestionNumbers;
+    survey.showTimerPanelMode = s.showTimerPanelMode;
+
+    const emptyString = {
+      default:'',
+    };
+
+    for (let i = 0; i < survey.pages.length; i++) {
+      const resPage = survey.pages[i];
+      const edPage = s.pages[i];
+
+      resPage.title = edPage.locTitle.values;
+      resPage.visible = edPage.visible;
+      resPage.visibleIf = edPage.visibleIf;
+
+      for (let j = 0; j < resPage.elements.length; j++) {
+        const resElem = resPage.elements[j];
+        const edElem = edPage.elements[j];
+
+        resElem.visibleIf = edElem.visibleIf;
+        resElem.enableIf = edElem.enableIf;
+        resElem.visible = edElem.visible;
+        resElem.inputType = edElem.inputType;
+        resElem.startWithNewLine = edElem.startWithNewLine;
+        resElem.placeHolder = edElem.locPlaceHolder ? edElem.locPlaceHolder.values : emptyString;
+        resElem.label = edElem.locLabel ? edElem.locLabel.values : emptyString;
+        resElem.otherText = edElem.locOtherText ? edElem.locOtherText.values : emptyString;
+        resElem.minRateDescription = edElem.locMinRateDescription ? edElem.locMinRateDescription.values : emptyString;
+        resElem.maxRateDescription = edElem.locMaxRateDescription ? edElem.locMaxRateDescription.values : emptyString;
+        resElem.title = edElem.locTitle.values;
+        let name = resElem.type.charAt(0).toUpperCase() + resElem.type.slice(1);
+        resElem.type = { name };
+
+        resElem.choices = [];
+        for (let i = 0; i < (edElem.choices||[]).length; i++) {
+          resElem.choices.push({
+            visibleIf: edElem.choices[i].visibleIf || '',
+            enableIf: edElem.choices[i].enableIf || '',
+            value: edElem.choices[i].value,
+            text: edElem.choices[i].locText.values.default ? edElem.choices[i].locText.values : emptyString,
+          });
+        }
+      }
+    }
 
     return survey;
-  }
-
-  checkChoices(choices) {
-    if(choices.length==0) return [];
-    if(choices[0].value) {
-      choices.forEach(choice => {
-        if(!choice.text) choice.text = {default:choice.value};
-        else if(!choice.text.default) choice.text = {default:choice.text};
-      });
-    } else {
-      let ch = choices;
-      choices.length = 0;
-      ch.forEach(c => {
-        choices.push({default: c});
-      });
-    }
   }
 }
 
