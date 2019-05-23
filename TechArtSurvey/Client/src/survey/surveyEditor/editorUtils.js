@@ -14,9 +14,11 @@ export class EditorUtils {
 
   static prepareAfterLoad = (survey, pass = false) => {
     let sv = EditorUtils.deepExtend({}, survey);
+    sv.pages.sort((a, b) => a.number - b.number);
 
     sv.pages.forEach(page => {
       if(!page.elements) return;
+      page.elements.sort((a, b) => a.number - b.number);
       page.elements.forEach(elem => {
         if (typeof(elem.type) === 'string') return;
         elem.type = elem.type.name.toLowerCase();
@@ -71,11 +73,13 @@ export class EditorUtils {
       resPage.visible = edPage.visible;
       resPage.visibleIf = edPage.visibleIf;
       resPage.questionsOrder = edPage.questionsOrder;
+      resPage.number = i;
 
       for (let j = 0; j < resPage.elements.length; j++) {
         const resElem = resPage.elements[j];
         const edElem = edPage.elements[j];
 
+        resElem.number = j;
         resElem.colCount = edElem.colCount;
         resElem.choicesOrder = edElem.choicesOrder;
         resElem.visibleIf = edElem.visibleIf;
@@ -94,12 +98,13 @@ export class EditorUtils {
         resElem.type = { name };
 
         resElem.choices = [];
-        for (let i = 0; i < (edElem.choices||[]).length; i++) {
+        for (let k = 0; k < (edElem.choices||[]).length; k++) {
           resElem.choices.push({
-            visibleIf: edElem.choices[i].visibleIf || '',
-            enableIf: edElem.choices[i].enableIf || '',
-            value: edElem.choices[i].value,
-            text: edElem.choices[i].locText.values.default ? edElem.choices[i].locText.values : emptyString,
+            number: k,
+            visibleIf: edElem.choices[k].visibleIf || '',
+            enableIf: edElem.choices[k].enableIf || '',
+            value: edElem.choices[k].value,
+            text: edElem.choices[k].locText.values.default ? edElem.choices[k].locText.values : emptyString,
           });
         }
       }

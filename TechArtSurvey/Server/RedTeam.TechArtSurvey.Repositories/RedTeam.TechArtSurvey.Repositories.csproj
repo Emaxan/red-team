@@ -103,6 +103,10 @@
     <Compile Include="Migrations\201904271153220_NewDatabase.Designer.cs">
       <DependentUpon>201904271153220_NewDatabase.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201905231645316_AddNumbers.cs" />
+    <Compile Include="Migrations\201905231645316_AddNumbers.Designer.cs">
+      <DependentUpon>201905231645316_AddNumbers.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\QuestionTypeRepository.cs" />
@@ -152,6 +156,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201904271153220_NewDatabase.resx">
       <DependentUpon>201904271153220_NewDatabase.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201905231645316_AddNumbers.resx">
+      <DependentUpon>201905231645316_AddNumbers.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

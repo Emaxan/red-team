@@ -1,7 +1,9 @@
 import { createActions } from 'redux-actions';
+import { push } from 'react-router-redux';
 import { tokenUtility } from '../../utils/tokenUtility';
 import { UNAUTHORIZED } from 'http-status';
 
+import Routes from '../../app/routes';
 import { pushSurvey, getSurvey } from './api';
 import {
   SEND_SURVEY_START,
@@ -38,6 +40,7 @@ export const pushSurveyRequest = (survey) => (dispatch) => {
   return pushSurvey(survey)
     .then((response) => {
       dispatch(sendSurveySuccess(`Successfully add survey with title "${response.data.versions[0].title.default}"`));
+      dispatch(push(Routes.Surveys.path));
     })
     .catch((error) => {
       if (error.statusCode === UNAUTHORIZED) {

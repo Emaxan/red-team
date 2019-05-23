@@ -7,6 +7,8 @@ namespace RedTeam.TechArtSurvey.Foundation.Dto.SurveysDto
     [UsedImplicitly]
     public class PageDto
     {
+        public int Number { get; set; }
+
         [Required]
         public LocalizableStringDto Title { get; set; }
 

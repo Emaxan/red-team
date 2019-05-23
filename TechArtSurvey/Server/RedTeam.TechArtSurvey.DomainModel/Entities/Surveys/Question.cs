@@ -9,6 +9,8 @@ namespace RedTeam.TechArtSurvey.DomainModel.Entities.Surveys
     {
         public int Id { get; set; }
 
+        public int Number { get; set; }
+
         public int TitleId { get; set; }
 
         public LocalizableString Title { get; set; }

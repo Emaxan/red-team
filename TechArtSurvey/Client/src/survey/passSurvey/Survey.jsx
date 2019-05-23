@@ -38,6 +38,22 @@ export class Survey extends Component {
   }
 
   componentDidMount() {
+    var mainColor = '#32292a';
+    var mainHoverColor = '#ff0000';
+    var textColor = '#4a4a4a';
+    var headerColor = '#4a4a4a';
+    var headerBackgroundColor = '#f8f8f8';
+    var bodyContainerBackgroundColor = '#f8f8f8';
+    var defaultThemeColorsSurvey = SurveyJS
+      .StylesManager
+      .ThemeColors['default'];
+    defaultThemeColorsSurvey['$main-color'] = mainColor;
+    defaultThemeColorsSurvey['$main-hover-color'] = mainHoverColor;
+    defaultThemeColorsSurvey['$text-color'] = textColor;
+    defaultThemeColorsSurvey['$header-color'] = headerColor;
+    defaultThemeColorsSurvey['$header-background-color'] = headerBackgroundColor;
+    defaultThemeColorsSurvey['$body-container-background-color'] = bodyContainerBackgroundColor;
+    SurveyJS.StylesManager.applyTheme();
     this.props.getSurvey(this.props.match.params.surveyId, this.props.match.params.version);
   }
 

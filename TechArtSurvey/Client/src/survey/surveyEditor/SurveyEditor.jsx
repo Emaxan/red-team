@@ -198,6 +198,7 @@ class SurveyEditor extends Component {
     });
     doSaveCallback(no, validation.isValid);
     if (!validation.isValid) return;
+    alert('Survey successfully sended');
     this.props.pushSurveyRequest(JSON.stringify(s));
   };
 

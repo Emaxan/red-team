@@ -7,6 +7,8 @@ namespace RedTeam.TechArtSurvey.DomainModel.Entities.Surveys
     {
         public int Id { get; set; }
 
+        public int Number { get; set; }
+
         public int QuestionId { get; set; }
 
         public Question Question { get; set; }
