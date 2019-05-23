@@ -18,5 +18,7 @@ namespace RedTeam.TechArtSurvey.Foundation.Interfaces
         Task<IServiceResponse<EditSurveyDto>> GetByIdAndVersionAsync(int id, int version);
 
         Task<IServiceResponse<IReadOnlyCollection<SurveyDto>>> GetAllAsync();
+
+        Task<IServiceResponse<IReadOnlyCollection<SurveyDto>>> GetAllAsync(string userEmail);
     }
 }

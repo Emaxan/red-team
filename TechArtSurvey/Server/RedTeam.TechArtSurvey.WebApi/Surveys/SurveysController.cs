@@ -4,15 +4,12 @@ using System.ComponentModel;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Http;
-using System.Web.Http.ModelBinding;
 using Newtonsoft.Json.Linq;
 using RedTeam.Logger;
-using RedTeam.TechArtSurvey.DomainModel.Entities.Surveys.Questions;
 using RedTeam.TechArtSurvey.Foundation.Dto.SurveysDto;
 using RedTeam.TechArtSurvey.Foundation.Dto.SurveysDto.Questions;
 using RedTeam.TechArtSurvey.Foundation.Interfaces;
 using RedTeam.TechArtSurvey.Foundation.Interfaces.ServiceResponses;
-using Boolean = RedTeam.TechArtSurvey.DomainModel.Entities.Surveys.Questions.Boolean;
 
 namespace RedTeam.TechArtSurvey.WebApi.Surveys
 {
@@ -25,6 +22,28 @@ namespace RedTeam.TechArtSurvey.WebApi.Surveys
         public SurveysController(ISurveyService surveyService)
         {
             _surveyService = surveyService;
+        }
+
+        // GET api/surveys/1/1
+        [Route("{id:int:min(1)}/{version:int:min(1)}")]
+        [HttpGet]
+        [AllowAnonymous]
+        public async Task<IServiceResponse> GetSurvey(int id, int version)
+        {
+            LoggerContext.Logger.Info($"Get Survey with id = {id} and version = {version}");
+
+            return await _surveyService.GetByIdAndVersionAsync(id, version);
+        }
+
+        // GET api/surveys
+        [Route("")]
+        [HttpGet]
+        [Authorize(Roles = "Admin, User")]
+        public async Task<IServiceResponse> GetSurveys([FromUri] string userEmail = "")
+        {
+            LoggerContext.Logger.Info("Get all Surveys" + (userEmail.Length > 0 ? $" by author {userEmail}" : ""));
+            if (userEmail.Length == 0) return await _surveyService.GetAllAsync();
+            return await _surveyService.GetAllAsync(userEmail);
         }
 
         // POST api/surveys
@@ -100,28 +119,6 @@ namespace RedTeam.TechArtSurvey.WebApi.Surveys
                     return typeof(DatePickerDto);
                 default: throw new InvalidEnumArgumentException(nameof(name));
             }
-        }
-
-        // GET api/surveys/1/1
-        [Route("{id:int:min(1)}/{version:int:min(1)}")]
-        [HttpGet]
-        [AllowAnonymous]
-        public async Task<IServiceResponse> GetSurvey(int id, int version)
-        {
-            LoggerContext.Logger.Info($"Get Survey with id = {id} and version = {version}");
-
-            return await _surveyService.GetByIdAndVersionAsync(id, version);
-        }
-
-        // GET api/surveys
-        [Route("")]
-        [HttpGet]
-        [Authorize(Roles = "Admin, User")]
-        public async Task<IServiceResponse> GetSurveys()
-        {
-            LoggerContext.Logger.Info("Get all Surveys");
-
-            return await _surveyService.GetAllAsync();
         }
 
         // PUT api/surveys/5

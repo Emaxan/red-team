@@ -1,7 +1,7 @@
-import { httpUtility } from '../utils/httpUtility';
-import { JSON_DATA } from '../utils/MimeType';
+import { httpUtility } from '../../utils/httpUtility';
+import { JSON_DATA } from '../../utils/MimeType';
 
-import { API_URL } from '../app/config';
+import { API_URL } from '../../app/config';
 
 export const pushSurvey = (survey) => {
   const headers = {

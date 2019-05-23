@@ -7,8 +7,8 @@ namespace RedTeam.TechArtSurvey.Foundation.Dto.SurveysDto.Questions
     [UsedImplicitly]
     public class MatrixDto : QuestionDto
     {
-        public ICollection<MatrixElemDto> MatrixRows { get; set; }
+        public ICollection<MatrixElemDto> Rows { get; set; }
 
-        public ICollection<MatrixElemDto> MatrixCols { get; set; }
+        public ICollection<MatrixElemDto> Columns { get; set; }
     }
 }

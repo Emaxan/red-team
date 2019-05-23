@@ -224,6 +224,22 @@ namespace RedTeam.TechArtSurvey.Foundation.Services
             return ServiceResponse.CreateSuccessful(_mapper.Map<IReadOnlyCollection<Survey>, IReadOnlyCollection<SurveyDto>>(surveys));
         }
 
+        public async Task<IServiceResponse<IReadOnlyCollection<SurveyDto>>> GetAllAsync(string userEmail)
+        {
+            LoggerContext.Logger.Info($"Get all Surveys by author {userEmail}");
+
+            var includes = new Expression<Func<Survey, object>>[]
+            {
+                s => s.Versions,
+                s => s.Versions.Select(v => v.Title),
+                s => s.Author
+            };
+
+            var surveys = await _uow.Surveys.GetAllByEmailAsync(userEmail, includes);
+
+            return ServiceResponse.CreateSuccessful(_mapper.Map<IReadOnlyCollection<Survey>, IReadOnlyCollection<SurveyDto>>(surveys));
+        }
+
         private async Task<Survey> PrepareSurvey(Survey survey)
         {
             var user = await _uow.Users.GetUserByEmailAsync(survey.Author.Email);

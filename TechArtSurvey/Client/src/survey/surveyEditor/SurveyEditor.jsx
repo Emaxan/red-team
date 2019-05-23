@@ -3,8 +3,10 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import ReactRouterPropTypes from 'react-router-prop-types';
 import { pushSurveyRequest, getSurveyRequest } from './actions';
+import { EditorUtils } from './editorUtils';
 import * as SurveyJSEditor from 'surveyjs-editor';
 import * as SurveyKo from 'survey-knockout';
+import { validateSurvey, validator } from './validators/surveyValidator';
 import $ from 'jquery';
 
 import 'survey-react/survey.css';
@@ -30,6 +32,12 @@ widgets.jquerybarrating(SurveyKo, $);
 widgets.jqueryuidatepicker(SurveyKo, $);
 
 class SurveyEditor extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {customErrors: [], questionErrors:{pages:[]}};
+  }
+
   editor;
 
   componentWillMount() {
@@ -90,11 +98,16 @@ class SurveyEditor extends Component {
       editorOptions,
     );
     this.editor.saveSurveyFunc = this.saveMySurvey;
+    this.editor.showErrorOnFailedSave = false;
+
+    this.editor.onPropertyValidationCustomError.add((e, opt) => {
+      console.log(opt);
+      validator(opt);
+    });
 
     this.editor
       .onCanShowProperty
       .add(function (sender, options) {
-        // console.log(options.obj.getType(), options.property.name);
         if(options.property.name == 'choicesByUrl') options.canShow = false;
         if (options.obj.getType() == 'survey') {
           options.canShow = [
@@ -135,112 +148,83 @@ class SurveyEditor extends Component {
     $('.svd_commercial_container').remove();
   }
 
-  render() {
-    if(this.editor) this.editor.text = JSON.stringify(this.prepareAfterLoad(this.props.survey));
-    return <div id="surveyEditorContainer" />;
-  }
-
-  saveMySurvey = () => {
-    let s = this.prepareSurveyToSend(JSON.parse(this.editor.text));
-    this.props.pushSurveyRequest(JSON.stringify(s));
-  };
-
-  deepExtend = (destination, source) => {
-    for (var property in source) {
-      if (typeof source[property] === 'object' &&
-       source[property] !== null ) {
-        destination[property] = destination[property] || (Array.isArray(source[property]) ? [] : {});
-        destination[property] = this.deepExtend(destination[property], source[property]);
-      } else {
-        destination[property] = source[property];
-      }
-    }
-    return destination;
-  };
-
-  prepareAfterLoad(survey) {
-    let sv = this.deepExtend({}, survey);
-
-    sv.pages.forEach(page => {
-      if(!page.elements) return;
-      page.elements.forEach(elem => {
-        elem.type = elem.type.name;
+  saveMySurvey = (no, doSaveCallback) => {
+    let survey = JSON.parse(this.editor.text);
+    const pagesNotExist = !survey.pages || (survey.pages.length === 0);
+    if (pagesNotExist) {
+      this.setState({
+        ...this.state,
+        customErrors: ['There are no pages in survey.'],
+        survey: survey,
       });
-    });
-
-    return sv;
-  }
-
-  prepareSurveyToSend = (survey) => {
-
+      doSaveCallback(no, false);
+      return;
+    }
+    const isEmptyPages = survey.pages.some((page) => !page.elements || (page.elements.length === 0));
+    if (isEmptyPages) {
+      this.setState({
+        ...this.state,
+        customErrors: ['There are pages without questions. Fill or remove it.'],
+        survey: survey,
+      });
+      doSaveCallback(no, false);
+      return;
+    }
     survey.author = {
       userName: this.props.userName,
       email: this.props.email,
     };
-    var s = this.editor.survey;
-    survey.triggers = s.triggers;
-    survey.completeText = s.locCompleteText.values;
-    survey.completedHtml = s.locCompletedHtml.values;
-    survey.pageNextText = s.locPageNextText.values;
-    survey.pagePrevText = s.locPagePrevText.values;
-    survey.startSurveyText = s.locStartSurveyText.values;
-    survey.title = s.locTitle.values;
+    let s = EditorUtils.prepareSurveyToSend(survey, this.editor.survey);
 
-    survey.requiredText = s.requiredText;
-    survey.isSinglePage = s.isSinglePage;
-    survey.firstPageIsStarted = s.firstPageIsStarted;
-    survey.showCompletedPage = s.showCompletedPage;
-    survey.showPrevButton = s.showPrevButton;
-    survey.maxTimeToFinish = s.maxTimeToFinish;
-    survey.maxTimeToFinishPage = s.maxTimeToFinishPage;
-    survey.questionErrorLocation = s.questionErrorLocation;
-    survey.questionTitleLocation = s.questionTitleLocation;
-    survey.showQuestionNumbers = s.showQuestionNumbers;
-    survey.showTimerPanelMode = s.showTimerPanelMode;
-
-    const emptyString = {
-      default:'',
+    const questionErrors = {
+      pages:[],
     };
+    s.pages.forEach(page => {
+      const elements = [];
+      for (let i = 0; i < page.elements.length; i++) {
+        elements.push({errors:[]});
+      }
+      questionErrors.pages.push(
+        {elements},
+      );
+    });
 
-    for (let i = 0; i < survey.pages.length; i++) {
-      const resPage = survey.pages[i];
-      const edPage = s.pages[i];
+    const validation = validateSurvey(s, questionErrors);
+    this.setState({
+      ...this.state,
+      customErrors: validation.customErrors,
+      survey: survey,
+      questionErrors,
+    });
+    doSaveCallback(no, validation.isValid);
+    if (!validation.isValid) return;
+    this.props.pushSurveyRequest(JSON.stringify(s));
+  };
 
-      resPage.title = edPage.locTitle.values;
-      resPage.visible = edPage.visible;
-      resPage.visibleIf = edPage.visibleIf;
-
-      for (let j = 0; j < resPage.elements.length; j++) {
-        const resElem = resPage.elements[j];
-        const edElem = edPage.elements[j];
-
-        resElem.visibleIf = edElem.visibleIf;
-        resElem.enableIf = edElem.enableIf;
-        resElem.visible = edElem.visible;
-        resElem.inputType = edElem.inputType;
-        resElem.startWithNewLine = edElem.startWithNewLine;
-        resElem.placeHolder = edElem.locPlaceHolder ? edElem.locPlaceHolder.values : emptyString;
-        resElem.label = edElem.locLabel ? edElem.locLabel.values : emptyString;
-        resElem.otherText = edElem.locOtherText ? edElem.locOtherText.values : emptyString;
-        resElem.minRateDescription = edElem.locMinRateDescription ? edElem.locMinRateDescription.values : emptyString;
-        resElem.maxRateDescription = edElem.locMaxRateDescription ? edElem.locMaxRateDescription.values : emptyString;
-        resElem.title = edElem.locTitle.values;
-        let name = resElem.type.charAt(0).toUpperCase() + resElem.type.slice(1);
-        resElem.type = { name };
-
-        resElem.choices = [];
-        for (let i = 0; i < (edElem.choices||[]).length; i++) {
-          resElem.choices.push({
-            visibleIf: edElem.choices[i].visibleIf || '',
-            enableIf: edElem.choices[i].enableIf || '',
-            value: edElem.choices[i].value,
-            text: edElem.choices[i].locText.values.default ? edElem.choices[i].locText.values : emptyString,
-          });
+  render() {
+    if (this.editor) {
+      this.editor.text = JSON.stringify(EditorUtils.prepareAfterLoad(this.state.survey || this.props.survey));
+      for (let i = 0; i < this.state.questionErrors.pages.length; i++) {
+        const errPage = this.state.questionErrors.pages[i];
+        const page = this.editor.survey.pages[i];
+        for (let j = 0; j < errPage.elements.length; j++) {
+          errPage.elements[j].errors.forEach((error) => page.elements[j].errors.push(error));
         }
       }
     }
-
-    return survey;
+    return (
+      <div>
+        {
+          this.state.customErrors.map((error, i) => (
+            <div key={i} className="alert alert-danger">
+              <span className="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+              {error}
+            </div>
+          ))
+        }
+        <div id="surveyEditorContainer" />
+      </div>
+    );
   }
 }
 

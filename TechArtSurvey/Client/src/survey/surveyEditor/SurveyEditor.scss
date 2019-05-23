@@ -11,3 +11,12 @@
   height: 100%;
   overflow-y: visible;
 }
+
+.alert {
+  margin: 10px 0;
+}
+
+.svd_container.sv_default_css .svd_toolbox {
+  position: sticky;
+  top: 1em;
+}

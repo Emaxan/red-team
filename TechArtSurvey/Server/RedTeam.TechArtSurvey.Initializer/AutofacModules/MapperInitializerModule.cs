@@ -1,6 +1,4 @@
-﻿using System.Linq;
-using System.Web.Http;
-using Autofac;
+﻿using Autofac;
 using AutoMapper;
 using RedTeam.TechArtSurvey.DomainModel.Entities.Surveys;
 using RedTeam.TechArtSurvey.DomainModel.Entities.Surveys.Questions;
@@ -53,6 +51,10 @@ namespace RedTeam.TechArtSurvey.Initializer.AutofacModules
                                                                   .ForMember(dest => dest.QuestionsOrder, exp => exp.MapFrom(s => s.Version.Settings.QuestionsOrder))
                                                                   .ForMember(dest => dest.ShowQuestionNumbers, exp => exp.MapFrom(s => s.Version.Settings.ShowQuestionNumbers))
                                                                   .ForMember(dest => dest.ShowTimerPanelMode, exp => exp.MapFrom(s => s.Version.Settings.ShowTimerPanelMode))
+                                                                  .ForMember(dest => dest.FocusFirstQuestionAutomatic, exp => exp.MapFrom(s => SurveySettings.FocusFirstQuestionAutomatic))
+                                                                  .ForMember(dest => dest.StoreOthersAsComment, exp => exp.MapFrom(s => SurveySettings.StoreOthersAsComment))
+                                                                  .ForMember(dest => dest.ShowPageTitles, exp => exp.MapFrom(s => SurveySettings.ShowPageTitles))
+                                                                  .ForMember(dest => dest.SendResultOnPageNext, exp => exp.MapFrom(s => SurveySettings.SendResultOnPageNext))
                                                                   .ReverseMap();
                                                               cfg.CreateMap<TextArea, TextAreaDto>()
                                                                   .ForMember(dest => dest.PlaceHolder, exp => exp.MapFrom(q => q.Placeholder))
@@ -91,6 +93,8 @@ namespace RedTeam.TechArtSurvey.Initializer.AutofacModules
                                                               cfg.CreateMap<MatrixRow, MatrixElemDto>().ReverseMap();
                                                               cfg.CreateMap<MatrixCol, MatrixElemDto>().ReverseMap();
                                                               cfg.CreateMap<Matrix, MatrixDto>()
+                                                                  .ForMember(dest => dest.Columns, exp => exp.MapFrom(q => q.MatrixCols))
+                                                                  .ForMember(dest => dest.Rows, exp => exp.MapFrom(q => q.MatrixRows))
                                                                   .IncludeBase<Question, QuestionDto>()
                                                                   .ReverseMap();
                                                               cfg.CreateMap<Question, QuestionDto>()
@@ -124,6 +128,5 @@ namespace RedTeam.TechArtSurvey.Initializer.AutofacModules
             builder.Register(c => c.Resolve<MapperConfiguration>().CreateMapper(c.Resolve)).As<IMapper>().SingleInstance();
         }
     }
-
     
 }

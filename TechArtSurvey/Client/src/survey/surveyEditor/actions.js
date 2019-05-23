@@ -1,5 +1,5 @@
 import { createActions } from 'redux-actions';
-import { tokenUtility } from '../utils/tokenUtility';
+import { tokenUtility } from '../../utils/tokenUtility';
 import { UNAUTHORIZED } from 'http-status';
 
 import { pushSurvey, getSurvey } from './api';

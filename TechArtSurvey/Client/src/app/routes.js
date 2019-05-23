@@ -93,24 +93,25 @@ export default {
     icon : 'glyphicon glyphicon-th-list',
   },
 
+  PassSurvey : {
+    text : 'Pass survey',
+    path : '/survey',
+    display : sidebarDisplay.NOBODY,
+    icon : 'glyphicon glyphicon-th-list',
+    params : '/:surveyId?/:version?/:lang?',
+  },
+
   EditSurvey : {
-    text : 'Edit survey',
+    text : 'New survey',
     path : '/survey/edit',
     display : sidebarDisplay.ADMIN,
     icon : 'glyphicon glyphicon-plus',
     params : '/:surveyId?/:version?',
   },
 
-  MySurveys : {
-    text : 'My surveys',
-    path : '/survey/my',
-    display : sidebarDisplay.ADMIN,
-    icon : 'glyphicon glyphicon-tasks',
-  },
-
   SurveyTemplates : {
     text : 'Surveys templates list',
-    path : '/survey/templates',
+    path : '/templates',
     display : sidebarDisplay.ADMIN,
     icon : 'glyphicon glyphicon-book',
   },
