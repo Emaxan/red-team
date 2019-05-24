@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom';
 import * as SurveyJS from 'survey-react';
 import * as SurveyJSEditor from 'surveyjs-editor';
 import { Spinner } from '../../components/Spinner';
+// eslint-disable-next-line no-unused-vars
 import * as SurveyKo from 'survey-knockout';
 
 import { EditorUtils } from '../surveyEditor/editorUtils';
@@ -21,16 +22,20 @@ import 'select2/dist/css/select2.css';
 import 'jquery-bar-rating/dist/themes/css-stars.css';
 import 'jquery-bar-rating/dist/themes/fontawesome-stars.css';
 
+import $ from 'jquery';
 import 'jquery-ui/ui/widgets/datepicker.js';
 import 'select2/dist/js/select2.js';
 import 'jquery-bar-rating';
 
 import 'icheck/skins/square/blue.css';
 
+window['$'] = window['jQuery'] = $;
+require('icheck');
+// eslint-disable-next-line no-unused-vars
 import * as widgets from 'surveyjs-widgets';
 
-widgets.jquerybarrating(SurveyKo, $);
-widgets.jqueryuidatepicker(SurveyKo, $);
+widgets.jquerybarrating(SurveyJS, $);
+widgets.jqueryuidatepicker(SurveyJS, $);
 
 export class Survey extends Component {
   constructor(props) {

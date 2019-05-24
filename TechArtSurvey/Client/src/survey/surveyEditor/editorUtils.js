@@ -25,7 +25,7 @@ export class EditorUtils {
       });
       if (pass) {
         page.questions = page.elements;
-        page.elements = undefined;
+        delete page.elements;
       }
     });
 
@@ -118,16 +118,17 @@ export class EditorUtils {
             text: edElem.columns[k].locText.values.default ? edElem.columns[k].locText.values : emptyString,
           });
         }
-
-        resElem.rows = [];
-        for (let k = 0; k < (edElem.rows||[]).length; k++) {
-          resElem.rows.push({
-            number: k,
-            visibleIf: edElem.rows[k].visibleIf || '',
-            enableIf: edElem.rows[k].enableIf || '',
-            value: edElem.rows[k].value,
-            text: edElem.rows[k].locText.values.default ? edElem.rows[k].locText.values : emptyString,
-          });
+        if (Array.isArray(edElem.rows)) {
+          resElem.rows = [];
+          for (let k = 0; k < (edElem.rows||[]).length; k++) {
+            resElem.rows.push({
+              number: k,
+              visibleIf: edElem.rows[k].visibleIf || '',
+              enableIf: edElem.rows[k].enableIf || '',
+              value: edElem.rows[k].value,
+              text: edElem.rows[k].locText.values.default ? edElem.rows[k].locText.values : emptyString,
+            });
+          }
         }
       }
     }
