@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { getSurvey } from './actions';
+import { getSurvey, sendResponse } from './actions';
 import { Survey } from './Survey';
 
 const mapStateToProps = (state) => ({
@@ -11,14 +11,16 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = {
   getSurvey,
+  sendResponse,
 };
 
-const SurveyContainer = ({ survey, isFetching, getSurvey, match }) => (
+const SurveyContainer = ({ survey, isFetching, getSurvey, match, sendResponse }) => (
   <div id="pass_survey_container">
     <Survey
       match={match}
       survey={survey}
       getSurvey={getSurvey}
+      sendResponse={sendResponse}
       isFetching={isFetching}
     />
   </div>

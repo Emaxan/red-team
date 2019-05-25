@@ -9,6 +9,8 @@ namespace RedTeam.TechArtSurvey.Foundation.Interfaces
     {
         Task<IServiceResponse<SurveyDto>> CreateAsync(EditSurveyDto surveyDto);
 
+        Task<IServiceResponse<object>> CreateResponseAsync(SurveyResponseDto surveyResponseDto);
+
         Task<IServiceResponse> UpdateAsync(EditSurveyDto survey);
 
         Task<IServiceResponse> DeleteByIdAsync(int id);

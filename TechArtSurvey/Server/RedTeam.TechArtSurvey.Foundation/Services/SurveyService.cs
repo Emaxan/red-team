@@ -14,6 +14,7 @@ using RedTeam.TechArtSurvey.Foundation.Interfaces;
 using RedTeam.TechArtSurvey.Foundation.Responses;
 using RedTeam.Common.EnvironmentInfo;
 using RedTeam.Common.Validator;
+using RedTeam.TechArtSurvey.DomainModel.Entities.Surveys.Questions;
 
 namespace RedTeam.TechArtSurvey.Foundation.Services
 {
@@ -44,34 +45,69 @@ namespace RedTeam.TechArtSurvey.Foundation.Services
 
             var version = survey.Versions.First();
 
-            //if(!version.Pages.All(
-            //                     page =>
-            //                     {
-            //                         var res = page.Questions.All(
-            //                                             question =>
-            //                                             {
-            //                                                 var result = _validatorFactory.
-            //                                                     GetValidator(question.Type.Type).
-            //                                                     ValidateDefaultValue(question.Default);
-            //                                                 return result;
-            //                                             });
-            //                         return res;
-            //                     }
-            //                    )
-            //)
-            //{
-            //    return ServiceResponse.CreateUnsuccessful<SurveyDto>(ServiceResponseCode.DefaultValueIsWrong);
-            //}
-
             version.CreatedDate = _environmentInfoService.CurrentUtcDateTime;
             version.StartDate = _environmentInfoService.CurrentUtcDateTime;
             version.EndDate = _environmentInfoService.CurrentUtcDateTime;
             version.Number = 1;
 
+            foreach (var page in version.Pages)
+            {
+                var matrixTypeId = (await _uow.QuestionTypes.FindByTypeAsync(QuestionTypes.Matrix)).Id;
+                foreach (var question in page.Questions.Where(q => q.Type.Id == matrixTypeId))
+                {
+                    var i = 0;
+                    foreach (var row in question.MatrixRows)
+                    {
+                        foreach (var col in question.MatrixCols)
+                        {
+                            var qv = new QuestionVariant
+                            {
+                                Question = question,
+                                EnableIf = "",
+                                Number = i,
+                                Text = new LocalizableString { Default = "" },
+                                UsageStat = 0,
+                                Value = $"{row.Value}.{col.Value}",
+                                VisibleIf = "",
+                            };
+                            i++;
+                            question.Choices.Add(qv);
+                        }
+                    }
+                }
+            }
+
             _uow.Surveys.Create(survey);
             await _uow.SaveAsync();
 
             return ServiceResponse.CreateSuccessful(_mapper.Map<Survey, SurveyDto>(survey));
+        }
+        
+        public async Task<IServiceResponse<object>> CreateResponseAsync(SurveyResponseDto surveyResponseDto)
+        {
+            LoggerContext.Logger.Info($"Create response for survey with id {surveyResponseDto.SurveyVersion.SurveyId} and version {surveyResponseDto.SurveyVersion.Number}");
+
+            var response = _mapper.Map<SurveyResponseDto, SurveyResponse>(surveyResponseDto);
+
+            response.SurveyVersion = (await _uow.GetRepository<SurveyVersion>().GetAllAsync())
+                .First(sv => sv.Number == response.SurveyVersion.Number && sv.SurveyId == response.SurveyVersion.SurveyId);
+
+            var questions = (await GetSurvByIdAndVersion(response.SurveyVersion.SurveyId, response.SurveyVersion.Number)).Versions.First().Pages.SelectMany(p => p.Questions);
+
+            foreach (var answer in response.Answers)
+            {
+                answer.Question = questions.First(q => q.Name == answer.Question.Name);
+                var variants = answer.Variants.Select(variant => answer.Question.Choices.FirstOrDefault(c => c.Value == variant.Value)).Where(v => v != null).ToList();
+                answer.Variants.Clear();
+                variants.ForEach(v => answer.Variants.Add(v));
+            }
+
+            response.User = await _uow.Users.GetUserByEmailAsync(response.User.Email);
+
+            _uow.GetRepository<SurveyResponse>().Create(response);
+            await _uow.SaveAsync();
+
+            return ServiceResponse.CreateSuccessful(new {messtage = "All ok."});
         }
 
         public async Task<IServiceResponse> UpdateAsync(EditSurveyDto survey)
@@ -162,8 +198,24 @@ namespace RedTeam.TechArtSurvey.Foundation.Services
         {
             LoggerContext.Logger.Info($"Get Survey with id = {id} and version = {version}");
 
-            var includes = new Expression<Func<Survey, object>>[]
+            var surv = await GetSurvByIdAndVersion(id, version);
+
+            if (surv == null)
             {
+                return ServiceResponse.CreateUnsuccessful<EditSurveyDto>(ServiceResponseCode.SurveyNotFoundById);
+            }
+
+            var su = SurveyOnlyVersion.FromSurveyByVersion(surv, version);
+
+            return su.Version == null
+                ? ServiceResponse.CreateUnsuccessful<EditSurveyDto>(ServiceResponseCode.SurveyNotFoundByVersion)
+                : ServiceResponse.CreateSuccessful(_mapper.Map<SurveyOnlyVersion, EditSurveyDto>(su));
+        }
+
+        private async Task<Survey> GetSurvByIdAndVersion(int id, int version)
+        {
+            var includes = new Expression<Func<Survey, object>>[]
+                        {
                 s => s.Versions,
                 s => s.Versions.Select(v => v.CompletedHtml),
                 s => s.Versions.Select(v => v.CompleteText),
@@ -192,20 +244,9 @@ namespace RedTeam.TechArtSurvey.Foundation.Services
                 s => s.Versions.Select(v =>
                     v.Pages.Select(p => p.Questions.Select(q => q.Choices.Select(qv => qv.Text)))),
                 s => s.Author
-            };
+                        };
 
-            var surv = await _uow.Surveys.GetSurveyByIdAndVersionAsync(id, version, includes);
-
-            if (surv == null)
-            {
-                return ServiceResponse.CreateUnsuccessful<EditSurveyDto>(ServiceResponseCode.SurveyNotFoundById);
-            }
-
-            var su = SurveyOnlyVersion.FromSurveyByVersion(surv, version);
-
-            return su.Version == null
-                ? ServiceResponse.CreateUnsuccessful<EditSurveyDto>(ServiceResponseCode.SurveyNotFoundByVersion)
-                : ServiceResponse.CreateSuccessful(_mapper.Map<SurveyOnlyVersion, EditSurveyDto>(su));
+            return await _uow.Surveys.GetSurveyByIdAndVersionAsync(id, version, includes);
         }
 
         public async Task<IServiceResponse<IReadOnlyCollection<SurveyDto>>> GetAllAsync()

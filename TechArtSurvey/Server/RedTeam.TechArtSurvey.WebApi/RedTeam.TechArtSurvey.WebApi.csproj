@@ -154,6 +154,7 @@
     <Compile Include="Surveys\EditSurveyAttribute.cs" />
     <Compile Include="Surveys\EditSurveyModelBinding.cs" />
     <Compile Include="Surveys\EmptyTask.cs" />
+    <Compile Include="Surveys\PassSurveyController.cs" />
     <Compile Include="Surveys\SurveysController.cs" />
     <Compile Include="Users\AccountController.cs" />
     <Compile Include="Users\UsersController.cs" />

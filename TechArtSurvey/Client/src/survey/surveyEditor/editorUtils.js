@@ -118,6 +118,7 @@ export class EditorUtils {
             text: edElem.columns[k].locText.values.default ? edElem.columns[k].locText.values : emptyString,
           });
         }
+
         if (Array.isArray(edElem.rows)) {
           resElem.rows = [];
           for (let k = 0; k < (edElem.rows||[]).length; k++) {

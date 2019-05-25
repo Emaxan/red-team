@@ -6,9 +6,9 @@ import { Link } from 'react-router-dom';
 import * as SurveyJS from 'survey-react';
 import * as SurveyJSEditor from 'surveyjs-editor';
 import { Spinner } from '../../components/Spinner';
-// eslint-disable-next-line no-unused-vars
-import * as SurveyKo from 'survey-knockout';
+import { prepareResponseToSend } from './passUtils';
 
+import AuthService from '../../auth/authService';
 import { EditorUtils } from '../surveyEditor/editorUtils';
 
 import 'survey-react/survey.css';
@@ -95,7 +95,14 @@ export class Survey extends Component {
 
     const RSM = new SurveyJS.ReactSurveyModel(json);
     RSM.locale = this.props.match.params.lang;
-    RSM.onComplete.add((result) => console.log(result.data));
+    RSM.onComplete.add((result) => this.props.sendResponse(prepareResponseToSend({
+      survey: editor.survey,
+      data: result.data,
+      surveyId: this.props.match.params.surveyId,
+      surveyVersion: this.props.match.params.version,
+      userName: AuthService.getUserInfo().userName,
+      email: AuthService.getUserInfo().email,
+    })));
 
     return (
       <div>
@@ -116,5 +123,6 @@ Survey.propTypes = {
   isFetching: PropTypes.bool.isRequired,
   survey: PropTypes.object.isRequired,
   getSurvey: PropTypes.func.isRequired,
+  sendResponse: PropTypes.func.isRequired,
   match: ReactRouterPropTypes.match.isRequired,
 };

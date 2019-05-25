@@ -5,6 +5,9 @@ import {
   GET_SURVEY_START,
   GET_SURVEY_SUCCESS,
   GET_SURVEY_ERROR,
+  SEND_RESPONSE_START,
+  SEND_RESPONSE_SUCCESS,
+  SEND_RESPONSE_ERROR,
 } from './actionTypes';
 
 const surveysInitialState = Record({
@@ -26,4 +29,15 @@ export const passSurveyReducer = handleActions({
   [GET_SURVEY_ERROR] : (state, action) =>
     state.set('isFetching', false)
       .set('error', action.payload.error.data),
+
+  [SEND_RESPONSE_START] : (state) =>
+    state.set('isFetching', true),
+
+  [SEND_RESPONSE_SUCCESS] : (state) =>
+    state.set('isFetching', false),
+
+  [SEND_RESPONSE_ERROR] : (state, action) =>
+    state.set('isFetching', false)
+      .set('error', action.payload.error.data),
+
 }, initialState);

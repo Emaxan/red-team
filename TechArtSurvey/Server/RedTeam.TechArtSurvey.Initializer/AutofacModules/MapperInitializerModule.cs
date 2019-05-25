@@ -109,7 +109,9 @@ namespace RedTeam.TechArtSurvey.Initializer.AutofacModules
                                                                   .Include<Dropdown, DropdownDto>()
                                                                   .Include<Matrix, MatrixDto>()
                                                                   .ReverseMap();
+                                                              cfg.CreateMap<Question, QuestionResponseDto>().ReverseMap();
                                                               cfg.CreateMap<QuestionAnswer, QuestionAnswerDto>().ReverseMap();
+                                                              cfg.CreateMap<SurveyVersion, SurveyVersionResponseDto>().ReverseMap();
                                                               cfg.CreateMap<SurveyVersion, SurveyVersionHeaderDto>()
                                                                   .ForMember(dest => dest.Locale, exp => exp.MapFrom(sv => sv.Settings.Locale))
                                                                   .ReverseMap();
@@ -120,6 +122,7 @@ namespace RedTeam.TechArtSurvey.Initializer.AutofacModules
                                                               cfg.CreateMap<SurveyResponse, SurveyResponseDto>().ReverseMap();
                                                               cfg.CreateMap<SurveyTemplate, TemplateDto>().ReverseMap();
                                                               cfg.CreateMap<QuestionVariant, QuestionVariantDto>().ReverseMap();
+                                                              cfg.CreateMap<QuestionVariant, QuestionVariantResponseDto>().ReverseMap();
                                                               cfg.CreateMap<SurveySettings, SurveySettingsDto>().ReverseMap();
                                                               cfg.CreateMap<QuestionType, QuestionTypeDto>().ReverseMap();
                                                               cfg.CreateMap<LocalizableString, LocalizableStringDto>().ReverseMap();

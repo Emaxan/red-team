@@ -101,7 +101,6 @@ class SurveyEditor extends Component {
     this.editor.showErrorOnFailedSave = false;
 
     this.editor.onPropertyValidationCustomError.add((e, opt) => {
-      console.log(opt);
       validator(opt);
     });
 

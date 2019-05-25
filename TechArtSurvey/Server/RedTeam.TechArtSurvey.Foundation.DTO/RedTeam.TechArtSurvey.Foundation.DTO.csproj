@@ -44,6 +44,7 @@
     <Compile Include="SurveysDto\LocalizableStringDto.cs" />
     <Compile Include="SurveysDto\QuestionAnswerDto.cs" />
     <Compile Include="SurveysDto\QuestionDto.cs" />
+    <Compile Include="SurveysDto\QuestionResponseDto.cs" />
     <Compile Include="SurveysDto\Questions\BarRatingDto.cs" />
     <Compile Include="SurveysDto\Questions\BooleanDto.cs" />
     <Compile Include="SurveysDto\Questions\CheckboxDto.cs" />
@@ -57,12 +58,14 @@
     <Compile Include="SurveysDto\Questions\TextDto.cs" />
     <Compile Include="SurveysDto\QuestionTypeDto.cs" />
     <Compile Include="SurveysDto\QuestionVariantDto.cs" />
+    <Compile Include="SurveysDto\QuestionVariantResponseDto.cs" />
     <Compile Include="SurveysDto\SurveyDto.cs" />
     <Compile Include="SurveysDto\PageDto.cs" />
     <Compile Include="SurveysDto\SurveyOnlyVersion.cs" />
     <Compile Include="SurveysDto\SurveyResponseDto.cs" />
     <Compile Include="SurveysDto\SurveySettingsDto.cs" />
     <Compile Include="SurveysDto\SurveyVersionHeaderDto.cs" />
+    <Compile Include="SurveysDto\SurveyVersionResponseDto.cs" />
     <Compile Include="SurveysDto\TemplateDto.cs" />
     <Compile Include="UsersDto\EditUserDto.cs" />
     <Compile Include="UsersDto\ForgotPasswordDto.cs" />
