@@ -4,6 +4,8 @@ using RedTeam.Repositories.Interfaces;
 using RedTeam.TechArtSurvey.DomainModel.Entities.Surveys;
 using RedTeam.TechArtSurvey.DomainModel.Entities.Users;
 using RedTeam.TechArtSurvey.Repositories.EF.Surveys;
+using RedTeam.TechArtSurvey.Repositories.EF.Surveys.Questions;
+using RedTeam.TechArtSurvey.Repositories.EF.Surveys.Triggers;
 using RedTeam.TechArtSurvey.Repositories.EF.Users;
 
 namespace RedTeam.TechArtSurvey.Repositories.EF
@@ -33,6 +35,26 @@ namespace RedTeam.TechArtSurvey.Repositories.EF
 
         public DbSet<QuestionType> QuestionTypes { get; set; }
 
+        public DbSet<LocalizableString> LocalizableStrings { get; set; }
+        //SurveyPage
+        //TemplatePage
+        //TextArea
+        //Text
+        //MatrixCol
+        //MatrixRow
+        //Matrix
+        //Dropdown
+        //DatePicker
+        //Checkbox
+        //Boolean
+        //BarRating
+        //Rating
+        //RadioGroup
+        //Trigger
+        //VisibleTrigger
+        //RunExpressionTrigger
+        //SetValueTrigger
+        //CopyValueTrigger
 
         public TechArtSurveyContext()
         {
@@ -67,6 +89,24 @@ namespace RedTeam.TechArtSurvey.Repositories.EF
             modelBuilder.Configurations.Add(new TemplateConfiguration());
             modelBuilder.Configurations.Add(new QuestionVariantConfiguration());
             modelBuilder.Configurations.Add(new QuestionTypeConfiguration());
+            modelBuilder.Configurations.Add(new LocalizableStringConfiguration());
+            modelBuilder.Configurations.Add(new TextAreaConfiguration());
+            modelBuilder.Configurations.Add(new TextConfiguration());
+            modelBuilder.Configurations.Add(new MatrixColConfiguration());
+            modelBuilder.Configurations.Add(new MatrixRowConfiguration());
+            //modelBuilder.Configurations.Add(new MatrixConfiguration());
+            modelBuilder.Configurations.Add(new DropdownConfiguration());
+            //modelBuilder.Configurations.Add(new DatePickerConfiguration());
+            modelBuilder.Configurations.Add(new CheckboxConfiguration());
+            //modelBuilder.Configurations.Add(new BooleanConfiguration());
+            modelBuilder.Configurations.Add(new BarRatingConfiguration());
+            //modelBuilder.Configurations.Add(new RatingConfiguration());
+            modelBuilder.Configurations.Add(new RadioGroupConfiguration());
+            modelBuilder.Configurations.Add(new TriggerConfiguration());
+            modelBuilder.Configurations.Add(new VisibleTriggerConfiguration());
+            modelBuilder.Configurations.Add(new RunExpressionTriggerConfiguration());
+            modelBuilder.Configurations.Add(new SetValueTriggerConfiguration());
+            modelBuilder.Configurations.Add(new CopyValueTriggerConfiguration());
             base.OnModelCreating(modelBuilder);
         }  
     }

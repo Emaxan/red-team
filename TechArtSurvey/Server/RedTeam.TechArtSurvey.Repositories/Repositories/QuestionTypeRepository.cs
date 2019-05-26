@@ -15,7 +15,7 @@ namespace RedTeam.TechArtSurvey.Repositories.Repositories
             
         }
 
-        public async Task<QuestionType> FindByTypeAsync(QuestionTypeEnum questionType)
+        public async Task<QuestionType> FindByTypeAsync(QuestionTypes questionType)
         {
             return await DbSet.SingleOrDefaultAsync(qt => qt.Type == questionType);
         }

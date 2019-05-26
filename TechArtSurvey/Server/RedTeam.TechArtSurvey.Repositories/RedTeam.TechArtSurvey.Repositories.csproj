@@ -50,17 +50,36 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="EF\Surveys\Questions\BarRatingConfiguration.cs" />
+    <Compile Include="EF\Surveys\Questions\BooleanConfiguration.cs" />
+    <Compile Include="EF\Surveys\Questions\CheckboxConfiguration.cs" />
+    <Compile Include="EF\Surveys\Questions\DatePickerConfiguration.cs" />
+    <Compile Include="EF\Surveys\Questions\DropdownConfiguration.cs" />
+    <Compile Include="EF\Surveys\LocalizableStringConfiguration.cs" />
+    <Compile Include="EF\Surveys\Questions\MatrixColConfiguration.cs" />
+    <Compile Include="EF\Surveys\Questions\MatrixConfiguration.cs" />
+    <Compile Include="EF\Surveys\Questions\MatrixRowConfiguration.cs" />
     <Compile Include="EF\Surveys\PageConfiguration.cs" />
     <Compile Include="EF\Surveys\QuestionAnswerConfiguration.cs" />
     <Compile Include="EF\Surveys\QuestionConfiguration.cs" />
     <Compile Include="EF\Surveys\QuestionTypeConfiguration.cs" />
     <Compile Include="EF\Surveys\QuestionVariantConfiguration.cs" />
+    <Compile Include="EF\Surveys\Questions\RadioGroupConfiguration.cs" />
+    <Compile Include="EF\Surveys\Questions\RatingConfiguration.cs" />
     <Compile Include="EF\Surveys\SurveyConfiguration.cs" />
     <Compile Include="EF\Surveys\SurveyPageConfiguration.cs" />
     <Compile Include="EF\Surveys\SurveyResponseConfiguration.cs" />
+    <Compile Include="EF\Surveys\SurveyTemplateConfiguration.cs" />
     <Compile Include="EF\Surveys\SurveyVersionConfiguration.cs" />
     <Compile Include="EF\Surveys\TemplateConfiguration.cs" />
     <Compile Include="EF\Surveys\TemplatePageConfiguration.cs" />
+    <Compile Include="EF\Surveys\Questions\TextAreaConfiguration.cs" />
+    <Compile Include="EF\Surveys\Questions\TextConfiguration.cs" />
+    <Compile Include="EF\Surveys\TriggerConfiguration.cs" />
+    <Compile Include="EF\Surveys\Triggers\CopyValueTriggerConfiguration.cs" />
+    <Compile Include="EF\Surveys\Triggers\RunExpressionTriggerConfiguration.cs" />
+    <Compile Include="EF\Surveys\Triggers\SetValueTriggerConfiguration.cs" />
+    <Compile Include="EF\Surveys\Triggers\VisibleTriggerConfiguration.cs" />
     <Compile Include="EF\Users\RoleConfiguration.cs" />
     <Compile Include="EF\TechArtSurveyContext.cs" />
     <Compile Include="EF\Users\UserConfiguration.cs" />
@@ -79,6 +98,14 @@
     <Compile Include="Migrations\201803060930188_UsageStat.cs" />
     <Compile Include="Migrations\201803060930188_UsageStat.Designer.cs">
       <DependentUpon>201803060930188_UsageStat.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201904271153220_NewDatabase.cs" />
+    <Compile Include="Migrations\201904271153220_NewDatabase.Designer.cs">
+      <DependentUpon>201904271153220_NewDatabase.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201905231645316_AddNumbers.cs" />
+    <Compile Include="Migrations\201905231645316_AddNumbers.Designer.cs">
+      <DependentUpon>201905231645316_AddNumbers.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -126,6 +153,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201803060930188_UsageStat.resx">
       <DependentUpon>201803060930188_UsageStat.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201904271153220_NewDatabase.resx">
+      <DependentUpon>201904271153220_NewDatabase.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201905231645316_AddNumbers.resx">
+      <DependentUpon>201905231645316_AddNumbers.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

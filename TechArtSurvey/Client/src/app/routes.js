@@ -76,6 +76,7 @@ export default {
   ResetPassword : {
     text : 'Reset password',
     path : '/reset_password',
+    display : sidebarDisplay.NOBODY,
     params : '/:userId/:token+',
   },
 
@@ -92,23 +93,25 @@ export default {
     icon : 'glyphicon glyphicon-th-list',
   },
 
-  NewSurvey : {
-    text : 'New survey',
-    path : '/survey/new',
-    display : sidebarDisplay.ADMIN,
-    icon : 'glyphicon glyphicon-plus',
+  PassSurvey : {
+    text : 'Pass survey',
+    path : '/survey',
+    display : sidebarDisplay.NOBODY,
+    icon : 'glyphicon glyphicon-th-list',
+    params : '/:surveyId?/:version?/:lang?',
   },
 
-  MySurveys : {
-    text : 'My surveys',
-    path : '/survey/my',
+  EditSurvey : {
+    text : 'New survey',
+    path : '/survey/edit',
     display : sidebarDisplay.ADMIN,
-    icon : 'glyphicon glyphicon-tasks',
+    icon : 'glyphicon glyphicon-plus',
+    params : '/:surveyId?/:version?',
   },
 
   SurveyTemplates : {
     text : 'Surveys templates list',
-    path : '/survey/templates',
+    path : '/templates',
     display : sidebarDisplay.ADMIN,
     icon : 'glyphicon glyphicon-book',
   },

@@ -7,20 +7,29 @@ namespace RedTeam.Common.Validator
     [UsedImplicitly]
     public class ValidatorFactory : IValidatorFactory
     {
-        public IValidator GetValidator(QuestionTypeEnum type)
+        public IValidator GetValidator(QuestionTypes type)
         {
             switch(type)
             {
-                case QuestionTypeEnum.Multi:
-                case QuestionTypeEnum.Single:
-                case QuestionTypeEnum.File:
+                case QuestionTypes.Checkbox:
+                case QuestionTypes.Radiogroup:
                     return new FakeValidator();
-                case QuestionTypeEnum.Text:
+                case QuestionTypes.Text:
                     return new TextQuestionValidator();
-                case QuestionTypeEnum.Rating:
+                case QuestionTypes.Rating:
                     return new RatingQuestionValidator();
-                case QuestionTypeEnum.Scale:
-                    return new ScaleQuestionValidator();
+                case QuestionTypes.Comment:
+                    throw new NotImplementedException(); // TODO
+                case QuestionTypes.Dropdown:
+                    throw new NotImplementedException();
+                case QuestionTypes.Boolean:
+                    throw new NotImplementedException();
+                case QuestionTypes.Matrix:
+                    throw new NotImplementedException();
+                case QuestionTypes.Barrating:
+                    throw new NotImplementedException();
+                case QuestionTypes.Datepicker:
+                    throw new NotImplementedException();
                 default:
                     throw new ArgumentOutOfRangeException(nameof(type), type, null);
             }

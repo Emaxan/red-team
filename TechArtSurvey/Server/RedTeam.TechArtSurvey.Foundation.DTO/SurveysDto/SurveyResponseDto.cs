@@ -8,11 +8,9 @@ namespace RedTeam.TechArtSurvey.Foundation.Dto.SurveysDto
     [UsedImplicitly]
     public class SurveyResponseDto
     {
-        public int Id { get; set; }
-
         public DateTime PassedDate { get; set; }
 
-        public SurveyVersionDto SurveyVersion { get; set; }
+        public SurveyVersionResponseDto SurveyVersion { get; set; } 
 
         public UserDto User { get; set; }
 

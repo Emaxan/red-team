@@ -21,6 +21,8 @@ namespace RedTeam.TechArtSurvey.DomainModel.Entities.Users
 
         public ICollection<Survey> Surveys { get; set; }
 
+        public ICollection<SurveyTemplate> SurveyTemplates { get; set; }
+
         public ICollection<SurveyResponse> SurveyResponses { get; set; }
     }
 }

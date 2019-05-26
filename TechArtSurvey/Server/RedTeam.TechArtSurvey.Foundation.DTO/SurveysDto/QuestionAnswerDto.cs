@@ -8,10 +8,10 @@ namespace RedTeam.TechArtSurvey.Foundation.Dto.SurveysDto
     {
         public SurveyResponseDto SurveyResponse { get; set; }
         
-        public QuestionDto Question { get; set; }
+        public QuestionResponseDto Question { get; set; }
 
         public string Value { get; set; }
 
-        public ICollection<QuestionVariantDto> Variants { get; set; }
+        public ICollection<QuestionVariantResponseDto> Variants { get; set; }
     }
 }

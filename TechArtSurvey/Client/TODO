@@ -1,0 +1,26 @@
+
+Todo:
+  ### Survey send issues
+  ✔ locale @done(19-05-06 12:24)
+  ✔ Dates @done(19-05-06 13:51)
+  ✔ CompleteText Validate @done(19-05-19 11:50)
+  ✔ CompletedHTML Validate @done(19-05-19 11:50)
+  ✔ PageNextText Validate @done(19-05-19 11:50)
+  ✔ PagePrevText Validate @done(19-05-19 11:50)
+  ✔ StartSurveyText Validate @done(19-05-19 11:50)
+  ✔ Title Validate @done(19-05-19 11:50)
+  ✔ Pages @done(19-05-19 23:46)
+    ✔ Title Validate @done(19-05-19 11:50)
+    ✔ Questions @done(19-05-19 23:46)
+      ✔ Title Validate @done(19-05-19 23:46)
+      ✔ CustomTextFields Validate @done(19-05-19 12:15)
+      ✔ ChoicesOrder @done(19-05-06 00:42)
+  ✔ ShowNavigationButtons @done(19-05-06 00:03)
+  ✔ ShowProgressBar @done(19-05-06 00:03)
+  ✔ ShowTimerPanel @done(19-05-06 00:03)
+
+
+  ☐ transform matrix rows and cols as choises
+  ☐ check triggers saving
+  ☐ matrix cols/rows don't render
+  ☐ barrating don't render

@@ -13,12 +13,14 @@ import { AboutContainer } from '../../about/AboutContainer';
 import { NotFound } from '../../error/NotFound';
 import { Forbidden } from '../../error/Forbidden';
 import { Home } from '../../home/Home';
+import SurveyEditor from '../../survey/surveyEditor/SurveyEditor';
+import SurveyListContainer from '../../survey/surveyList/SurveyListContainer';
+import SurveyContainer from '../../survey/passSurvey/SurveyContainer';
 import {
   userIsAuthenticatedRedirect,
   userIsNotAuthenticatedRedirect,
   userIsAdminRedirect,
 } from '../../auth/authWrappers';
-import NewSurveyContainer from '../../surveys/NewSurveyContainer';
 
 import './AppContent.scss';
 import './customScroll.scss';
@@ -28,7 +30,9 @@ const Login = userIsNotAuthenticatedRedirect(LoginContainer);
 const SignUp = userIsNotAuthenticatedRedirect(SignUpContainer);
 const ForgotPassword = userIsNotAuthenticatedRedirect(ForgotPasswordContainer);
 const ResetPassword = userIsNotAuthenticatedRedirect(ResetPasswordContainer);
-const NewSurvey = userIsAuthenticatedRedirect(userIsAdminRedirect(NewSurveyContainer));
+const EditSurvey = userIsAuthenticatedRedirect(userIsAdminRedirect(SurveyEditor));
+const SurveyList = userIsAuthenticatedRedirect(SurveyListContainer);
+const PassSurvey = userIsAuthenticatedRedirect(SurveyContainer);
 
 const AppContent = ({ className }) => (
   <div className={'main ' + className}>
@@ -42,7 +46,9 @@ const AppContent = ({ className }) => (
         <Route path={Routes.About.path} component={AboutContainer} />
         <Route path={Routes.ForgotPassword.path} component={ForgotPassword} />
         <Route path={Routes.ResetPassword.path.concat(Routes.ResetPassword.params)} component={ResetPassword} />
-        <Route path={Routes.NewSurvey.path} component={NewSurvey} />
+        <Route path={Routes.EditSurvey.path.concat(Routes.EditSurvey.params)} component={EditSurvey} />
+        <Route exact path={Routes.Surveys.path} component={SurveyList} />
+        <Route exact path={Routes.PassSurvey.path.concat(Routes.PassSurvey.params)} component={PassSurvey} />
         <Route component={NotFound} />
       </Switch>
     </CustomScroll>

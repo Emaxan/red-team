@@ -7,11 +7,21 @@ namespace RedTeam.TechArtSurvey.DomainModel.Entities.Surveys
     {
         public int Id { get; set; }
 
+        public int Number { get; set; }
+
         public int QuestionId { get; set; }
 
         public Question Question { get; set; }
 
-        public string Text { get; set; }
+        public int TextId { get; set; }
+
+        public LocalizableString Text { get; set; }
+
+        public string Value { get; set; }
+
+        public string VisibleIf { get; set; }
+
+        public string EnableIf { get; set; }
 
         public double UsageStat { get; set; }
 

@@ -1,8 +1,13 @@
-﻿using System.Linq;
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Http;
+using Newtonsoft.Json.Linq;
 using RedTeam.Logger;
 using RedTeam.TechArtSurvey.Foundation.Dto.SurveysDto;
+using RedTeam.TechArtSurvey.Foundation.Dto.SurveysDto.Questions;
 using RedTeam.TechArtSurvey.Foundation.Interfaces;
 using RedTeam.TechArtSurvey.Foundation.Interfaces.ServiceResponses;
 
@@ -17,17 +22,6 @@ namespace RedTeam.TechArtSurvey.WebApi.Surveys
         public SurveysController(ISurveyService surveyService)
         {
             _surveyService = surveyService;
-        }
-
-        // POST api/surveys
-        [Route("")]
-        [HttpPost]
-        [Authorize(Roles = "Admin")]
-        public async Task<IServiceResponse> AddSurvey(SurveyDto survey)
-        {
-            LoggerContext.Logger.Info($"Add Survey with title '{survey.Versions.First().Title}'");
-
-            return await _surveyService.CreateAsync(survey);
         }
 
         // GET api/surveys/1/1
@@ -45,22 +39,99 @@ namespace RedTeam.TechArtSurvey.WebApi.Surveys
         [Route("")]
         [HttpGet]
         [Authorize(Roles = "Admin, User")]
-        public async Task<IServiceResponse> GetSurveys()
+        public async Task<IServiceResponse> GetSurveys([FromUri] string userEmail = "")
         {
-            LoggerContext.Logger.Info("Get all Surveys");
+            LoggerContext.Logger.Info("Get all Surveys" + (userEmail.Length > 0 ? $" by author {userEmail}" : ""));
+            if (userEmail.Length == 0) return await _surveyService.GetAllAsync();
+            return await _surveyService.GetAllAsync(userEmail);
+        }
 
-            return await _surveyService.GetAllAsync();
+        // POST api/surveys
+        [Route("")]
+        [HttpPost]
+        [Authorize(Roles = "Admin")]
+        public async Task<IServiceResponse> AddSurvey([EditSurvey]string survey)
+        {
+            var surv = EditSurveyDto(survey);
+
+            LoggerContext.Logger.Info($"Add Survey with title '{surv.Title.Default}'");
+
+            return await _surveyService.CreateAsync(surv);
+        }
+
+        private EditSurveyDto EditSurveyDto(string s)
+        {
+            var editSurveyDto = Newtonsoft.Json.JsonConvert.DeserializeObject<EditSurveyDto>(s);
+
+            var o = JObject.Parse(s);
+            List<JToken> pages = o["pages"].ToList();
+
+            var strs = new List<Tuple<string, Type>>();
+
+            pages.ForEach(pa =>
+            {
+                List<JToken> el = pa["elements"].ToList();
+                el.ForEach(e =>
+                {
+                    strs.Add(new Tuple<string, Type>(e.ToString(), GetQTypeByName((string)e["type"]["name"])));
+                });
+            });
+
+            var j = 0;
+
+            editSurveyDto.Pages.ToList().ForEach(page =>
+            {
+                var count = page.Elements.Count;
+                page.Elements.Clear();
+                for (var i = 0; i < count; i++)
+                {
+                    page.Elements.Add(
+                        (QuestionDto)Newtonsoft.Json.JsonConvert.DeserializeObject(strs[j].Item1, strs[j].Item2));
+                    j++;
+                }
+            });
+            return editSurveyDto;
+        }
+
+        private Type GetQTypeByName(string name)
+        {
+            switch (name)
+            {
+                case "Checkbox":
+                    return typeof(CheckboxDto);
+                case "Radiogroup":
+                    return typeof(RadioGroupDto);
+                case "Text":
+                    return typeof(TextDto);
+                case "Comment":
+                    return typeof(TextAreaDto);
+                case "Rating":
+                    return typeof(RatingDto);
+                case "Dropdown":
+                    return typeof(DropdownDto);
+                case "Boolean":
+                    return typeof(BooleanDto);
+                case "Matrix":
+                    return typeof(MatrixDto);
+                case "Barrating":
+                    return typeof(BarRatingDto);
+                case "Datepicker":
+                    return typeof(DatePickerDto);
+                default: throw new InvalidEnumArgumentException(nameof(name));
+            }
         }
 
         // PUT api/surveys/5
         [Route("")]
         [HttpPut]
         [Authorize(Roles = "Admin")]
-        public async Task<IServiceResponse> EditSurvey(EditSurveyDto survey)
+        public async Task<IServiceResponse> EditSurvey([EditSurvey]string survey)
         {
-            LoggerContext.Logger.Info($"Update Survey with id {survey.Id}");
+            var surv = EditSurveyDto(survey);
 
-            return await _surveyService.UpdateAsync(survey);
+            LoggerContext.Logger.Info($"Update Survey with id {surv.Id}");
+
+            return await _surveyService.UpdateAsync(surv);
         }
 
         // DELETE api/surveys

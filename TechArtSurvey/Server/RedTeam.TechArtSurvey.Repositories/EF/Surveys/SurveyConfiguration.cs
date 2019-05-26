@@ -10,7 +10,6 @@ namespace RedTeam.TechArtSurvey.Repositories.EF.Surveys
             ToTable("Survey");
 
             Property(s => s.Id).IsRequired();
-            Property(s => s.CreatedDate).IsRequired();
             Property(s => s.AuthorId).IsRequired();
 
             HasRequired(s => s.Author)

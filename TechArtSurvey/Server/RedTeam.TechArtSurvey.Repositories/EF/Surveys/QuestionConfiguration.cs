@@ -9,11 +9,37 @@ namespace RedTeam.TechArtSurvey.Repositories.EF.Surveys
         {
             ToTable("Question");
 
-            Property(q => q.Title).IsRequired();
-            Property(q => q.TypeId).IsRequired();
-            Property(q => q.Number).IsRequired();
+            Property(q => q.Name).IsRequired();
             Property(q => q.IsRequired).IsRequired();
-            Property(q => q.Default).IsOptional();
+            Property(q => q.EnableIf).IsRequired();
+            Property(q => q.VisibleIf).IsRequired();
+            Property(q => q.Visible).IsRequired();
+            Property(q => q.StartWithNewLine).IsRequired();
+
+            HasRequired(q => q.Title)
+                .WithMany()
+                .HasForeignKey(q => q.TitleId)
+                .WillCascadeOnDelete(false);
+
+            HasRequired(q => q.Placeholder)
+                .WithMany()
+                .HasForeignKey(q => q.PlaceholderId)
+                .WillCascadeOnDelete(false);
+
+            HasRequired(q => q.MinRateDescription)
+                .WithMany()
+                .HasForeignKey(q => q.MinRateDescriptionId)
+                .WillCascadeOnDelete(false);
+
+            HasRequired(q => q.MaxRateDescription)
+                .WithMany()
+                .HasForeignKey(q => q.MaxRateDescriptionId)
+                .WillCascadeOnDelete(false);
+
+            HasRequired(q => q.OptionsCaption)
+                .WithMany()
+                .HasForeignKey(q => q.OptionsCaptionId)
+                .WillCascadeOnDelete(false);
 
             HasMany(q => q.Answers)
                 .WithRequired(qa => qa.Question)
@@ -30,7 +56,7 @@ namespace RedTeam.TechArtSurvey.Repositories.EF.Surveys
                 .HasForeignKey(q => q.TypeId)
                 .WillCascadeOnDelete(false);
 
-            HasMany(q => q.Variants)
+            HasMany(q => q.Choices)
                 .WithRequired(qv => qv.Question)
                 .HasForeignKey(qv => qv.QuestionId)
                 .WillCascadeOnDelete(false);

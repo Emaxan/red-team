@@ -3,6 +3,8 @@
     public enum RoleTypes
     {
         User,
-        Admin
+        Admin,
+        Vip,
+        Moderator
     }
 }

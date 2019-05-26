@@ -9,7 +9,7 @@ namespace RedTeam.TechArtSurvey.WebApi
         {
             context.Result = new ExceptionHttpResponse(
                 context.Request, HttpStatusCode.InternalServerError, 
-                context.Exception.Message);
+                context.Exception.Message + context.Exception.InnerException);
         }
     }
 }
