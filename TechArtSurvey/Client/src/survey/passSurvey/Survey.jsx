@@ -40,6 +40,7 @@ widgets.jqueryuidatepicker(SurveyJS, $);
 export class Survey extends Component {
   constructor(props) {
     super(props);
+    this.state = {json: null};
   }
 
   componentDidMount() {
@@ -59,61 +60,68 @@ export class Survey extends Component {
     defaultThemeColorsSurvey['$header-background-color'] = headerBackgroundColor;
     defaultThemeColorsSurvey['$body-container-background-color'] = bodyContainerBackgroundColor;
     SurveyJS.StylesManager.applyTheme();
-    this.props.getSurvey(this.props.match.params.surveyId, this.props.match.params.version);
+    this.props.getSurvey(this.props.match.params.surveyId, this.props.match.params.version).then(() => {
+      const stdSurvey = '{"pages": [{"name": "page1"}]}';
+      const survey = !this.props.survey.author ?
+        stdSurvey :
+        JSON.stringify(EditorUtils.prepareAfterLoad(this.props.survey, true));
+
+      let editor = new SurveyJSEditor.SurveyEditor(
+        'surveyEditorContainer',
+        {},
+      );
+
+      editor.text = survey;
+      const RSM = new SurveyJS.ReactSurveyModel(editor.getSurveyJSON());
+      RSM.locale = this.props.match.params.lang;
+      RSM.onComplete.add((result) => this.props.sendResponse(prepareResponseToSend({
+        survey: editor.survey,
+        data: result.data,
+        surveyId: this.props.match.params.surveyId,
+        surveyVersion: this.props.match.params.version,
+        userName: AuthService.getUserInfo().userName,
+        email: AuthService.getUserInfo().email,
+      })));
+
+      this.setState({...this.state, json: editor.getSurveyJSON(), RSM});
+
+    });
   }
 
   render = () => {
 
-    const stdSurvey = '{"pages": [{"name": "page1"}]}';
-    const survey = !this.props.survey.author ?
-      stdSurvey :
-      JSON.stringify(EditorUtils.prepareAfterLoad(this.props.survey, true));
-
-
-    const editor = new SurveyJSEditor.SurveyEditor(
-      'surveyEditorContainer',
-      {},
-    );
-
-    editor.text = survey;
-
-    if(this.props.isFetching) {
-      return (<div className="spinner-absolute"><Spinner /></div>);
+    let langPanel = '';
+    if (this.state.json !== null) {
+      const {json} = this.state;
+      const langs = [];
+      if(json.title && json.title.default) Object.keys(json.title).forEach(key => langs.push(key));
+      langPanel =  (
+        <div>
+          {
+            langs.length > 0 ?
+              <div className="select-language alert alert-secondary">
+                Select Language:
+                {
+                  langs.map((lang, i) => (<Link key={i} className="dropdown-item" to={'./' + lang}>{lang}</Link>))
+                }
+              </div> : ''
+          }
+          <div id="pass_survey">
+            <SurveyJS.Survey
+              model={this.state.RSM}
+            />
+          </div>
+        </div>
+      );
     }
-
-    const json = editor.getSurveyJSON();
-    const langs = [];
-    if(json.title && json.title.default) Object.keys(json.title).forEach(key => langs.push(key));
-    const langPanel = langs.length > 0 ? (
-      <div className="select-language alert alert-secondary">
-        Select Language:
-        {
-          langs.map((lang, i) => (<Link key={i} className="dropdown-item" to={'./' + lang}>{lang}</Link>))
-        }
-      </div>
-    ) : '';
-
-    const RSM = new SurveyJS.ReactSurveyModel(json);
-    RSM.locale = this.props.match.params.lang;
-    RSM.onComplete.add((result) => this.props.sendResponse(prepareResponseToSend({
-      survey: editor.survey,
-      data: result.data,
-      surveyId: this.props.match.params.surveyId,
-      surveyVersion: this.props.match.params.version,
-      userName: AuthService.getUserInfo().userName,
-      email: AuthService.getUserInfo().email,
-    })));
-
     return (
       <div>
         {
+          this.props.isFetching && <div className="spinner-absolute"><Spinner /></div>
+        }
+        {
           langPanel
         }
-        <div id="pass_survey">
-          <SurveyJS.Survey
-            model={RSM}
-          />
-        </div>
       </div>
     );
   }
