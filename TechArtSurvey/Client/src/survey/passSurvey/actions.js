@@ -2,7 +2,7 @@ import { createActions } from 'redux-actions';
 import {
   UNAUTHORIZED,
 } from 'http-status';
-import { push } from 'react-router-redux';
+// import { push } from 'react-router-redux';
 
 import {
   GET_SURVEY_START,
@@ -14,7 +14,7 @@ import {
 } from './actionTypes';
 import { getSurvey as getSurveyFromServer, sendResponseCall } from './api';
 import { tokenUtility } from '../../utils/tokenUtility';
-import Routes from '../../app/routes';
+// import Routes from '../../app/routes';
 
 export const {
   getSurveyStart,
@@ -53,7 +53,7 @@ export const sendResponse = (responseData) => (dispatch) => {
   return sendResponseCall(responseData)
     .then((response) => {
       dispatch(sendResponseSuccess(response.data));
-      dispatch(push(Routes.Main.path));
+      // dispatch(push(Routes.Main.path));
     })
     .catch((error) => {
       dispatch(sendResponseError(error.data));
